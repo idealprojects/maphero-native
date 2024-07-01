@@ -1,0 +1,204 @@
+name: android-ci
+
+on:
+  push:
+    branches:
+      - main
+      - android-*.*.x
+    tags:
+      - "android-*"
+
+  pull_request:
+    branches:
+      - "*"
+
+concurrency:
+  # cancel jobs on PRs only
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
+jobs:
+  pre_job:
+    runs-on: ubuntu-latest
+    outputs:
+      should_skip: ${{ github.event_name != 'workflow_dispatch' && steps.changed-files.outputs.android_any_modified != 'true' }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Get all Android files that have changed
+        if: github.event_name != 'workflow_dispatch'
+        id: changed-files
+        uses: tj-actions/changed-files@v44
+        with:
+          files_yaml_from_source_file: .github/changed-files.yml
+
+  android-build:
+    runs-on: ubuntu-22.04
+    needs:
+      - pre_job
+    if: needs.pre_job.outputs.should_skip != 'true'
+    defaults:
+      run:
+        working-directory: platform/android
+    env:
+      JOBS: 8
+      BUILDTYPE: Debug
+      IS_LOCAL_DEVELOPMENT: false
+      MLN_ANDROID_STL: c++_static
+    steps:
+      - name: Free Disk Space (Ubuntu)
+        if: startsWith(runner.name, 'GitHub Actions')
+        uses: jlumbroso/free-disk-space@main
+        with:
+          tool-cache: false
+          android: false
+          dotnet: true
+          haskell: true
+          large-packages: true
+          docker-images: true
+          swap-storage: false
+
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 0
+
+      - run: echo "cmake.dir=$(dirname "$(dirname "$(command -v cmake)")")" >> local.properties
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: "temurin"
+          java-version: "17"
+
+      - name: Cache node modules
+        uses: actions/cache@v4
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+
+      - name: npm install
+        run: npm install --ignore-scripts
+        working-directory: platform/android
+
+      - uses: hendrikmuhs/ccache-action@v1.2
+        with:
+          key: ${{ github.job }}
+
+      - name: restore-gradle-cache
+        uses: actions/cache@v4
+        env:
+          cache-name: gradle-v1
+        with:
+          path: ~/.gradle
+          key: ${{ env.cache-name }}-${{ hashFiles('platform/android/gradle/dependencies.gradle') }}-${{ hashFiles('platform/android/build.gradle') }}-${{ hashFiles('platform/android/local.properties') }}-${{ hashFiles('platform/android/gradle/wrapper/gradle-wrapper.properties') }}
+          restore-keys: |
+            - ${{ env.cache-name }}
+
+      - name: Check code style
+        run: make android-check
+
+      - name: Run Android unit tests
+        run: make run-android-unit-test
+
+      - name: Build libmaplibre.so for arm-v8
+        run: make android-lib-arm-v8
+
+      - name: Build documentation
+        run: ./gradlew dokkaHtml
+
+      - name: Copy developer config with API key for UI tests
+        if: github.ref == 'refs/heads/main'
+        run: |
+          MAPLIBRE_DEVELOPER_CONFIG_XML='${{ secrets.MAPLIBRE_DEVELOPER_CONFIG_XML }}'
+          if [ -n "${MAPLIBRE_DEVELOPER_CONFIG_XML}" ]; then
+            echo "${MAPLIBRE_DEVELOPER_CONFIG_XML}" > MapLibreAndroidTestApp/src/main/res/values/developer-config.xml
+          else
+            echo "No secrets.MAPLIBRE_DEVELOPER_CONFIG_XML variable set, not copying..."
+          fi
+
+      - name: Build Benchmark, copy to platform/android
+        run: |
+          ./gradlew assembleDrawableRelease assembleDrawableReleaseAndroidTest -PtestBuildType=release
+          cp MapLibreAndroidTestApp/build/outputs/apk/drawable/release/MapLibreAndroidTestApp-drawable-release.apk .
+          cp MapLibreAndroidTestApp/build/outputs/apk/androidTest/drawable/release/MapLibreAndroidTestApp-drawable-release-androidTest.apk .
+
+      - name: Create artifact for benchmark APKs 
+        uses: actions/upload-artifact@v4
+        with:
+          if-no-files-found: error
+          name: benchmarkAPKs
+          path: |
+            platform/android/MapLibreAndroidTestApp-drawable-release.apk
+            platform/android/MapLibreAndroidTestApp-drawable-release-androidTest.apk
+
+      - if: github.event_name == 'pull_request'
+        uses: ./.github/actions/save-pr-number
+
+      - name: Build Instrumentation Tests, copy to platform/android
+        run: |
+          ./gradlew assembleLegacyDebug assembleLegacyDebugAndroidTest -PtestBuildType=debug
+          cp MapLibreAndroidTestApp/build/outputs/apk/legacy/debug/MapLibreAndroidTestApp-legacy-debug.apk InstrumentationTestApp.apk
+          cp MapLibreAndroidTestApp/build/outputs/apk/androidTest/legacy/debug/MapLibreAndroidTestApp-legacy-debug-androidTest.apk InstrumentationTests.apk
+
+      - name: Upload android-ui-test
+        uses: actions/upload-artifact@v4
+        with:
+          if-no-files-found: error
+          name: android-ui-test
+          path: |
+            platform/android/InstrumentationTestApp.apk
+            platform/android/InstrumentationTests.apk
+
+  android-build-render-test:
+    runs-on: ubuntu-latest
+    needs:
+      - pre_job
+    if: needs.pre_job.outputs.should_skip != 'true'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 0
+
+      - uses: hendrikmuhs/ccache-action@v1.2
+        with:
+          key: ${{ github.job }}
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: "temurin"
+          java-version: "17"
+
+      - name: Build Render Test App
+        run: |
+          ./gradlew assemble assembleAndroidTest
+          cp app/build/outputs/apk/release/app-release.apk RenderTestsApp.apk
+          cp app/build/outputs/apk/androidTest/release/app-release-androidTest.apk RenderTests.apk
+        working-directory: ./render-test/android
+
+      - name: Store Render Test .apk files
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-render-tests
+          if-no-files-found: error
+          path: |
+            ./render-test/android/RenderTestsApp.apk
+            ./render-test/android/RenderTests.apk
+
+  android-ci-result:
+    runs-on: ubuntu-latest
+    if: needs.pre_job.outputs.should_skip != 'true' && always()
+    needs:
+      - pre_job
+      - android-build
+      - android-build-render-test
+    steps:
+      - name: Mark result as failed
+        if: needs.android-build.result != 'success'
+        run: exit 1
