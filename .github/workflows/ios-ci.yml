@@ -153,5 +153,5 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: bazel-bin/platform/ios/MapHero.dynamic.xcframework.zip
-          asset_name: maphero_ios_${{ env.VERSION }}
+          asset_name: MapLibre_ios_device.framework.dSYM.zip
           asset_content_type: application/zip
