@@ -7,7 +7,7 @@ on:
       - completed
 
 permissions:
-  contents: write  # Grants write permissions for contents (required for creating releases)
+  contents: write  # Grants write permissions for contents (required for creating releases) 
 
 jobs:
   build-and-release:
