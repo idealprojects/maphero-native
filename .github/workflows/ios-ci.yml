@@ -1,0 +1,157 @@
+name: ios-ci
+
+on:
+  workflow_run:
+    workflows: ["clear_cache"]  # Name of the workflow that triggers this
+    types:
+      - completed
+
+permissions:
+  contents: write  # Grants write permissions for contents (required for creating releases)
+
+jobs:
+  build-and-release:
+    runs-on: macos-latest
+
+    env:
+      NAME: MapHero
+      NAME_LOWER: maphero
+      URL: maphero.io
+      VERSION: 0.0.6
+      TEAMID: 68DUZ3F2NM
+      IOS_DIR: platform/ios
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+
+      - name: Check initial disk space
+        run: df -h
+
+      - name: Set up Bazel
+        run: |
+          curl -LO "https://github.com/bazelbuild/bazel/releases/download/7.3.1/bazel-7.3.1-installer-darwin-x86_64.sh"
+          chmod +x bazel-7.3.1-installer-darwin-x86_64.sh
+          ./bazel-7.3.1-installer-darwin-x86_64.sh --user
+          export PATH="$HOME/bin:$PATH"
+          echo "Bazel version: $(bazel --version)"
+
+      - name: Install the Apple certificate and provisioning profile
+        env:
+          BUILD_CERTIFICATE_BASE64: ${{ secrets.BUILD_CERTIFICATE_BASE64 }}
+          P12_PASSWORD: ${{ secrets.P12_PASSWORD }}
+          BUILD_PROVISION_PROFILE_BASE64: ${{ secrets.BUILD_PROVISION_PROFILE_BASE64 }}
+          KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
+        run: |
+          CERTIFICATE_PATH=$RUNNER_TEMP/build_certificate.p12
+          PP_PATH=$RUNNER_TEMP/build_pp.mobileprovision
+          KEYCHAIN_PATH=$RUNNER_TEMP/app-signing.keychain-db
+          echo -n "$BUILD_CERTIFICATE_BASE64" | base64 --decode -o $CERTIFICATE_PATH
+          echo -n "$BUILD_PROVISION_PROFILE_BASE64" | base64 --decode -o $PP_PATH
+          security create-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+          security set-keychain-settings -lut 21600 $KEYCHAIN_PATH
+          security unlock-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+          security import $CERTIFICATE_PATH -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
+          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+          cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
+          security cms -D -i ~/Library/MobileDevice/Provisioning\ Profiles/*.mobileprovision
+
+      - name: Install Provisioning Profile
+        env:
+          BUILD_PROVISION_PROFILE_BASE64: ${{ secrets.BUILD_PROVISION_PROFILE_BASE64 }}
+        run: |
+          PP_PATH=$RUNNER_TEMP/build_pp.mobileprovision
+          echo -n "$BUILD_PROVISION_PROFILE_BASE64" | base64 --decode -o $PP_PATH
+          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+          cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
+          security cms -D -i ~/Library/MobileDevice/Provisioning\ Profiles/*.mobileprovision
+
+      - name: Clean up Bazel cache
+        run: bazel clean --expunge
+
+      - name: Check disk space after cleaning Bazel cache
+        run: df -h
+
+      - name: Build iOS App
+        run: |
+          bazel build //platform/ios:App
+
+      - name: Build MapHeroApp Swift
+        run: |
+          bazel build //platform/ios/app-swift:MapHeroApp
+
+      - name: Build MapHero dynamic framework with optimization
+        run: |
+          bazel build --compilation_mode=opt --features=dead_strip,thin_lto --objc_enable_binary_stripping \
+           --apple_generate_dsym --output_groups=+dsyms --//:renderer=metal //platform/ios:MapHero.dynamic \
+           --embed_label="maphero_ios_${{ env.VERSION }}"
+
+      - name: List files in directory
+        run: |
+          cd bazel-bin/platform/ios
+          ls -al
+
+
+      # Step to compute checksum for XCFramework
+      - name: Compute Checksum for XCFramework
+        run: |
+          cd bazel-bin/platform/ios
+          
+          # Define the zipped XCFramework file
+          XCFRAMEWORK_ZIP="MapHero.dynamic.xcframework.zip"
+          
+          # Compute checksum of the existing zip file
+          CHECKSUM=$(swift package compute-checksum "$XCFRAMEWORK_ZIP")
+
+          # Output checksum for debugging
+          echo "Checksum: $CHECKSUM"
+
+          # Set the checksum in GitHub environment variable
+          echo "XCFRAMEWORK_CHECKSUM=$CHECKSUM" >> $GITHUB_ENV
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ env.VERSION }}
+          release_name: ${{ env.NAME }} ${{ env.VERSION }}
+          body: "Release for ${{ env.NAME }} version ${{ env.VERSION }}"
+          draft: false
+          prerelease: false
+
+      - name: Upload Build Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: maphero-build
+          path: bazel-bin/platform/ios/
+
+      - name: Zip dSYM Files
+        run: |
+          cd bazel-bin/platform/ios
+          zip -r MapHero-${{ env.VERSION }}-dSYM.zip MapHero.dynamic_dsyms/*.dSYM
+
+      - name: See all bazel-bin/platform/ios files 
+        run: |
+          ls -al bazel-bin/platform/ios/
+
+      - name: Upload dSYM Files
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: bazel-bin/platform/ios/MapHero-${{ env.VERSION }}-dSYM.zip
+          asset_name: MapHero-${{ env.VERSION }}-dSYM.zip
+          asset_content_type: application/zip
+
+      - name: Upload MapHero iOS Build to Release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: bazel-bin/platform/ios/MapHero.dynamic.xcframework.zip
+          asset_name: maphero_ios_${{ env.VERSION }}
+          asset_content_type: application/zip

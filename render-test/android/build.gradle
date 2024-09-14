@@ -1,0 +1,16 @@
+buildscript {
+    repositories {
+       google()
+       mavenCentral()
+    }
+    dependencies {
+        classpath libs.androidGradlePlugin
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}

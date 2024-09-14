@@ -1,0 +1,44 @@
+name: clear_cache
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write  # Grants write permissions for contents (required for creating releases)
+
+jobs:
+  build-and-release:
+    runs-on: macos-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+        
+      - name: Check initial disk space
+        run: df -h
+
+      - name: Clean up Bazel cache
+        run: bazel clean --expunge
+
+      - name: Check disk space after cleaning Bazel cache
+        run: df -h
+        
+      - name: Check disk space after build
+        run: df -h
+
+      - name: Clean up Bazel Cache After Build
+        run: bazel clean --expunge
+
+      - name: Remove Additional Bazel Output Directories (if needed)
+        run: |
+          sudo rm -rf ~/Library/Caches/bazel
+          sudo rm -rf /private/var/tmp/_bazel_$USER
+
+      - name: Check disk space after removing Bazel output directories
+        run: df -h
+
+      - name: Clean up temp files after upload
+        run: |
+          sudo rm -rf /tmp/*
