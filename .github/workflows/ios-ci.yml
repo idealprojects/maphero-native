@@ -17,7 +17,7 @@ jobs:
       NAME: MapHero
       NAME_LOWER: maphero
       URL: maphero.io
-      VERSION: 0.0.6
+      VERSION: 0.0.1
       TEAMID: 68DUZ3F2NM
       IOS_DIR: platform/ios
 
