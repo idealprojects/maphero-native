@@ -15,6 +15,7 @@ NSString * const kMLNDownloadPerformanceEvent = @"mobile.performance_trace";
 @property (nonatomic, strong) NSMutableDictionary<NSString *, NSDictionary*> *events;
 @property (nonatomic, weak) id<MLNNetworkConfigurationMetricsDelegate> metricsDelegate;
 @property (nonatomic) dispatch_queue_t eventsQueue;
+@property (nonatomic, strong, readwrite, nullable) NSString *token;
 
 @end
 
@@ -28,6 +29,7 @@ NSString * const kMLNDownloadPerformanceEvent = @"mobile.performance_trace";
         self.sessionConfiguration = nil;
         _events = [NSMutableDictionary dictionary];
         _eventsQueue = dispatch_queue_create("org.maplibre.network-configuration", DISPATCH_QUEUE_CONCURRENT);
+        _token = nil;
     }
     
     return self;
@@ -102,6 +104,23 @@ NSString * const kMLNDownloadPerformanceEvent = @"mobile.performance_trace";
         } else {
             _sessionConfig = sessionConfiguration;
         }
+        [self updateSessionHeaders];
+    }
+}
+
+- (void)setToken:(NSString *)token {
+    _token = token;
+    [self updateSessionHeaders];
+}
+
+- (void)updateSessionHeaders {
+    if (_token) {
+        NSMutableDictionary *headers = [NSMutableDictionary dictionary];
+        [headers setObject:_token forKey:@"map-token"];
+        if (!_sessionConfig) {
+            _sessionConfig = [MLNNetworkConfiguration defaultSessionConfiguration];
+        }
+        _sessionConfig.HTTPAdditionalHeaders = headers;
     }
 }
 

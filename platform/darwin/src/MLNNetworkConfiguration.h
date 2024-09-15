@@ -40,6 +40,11 @@ MLN_EXPORT
 @property (nonatomic, weak) id<MLNNetworkConfigurationDelegate> delegate;
 
 /**
+ Set Authentication token.
+ */
+@property (nonatomic, strong, nullable, readonly) NSString *token;
+
+/**
  Returns the shared instance of the ``MLNNetworkConfiguration`` class.
  */
 @property (class, nonatomic, readonly) MLNNetworkConfiguration *sharedManager;
@@ -61,6 +66,8 @@ MLN_EXPORT
  > Note: Background sessions are not currently supported.
  */
 @property (atomic, strong, null_resettable) NSURLSessionConfiguration *sessionConfiguration;
+
+- (void)setToken:(nullable NSString *)token;
 
 @end
 
