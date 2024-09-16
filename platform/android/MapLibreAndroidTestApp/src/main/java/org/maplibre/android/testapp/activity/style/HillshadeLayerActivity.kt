@@ -13,14 +13,14 @@ import org.maplibre.android.testapp.styles.TestStyles
  */
 class HillshadeLayerActivity : AppCompatActivity() {
     private lateinit var mapView: MapView
-    private lateinit var maplibreMap: MapLibreMap
+    private lateinit var maplibreMap: MapHeroMap
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fill_extrusion_layer)
         mapView = findViewById(R.id.mapView)
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(
-            OnMapReadyCallback { map: MapLibreMap? ->
+            OnMapReadyCallback { map: MapHeroMap? ->
                 if (map != null) {
                     maplibreMap = map
                 }

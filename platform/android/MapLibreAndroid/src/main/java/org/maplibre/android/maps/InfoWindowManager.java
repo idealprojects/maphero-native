@@ -16,8 +16,8 @@ import java.util.List;
  * Maintains a {@link List} of opened {@link InfoWindow} and tracks configurations as
  * allowConcurrentMultipleInfoWindows which allows to have multiple {@link InfoWindow} open at the
  * same time. Responsible for managing listeners as
- * {@link MapLibreMap.OnInfoWindowClickListener} and
- * {@link MapLibreMap.OnInfoWindowLongClickListener}.
+ * {@link MapHeroMap.OnInfoWindowClickListener} and
+ * {@link MapHeroMap.OnInfoWindowLongClickListener}.
  * </p>
  */
 class InfoWindowManager {
@@ -25,15 +25,15 @@ class InfoWindowManager {
   private final List<InfoWindow> infoWindows = new ArrayList<>();
 
   @Nullable
-  private MapLibreMap.InfoWindowAdapter infoWindowAdapter;
+  private MapHeroMap.InfoWindowAdapter infoWindowAdapter;
   private boolean allowConcurrentMultipleInfoWindows;
 
   @Nullable
-  private MapLibreMap.OnInfoWindowClickListener onInfoWindowClickListener;
+  private MapHeroMap.OnInfoWindowClickListener onInfoWindowClickListener;
   @Nullable
-  private MapLibreMap.OnInfoWindowLongClickListener onInfoWindowLongClickListener;
+  private MapHeroMap.OnInfoWindowLongClickListener onInfoWindowLongClickListener;
   @Nullable
-  private MapLibreMap.OnInfoWindowCloseListener onInfoWindowCloseListener;
+  private MapHeroMap.OnInfoWindowCloseListener onInfoWindowCloseListener;
 
   void update() {
     if (!infoWindows.isEmpty()) {
@@ -43,12 +43,12 @@ class InfoWindowManager {
     }
   }
 
-  void setInfoWindowAdapter(@Nullable MapLibreMap.InfoWindowAdapter infoWindowAdapter) {
+  void setInfoWindowAdapter(@Nullable MapHeroMap.InfoWindowAdapter infoWindowAdapter) {
     this.infoWindowAdapter = infoWindowAdapter;
   }
 
   @Nullable
-  MapLibreMap.InfoWindowAdapter getInfoWindowAdapter() {
+  MapHeroMap.InfoWindowAdapter getInfoWindowAdapter() {
     return infoWindowAdapter;
   }
 
@@ -64,30 +64,30 @@ class InfoWindowManager {
     return marker != null && (!TextUtils.isEmpty(marker.getTitle()) || !TextUtils.isEmpty(marker.getSnippet()));
   }
 
-  void setOnInfoWindowClickListener(@Nullable MapLibreMap.OnInfoWindowClickListener listener) {
+  void setOnInfoWindowClickListener(@Nullable MapHeroMap.OnInfoWindowClickListener listener) {
     onInfoWindowClickListener = listener;
   }
 
   @Nullable
-  MapLibreMap.OnInfoWindowClickListener getOnInfoWindowClickListener() {
+  MapHeroMap.OnInfoWindowClickListener getOnInfoWindowClickListener() {
     return onInfoWindowClickListener;
   }
 
-  void setOnInfoWindowLongClickListener(@Nullable MapLibreMap.OnInfoWindowLongClickListener listener) {
+  void setOnInfoWindowLongClickListener(@Nullable MapHeroMap.OnInfoWindowLongClickListener listener) {
     onInfoWindowLongClickListener = listener;
   }
 
   @Nullable
-  MapLibreMap.OnInfoWindowLongClickListener getOnInfoWindowLongClickListener() {
+  MapHeroMap.OnInfoWindowLongClickListener getOnInfoWindowLongClickListener() {
     return onInfoWindowLongClickListener;
   }
 
-  void setOnInfoWindowCloseListener(@Nullable MapLibreMap.OnInfoWindowCloseListener listener) {
+  void setOnInfoWindowCloseListener(@Nullable MapHeroMap.OnInfoWindowCloseListener listener) {
     onInfoWindowCloseListener = listener;
   }
 
   @Nullable
-  MapLibreMap.OnInfoWindowCloseListener getOnInfoWindowCloseListener() {
+  MapHeroMap.OnInfoWindowCloseListener getOnInfoWindowCloseListener() {
     return onInfoWindowCloseListener;
   }
 

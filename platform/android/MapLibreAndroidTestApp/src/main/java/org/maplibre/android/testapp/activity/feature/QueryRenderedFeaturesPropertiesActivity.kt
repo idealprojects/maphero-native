@@ -12,9 +12,9 @@ import org.maplibre.geojson.Feature
 import org.maplibre.android.annotations.BaseMarkerOptions
 import org.maplibre.android.annotations.Marker
 import org.maplibre.android.maps.MapView
-import org.maplibre.android.maps.MapLibreMap
-import org.maplibre.android.maps.MapLibreMap.InfoWindowAdapter
-import org.maplibre.android.maps.MapLibreMap.OnMapClickListener
+import org.maplibre.android.maps.MapHeroMap
+import org.maplibre.android.maps.MapHeroMap.InfoWindowAdapter
+import org.maplibre.android.maps.MapHeroMap.OnMapClickListener
 import org.maplibre.android.maps.Style
 import org.maplibre.android.testapp.R
 import org.maplibre.android.testapp.styles.TestStyles
@@ -25,12 +25,12 @@ import timber.log.Timber
  */
 class QueryRenderedFeaturesPropertiesActivity : AppCompatActivity() {
     lateinit var mapView: MapView
-    lateinit var maplibreMap: MapLibreMap
+    lateinit var mapHeroMap: MapHeroMap
         private set
     private var marker: Marker? = null
     private val mapClickListener = OnMapClickListener { point ->
         val density = resources.displayMetrics.density
-        val pixel = maplibreMap.projection.toScreenLocation(point)
+        val pixel = mapHeroMap.projection.toScreenLocation(point)
         Timber.i(
             "Requesting features for %sx%s (%sx%s adjusted for density)",
             pixel.x,
@@ -38,19 +38,19 @@ class QueryRenderedFeaturesPropertiesActivity : AppCompatActivity() {
             pixel.x / density,
             pixel.y / density
         )
-        val features = maplibreMap.queryRenderedFeatures(pixel)
+        val features = mapHeroMap.queryRenderedFeatures(pixel)
 
         // Debug output
         debugOutput(features)
 
         // Remove any previous markers
         if (marker != null) {
-            maplibreMap.removeMarker(marker!!)
+            mapHeroMap.removeMarker(marker!!)
         }
 
         // Add a marker on the clicked point
-        marker = maplibreMap.addMarker(CustomMarkerOptions().position(point)!!.features(features))
-        maplibreMap.selectMarker(marker!!)
+        marker = mapHeroMap.addMarker(CustomMarkerOptions().position(point)!!.features(features))
+        mapHeroMap.selectMarker(marker!!)
         true
     }
 
@@ -61,15 +61,15 @@ class QueryRenderedFeaturesPropertiesActivity : AppCompatActivity() {
         // Initialize map as normal
         mapView = findViewById<View>(R.id.mapView) as MapView
         mapView.onCreate(savedInstanceState)
-        mapView.getMapAsync { maplibreMap: MapLibreMap ->
-            maplibreMap.setStyle(TestStyles.getPredefinedStyleWithFallback("Streets")) { style: Style? ->
-                this@QueryRenderedFeaturesPropertiesActivity.maplibreMap = maplibreMap
+        mapView.getMapAsync { mapHeroMap1: MapHeroMap ->
+            mapHeroMap1.setStyle(TestStyles.getPredefinedStyleWithFallback("Streets")) { style: Style? ->
+                this@QueryRenderedFeaturesPropertiesActivity.mapHeroMap = mapHeroMap1
 
                 // Add custom window adapter
-                addCustomInfoWindowAdapter(maplibreMap)
+                addCustomInfoWindowAdapter(mapHeroMap1)
 
                 // Add a click listener
-                maplibreMap.addOnMapClickListener(mapClickListener)
+                mapHeroMap1.addOnMapClickListener(mapClickListener)
             }
         }
     }
@@ -100,8 +100,8 @@ class QueryRenderedFeaturesPropertiesActivity : AppCompatActivity() {
         }
     }
 
-    private fun addCustomInfoWindowAdapter(maplibreMap: MapLibreMap) {
-        maplibreMap.infoWindowAdapter = object : InfoWindowAdapter {
+    private fun addCustomInfoWindowAdapter(mapHeroMap1: MapHeroMap) {
+        mapHeroMap1.infoWindowAdapter = object : InfoWindowAdapter {
             private fun row(text: String): TextView {
                 val view = TextView(this@QueryRenderedFeaturesPropertiesActivity)
                 view.text = text
@@ -161,8 +161,8 @@ class QueryRenderedFeaturesPropertiesActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        if (this::maplibreMap.isInitialized) {
-            maplibreMap.removeOnMapClickListener(mapClickListener)
+        if (this::mapHeroMap.isInitialized) {
+            mapHeroMap.removeOnMapClickListener(mapClickListener)
         }
         mapView.onDestroy()
     }

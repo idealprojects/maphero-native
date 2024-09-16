@@ -6,7 +6,7 @@ import androidx.annotation.NonNull;
 public class VulkanSurfaceViewMapRenderer extends SurfaceViewMapRenderer {
 
   public VulkanSurfaceViewMapRenderer(Context context,
-                                @NonNull MapLibreVulkanSurfaceView surfaceView,
+                                @NonNull MapHeroVulkanSurfaceView surfaceView,
                                 String localIdeographFontFamily) {
     super(context, surfaceView, localIdeographFontFamily);
 

@@ -1,6 +1,6 @@
 package org.maplibre.android.annotations
 
-import org.maplibre.android.maps.MapLibreMap
+import org.maplibre.android.maps.MapHeroMap
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -9,7 +9,7 @@ import org.mockito.Mockito
 
 class AnnotationTest {
     @InjectMocks
-    private val maplibreMap = Mockito.mock(MapLibreMap::class.java)
+    private val mapHeroMap = Mockito.mock(MapHeroMap::class.java)
     private var annotation: Annotation? = null
     private val compare: Annotation = object : Annotation() {
         override fun getId(): Long {
@@ -31,18 +31,18 @@ class AnnotationTest {
     @Test
     fun testRemove() {
         annotation!!.id = 1
-        annotation!!.setMapLibreMap(maplibreMap)
+        annotation!!.getMapHeroMap()
         annotation!!.remove()
-        Mockito.verify(maplibreMap, Mockito.times(1)).removeAnnotation(
+        Mockito.verify(mapHeroMap, Mockito.times(1)).removeAnnotation(
             annotation!!
         )
     }
 
     @Test
-    fun testRemoveUnboundMapLibreMap() {
+    fun testRemoveUnboundMapHeroMap() {
         annotation!!.id = 1
         annotation!!.remove()
-        Mockito.verify(maplibreMap, Mockito.times(0)).removeAnnotation(
+        Mockito.verify(mapHeroMap, Mockito.times(0)).removeAnnotation(
             annotation!!
         )
     }

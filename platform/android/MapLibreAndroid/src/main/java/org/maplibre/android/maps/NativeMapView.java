@@ -81,7 +81,7 @@ final class NativeMapView implements NativeMap {
   private long nativePtr = 0;
 
   // Listener invoked to return a bitmap of the map
-  private MapLibreMap.SnapshotReadyCallback snapshotReadyCallback;
+  private MapHeroMap.SnapshotReadyCallback snapshotReadyCallback;
 
   static {
     LibraryLoader.load();
@@ -1607,7 +1607,7 @@ final class NativeMapView implements NativeMap {
   //
 
   @Override
-  public void addSnapshotCallback(@NonNull MapLibreMap.SnapshotReadyCallback callback) {
+  public void addSnapshotCallback(@NonNull MapHeroMap.SnapshotReadyCallback callback) {
     if (checkState("addSnapshotCallback")) {
       return;
     }
@@ -1616,14 +1616,14 @@ final class NativeMapView implements NativeMap {
   }
 
   @Override
-  public void setOnFpsChangedListener(@Nullable final MapLibreMap.OnFpsChangedListener listener) {
+  public void setOnFpsChangedListener(@Nullable final MapHeroMap.OnFpsChangedListener listener) {
     final Handler handler = new Handler(Looper.getMainLooper());
     mapRenderer.queueEvent(new Runnable() {
 
       @Override
       public void run() {
         if (listener != null) {
-          mapRenderer.setOnFpsChangedListener(new MapLibreMap.OnFpsChangedListener() {
+          mapRenderer.setOnFpsChangedListener(new MapHeroMap.OnFpsChangedListener() {
             @Override
             public void onFpsChanged(final double fps) {
               handler.post(() -> listener.onFpsChanged(fps));

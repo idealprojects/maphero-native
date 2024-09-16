@@ -29,7 +29,7 @@ class VisibleRegionTest : BaseTest() {
     @Test
     fun visibleRegionTest() {
         validateTestSetup()
-        invoke(maplibreMap) { _: UiController, maplibreMap: MapLibreMap ->
+        invoke(maplibreMap) { _: UiController, maplibreMap: MapHeroMap ->
             maplibreMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(0.0, 0.0), 8.0))
             val latLngs = listOf(
                 maplibreMap.getLatLngFromScreenCoords(0f, 0f),
@@ -50,7 +50,7 @@ class VisibleRegionTest : BaseTest() {
     @Test
     fun paddedVisibleRegionTest() {
         validateTestSetup()
-        invoke(maplibreMap) { _: UiController, maplibreMap: MapLibreMap ->
+        invoke(maplibreMap) { _: UiController, maplibreMap: MapHeroMap ->
             maplibreMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(0.0, 0.0), 8.0))
             val latLngs = listOf(
                 maplibreMap.getLatLngFromScreenCoords(0f, 0f),
@@ -81,7 +81,7 @@ class VisibleRegionTest : BaseTest() {
     @Test
     fun paddedLeftVisibleRegionTest() {
         validateTestSetup()
-        invoke(maplibreMap) { _: UiController, maplibreMap: MapLibreMap ->
+        invoke(maplibreMap) { _: UiController, maplibreMap: MapHeroMap ->
             maplibreMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(0.0, 0.0), 8.0))
             val latLngs = listOf(
                 maplibreMap.getLatLngFromScreenCoords(0f, 0f),
@@ -107,7 +107,7 @@ class VisibleRegionTest : BaseTest() {
     @Test
     fun paddedTopVisibleRegionTest() {
         validateTestSetup()
-        invoke(maplibreMap) { _: UiController, maplibreMap: MapLibreMap ->
+        invoke(maplibreMap) { _: UiController, maplibreMap: MapHeroMap ->
             maplibreMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(0.0, 0.0), 8.0))
             val latLngs = listOf(
                 maplibreMap.getLatLngFromScreenCoords(0f, 0f),
@@ -133,7 +133,7 @@ class VisibleRegionTest : BaseTest() {
     @Test
     fun paddedRightVisibleRegionTest() {
         validateTestSetup()
-        invoke(maplibreMap) { _: UiController, maplibreMap: MapLibreMap ->
+        invoke(maplibreMap) { _: UiController, maplibreMap: MapHeroMap ->
             maplibreMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(0.0, 0.0), 8.0))
             val latLngs = listOf(
                 maplibreMap.getLatLngFromScreenCoords(0f, 0f),
@@ -159,7 +159,7 @@ class VisibleRegionTest : BaseTest() {
     @Test
     fun paddedBottomVisibleRegionTest() {
         validateTestSetup()
-        invoke(maplibreMap) { _: UiController, maplibreMap: MapLibreMap ->
+        invoke(maplibreMap) { _: UiController, maplibreMap: MapHeroMap ->
             maplibreMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(0.0, 0.0), 8.0))
             val latLngs = listOf(
                 maplibreMap.getLatLngFromScreenCoords(0f, 0f),
@@ -185,7 +185,7 @@ class VisibleRegionTest : BaseTest() {
     @Test
     fun visibleRegionOverDatelineTest() {
         validateTestSetup()
-        invoke(maplibreMap) { _: UiController, maplibreMap: MapLibreMap ->
+        invoke(maplibreMap) { _: UiController, maplibreMap: MapHeroMap ->
             maplibreMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(0.0, 180.0), 8.0))
             val latLngs = listOf(
                 maplibreMap.getLatLngFromScreenCoords(0f, 0f),
@@ -209,7 +209,7 @@ class VisibleRegionTest : BaseTest() {
     @Test
     fun paddedVisibleRegionOverDatelineTest() {
         validateTestSetup()
-        invoke(maplibreMap) { _: UiController, maplibreMap: MapLibreMap ->
+        invoke(maplibreMap) { _: UiController, maplibreMap: MapHeroMap ->
             maplibreMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(0.0, 180.0), 8.0))
             val latLngs = listOf(
                 maplibreMap.getLatLngFromScreenCoords(0f, 0f),
@@ -240,7 +240,7 @@ class VisibleRegionTest : BaseTest() {
     @Test
     fun paddedLeftVisibleRegionOverDatelineTest() {
         validateTestSetup()
-        invoke(maplibreMap) { _: UiController, maplibreMap: MapLibreMap ->
+        invoke(maplibreMap) { _: UiController, maplibreMap: MapHeroMap ->
             maplibreMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(0.0, 180.0), 8.0))
             val latLngs = listOf(
                 maplibreMap.getLatLngFromScreenCoords(0f, 0f),
@@ -269,7 +269,7 @@ class VisibleRegionTest : BaseTest() {
     @Test
     fun paddedTopVisibleRegionOverDatelineTest() {
         validateTestSetup()
-        invoke(maplibreMap) { ui: UiController, maplibreMap: MapLibreMap ->
+        invoke(maplibreMap) { ui: UiController, maplibreMap: MapHeroMap ->
             maplibreMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(0.0, 180.0), 8.0))
             ui.loopMainThreadForAtLeast(5000)
             val latLngs = listOf(
@@ -299,7 +299,7 @@ class VisibleRegionTest : BaseTest() {
     @Test
     fun paddedRightVisibleRegionOverDatelineTest() {
         validateTestSetup()
-        invoke(maplibreMap) { _: UiController, maplibreMap: MapLibreMap ->
+        invoke(maplibreMap) { _: UiController, maplibreMap: MapHeroMap ->
             maplibreMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(0.0, 180.0), 8.0))
             val latLngs = listOf(
                 maplibreMap.getLatLngFromScreenCoords(0f, 0f),
@@ -328,7 +328,7 @@ class VisibleRegionTest : BaseTest() {
     @Test
     fun paddedBottomVisibleRegionOverDatelineTest() {
         validateTestSetup()
-        invoke(maplibreMap) { _: UiController, maplibreMap: MapLibreMap ->
+        invoke(maplibreMap) { _: UiController, maplibreMap: MapHeroMap ->
             maplibreMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(0.0, 180.0), 8.0))
             val latLngs = listOf(
                 maplibreMap.getLatLngFromScreenCoords(0f, 0f),
@@ -357,7 +357,7 @@ class VisibleRegionTest : BaseTest() {
     @Test
     fun visibleRotatedRegionTest() {
         validateTestSetup()
-        invoke(maplibreMap) { _: UiController, maplibreMap: MapLibreMap ->
+        invoke(maplibreMap) { _: UiController, maplibreMap: MapHeroMap ->
             maplibreMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(0.0, 0.0), 8.0))
             val d = Math.min(maplibreMap.width, maplibreMap.height) / 4
             val latLngs = listOf(
@@ -379,7 +379,7 @@ class VisibleRegionTest : BaseTest() {
     @Test
     fun visibleRotatedRegionOverDatelineTest() {
         validateTestSetup()
-        invoke(maplibreMap) { _: UiController, maplibreMap: MapLibreMap ->
+        invoke(maplibreMap) { _: UiController, maplibreMap: MapHeroMap ->
             maplibreMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(0.0, 180.0), 8.0))
             val d = Math.min(maplibreMap.width, maplibreMap.height) / 4
             val latLngs = listOf(
@@ -402,7 +402,7 @@ class VisibleRegionTest : BaseTest() {
     @Test
     fun visibleRegionWithBoundsEqualTest() {
         validateTestSetup()
-        invoke(maplibreMap) { _: UiController, maplibreMap: MapLibreMap ->
+        invoke(maplibreMap) { _: UiController, maplibreMap: MapHeroMap ->
             maplibreMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(0.0, 0.0), 8.0))
             val latLngs = listOf(
                 maplibreMap.getLatLngFromScreenCoords(0f, 0f),
@@ -427,7 +427,7 @@ class VisibleRegionTest : BaseTest() {
     @Test
     fun visibleRegionBoundsOverDatelineTest() {
         validateTestSetup()
-        invoke(maplibreMap) { _: UiController, maplibreMap: MapLibreMap ->
+        invoke(maplibreMap) { _: UiController, maplibreMap: MapHeroMap ->
             maplibreMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(0.0, 180.0), 8.0))
             val latLngs = listOf(
                 maplibreMap.getLatLngFromScreenCoords(0f, 0f),
@@ -453,7 +453,7 @@ class VisibleRegionTest : BaseTest() {
     @Test
     fun visibleRegionBoundsOverDatelineLatitudeZeroTest() {
         validateTestSetup()
-        invoke(maplibreMap) { _: UiController, maplibreMap: MapLibreMap ->
+        invoke(maplibreMap) { _: UiController, maplibreMap: MapHeroMap ->
             maplibreMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(0.0, 180.0), 8.0))
             val shift = maplibreMap.getLatLngFromScreenCoords(0f, 0f)
             maplibreMap.moveCamera(CameraUpdateFactory.newLatLng(LatLng(0.0, 180.0 - shift.longitude)))
@@ -469,7 +469,7 @@ class VisibleRegionTest : BaseTest() {
     @Test
     fun visibleRotatedRegionBoundEqualTest() {
         validateTestSetup()
-        invoke(maplibreMap) { _: UiController, maplibreMap: MapLibreMap ->
+        invoke(maplibreMap) { _: UiController, maplibreMap: MapHeroMap ->
             maplibreMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(0.0, 0.0), 8.0))
             val d = Math.min(maplibreMap.width, maplibreMap.height) / 4
             val latLngs = listOf(
@@ -495,7 +495,7 @@ class VisibleRegionTest : BaseTest() {
     @Test
     fun visibleRotatedRegionBoundsOverDatelineTest() {
         validateTestSetup()
-        invoke(maplibreMap) { _: UiController, maplibreMap: MapLibreMap ->
+        invoke(maplibreMap) { _: UiController, maplibreMap: MapHeroMap ->
             maplibreMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(0.0, 179.0), 8.0))
             val d = Math.min(maplibreMap.width, maplibreMap.height) / 4
             val latLngs = listOf(
@@ -516,7 +516,7 @@ class VisibleRegionTest : BaseTest() {
         }
     }
 
-    private fun MapLibreMap.getLatLngFromScreenCoords(x: Float, y: Float): LatLng {
+    private fun MapHeroMap.getLatLngFromScreenCoords(x: Float, y: Float): LatLng {
         return this.projection.fromScreenLocation(PointF(x, y))
     }
 }

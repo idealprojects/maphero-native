@@ -17,7 +17,7 @@ import org.maplibre.geojson.FeatureCollection
 import org.maplibre.geojson.Point
 import org.maplibre.android.geometry.LatLng
 import org.maplibre.android.maps.MapView
-import org.maplibre.android.maps.MapLibreMap
+import org.maplibre.android.maps.MapHeroMap
 import org.maplibre.android.maps.Style
 import org.maplibre.android.style.expressions.Expression
 import org.maplibre.android.style.layers.PropertyFactory
@@ -34,7 +34,7 @@ import java.util.*
 class AnimatedSymbolLayerActivity : AppCompatActivity() {
     private val random = Random()
     private lateinit var mapView: MapView
-    private lateinit var maplibreMap: MapLibreMap
+    private lateinit var mapHeroMap: MapHeroMap
     private var style: Style? = null
     private val randomCars: MutableList<Car> = ArrayList()
     private var randomCarSource: GeoJsonSource? = null
@@ -48,7 +48,7 @@ class AnimatedSymbolLayerActivity : AppCompatActivity() {
         mapView = findViewById(R.id.mapView)
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync {
-            maplibreMap = it
+            mapHeroMap = it
             it.setStyle(TestStyles.getPredefinedStyleWithFallback("Streets")) { style: Style? ->
                 this.style = style
                 setupCars()
@@ -291,7 +291,7 @@ class AnimatedSymbolLayerActivity : AppCompatActivity() {
 
     private val latLngInBounds: LatLng
         get() {
-            val bounds = maplibreMap.projection.visibleRegion.latLngBounds
+            val bounds = mapHeroMap.projection.visibleRegion.latLngBounds
             val generator = Random()
             val randomLat = bounds.latitudeSouth + generator.nextDouble() * bounds.latitudeNorth - bounds.latitudeSouth
             val randomLon = bounds.longitudeWest + generator.nextDouble() * bounds.longitudeEast - bounds.longitudeWest

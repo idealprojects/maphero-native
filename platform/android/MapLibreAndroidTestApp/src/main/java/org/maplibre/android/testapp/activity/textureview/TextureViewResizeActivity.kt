@@ -36,8 +36,8 @@ class TextureViewResizeActivity : AppCompatActivity() {
         mapView.getMapAsync { setupMap(it) }
     }
 
-    private fun setupMap(maplibreMap: MapLibreMap) {
-        maplibreMap.setStyle(TestStyles.getPredefinedStyleWithFallback("Streets"))
+    private fun setupMap(mapHeroMap: MapHeroMap) {
+        mapHeroMap.setStyle(TestStyles.getPredefinedStyleWithFallback("Streets"))
     }
 
     private fun setupFab() {

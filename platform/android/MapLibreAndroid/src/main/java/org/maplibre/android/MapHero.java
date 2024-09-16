@@ -10,8 +10,8 @@ import androidx.annotation.Nullable;
 import androidx.annotation.UiThread;
 import timber.log.Timber;
 
-import org.maplibre.android.constants.MapLibreConstants;
-import org.maplibre.android.exceptions.MapLibreConfigurationException;
+import org.maplibre.android.constants.MapHeroConstants;
+import org.maplibre.android.exceptions.MapHeroConfigurationException;
 import org.maplibre.android.net.ConnectivityReceiver;
 import org.maplibre.android.storage.FileSource;
 import org.maplibre.android.util.DefaultStyle;
@@ -19,9 +19,9 @@ import org.maplibre.android.util.TileServerOptions;
 import org.maplibre.android.utils.ThreadUtils;
 
 /**
- * The entry point to initialize the MapLibre Android SDK.
+ * The entry point to initialize the MapHero Android SDK.
  * <p>
- * Obtain a reference by calling {@link #getInstance(Context, String, WellKnownTileServer)}.
+ * Obtain a reference by calling {@link #getInstance(Context, String)}.
  * Usually this class is configured in Application#onCreate() and is responsible for the
  * active API key, application context, and connectivity state.
  * </p>
@@ -29,11 +29,11 @@ import org.maplibre.android.utils.ThreadUtils;
 @UiThread
 @SuppressLint("StaticFieldLeak")
 @Keep
-public final class MapLibre {
+public final class MapHero {
 
-  private static final String TAG = "Mbgl-MapLibre";
+  private static final String TAG = "MapHero";
   private static ModuleProvider moduleProvider;
-  private static MapLibre INSTANCE;
+  private static MapHero INSTANCE;
 
   private Context context;
   @Nullable
@@ -42,27 +42,27 @@ public final class MapLibre {
   private TileServerOptions tileServerOptions;
 
   /**
-   * Get an instance of MapLibre.
+   * Get an instance of MapHero.
    * <p>
    * This class manages the API key, application context, and connectivity state.
    * </p>
    *
    * @param context Android context which holds or is an application context
-   * @return the single instance of MapLibre
+   * @return the single instance of MapHero
    */
   @UiThread
   @NonNull
-  public static synchronized MapLibre getInstance(@NonNull Context context) {
+  public static synchronized MapHero getInstance(@NonNull Context context) {
     ThreadUtils.init(context);
     ThreadUtils.checkThread(TAG);
     if (INSTANCE == null) {
       Context appContext = context.getApplicationContext();
       FileSource.initializeFileDirsPaths(appContext);
-      INSTANCE = new MapLibre(appContext, null);
+      INSTANCE = new MapHero(appContext, null);
       ConnectivityReceiver.instance(appContext);
     }
 
-    TileServerOptions tileServerOptions = TileServerOptions.get(WellKnownTileServer.MapLibre);
+    TileServerOptions tileServerOptions = TileServerOptions.get();
     INSTANCE.tileServerOptions = tileServerOptions;
     INSTANCE.apiKey = null;
     FileSource fileSource = FileSource.getInstance(context);
@@ -73,36 +73,31 @@ public final class MapLibre {
   }
 
   /**
-   * Get an instance of MapLibre.
+   * Get an instance of MapHero.
    * <p>
    * This class manages the API key, application context, and connectivity state.
    * </p>
    *
    * @param context Android context which holds or is an application context
    * @param apiKey api key
-   * @param tileServer the tile server whose predefined configuration will be used to
-   *                   bootstrap the SDK. The predefined configuration includes
-   *                   rules for converting resource URLs between normal and canonical forms
-   *                   and set of predefined styles available on the server.
-   * @return the single instance of MapLibre
+   * @return the single instance of MapHero
    */
   @UiThread
   @NonNull
-  public static synchronized MapLibre getInstance(@NonNull Context context, @Nullable String apiKey,
-                                                  WellKnownTileServer tileServer) {
+  public static synchronized MapHero getInstance(@NonNull Context context, @Nullable String apiKey) {
     ThreadUtils.init(context);
     ThreadUtils.checkThread(TAG);
     if (INSTANCE == null) {
       Timber.plant();
       Context appContext = context.getApplicationContext();
       FileSource.initializeFileDirsPaths(appContext);
-      INSTANCE = new MapLibre(appContext, apiKey);
+      INSTANCE = new MapHero(appContext, apiKey);
       ConnectivityReceiver.instance(appContext);
     } else {
       INSTANCE.apiKey = apiKey;
     }
 
-    TileServerOptions tileServerOptions = TileServerOptions.get(tileServer);
+    TileServerOptions tileServerOptions = TileServerOptions.get();
     INSTANCE.tileServerOptions = tileServerOptions;
     FileSource fileSource = FileSource.getInstance(context);
     fileSource.setTileServerOptions(tileServerOptions);
@@ -110,12 +105,12 @@ public final class MapLibre {
     return INSTANCE;
   }
 
-  MapLibre(@NonNull Context context, @Nullable String apiKey) {
+  MapHero(@NonNull Context context, @Nullable String apiKey) {
     this.context = context;
     this.apiKey = apiKey;
   }
 
-  MapLibre(@NonNull Context context, @Nullable String apiKey, @NonNull TileServerOptions options) {
+  MapHero(@NonNull Context context, @Nullable String apiKey, @NonNull TileServerOptions options) {
     this.context = context;
     this.apiKey = apiKey;
     this.tileServerOptions = options;
@@ -128,7 +123,7 @@ public final class MapLibre {
    */
   @Nullable
   public static String getApiKey() {
-    validateMapLibre();
+    validateMapHero();
     return INSTANCE.apiKey;
   }
 
@@ -136,7 +131,7 @@ public final class MapLibre {
    * Set the current active apiKey.
    */
   public static void setApiKey(String apiKey) {
-    validateMapLibre();
+    validateMapHero();
     throwIfApiKeyInvalid(apiKey);
     INSTANCE.apiKey = apiKey;
     FileSource.getInstance(getApplicationContext()).setApiKey(apiKey);
@@ -147,7 +142,7 @@ public final class MapLibre {
    */
   @Nullable
   public static TileServerOptions getTileServerOptions() {
-    validateMapLibre();
+    validateMapHero();
     return INSTANCE.tileServerOptions;
   }
 
@@ -158,7 +153,7 @@ public final class MapLibre {
    */
   @Nullable
   public static DefaultStyle[] getPredefinedStyles() {
-    validateMapLibre();
+    validateMapHero();
     if (INSTANCE.tileServerOptions != null) {
       return INSTANCE.tileServerOptions.getDefaultStyles();
     }
@@ -172,7 +167,7 @@ public final class MapLibre {
    */
   @Nullable
   public static DefaultStyle getPredefinedStyle(String name) {
-    validateMapLibre();
+    validateMapHero();
     if (INSTANCE.tileServerOptions != null) {
       DefaultStyle[] styles = INSTANCE.tileServerOptions.getDefaultStyles();
       for (DefaultStyle style : styles) {
@@ -191,7 +186,7 @@ public final class MapLibre {
    */
   @NonNull
   public static Context getApplicationContext() {
-    validateMapLibre();
+    validateMapHero();
     return INSTANCE.context;
   }
 
@@ -203,7 +198,7 @@ public final class MapLibre {
    *                  disconnected, and null for ConnectivityManager to determine.
    */
   public static synchronized void setConnected(Boolean connected) {
-    validateMapLibre();
+    validateMapHero();
     ConnectivityReceiver.instance(INSTANCE.context).setConnected(connected);
   }
 
@@ -214,7 +209,7 @@ public final class MapLibre {
    * @return true if there is an internet connection, false otherwise
    */
   public static synchronized Boolean isConnected() {
-    validateMapLibre();
+    validateMapHero();
     return ConnectivityReceiver.instance(INSTANCE.context).isConnected();
   }
 
@@ -240,16 +235,16 @@ public final class MapLibre {
   }
 
   /**
-   * Runtime validation of MapLibre creation.
+   * Runtime validation of MapHero creation.
    */
-  private static void validateMapLibre() {
+  private static void validateMapHero() {
     if (INSTANCE == null) {
-      throw new MapLibreConfigurationException();
+      throw new MapHeroConfigurationException();
     }
   }
 
   /**
-   * Runtime validation of MapLibre access token
+   * Runtime validation of MapHero access token
    *
    * @param apiKey the access token to validate
    * @return true is valid, false otherwise
@@ -259,7 +254,7 @@ public final class MapLibre {
       return false;
     }
 
-    apiKey = apiKey.trim().toLowerCase(MapLibreConstants.MAPLIBRE_LOCALE);
+    apiKey = apiKey.trim().toLowerCase(MapHeroConstants.MAPHERO_LOCALE);
     return !apiKey.isEmpty();
   }
 
@@ -268,14 +263,14 @@ public final class MapLibre {
    */
   public static void throwIfApiKeyInvalid(@Nullable String apiKey) {
     if (!isApiKeyValid(apiKey)) {
-      throw new MapLibreConfigurationException(
+      throw new MapHeroConfigurationException(
               "A valid API key is required, currently provided key is: " + apiKey);
     }
   }
 
 
   /**
-   * Internal use. Check if the {@link MapLibre#INSTANCE} is present.
+   * Internal use. Check if the {@link MapHero#INSTANCE} is present.
    */
   public static boolean hasInstance() {
     return INSTANCE != null;

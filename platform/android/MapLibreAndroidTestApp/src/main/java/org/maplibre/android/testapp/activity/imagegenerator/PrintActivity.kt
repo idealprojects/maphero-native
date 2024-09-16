@@ -6,16 +6,16 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.print.PrintHelper
 import org.maplibre.android.maps.MapView
-import org.maplibre.android.maps.MapLibreMap
+import org.maplibre.android.maps.MapHeroMap
 import org.maplibre.android.testapp.R
 import org.maplibre.android.testapp.styles.TestStyles
 
 /**
  * Test activity showcasing using the Snapshot API to print a Map.
  */
-class PrintActivity : AppCompatActivity(), MapLibreMap.SnapshotReadyCallback {
+class PrintActivity : AppCompatActivity(), MapHeroMap.SnapshotReadyCallback {
     private lateinit var mapView: MapView
-    private lateinit var maplibreMap: MapLibreMap
+    private lateinit var mapHeroMap: MapHeroMap
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_print)
@@ -24,15 +24,15 @@ class PrintActivity : AppCompatActivity(), MapLibreMap.SnapshotReadyCallback {
         mapView.getMapAsync(this::initMap)
         val fab = findViewById<View>(R.id.fab)
         fab?.setOnClickListener { _: View? ->
-            if (this::maplibreMap.isInitialized && maplibreMap.style != null) {
-                maplibreMap.snapshot(this@PrintActivity)
+            if (this::mapHeroMap.isInitialized && mapHeroMap.style != null) {
+                mapHeroMap.snapshot(this@PrintActivity)
             }
         }
     }
 
-    private fun initMap(maplibreMap: MapLibreMap) {
-        this.maplibreMap = maplibreMap
-        maplibreMap.setStyle(TestStyles.getPredefinedStyleWithFallback("Streets"))
+    private fun initMap(mapHeroMap1: MapHeroMap) {
+        this.mapHeroMap = mapHeroMap1
+        mapHeroMap1.setStyle(TestStyles.getPredefinedStyleWithFallback("Streets"))
     }
 
     override fun onSnapshotReady(snapshot: Bitmap) {

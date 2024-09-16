@@ -9,11 +9,11 @@ import org.maplibre.android.camera.CameraPosition
 import org.maplibre.android.camera.CameraUpdate
 import org.maplibre.android.camera.CameraUpdateFactory.newCameraPosition
 import org.maplibre.android.geometry.LatLng
-import org.maplibre.android.location.MapLibreAnimator.AnimationsValueChangeListener
+import org.maplibre.android.location.MapHeroAnimator.AnimationsValueChangeListener
 import org.maplibre.android.location.modes.CameraMode
-import org.maplibre.android.maps.MapLibreMap
-import org.maplibre.android.maps.MapLibreMap.CancelableCallback
-import org.maplibre.android.maps.MapLibreMap.OnCameraMoveListener
+import org.maplibre.android.maps.MapHeroMap
+import org.maplibre.android.maps.MapHeroMap.CancelableCallback
+import org.maplibre.android.maps.MapHeroMap.OnCameraMoveListener
 import org.maplibre.android.maps.Projection
 import org.maplibre.android.maps.Transform
 import org.maplibre.android.maps.UiSettings
@@ -26,8 +26,8 @@ import org.mockito.Mockito
 class LocationCameraControllerTest {
     @Test
     fun setCameraMode_mapTransitionsAreCancelled() {
-        val maplibreMap = Mockito.mock(MapLibreMap::class.java)
-        val camera = buildCamera(maplibreMap)
+        val mapHeroMap = Mockito.mock(MapHeroMap::class.java)
+        val camera = buildCamera(mapHeroMap)
         camera.initializeOptions(
             Mockito.mock(
                 LocationComponentOptions::class.java
@@ -35,7 +35,7 @@ class LocationCameraControllerTest {
         )
         camera.setEnabled(true)
         camera.cameraMode = CameraMode.TRACKING_GPS
-        Mockito.verify(maplibreMap).cancelTransitions()
+        Mockito.verify(mapHeroMap).cancelTransitions()
     }
 
     @Test
@@ -101,13 +101,13 @@ class LocationCameraControllerTest {
 
     @Test
     fun setCameraMode_notTrackingAdjustsFocalPoint() {
-        val maplibreMap = Mockito.mock(MapLibreMap::class.java)
-        Mockito.`when`(maplibreMap.uiSettings).thenReturn(
+        val mapHeroMap = Mockito.mock(MapHeroMap::class.java)
+        Mockito.`when`(mapHeroMap.uiSettings).thenReturn(
             Mockito.mock(
                 UiSettings::class.java
             )
         )
-        val camera = buildCamera(maplibreMap)
+        val camera = buildCamera(mapHeroMap)
         camera.initializeOptions(
             Mockito.mock(
                 LocationComponentOptions::class.java
@@ -115,7 +115,7 @@ class LocationCameraControllerTest {
         )
         camera.cameraMode = CameraMode.TRACKING_GPS
         camera.cameraMode = CameraMode.NONE
-        Mockito.verify(maplibreMap.uiSettings).focalPoint = null
+        Mockito.verify(mapHeroMap.uiSettings).focalPoint = null
     }
 
     @Test
@@ -188,58 +188,58 @@ class LocationCameraControllerTest {
 
     @Test
     fun setCameraMode_cancelTransitionsWhenSet() {
-        val maplibreMap = Mockito.mock(MapLibreMap::class.java)
-        Mockito.`when`(maplibreMap.uiSettings).thenReturn(
+        val mapHeroMap = Mockito.mock(MapHeroMap::class.java)
+        Mockito.`when`(mapHeroMap.uiSettings).thenReturn(
             Mockito.mock(
                 UiSettings::class.java
             )
         )
-        Mockito.`when`(maplibreMap.projection).thenReturn(
+        Mockito.`when`(mapHeroMap.projection).thenReturn(
             Mockito.mock(
                 Projection::class.java
             )
         )
-        val camera = buildCamera(maplibreMap)
+        val camera = buildCamera(mapHeroMap)
         camera.initializeOptions(
             Mockito.mock(
                 LocationComponentOptions::class.java
             )
         )
         camera.cameraMode = CameraMode.NONE_COMPASS
-        Mockito.verify(maplibreMap, Mockito.times(1)).cancelTransitions()
+        Mockito.verify(mapHeroMap, Mockito.times(1)).cancelTransitions()
         camera.cameraMode = CameraMode.NONE_GPS
-        Mockito.verify(maplibreMap, Mockito.times(2)).cancelTransitions()
+        Mockito.verify(mapHeroMap, Mockito.times(2)).cancelTransitions()
         camera.cameraMode = CameraMode.TRACKING
-        Mockito.verify(maplibreMap, Mockito.times(3)).cancelTransitions()
+        Mockito.verify(mapHeroMap, Mockito.times(3)).cancelTransitions()
         camera.cameraMode = CameraMode.TRACKING_COMPASS
-        Mockito.verify(maplibreMap, Mockito.times(4)).cancelTransitions()
+        Mockito.verify(mapHeroMap, Mockito.times(4)).cancelTransitions()
         camera.cameraMode = CameraMode.TRACKING_GPS
-        Mockito.verify(maplibreMap, Mockito.times(5)).cancelTransitions()
+        Mockito.verify(mapHeroMap, Mockito.times(5)).cancelTransitions()
         camera.cameraMode = CameraMode.TRACKING_GPS_NORTH
-        Mockito.verify(maplibreMap, Mockito.times(6)).cancelTransitions()
+        Mockito.verify(mapHeroMap, Mockito.times(6)).cancelTransitions()
     }
 
     @Test
     fun setCameraMode_dontCancelTransitionsWhenNoneSet() {
-        val maplibreMap = Mockito.mock(MapLibreMap::class.java)
-        Mockito.`when`(maplibreMap.uiSettings).thenReturn(
+        val mapHeroMap = Mockito.mock(MapHeroMap::class.java)
+        Mockito.`when`(mapHeroMap.uiSettings).thenReturn(
             Mockito.mock(
                 UiSettings::class.java
             )
         )
-        Mockito.`when`(maplibreMap.projection).thenReturn(
+        Mockito.`when`(mapHeroMap.projection).thenReturn(
             Mockito.mock(
                 Projection::class.java
             )
         )
-        val camera = buildCamera(maplibreMap)
+        val camera = buildCamera(mapHeroMap)
         camera.initializeOptions(
             Mockito.mock(
                 LocationComponentOptions::class.java
             )
         )
         camera.cameraMode = CameraMode.NONE
-        Mockito.verify(maplibreMap, Mockito.never()).cancelTransitions()
+        Mockito.verify(mapHeroMap, Mockito.never()).cancelTransitions()
     }
 
     @Test
@@ -256,12 +256,12 @@ class LocationCameraControllerTest {
         camera.cameraMode = CameraMode.TRACKING
         val latLng = Mockito.mock(LatLng::class.java)
         getAnimationListener<Any>(
-            MapLibreAnimator.ANIMATOR_CAMERA_LATLNG,
+            MapHeroAnimator.ANIMATOR_CAMERA_LATLNG,
             camera.animationListeners
         )!!.onNewAnimationValue(latLng)
         Mockito.verify(transform).moveCamera(
             ArgumentMatchers.any(
-                MapLibreMap::class.java
+                MapHeroMap::class.java
             ),
             ArgumentMatchers.any(CameraUpdate::class.java),
             ArgumentMatchers.nullable(CancelableCallback::class.java)
@@ -282,12 +282,12 @@ class LocationCameraControllerTest {
         camera.cameraMode = CameraMode.TRACKING_GPS_NORTH
         val latLng = Mockito.mock(LatLng::class.java)
         getAnimationListener<Any>(
-            MapLibreAnimator.ANIMATOR_CAMERA_LATLNG,
+            MapHeroAnimator.ANIMATOR_CAMERA_LATLNG,
             camera.animationListeners
         )!!.onNewAnimationValue(latLng)
         Mockito.verify(transform).moveCamera(
             ArgumentMatchers.any(
-                MapLibreMap::class.java
+                MapHeroMap::class.java
             ),
             ArgumentMatchers.any(CameraUpdate::class.java),
             ArgumentMatchers.nullable(CancelableCallback::class.java)
@@ -308,12 +308,12 @@ class LocationCameraControllerTest {
         camera.cameraMode = CameraMode.TRACKING_GPS
         val latLng = Mockito.mock(LatLng::class.java)
         getAnimationListener<Any>(
-            MapLibreAnimator.ANIMATOR_CAMERA_LATLNG,
+            MapHeroAnimator.ANIMATOR_CAMERA_LATLNG,
             camera.animationListeners
         )!!.onNewAnimationValue(latLng)
         Mockito.verify(transform).moveCamera(
             ArgumentMatchers.any(
-                MapLibreMap::class.java
+                MapHeroMap::class.java
             ),
             ArgumentMatchers.any(CameraUpdate::class.java),
             ArgumentMatchers.nullable(CancelableCallback::class.java)
@@ -334,12 +334,12 @@ class LocationCameraControllerTest {
         camera.cameraMode = CameraMode.TRACKING_COMPASS
         val latLng = Mockito.mock(LatLng::class.java)
         getAnimationListener<Any>(
-            MapLibreAnimator.ANIMATOR_CAMERA_LATLNG,
+            MapHeroAnimator.ANIMATOR_CAMERA_LATLNG,
             camera.animationListeners
         )!!.onNewAnimationValue(latLng)
         Mockito.verify(transform).moveCamera(
             ArgumentMatchers.any(
-                MapLibreMap::class.java
+                MapHeroMap::class.java
             ),
             ArgumentMatchers.any(CameraUpdate::class.java),
             ArgumentMatchers.nullable(CancelableCallback::class.java)
@@ -360,13 +360,13 @@ class LocationCameraControllerTest {
         camera.cameraMode = CameraMode.NONE
         Assert.assertNull(
             getAnimationListener<Any>(
-                MapLibreAnimator.ANIMATOR_CAMERA_LATLNG,
+                MapHeroAnimator.ANIMATOR_CAMERA_LATLNG,
                 camera.animationListeners
             )
         )
         Mockito.verify(transform, Mockito.times(0)).moveCamera(
             ArgumentMatchers.any(
-                MapLibreMap::class.java
+                MapHeroMap::class.java
             ),
             ArgumentMatchers.any(CameraUpdate::class.java),
             ArgumentMatchers.nullable(CancelableCallback::class.java)
@@ -375,7 +375,7 @@ class LocationCameraControllerTest {
 
     @Test
     fun onNewLatLngValue_focalPointIsAdjusted() {
-        val maplibreMap = Mockito.mock(MapLibreMap::class.java)
+        val mapHeroMap = Mockito.mock(MapHeroMap::class.java)
         val transform = Mockito.mock(
             Transform::class.java
         )
@@ -383,7 +383,7 @@ class LocationCameraControllerTest {
         Mockito.doAnswer { invocation ->
             listener[0] = invocation.arguments[0] as OnCameraMoveListener
             null
-        }.`when`(maplibreMap).addOnCameraMoveListener(
+        }.`when`(mapHeroMap).addOnCameraMoveListener(
             ArgumentMatchers.any(
                 OnCameraMoveListener::class.java
             )
@@ -399,8 +399,8 @@ class LocationCameraControllerTest {
                 )
             )
         ).thenReturn(pointF)
-        Mockito.`when`(maplibreMap.projection).thenReturn(projection)
-        val camera = buildCamera(maplibreMap, transform)
+        Mockito.`when`(mapHeroMap.projection).thenReturn(projection)
+        val camera = buildCamera(mapHeroMap, transform)
         val options = Mockito.mock(
             LocationComponentOptions::class.java
         )
@@ -409,18 +409,18 @@ class LocationCameraControllerTest {
         camera.cameraMode = CameraMode.TRACKING
         val latLng = Mockito.mock(LatLng::class.java)
         getAnimationListener<Any>(
-            MapLibreAnimator.ANIMATOR_CAMERA_LATLNG,
+            MapHeroAnimator.ANIMATOR_CAMERA_LATLNG,
             camera.animationListeners
         )!!.onNewAnimationValue(latLng)
         Mockito.verify(transform).moveCamera(
             ArgumentMatchers.any(
-                MapLibreMap::class.java
+                MapHeroMap::class.java
             ),
             ArgumentMatchers.any(CameraUpdate::class.java),
             ArgumentMatchers.nullable(CancelableCallback::class.java)
         )
         val uiSettings = Mockito.mock(UiSettings::class.java)
-        Mockito.`when`(maplibreMap.uiSettings).thenReturn(uiSettings)
+        Mockito.`when`(mapHeroMap.uiSettings).thenReturn(uiSettings)
         listener[0]!!.onCameraMove()
         Mockito.verify(uiSettings).focalPoint = pointF
     }
@@ -439,12 +439,12 @@ class LocationCameraControllerTest {
         camera.cameraMode = CameraMode.TRACKING_GPS
         val gpsBearing = 5f
         getAnimationListener<Any>(
-            MapLibreAnimator.ANIMATOR_CAMERA_GPS_BEARING,
+            MapHeroAnimator.ANIMATOR_CAMERA_GPS_BEARING,
             camera.animationListeners
         )!!.onNewAnimationValue(gpsBearing)
         Mockito.verify(transform).moveCamera(
             ArgumentMatchers.any(
-                MapLibreMap::class.java
+                MapHeroMap::class.java
             ),
             ArgumentMatchers.any(CameraUpdate::class.java),
             ArgumentMatchers.nullable(CancelableCallback::class.java)
@@ -465,12 +465,12 @@ class LocationCameraControllerTest {
         camera.cameraMode = CameraMode.NONE_GPS
         val gpsBearing = 5f
         getAnimationListener<Any>(
-            MapLibreAnimator.ANIMATOR_CAMERA_GPS_BEARING,
+            MapHeroAnimator.ANIMATOR_CAMERA_GPS_BEARING,
             camera.animationListeners
         )!!.onNewAnimationValue(gpsBearing)
         Mockito.verify(transform).moveCamera(
             ArgumentMatchers.any(
-                MapLibreMap::class.java
+                MapHeroMap::class.java
             ),
             ArgumentMatchers.any(CameraUpdate::class.java),
             ArgumentMatchers.nullable(CancelableCallback::class.java)
@@ -479,13 +479,13 @@ class LocationCameraControllerTest {
 
     @Test
     fun onNewGpsBearingValue_cameraModeTrackingNorthUpdatesBearing() {
-        val maplibreMap = Mockito.mock(MapLibreMap::class.java)
+        val mapHeroMap = Mockito.mock(MapHeroMap::class.java)
         val transform = Mockito.mock(
             Transform::class.java
         )
-        val camera = buildCamera(maplibreMap, transform)
+        val camera = buildCamera(mapHeroMap, transform)
         val cameraPosition = CameraPosition.Builder().bearing(7.0).build()
-        Mockito.`when`(maplibreMap.cameraPosition).thenReturn(cameraPosition)
+        Mockito.`when`(mapHeroMap.cameraPosition).thenReturn(cameraPosition)
         camera.initializeOptions(
             Mockito.mock(
                 LocationComponentOptions::class.java
@@ -494,11 +494,11 @@ class LocationCameraControllerTest {
         camera.cameraMode = CameraMode.TRACKING_GPS_NORTH
         val gpsBearing = 5f
         getAnimationListener<Any>(
-            MapLibreAnimator.ANIMATOR_CAMERA_GPS_BEARING,
+            MapHeroAnimator.ANIMATOR_CAMERA_GPS_BEARING,
             camera.animationListeners
         )!!.onNewAnimationValue(gpsBearing)
         Mockito.verify(transform).moveCamera(
-            ArgumentMatchers.eq(maplibreMap),
+            ArgumentMatchers.eq(mapHeroMap),
             ArgumentMatchers.any(
                 CameraUpdate::class.java
             ),
@@ -508,13 +508,13 @@ class LocationCameraControllerTest {
 
     @Test
     fun onNewGpsBearingValue_cameraModeTrackingNorthBearingZeroIgnored() {
-        val maplibreMap = Mockito.mock(MapLibreMap::class.java)
+        val mapHeroMap = Mockito.mock(MapHeroMap::class.java)
         val transform = Mockito.mock(
             Transform::class.java
         )
-        val camera = buildCamera(maplibreMap, transform)
+        val camera = buildCamera(mapHeroMap, transform)
         val cameraPosition = CameraPosition.Builder().bearing(0.0).build()
-        Mockito.`when`(maplibreMap.cameraPosition).thenReturn(cameraPosition)
+        Mockito.`when`(mapHeroMap.cameraPosition).thenReturn(cameraPosition)
         camera.initializeOptions(
             Mockito.mock(
                 LocationComponentOptions::class.java
@@ -523,11 +523,11 @@ class LocationCameraControllerTest {
         camera.cameraMode = CameraMode.TRACKING_GPS_NORTH
         val gpsBearing = 5f
         getAnimationListener<Any>(
-            MapLibreAnimator.ANIMATOR_CAMERA_GPS_BEARING,
+            MapHeroAnimator.ANIMATOR_CAMERA_GPS_BEARING,
             camera.animationListeners
         )!!.onNewAnimationValue(gpsBearing)
         Mockito.verify(transform, Mockito.times(0)).moveCamera(
-            ArgumentMatchers.eq(maplibreMap),
+            ArgumentMatchers.eq(mapHeroMap),
             ArgumentMatchers.any(
                 CameraUpdate::class.java
             ),
@@ -549,13 +549,13 @@ class LocationCameraControllerTest {
         camera.cameraMode = CameraMode.NONE
         Assert.assertNull(
             getAnimationListener<Any>(
-                MapLibreAnimator.ANIMATOR_CAMERA_GPS_BEARING,
+                MapHeroAnimator.ANIMATOR_CAMERA_GPS_BEARING,
                 camera.animationListeners
             )
         )
         Mockito.verify(transform, Mockito.times(0)).moveCamera(
             ArgumentMatchers.any(
-                MapLibreMap::class.java
+                MapHeroMap::class.java
             ),
             ArgumentMatchers.any(CameraUpdate::class.java),
             ArgumentMatchers.nullable(CancelableCallback::class.java)
@@ -576,13 +576,13 @@ class LocationCameraControllerTest {
         camera.cameraMode = CameraMode.TRACKING_COMPASS
         val compassBearing = 5f
         getAnimationListener<Any>(
-            MapLibreAnimator.ANIMATOR_CAMERA_COMPASS_BEARING,
+            MapHeroAnimator.ANIMATOR_CAMERA_COMPASS_BEARING,
             camera.animationListeners
         )
             ?.onNewAnimationValue(compassBearing)
         Mockito.verify(transform).moveCamera(
             ArgumentMatchers.any(
-                MapLibreMap::class.java
+                MapHeroMap::class.java
             ),
             ArgumentMatchers.any(CameraUpdate::class.java),
             ArgumentMatchers.nullable(CancelableCallback::class.java)
@@ -603,13 +603,13 @@ class LocationCameraControllerTest {
         camera.cameraMode = CameraMode.NONE_COMPASS
         val compassBearing = 5f
         getAnimationListener<Any>(
-            MapLibreAnimator.ANIMATOR_CAMERA_COMPASS_BEARING,
+            MapHeroAnimator.ANIMATOR_CAMERA_COMPASS_BEARING,
             camera.animationListeners
         )
             ?.onNewAnimationValue(compassBearing)
         Mockito.verify(transform).moveCamera(
             ArgumentMatchers.any(
-                MapLibreMap::class.java
+                MapHeroMap::class.java
             ),
             ArgumentMatchers.any(CameraUpdate::class.java),
             ArgumentMatchers.nullable(CancelableCallback::class.java)
@@ -630,13 +630,13 @@ class LocationCameraControllerTest {
         camera.cameraMode = CameraMode.NONE
         Assert.assertNull(
             getAnimationListener<Any>(
-                MapLibreAnimator.ANIMATOR_CAMERA_COMPASS_BEARING,
+                MapHeroAnimator.ANIMATOR_CAMERA_COMPASS_BEARING,
                 camera.animationListeners
             )
         )
         Mockito.verify(transform, Mockito.times(0)).moveCamera(
             ArgumentMatchers.any(
-                MapLibreMap::class.java
+                MapHeroMap::class.java
             ),
             ArgumentMatchers.any(CameraUpdate::class.java),
             ArgumentMatchers.nullable(CancelableCallback::class.java)
@@ -657,12 +657,12 @@ class LocationCameraControllerTest {
         camera.cameraMode = CameraMode.TRACKING
         val zoom = 5f
         getAnimationListener<Any>(
-            MapLibreAnimator.ANIMATOR_ZOOM,
+            MapHeroAnimator.ANIMATOR_ZOOM,
             camera.animationListeners
         )!!.onNewAnimationValue(zoom)
         Mockito.verify(transform).moveCamera(
             ArgumentMatchers.any(
-                MapLibreMap::class.java
+                MapHeroMap::class.java
             ),
             ArgumentMatchers.any(CameraUpdate::class.java),
             ArgumentMatchers.nullable(CancelableCallback::class.java)
@@ -683,12 +683,12 @@ class LocationCameraControllerTest {
         camera.cameraMode = CameraMode.TRACKING
         val tilt = 5f
         getAnimationListener<Any>(
-            MapLibreAnimator.ANIMATOR_TILT,
+            MapHeroAnimator.ANIMATOR_TILT,
             camera.animationListeners
         )!!.onNewAnimationValue(tilt)
         Mockito.verify(transform).moveCamera(
             ArgumentMatchers.any(
-                MapLibreMap::class.java
+                MapHeroMap::class.java
             ),
             ArgumentMatchers.any(CameraUpdate::class.java),
             ArgumentMatchers.nullable(CancelableCallback::class.java)
@@ -697,79 +697,79 @@ class LocationCameraControllerTest {
 
     @Test
     fun gesturesManagement_enabled() {
-        val maplibreMap = Mockito.mock(MapLibreMap::class.java)
+        val mapHeroMap = Mockito.mock(MapHeroMap::class.java)
         val initialGesturesManager = Mockito.mock(
             AndroidGesturesManager::class.java
         )
         val internalGesturesManager = Mockito.mock(
             AndroidGesturesManager::class.java
         )
-        Mockito.`when`(maplibreMap.gesturesManager).thenReturn(initialGesturesManager)
-        val camera = buildCamera(maplibreMap, initialGesturesManager, internalGesturesManager)
+        Mockito.`when`(mapHeroMap.gesturesManager).thenReturn(initialGesturesManager)
+        val camera = buildCamera(mapHeroMap, initialGesturesManager, internalGesturesManager)
         val options = Mockito.mock(
             LocationComponentOptions::class.java
         )
         Mockito.`when`(options.trackingGesturesManagement()).thenReturn(true)
         camera.initializeOptions(options)
-        Mockito.verify(maplibreMap).setGesturesManager(internalGesturesManager, true, true)
+        Mockito.verify(mapHeroMap).setGesturesManager(internalGesturesManager, true, true)
     }
 
     @Test
     fun gesturesManagement_disabled() {
-        val maplibreMap = Mockito.mock(MapLibreMap::class.java)
+        val mapHeroMap = Mockito.mock(MapHeroMap::class.java)
         val initialGesturesManager = Mockito.mock(
             AndroidGesturesManager::class.java
         )
         val internalGesturesManager = Mockito.mock(
             AndroidGesturesManager::class.java
         )
-        Mockito.`when`(maplibreMap.gesturesManager).thenReturn(internalGesturesManager)
-        val camera = buildCamera(maplibreMap, initialGesturesManager, internalGesturesManager)
+        Mockito.`when`(mapHeroMap.gesturesManager).thenReturn(internalGesturesManager)
+        val camera = buildCamera(mapHeroMap, initialGesturesManager, internalGesturesManager)
         val options = Mockito.mock(
             LocationComponentOptions::class.java
         )
         Mockito.`when`(options.trackingGesturesManagement()).thenReturn(false)
         camera.initializeOptions(options)
-        Mockito.verify(maplibreMap).setGesturesManager(initialGesturesManager, true, true)
+        Mockito.verify(mapHeroMap).setGesturesManager(initialGesturesManager, true, true)
     }
 
     @Test
     fun gesturesManagement_optionNotChangedInitial() {
-        val maplibreMap = Mockito.mock(MapLibreMap::class.java)
+        val mapHeroMap = Mockito.mock(MapHeroMap::class.java)
         val initialGesturesManager = Mockito.mock(
             AndroidGesturesManager::class.java
         )
         val internalGesturesManager = Mockito.mock(
             AndroidGesturesManager::class.java
         )
-        Mockito.`when`(maplibreMap.gesturesManager).thenReturn(initialGesturesManager)
-        val camera = buildCamera(maplibreMap, initialGesturesManager, internalGesturesManager)
+        Mockito.`when`(mapHeroMap.gesturesManager).thenReturn(initialGesturesManager)
+        val camera = buildCamera(mapHeroMap, initialGesturesManager, internalGesturesManager)
         val options = Mockito.mock(
             LocationComponentOptions::class.java
         )
         Mockito.`when`(options.trackingGesturesManagement()).thenReturn(false)
         camera.initializeOptions(options)
-        Mockito.verify(maplibreMap, Mockito.times(0))
+        Mockito.verify(mapHeroMap, Mockito.times(0))
             .setGesturesManager(initialGesturesManager, true, true)
     }
 
     @Test
     fun gesturesManagement_optionNotChangedInternal() {
-        val maplibreMap = Mockito.mock(MapLibreMap::class.java)
+        val mapHeroMap = Mockito.mock(MapHeroMap::class.java)
         val initialGesturesManager = Mockito.mock(
             AndroidGesturesManager::class.java
         )
         val internalGesturesManager = Mockito.mock(
             AndroidGesturesManager::class.java
         )
-        Mockito.`when`(maplibreMap.gesturesManager).thenReturn(internalGesturesManager)
-        val camera = buildCamera(maplibreMap, initialGesturesManager, internalGesturesManager)
+        Mockito.`when`(mapHeroMap.gesturesManager).thenReturn(internalGesturesManager)
+        val camera = buildCamera(mapHeroMap, initialGesturesManager, internalGesturesManager)
         val options = Mockito.mock(
             LocationComponentOptions::class.java
         )
         Mockito.`when`(options.trackingGesturesManagement()).thenReturn(true)
         camera.initializeOptions(options)
-        Mockito.verify(maplibreMap, Mockito.times(0))
+        Mockito.verify(mapHeroMap, Mockito.times(0))
             .setGesturesManager(internalGesturesManager, true, true)
     }
 
@@ -989,8 +989,8 @@ class LocationCameraControllerTest {
 
     @Test
     fun onMove_notCancellingTransitionWhileNone() {
-        val maplibreMap = Mockito.mock(MapLibreMap::class.java)
-        Mockito.`when`(maplibreMap.uiSettings).thenReturn(
+        val mapHeroMap = Mockito.mock(MapHeroMap::class.java)
+        Mockito.`when`(mapHeroMap.uiSettings).thenReturn(
             Mockito.mock(
                 UiSettings::class.java
             )
@@ -998,7 +998,7 @@ class LocationCameraControllerTest {
         val moveGestureDetector = Mockito.mock(
             MoveGestureDetector::class.java
         )
-        val camera = buildCamera(maplibreMap)
+        val camera = buildCamera(mapHeroMap)
         camera.initializeOptions(
             Mockito.mock(
                 LocationComponentOptions::class.java
@@ -1006,19 +1006,19 @@ class LocationCameraControllerTest {
         )
         camera.cameraMode = CameraMode.NONE
         camera.onMoveListener.onMove(moveGestureDetector)
-        Mockito.verify(maplibreMap, Mockito.times(0)).cancelTransitions()
+        Mockito.verify(mapHeroMap, Mockito.times(0)).cancelTransitions()
         Mockito.verify(moveGestureDetector, Mockito.times(0)).interrupt()
 
         // testing subsequent calls
         camera.onMoveListener.onMove(moveGestureDetector)
-        Mockito.verify(maplibreMap, Mockito.times(0)).cancelTransitions()
+        Mockito.verify(mapHeroMap, Mockito.times(0)).cancelTransitions()
         Mockito.verify(moveGestureDetector, Mockito.times(0)).interrupt()
     }
 
     @Test
     fun onMove_cancellingTransitionWhileGps() {
-        val maplibreMap = Mockito.mock(MapLibreMap::class.java)
-        Mockito.`when`(maplibreMap.uiSettings).thenReturn(
+        val mapHeroMap = Mockito.mock(MapHeroMap::class.java)
+        Mockito.`when`(mapHeroMap.uiSettings).thenReturn(
             Mockito.mock(
                 UiSettings::class.java
             )
@@ -1026,7 +1026,7 @@ class LocationCameraControllerTest {
         val moveGestureDetector = Mockito.mock(
             MoveGestureDetector::class.java
         )
-        val camera = buildCamera(maplibreMap)
+        val camera = buildCamera(mapHeroMap)
         camera.initializeOptions(
             Mockito.mock(
                 LocationComponentOptions::class.java
@@ -1034,22 +1034,22 @@ class LocationCameraControllerTest {
         )
         camera.cameraMode = CameraMode.TRACKING
         camera.onMoveListener.onMove(moveGestureDetector)
-        Mockito.verify(maplibreMap, Mockito.times(1)).cancelTransitions()
+        Mockito.verify(mapHeroMap, Mockito.times(1)).cancelTransitions()
         Mockito.verify(moveGestureDetector, Mockito.times(1)).interrupt()
 
         // testing subsequent calls
         camera.onMoveListener.onMove(moveGestureDetector)
-        Mockito.verify(maplibreMap, Mockito.times(1)).cancelTransitions()
+        Mockito.verify(mapHeroMap, Mockito.times(1)).cancelTransitions()
         Mockito.verify(moveGestureDetector, Mockito.times(1)).interrupt()
     }
 
     @Test
     fun onMove_cancellingTransitionWhileBearing() {
-        val maplibreMap = Mockito.mock(MapLibreMap::class.java)
+        val mapHeroMap = Mockito.mock(MapHeroMap::class.java)
         val moveGestureDetector = Mockito.mock(
             MoveGestureDetector::class.java
         )
-        val camera = buildCamera(maplibreMap)
+        val camera = buildCamera(mapHeroMap)
         camera.initializeOptions(
             Mockito.mock(
                 LocationComponentOptions::class.java
@@ -1057,22 +1057,22 @@ class LocationCameraControllerTest {
         )
         camera.cameraMode = CameraMode.NONE_COMPASS
         camera.onMoveListener.onMove(moveGestureDetector)
-        Mockito.verify(maplibreMap, Mockito.times(1)).cancelTransitions()
+        Mockito.verify(mapHeroMap, Mockito.times(1)).cancelTransitions()
         Mockito.verify(moveGestureDetector, Mockito.times(1)).interrupt()
 
         // testing subsequent calls
         camera.onMoveListener.onMove(moveGestureDetector)
-        Mockito.verify(maplibreMap, Mockito.times(1)).cancelTransitions()
+        Mockito.verify(mapHeroMap, Mockito.times(1)).cancelTransitions()
         Mockito.verify(moveGestureDetector, Mockito.times(1)).interrupt()
     }
 
     @Test
     fun transition_locationIsNull() {
-        val maplibreMap = Mockito.mock(MapLibreMap::class.java)
+        val mapHeroMap = Mockito.mock(MapHeroMap::class.java)
         val transform = Mockito.mock(
             Transform::class.java
         )
-        val camera = buildCamera(maplibreMap, transform)
+        val camera = buildCamera(mapHeroMap, transform)
         camera.initializeOptions(
             Mockito.mock(
                 LocationComponentOptions::class.java
@@ -1094,7 +1094,7 @@ class LocationCameraControllerTest {
         Mockito.verify(listener).onLocationCameraTransitionFinished(CameraMode.TRACKING)
         Mockito.verify(transform, Mockito.times(0))
             .animateCamera(
-                ArgumentMatchers.eq(maplibreMap),
+                ArgumentMatchers.eq(mapHeroMap),
                 ArgumentMatchers.any(
                     CameraUpdate::class.java
                 ),
@@ -1105,11 +1105,11 @@ class LocationCameraControllerTest {
 
     @Test
     fun transition_notTracking() {
-        val maplibreMap = Mockito.mock(MapLibreMap::class.java)
+        val mapHeroMap = Mockito.mock(MapHeroMap::class.java)
         val transform = Mockito.mock(
             Transform::class.java
         )
-        val camera = buildCamera(maplibreMap, transform)
+        val camera = buildCamera(mapHeroMap, transform)
         camera.initializeOptions(
             Mockito.mock(
                 LocationComponentOptions::class.java
@@ -1134,7 +1134,7 @@ class LocationCameraControllerTest {
             .onLocationCameraTransitionFinished(CameraMode.NONE)
         Mockito.verify(transform, Mockito.times(0))
             .animateCamera(
-                ArgumentMatchers.eq(maplibreMap),
+                ArgumentMatchers.eq(mapHeroMap),
                 ArgumentMatchers.any(
                     CameraUpdate::class.java
                 ),
@@ -1145,15 +1145,15 @@ class LocationCameraControllerTest {
 
     @Test
     fun transition_trackingChanged() {
-        val maplibreMap = Mockito.mock(MapLibreMap::class.java)
+        val mapHeroMap = Mockito.mock(MapHeroMap::class.java)
         val transform = Mockito.mock(
             Transform::class.java
         )
-        Mockito.`when`(maplibreMap.cameraPosition).thenReturn(CameraPosition.DEFAULT)
+        Mockito.`when`(mapHeroMap.cameraPosition).thenReturn(CameraPosition.DEFAULT)
         val projection = Mockito.mock(
             Projection::class.java
         )
-        Mockito.`when`(maplibreMap.projection).thenReturn(projection)
+        Mockito.`when`(mapHeroMap.projection).thenReturn(projection)
         Mockito.`when`(
             projection.getMetersPerPixelAtLatitude(
                 ArgumentMatchers.any(
@@ -1161,7 +1161,7 @@ class LocationCameraControllerTest {
                 )
             )
         ).thenReturn(java.lang.Double.valueOf(1000.0))
-        val camera = buildCamera(maplibreMap, transform)
+        val camera = buildCamera(mapHeroMap, transform)
         camera.initializeOptions(
             Mockito.mock(
                 LocationComponentOptions::class.java
@@ -1177,7 +1177,7 @@ class LocationCameraControllerTest {
             listener.onLocationCameraTransitionFinished(CameraMode.TRACKING)
             null
         }.`when`(transform).animateCamera(
-            ArgumentMatchers.eq(maplibreMap),
+            ArgumentMatchers.eq(mapHeroMap),
             ArgumentMatchers.any(
                 CameraUpdate::class.java
             ),
@@ -1196,7 +1196,7 @@ class LocationCameraControllerTest {
         Mockito.verify(listener).onLocationCameraTransitionFinished(CameraMode.TRACKING)
         Mockito.verify(transform)
             .animateCamera(
-                ArgumentMatchers.eq(maplibreMap),
+                ArgumentMatchers.eq(mapHeroMap),
                 ArgumentMatchers.any(
                     CameraUpdate::class.java
                 ),
@@ -1207,15 +1207,15 @@ class LocationCameraControllerTest {
 
     @Test
     fun transition_trackingNotChanged() {
-        val maplibreMap = Mockito.mock(MapLibreMap::class.java)
+        val mapHeroMap = Mockito.mock(MapHeroMap::class.java)
         val transform = Mockito.mock(
             Transform::class.java
         )
-        Mockito.`when`(maplibreMap.cameraPosition).thenReturn(CameraPosition.DEFAULT)
+        Mockito.`when`(mapHeroMap.cameraPosition).thenReturn(CameraPosition.DEFAULT)
         val projection = Mockito.mock(
             Projection::class.java
         )
-        Mockito.`when`(maplibreMap.projection).thenReturn(projection)
+        Mockito.`when`(mapHeroMap.projection).thenReturn(projection)
         Mockito.`when`(
             projection.getMetersPerPixelAtLatitude(
                 ArgumentMatchers.any(
@@ -1223,7 +1223,7 @@ class LocationCameraControllerTest {
                 )
             )
         ).thenReturn(java.lang.Double.valueOf(1000.0))
-        val camera = buildCamera(maplibreMap, transform)
+        val camera = buildCamera(mapHeroMap, transform)
         camera.initializeOptions(
             Mockito.mock(
                 LocationComponentOptions::class.java
@@ -1248,7 +1248,7 @@ class LocationCameraControllerTest {
             listener.onLocationCameraTransitionFinished(CameraMode.TRACKING_GPS_NORTH)
             null
         }.`when`(transform).animateCamera(
-            ArgumentMatchers.eq(maplibreMap),
+            ArgumentMatchers.eq(mapHeroMap),
             ArgumentMatchers.any(
                 CameraUpdate::class.java
             ),
@@ -1268,7 +1268,7 @@ class LocationCameraControllerTest {
             .onLocationCameraTransitionFinished(CameraMode.TRACKING_GPS_NORTH)
         Mockito.verify(transform, Mockito.times(1))
             .animateCamera(
-                ArgumentMatchers.eq(maplibreMap),
+                ArgumentMatchers.eq(mapHeroMap),
                 ArgumentMatchers.any(
                     CameraUpdate::class.java
                 ),
@@ -1279,15 +1279,15 @@ class LocationCameraControllerTest {
 
     @Test
     fun transition_duplicateMode() {
-        val maplibreMap = Mockito.mock(MapLibreMap::class.java)
+        val mapHeroMap = Mockito.mock(MapHeroMap::class.java)
         val transform = Mockito.mock(
             Transform::class.java
         )
-        Mockito.`when`(maplibreMap.cameraPosition).thenReturn(CameraPosition.DEFAULT)
+        Mockito.`when`(mapHeroMap.cameraPosition).thenReturn(CameraPosition.DEFAULT)
         val projection = Mockito.mock(
             Projection::class.java
         )
-        Mockito.`when`(maplibreMap.projection).thenReturn(projection)
+        Mockito.`when`(mapHeroMap.projection).thenReturn(projection)
         Mockito.`when`(
             projection.getMetersPerPixelAtLatitude(
                 ArgumentMatchers.any(
@@ -1295,7 +1295,7 @@ class LocationCameraControllerTest {
                 )
             )
         ).thenReturn(java.lang.Double.valueOf(1000.0))
-        val camera = buildCamera(maplibreMap, transform)
+        val camera = buildCamera(mapHeroMap, transform)
         camera.initializeOptions(
             Mockito.mock(
                 LocationComponentOptions::class.java
@@ -1320,7 +1320,7 @@ class LocationCameraControllerTest {
             listener.onLocationCameraTransitionFinished(CameraMode.TRACKING)
             null
         }.`when`(transform).animateCamera(
-            ArgumentMatchers.eq(maplibreMap),
+            ArgumentMatchers.eq(mapHeroMap),
             ArgumentMatchers.any(
                 CameraUpdate::class.java
             ),
@@ -1340,7 +1340,7 @@ class LocationCameraControllerTest {
             .onLocationCameraTransitionFinished(CameraMode.TRACKING)
         Mockito.verify(transform, Mockito.times(1))
             .animateCamera(
-                ArgumentMatchers.eq(maplibreMap),
+                ArgumentMatchers.eq(mapHeroMap),
                 ArgumentMatchers.any(
                     CameraUpdate::class.java
                 ),
@@ -1351,15 +1351,15 @@ class LocationCameraControllerTest {
 
     @Test
     fun transition_canceled() {
-        val maplibreMap = Mockito.mock(MapLibreMap::class.java)
+        val mapHeroMap = Mockito.mock(MapHeroMap::class.java)
         val transform = Mockito.mock(
             Transform::class.java
         )
-        Mockito.`when`(maplibreMap.cameraPosition).thenReturn(CameraPosition.DEFAULT)
+        Mockito.`when`(mapHeroMap.cameraPosition).thenReturn(CameraPosition.DEFAULT)
         val projection = Mockito.mock(
             Projection::class.java
         )
-        Mockito.`when`(maplibreMap.projection).thenReturn(projection)
+        Mockito.`when`(mapHeroMap.projection).thenReturn(projection)
         Mockito.`when`(
             projection.getMetersPerPixelAtLatitude(
                 ArgumentMatchers.any(
@@ -1367,7 +1367,7 @@ class LocationCameraControllerTest {
                 )
             )
         ).thenReturn(java.lang.Double.valueOf(1000.0))
-        val camera = buildCamera(maplibreMap, transform)
+        val camera = buildCamera(mapHeroMap, transform)
         camera.initializeOptions(
             Mockito.mock(
                 LocationComponentOptions::class.java
@@ -1383,7 +1383,7 @@ class LocationCameraControllerTest {
             listener.onLocationCameraTransitionCanceled(CameraMode.TRACKING)
             null
         }.`when`(transform).animateCamera(
-            ArgumentMatchers.eq(maplibreMap),
+            ArgumentMatchers.eq(mapHeroMap),
             ArgumentMatchers.any(
                 CameraUpdate::class.java
             ),
@@ -1402,7 +1402,7 @@ class LocationCameraControllerTest {
         Mockito.verify(listener).onLocationCameraTransitionCanceled(CameraMode.TRACKING)
         Mockito.verify(transform)
             .animateCamera(
-                ArgumentMatchers.eq(maplibreMap),
+                ArgumentMatchers.eq(mapHeroMap),
                 ArgumentMatchers.any(
                     CameraUpdate::class.java
                 ),
@@ -1413,15 +1413,15 @@ class LocationCameraControllerTest {
 
     @Test
     fun transition_mapboxCallbackFinished() {
-        val maplibreMap = Mockito.mock(MapLibreMap::class.java)
+        val mapHeroMap = Mockito.mock(MapHeroMap::class.java)
         val transform = Mockito.mock(
             Transform::class.java
         )
-        Mockito.`when`(maplibreMap.cameraPosition).thenReturn(CameraPosition.DEFAULT)
+        Mockito.`when`(mapHeroMap.cameraPosition).thenReturn(CameraPosition.DEFAULT)
         val projection = Mockito.mock(
             Projection::class.java
         )
-        Mockito.`when`(maplibreMap.projection).thenReturn(projection)
+        Mockito.`when`(mapHeroMap.projection).thenReturn(projection)
         Mockito.`when`(
             projection.getMetersPerPixelAtLatitude(
                 ArgumentMatchers.any(
@@ -1429,7 +1429,7 @@ class LocationCameraControllerTest {
                 )
             )
         ).thenReturn(java.lang.Double.valueOf(1000.0))
-        val camera = buildCamera(maplibreMap, transform)
+        val camera = buildCamera(mapHeroMap, transform)
         camera.initializeOptions(
             Mockito.mock(
                 LocationComponentOptions::class.java
@@ -1459,7 +1459,7 @@ class LocationCameraControllerTest {
         )
         val builder = CameraPosition.Builder().target(LatLng(location))
         Mockito.verify(transform).animateCamera(
-            ArgumentMatchers.eq(maplibreMap),
+            ArgumentMatchers.eq(mapHeroMap),
             ArgumentMatchers.eq(newCameraPosition(builder.build())),
             ArgumentMatchers.eq(LocationComponentConstants.TRANSITION_ANIMATION_DURATION_MS.toInt()),
             callbackCaptor.capture()
@@ -1472,15 +1472,15 @@ class LocationCameraControllerTest {
 
     @Test
     fun transition_mapboxCallbackFinishedImmediately() {
-        val maplibreMap = Mockito.mock(MapLibreMap::class.java)
+        val mapHeroMap = Mockito.mock(MapHeroMap::class.java)
         val transform = Mockito.mock(
             Transform::class.java
         )
-        Mockito.`when`(maplibreMap.cameraPosition).thenReturn(CameraPosition.DEFAULT)
+        Mockito.`when`(mapHeroMap.cameraPosition).thenReturn(CameraPosition.DEFAULT)
         val projection = Mockito.mock(
             Projection::class.java
         )
-        Mockito.`when`(maplibreMap.projection).thenReturn(projection)
+        Mockito.`when`(mapHeroMap.projection).thenReturn(projection)
         Mockito.`when`(
             projection.getMetersPerPixelAtLatitude(
                 ArgumentMatchers.any(
@@ -1488,7 +1488,7 @@ class LocationCameraControllerTest {
                 )
             )
         ).thenReturn(java.lang.Double.valueOf(1.0))
-        val camera = buildCamera(maplibreMap, transform)
+        val camera = buildCamera(mapHeroMap, transform)
         camera.initializeOptions(
             Mockito.mock(
                 LocationComponentOptions::class.java
@@ -1518,7 +1518,7 @@ class LocationCameraControllerTest {
         )
         val builder = CameraPosition.Builder().target(LatLng(location))
         Mockito.verify(transform).moveCamera(
-            ArgumentMatchers.eq(maplibreMap),
+            ArgumentMatchers.eq(mapHeroMap),
             ArgumentMatchers.eq(newCameraPosition(builder.build())),
             callbackCaptor.capture()
         )
@@ -1530,15 +1530,15 @@ class LocationCameraControllerTest {
 
     @Test
     fun transition_mapboxCallbackCanceled() {
-        val maplibreMap = Mockito.mock(MapLibreMap::class.java)
+        val mapHeroMap = Mockito.mock(MapHeroMap::class.java)
         val transform = Mockito.mock(
             Transform::class.java
         )
-        Mockito.`when`(maplibreMap.cameraPosition).thenReturn(CameraPosition.DEFAULT)
+        Mockito.`when`(mapHeroMap.cameraPosition).thenReturn(CameraPosition.DEFAULT)
         val projection = Mockito.mock(
             Projection::class.java
         )
-        Mockito.`when`(maplibreMap.projection).thenReturn(projection)
+        Mockito.`when`(mapHeroMap.projection).thenReturn(projection)
         Mockito.`when`(
             projection.getMetersPerPixelAtLatitude(
                 ArgumentMatchers.any(
@@ -1546,7 +1546,7 @@ class LocationCameraControllerTest {
                 )
             )
         ).thenReturn(java.lang.Double.valueOf(1000.0))
-        val camera = buildCamera(maplibreMap, transform)
+        val camera = buildCamera(mapHeroMap, transform)
         camera.initializeOptions(
             Mockito.mock(
                 LocationComponentOptions::class.java
@@ -1576,7 +1576,7 @@ class LocationCameraControllerTest {
         )
         val builder = CameraPosition.Builder().target(LatLng(location))
         Mockito.verify(transform).animateCamera(
-            ArgumentMatchers.eq(maplibreMap),
+            ArgumentMatchers.eq(mapHeroMap),
             ArgumentMatchers.eq(newCameraPosition(builder.build())),
             ArgumentMatchers.eq(LocationComponentConstants.TRANSITION_ANIMATION_DURATION_MS.toInt()),
             callbackCaptor.capture()
@@ -1589,15 +1589,15 @@ class LocationCameraControllerTest {
 
     @Test
     fun transition_mapboxAnimateBearing() {
-        val maplibreMap = Mockito.mock(MapLibreMap::class.java)
+        val mapHeroMap = Mockito.mock(MapHeroMap::class.java)
         val transform = Mockito.mock(
             Transform::class.java
         )
-        Mockito.`when`(maplibreMap.cameraPosition).thenReturn(CameraPosition.DEFAULT)
+        Mockito.`when`(mapHeroMap.cameraPosition).thenReturn(CameraPosition.DEFAULT)
         val projection = Mockito.mock(
             Projection::class.java
         )
-        Mockito.`when`(maplibreMap.projection).thenReturn(projection)
+        Mockito.`when`(mapHeroMap.projection).thenReturn(projection)
         Mockito.`when`(
             projection.getMetersPerPixelAtLatitude(
                 ArgumentMatchers.any(
@@ -1605,7 +1605,7 @@ class LocationCameraControllerTest {
                 )
             )
         ).thenReturn(java.lang.Double.valueOf(1000.0))
-        val camera = buildCamera(maplibreMap, transform)
+        val camera = buildCamera(mapHeroMap, transform)
         camera.initializeOptions(
             Mockito.mock(
                 LocationComponentOptions::class.java
@@ -1632,7 +1632,7 @@ class LocationCameraControllerTest {
         )
         val builder = CameraPosition.Builder().target(LatLng(location)).bearing(30.0)
         Mockito.verify(transform).animateCamera(
-            ArgumentMatchers.eq(maplibreMap),
+            ArgumentMatchers.eq(mapHeroMap),
             ArgumentMatchers.eq(newCameraPosition(builder.build())),
             ArgumentMatchers.eq(LocationComponentConstants.TRANSITION_ANIMATION_DURATION_MS.toInt()),
             ArgumentMatchers.any(CancelableCallback::class.java)
@@ -1641,15 +1641,15 @@ class LocationCameraControllerTest {
 
     @Test
     fun transition_mapboxAnimateNorth() {
-        val maplibreMap = Mockito.mock(MapLibreMap::class.java)
+        val mapHeroMap = Mockito.mock(MapHeroMap::class.java)
         val transform = Mockito.mock(
             Transform::class.java
         )
-        Mockito.`when`(maplibreMap.cameraPosition).thenReturn(CameraPosition.DEFAULT)
+        Mockito.`when`(mapHeroMap.cameraPosition).thenReturn(CameraPosition.DEFAULT)
         val projection = Mockito.mock(
             Projection::class.java
         )
-        Mockito.`when`(maplibreMap.projection).thenReturn(projection)
+        Mockito.`when`(mapHeroMap.projection).thenReturn(projection)
         Mockito.`when`(
             projection.getMetersPerPixelAtLatitude(
                 ArgumentMatchers.any(
@@ -1657,7 +1657,7 @@ class LocationCameraControllerTest {
                 )
             )
         ).thenReturn(java.lang.Double.valueOf(1000.0))
-        val camera = buildCamera(maplibreMap, transform)
+        val camera = buildCamera(mapHeroMap, transform)
         camera.initializeOptions(
             Mockito.mock(
                 LocationComponentOptions::class.java
@@ -1684,7 +1684,7 @@ class LocationCameraControllerTest {
         )
         val builder = CameraPosition.Builder().target(LatLng(location)).bearing(0.0)
         Mockito.verify(transform).animateCamera(
-            ArgumentMatchers.eq(maplibreMap),
+            ArgumentMatchers.eq(mapHeroMap),
             ArgumentMatchers.eq(newCameraPosition(builder.build())),
             ArgumentMatchers.eq(LocationComponentConstants.TRANSITION_ANIMATION_DURATION_MS.toInt()),
             ArgumentMatchers.any(CancelableCallback::class.java)
@@ -1693,15 +1693,15 @@ class LocationCameraControllerTest {
 
     @Test
     fun transition_animatorValuesDuringTransition() {
-        val maplibreMap = Mockito.mock(MapLibreMap::class.java)
+        val mapHeroMap = Mockito.mock(MapHeroMap::class.java)
         val transform = Mockito.mock(
             Transform::class.java
         )
-        Mockito.`when`(maplibreMap.cameraPosition).thenReturn(CameraPosition.DEFAULT)
+        Mockito.`when`(mapHeroMap.cameraPosition).thenReturn(CameraPosition.DEFAULT)
         val projection = Mockito.mock(
             Projection::class.java
         )
-        Mockito.`when`(maplibreMap.projection).thenReturn(projection)
+        Mockito.`when`(mapHeroMap.projection).thenReturn(projection)
         Mockito.`when`(
             projection.getMetersPerPixelAtLatitude(
                 ArgumentMatchers.any(
@@ -1709,7 +1709,7 @@ class LocationCameraControllerTest {
                 )
             )
         ).thenReturn(java.lang.Double.valueOf(1000.0))
-        val camera = buildCamera(maplibreMap, transform)
+        val camera = buildCamera(mapHeroMap, transform)
         camera.initializeOptions(
             Mockito.mock(
                 LocationComponentOptions::class.java
@@ -1734,30 +1734,30 @@ class LocationCameraControllerTest {
             listener
         )
         Mockito.verify(transform).animateCamera(
-            ArgumentMatchers.eq(maplibreMap),
+            ArgumentMatchers.eq(mapHeroMap),
             ArgumentMatchers.any(CameraUpdate::class.java),
             ArgumentMatchers.eq(LocationComponentConstants.TRANSITION_ANIMATION_DURATION_MS.toInt()),
             callbackCaptor.capture()
         )
         val latLng = LatLng(10.0, 10.0)
         getAnimationListener<Any>(
-            MapLibreAnimator.ANIMATOR_CAMERA_LATLNG,
+            MapHeroAnimator.ANIMATOR_CAMERA_LATLNG,
             camera.animationListeners
         )!!.onNewAnimationValue(latLng)
         getAnimationListener<Any>(
-            MapLibreAnimator.ANIMATOR_CAMERA_GPS_BEARING,
+            MapHeroAnimator.ANIMATOR_CAMERA_GPS_BEARING,
             camera.animationListeners
         )!!.onNewAnimationValue(10f)
         getAnimationListener<Any>(
-            MapLibreAnimator.ANIMATOR_TILT,
+            MapHeroAnimator.ANIMATOR_TILT,
             camera.animationListeners
         )!!.onNewAnimationValue(10f)
         getAnimationListener<Any>(
-            MapLibreAnimator.ANIMATOR_ZOOM,
+            MapHeroAnimator.ANIMATOR_ZOOM,
             camera.animationListeners
         )!!.onNewAnimationValue(10f)
         Mockito.verify(transform, Mockito.times(0)).moveCamera(
-            ArgumentMatchers.eq(maplibreMap),
+            ArgumentMatchers.eq(mapHeroMap),
             ArgumentMatchers.any(
                 CameraUpdate::class.java
             ),
@@ -1765,23 +1765,23 @@ class LocationCameraControllerTest {
         )
         callbackCaptor.value.onFinish()
         getAnimationListener<Any>(
-            MapLibreAnimator.ANIMATOR_CAMERA_LATLNG,
+            MapHeroAnimator.ANIMATOR_CAMERA_LATLNG,
             camera.animationListeners
         )!!.onNewAnimationValue(latLng)
         getAnimationListener<Any>(
-            MapLibreAnimator.ANIMATOR_CAMERA_GPS_BEARING,
+            MapHeroAnimator.ANIMATOR_CAMERA_GPS_BEARING,
             camera.animationListeners
         )!!.onNewAnimationValue(10f)
         getAnimationListener<Any>(
-            MapLibreAnimator.ANIMATOR_TILT,
+            MapHeroAnimator.ANIMATOR_TILT,
             camera.animationListeners
         )!!.onNewAnimationValue(10f)
         getAnimationListener<Any>(
-            MapLibreAnimator.ANIMATOR_ZOOM,
+            MapHeroAnimator.ANIMATOR_ZOOM,
             camera.animationListeners
         )!!.onNewAnimationValue(10f)
         Mockito.verify(transform, Mockito.times(4)).moveCamera(
-            ArgumentMatchers.eq(maplibreMap),
+            ArgumentMatchers.eq(mapHeroMap),
             ArgumentMatchers.any(
                 CameraUpdate::class.java
             ),
@@ -1791,15 +1791,15 @@ class LocationCameraControllerTest {
 
     @Test
     fun transition_customAnimation() {
-        val maplibreMap = Mockito.mock(MapLibreMap::class.java)
+        val mapHeroMap = Mockito.mock(MapHeroMap::class.java)
         val transform = Mockito.mock(
             Transform::class.java
         )
-        Mockito.`when`(maplibreMap.cameraPosition).thenReturn(CameraPosition.DEFAULT)
+        Mockito.`when`(mapHeroMap.cameraPosition).thenReturn(CameraPosition.DEFAULT)
         val projection = Mockito.mock(
             Projection::class.java
         )
-        Mockito.`when`(maplibreMap.projection).thenReturn(projection)
+        Mockito.`when`(mapHeroMap.projection).thenReturn(projection)
         Mockito.`when`(
             projection.getMetersPerPixelAtLatitude(
                 ArgumentMatchers.any(
@@ -1807,7 +1807,7 @@ class LocationCameraControllerTest {
                 )
             )
         ).thenReturn(java.lang.Double.valueOf(1000.0))
-        val camera = buildCamera(maplibreMap, transform)
+        val camera = buildCamera(mapHeroMap, transform)
         camera.initializeOptions(
             Mockito.mock(
                 LocationComponentOptions::class.java
@@ -1827,7 +1827,7 @@ class LocationCameraControllerTest {
         camera.setCameraMode(CameraMode.TRACKING, location, 1200, 14.0, 13.0, 45.0, null)
         Mockito.verify(transform)
             .animateCamera(
-                ArgumentMatchers.eq(maplibreMap),
+                ArgumentMatchers.eq(mapHeroMap),
                 ArgumentMatchers.eq(cameraUpdate),
                 ArgumentMatchers.eq(1200),
                 ArgumentMatchers.any(
@@ -1838,15 +1838,15 @@ class LocationCameraControllerTest {
 
     @Test
     fun transition_customAnimationDisabled() {
-        val maplibreMap = Mockito.mock(MapLibreMap::class.java)
+        val mapHeroMap = Mockito.mock(MapHeroMap::class.java)
         val transform = Mockito.mock(
             Transform::class.java
         )
-        Mockito.`when`(maplibreMap.cameraPosition).thenReturn(CameraPosition.DEFAULT)
+        Mockito.`when`(mapHeroMap.cameraPosition).thenReturn(CameraPosition.DEFAULT)
         val projection = Mockito.mock(
             Projection::class.java
         )
-        Mockito.`when`(maplibreMap.projection).thenReturn(projection)
+        Mockito.`when`(mapHeroMap.projection).thenReturn(projection)
         Mockito.`when`(
             projection.getMetersPerPixelAtLatitude(
                 ArgumentMatchers.any(
@@ -1854,7 +1854,7 @@ class LocationCameraControllerTest {
                 )
             )
         ).thenReturn(java.lang.Double.valueOf(1000.0))
-        val camera = buildCamera(maplibreMap, transform)
+        val camera = buildCamera(mapHeroMap, transform)
         camera.initializeOptions(
             Mockito.mock(
                 LocationComponentOptions::class.java
@@ -1875,7 +1875,7 @@ class LocationCameraControllerTest {
         camera.setCameraMode(CameraMode.TRACKING, location, 1200, 14.0, 13.0, 45.0, null)
         Mockito.verify(transform, Mockito.times(0))
             .animateCamera(
-                ArgumentMatchers.eq(maplibreMap),
+                ArgumentMatchers.eq(mapHeroMap),
                 ArgumentMatchers.eq(cameraUpdate),
                 ArgumentMatchers.eq(1200),
                 ArgumentMatchers.any(
@@ -1885,8 +1885,8 @@ class LocationCameraControllerTest {
     }
 
     private fun buildCamera(onCameraTrackingChangedListener: OnCameraTrackingChangedListener): LocationCameraController {
-        val maplibreMap = Mockito.mock(MapLibreMap::class.java)
-        Mockito.`when`(maplibreMap.uiSettings).thenReturn(
+        val mapHeroMap = Mockito.mock(MapHeroMap::class.java)
+        Mockito.`when`(mapHeroMap.uiSettings).thenReturn(
             Mockito.mock(
                 UiSettings::class.java
             )
@@ -1897,7 +1897,7 @@ class LocationCameraControllerTest {
         val projection = Mockito.mock(
             Projection::class.java
         )
-        Mockito.`when`(maplibreMap.projection).thenReturn(projection)
+        Mockito.`when`(mapHeroMap.projection).thenReturn(projection)
         Mockito.`when`(
             projection.getMetersPerPixelAtLatitude(
                 ArgumentMatchers.any(
@@ -1918,7 +1918,7 @@ class LocationCameraControllerTest {
             AndroidGesturesManager::class.java
         )
         return LocationCameraController(
-            maplibreMap,
+            mapHeroMap,
             transform,
             moveGestureDetector,
             onCameraTrackingChangedListener,
@@ -1929,8 +1929,8 @@ class LocationCameraControllerTest {
     }
 
     private fun buildCamera(moveGestureDetector: MoveGestureDetector): LocationCameraController {
-        val maplibreMap = Mockito.mock(MapLibreMap::class.java)
-        Mockito.`when`(maplibreMap.uiSettings).thenReturn(
+        val mapHeroMap = Mockito.mock(MapHeroMap::class.java)
+        Mockito.`when`(mapHeroMap.uiSettings).thenReturn(
             Mockito.mock(
                 UiSettings::class.java
             )
@@ -1941,7 +1941,7 @@ class LocationCameraControllerTest {
         val projection = Mockito.mock(
             Projection::class.java
         )
-        Mockito.`when`(maplibreMap.projection).thenReturn(projection)
+        Mockito.`when`(mapHeroMap.projection).thenReturn(projection)
         Mockito.`when`(
             projection.getMetersPerPixelAtLatitude(
                 ArgumentMatchers.any(
@@ -1962,7 +1962,7 @@ class LocationCameraControllerTest {
             AndroidGesturesManager::class.java
         )
         return LocationCameraController(
-            maplibreMap,
+            mapHeroMap,
             transform,
             moveGestureDetector,
             onCameraTrackingChangedListener,
@@ -1972,7 +1972,7 @@ class LocationCameraControllerTest {
         )
     }
 
-    private fun buildCamera(maplibreMap: MapLibreMap): LocationCameraController {
+    private fun buildCamera(mapHeroMap: MapHeroMap): LocationCameraController {
         val transform = Mockito.mock(
             Transform::class.java
         )
@@ -1992,7 +1992,7 @@ class LocationCameraControllerTest {
             AndroidGesturesManager::class.java
         )
         return LocationCameraController(
-            maplibreMap,
+            mapHeroMap,
             transform,
             moveGestureDetector,
             onCameraTrackingChangedListener,
@@ -2003,8 +2003,8 @@ class LocationCameraControllerTest {
     }
 
     private fun buildCamera(transform: Transform): LocationCameraController {
-        val maplibreMap = Mockito.mock(MapLibreMap::class.java)
-        Mockito.`when`(maplibreMap.uiSettings).thenReturn(
+        val mapHeroMap = Mockito.mock(MapHeroMap::class.java)
+        Mockito.`when`(mapHeroMap.uiSettings).thenReturn(
             Mockito.mock(
                 UiSettings::class.java
             )
@@ -2012,7 +2012,7 @@ class LocationCameraControllerTest {
         val projection = Mockito.mock(
             Projection::class.java
         )
-        Mockito.`when`(maplibreMap.projection).thenReturn(projection)
+        Mockito.`when`(mapHeroMap.projection).thenReturn(projection)
         Mockito.`when`(
             projection.getMetersPerPixelAtLatitude(
                 ArgumentMatchers.any(
@@ -2020,7 +2020,7 @@ class LocationCameraControllerTest {
                 )
             )
         ).thenReturn(java.lang.Double.valueOf(1000.0))
-        Mockito.`when`(maplibreMap.uiSettings).thenReturn(
+        Mockito.`when`(mapHeroMap.uiSettings).thenReturn(
             Mockito.mock(
                 UiSettings::class.java
             )
@@ -2041,7 +2041,7 @@ class LocationCameraControllerTest {
             AndroidGesturesManager::class.java
         )
         return LocationCameraController(
-            maplibreMap,
+            mapHeroMap,
             transform,
             moveGestureDetector,
             onCameraTrackingChangedListener,
@@ -2051,8 +2051,8 @@ class LocationCameraControllerTest {
         )
     }
 
-    private fun buildCamera(maplibreMap: MapLibreMap, transform: Transform): LocationCameraController {
-        Mockito.`when`(maplibreMap.uiSettings).thenReturn(
+    private fun buildCamera(mapHeroMap: MapHeroMap, transform: Transform): LocationCameraController {
+        Mockito.`when`(mapHeroMap.uiSettings).thenReturn(
             Mockito.mock(
                 UiSettings::class.java
             )
@@ -2073,7 +2073,7 @@ class LocationCameraControllerTest {
             AndroidGesturesManager::class.java
         )
         val locationCameraController = LocationCameraController(
-            maplibreMap,
+            mapHeroMap,
             transform,
             moveGestureDetector,
             onCameraTrackingChangedListener,
@@ -2086,7 +2086,7 @@ class LocationCameraControllerTest {
     }
 
     private fun buildCamera(
-        maplibreMap: MapLibreMap,
+        mapHeroMap: MapHeroMap,
         initialGesturesManager: AndroidGesturesManager,
         internalGesturesManager: AndroidGesturesManager
     ): LocationCameraController {
@@ -2103,7 +2103,7 @@ class LocationCameraControllerTest {
             OnCameraMoveInvalidateListener::class.java
         )
         return LocationCameraController(
-            maplibreMap,
+            mapHeroMap,
             transform,
             moveGestureDetector,
             onCameraTrackingChangedListener,
@@ -2114,11 +2114,11 @@ class LocationCameraControllerTest {
     }
 
     private fun <T> getAnimationListener(
-        @MapLibreAnimator.Type animatorType: Int,
+        @MapHeroAnimator.Type animatorType: Int,
         holders: Set<AnimatorListenerHolder>
     ): AnimationsValueChangeListener<Any>? {
         for (holder in holders) {
-            @MapLibreAnimator.Type val type = holder.animatorType
+            @MapHeroAnimator.Type val type = holder.animatorType
             if (type == animatorType) {
                 return holder.listener
             }

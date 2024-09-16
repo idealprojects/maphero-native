@@ -28,7 +28,7 @@ import org.maplibre.android.geometry.LatLng
 import org.maplibre.android.log.Logger
 import org.maplibre.android.log.Logger.INFO
 import org.maplibre.android.maps.*
-import org.maplibre.android.maps.MapLibreMap.CancelableCallback
+import org.maplibre.android.maps.MapHeroMap.CancelableCallback
 import org.maplibre.android.testapp.BuildConfig
 import org.maplibre.android.testapp.R
 import org.maplibre.android.testapp.utils.FpsStore
@@ -200,29 +200,29 @@ class BenchmarkActivity : AppCompatActivity() {
                 renderingTimeStore.add(frameRenderingTime * 1e3)
             }
         }
-        mapView.getMapAsync { maplibreMap: MapLibreMap ->
-            maplibreMap.setStyle(inputData.styleURLs[0])
-            maplibreMap.setSwapBehaviorFlush(measureFrameTime)
+        mapView.getMapAsync { mapHeroMap: MapHeroMap ->
+            mapHeroMap.setStyle(inputData.styleURLs[0])
+            mapHeroMap.setSwapBehaviorFlush(measureFrameTime)
             if (!measureFrameTime) {
-                maplibreMap.setOnFpsChangedListener { fps: Double ->
+                mapHeroMap.setOnFpsChangedListener { fps: Double ->
                     fpsStore.add(fps)
                 }
             }
 
             // Start an animation on the map as well
-            flyTo(maplibreMap, 0, 0,14.0)
+            flyTo(mapHeroMap, 0, 0,14.0)
         }
     }
 
-    private fun flyTo(maplibreMap: MapLibreMap, place: Int, style: Int, zoom: Double) {
-        maplibreMap.animateCamera(
+    private fun flyTo(mapHeroMap: MapHeroMap, place: Int, style: Int, zoom: Double) {
+        mapHeroMap.animateCamera(
             CameraUpdateFactory.newLatLngZoom(PLACES[place], zoom),
             10000,
             object : CancelableCallback {
                 override fun onCancel() {
                     delayed = Runnable {
                         delayed = null
-                        flyTo(maplibreMap, place, style, zoom)
+                        flyTo(mapHeroMap, place, style, zoom)
                     }
                     delayed?.let {
                         handler!!.postDelayed(it, 2000)
@@ -256,12 +256,12 @@ class BenchmarkActivity : AppCompatActivity() {
                         println("Benchmark ${jsonPayload(inputData.styleNames, fpsResults, encodingTimeResults, renderingTimeResults)}")
 
                         if (style < inputData.styleURLs.size - 1) {  // continue with next style
-                            maplibreMap.setStyle(inputData.styleURLs[style + 1])
-                            flyTo(maplibreMap, 0, style + 1, zoom)
+                            mapHeroMap.setStyle(inputData.styleURLs[style + 1])
+                            flyTo(mapHeroMap, 0, style + 1, zoom)
                         } else if (runsLeft > 0) {  // start over
                             --runsLeft
-                            maplibreMap.setStyle(inputData.styleURLs[0])
-                            flyTo(maplibreMap, 0, 0, zoom)
+                            mapHeroMap.setStyle(inputData.styleURLs[0])
+                            flyTo(mapHeroMap, 0, 0, zoom)
                         } else {
                             benchmarkDone()
                         }
@@ -269,7 +269,7 @@ class BenchmarkActivity : AppCompatActivity() {
                     }
 
                     // continue with next place
-                    flyTo(maplibreMap, place + 1, style, zoom)
+                    flyTo(mapHeroMap, place + 1, style, zoom)
                 }
             }
         )

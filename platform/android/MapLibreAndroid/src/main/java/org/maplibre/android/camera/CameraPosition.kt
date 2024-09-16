@@ -11,7 +11,7 @@ import org.maplibre.android.R
 import org.maplibre.android.camera.CameraPosition.Builder
 import org.maplibre.android.camera.CameraUpdateFactory.CameraPositionUpdate
 import org.maplibre.android.camera.CameraUpdateFactory.ZoomUpdate
-import org.maplibre.android.constants.MapLibreConstants
+import org.maplibre.android.constants.MapHeroConstants
 import org.maplibre.android.geometry.LatLng
 import org.maplibre.android.utils.MathUtils
 import java.util.Arrays
@@ -33,7 +33,7 @@ class CameraPosition
  * @param padding Padding in pixels. Specified in left, top, right, bottom order.
  * @throws NullPointerException     if target is null
  * @throws IllegalArgumentException if tilt is outside the range of 0 to 90 degrees inclusive.
- */ @Keep internal constructor(
+ */ @Keep constructor(
 
     /**
      * The location that the camera is pointing at.
@@ -291,14 +291,14 @@ class CameraPosition
          * Set the tilt of the camera in degrees
          *
          *
-         * value is clamped to [MapLibreConstants.MINIMUM_TILT] and [MapLibreConstants.MAXIMUM_TILT].
+         * value is clamped to [MapHeroConstants.MINIMUM_TILT] and [MapHeroConstants.MAXIMUM_TILT].
          *
          *
          * @param tilt Tilt value of the camera
          * @return this
          */
-        fun tilt(@FloatRange(from = MapLibreConstants.MINIMUM_TILT, to = MapLibreConstants.MAXIMUM_TILT) tilt: Double): Builder {
-            this.tilt = MathUtils.clamp(tilt, MapLibreConstants.MINIMUM_TILT, MapLibreConstants.MAXIMUM_TILT)
+        fun tilt(@FloatRange(from = MapHeroConstants.MINIMUM_TILT, to = MapHeroConstants.MAXIMUM_TILT) tilt: Double): Builder {
+            this.tilt = MathUtils.clamp(tilt, MapHeroConstants.MINIMUM_TILT, MapHeroConstants.MAXIMUM_TILT)
             return this
         }
 
@@ -306,13 +306,13 @@ class CameraPosition
          * Set the zoom of the camera
          *
          *
-         * Zoom ranges from [MapLibreConstants.MINIMUM_ZOOM] to [MapLibreConstants.MAXIMUM_ZOOM]
+         * Zoom ranges from [MapHeroConstants.MINIMUM_ZOOM] to [MapHeroConstants.MAXIMUM_ZOOM]
          *
          *
          * @param zoom Zoom value of the camera
          * @return this
          */
-        fun zoom(@FloatRange(from = MapLibreConstants.MINIMUM_ZOOM.toDouble(), to = MapLibreConstants.MAXIMUM_ZOOM.toDouble()) zoom: Double): Builder {
+        fun zoom(@FloatRange(from = MapHeroConstants.MINIMUM_ZOOM.toDouble(), to = MapHeroConstants.MAXIMUM_ZOOM.toDouble()) zoom: Double): Builder {
             this.zoom = zoom
             return this
         }

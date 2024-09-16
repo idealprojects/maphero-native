@@ -10,22 +10,22 @@ import org.maplibre.android.maps.renderer.MapRenderer;
 
 /**
  * The {@link SurfaceViewMapRenderer} encapsulates the render thread and
- * {@link MapLibreSurfaceView} specifics to render the map.
+ * {@link MapHeroSurfaceView} specifics to render the map.
  *
  * @see MapRenderer
  */
 public class SurfaceViewMapRenderer extends MapRenderer {
 
   @NonNull
-  protected final MapLibreSurfaceView surfaceView;
+  protected final MapHeroSurfaceView surfaceView;
 
   public SurfaceViewMapRenderer(Context context,
-                                MapLibreSurfaceView surfaceView,
+                                MapHeroSurfaceView surfaceView,
                                 String localIdeographFontFamily) {
     super(context, localIdeographFontFamily);
     this.surfaceView = surfaceView;
 
-    surfaceView.setDetachedListener(new MapLibreSurfaceView.OnSurfaceViewDetachedListener() {
+    surfaceView.setDetachedListener(new MapHeroSurfaceView.OnSurfaceViewDetachedListener() {
       @Override
       public void onSurfaceViewDetached() {
         // because the GL thread is destroyed when the view is detached from window,

@@ -21,11 +21,7 @@ import org.maplibre.android.geometry.LatLng;
  *   .snippet("H St NW with 15th St NW")
  *   .position(new LatLng(38.9002073, -77.03364419)));
  * </pre>
- * @deprecated As of 7.0.0,
- * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
- *   MapLibre Annotation Plugin</a> instead
  */
-@Deprecated
 public final class MarkerOptions extends BaseMarkerOptions<Marker, MarkerOptions> implements Parcelable {
 
   /**

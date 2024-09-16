@@ -16,9 +16,9 @@ import org.maplibre.geojson.Point
 import org.maplibre.android.camera.CameraPosition
 import org.maplibre.android.geometry.LatLng
 import org.maplibre.android.maps.MapView
-import org.maplibre.android.maps.MapLibreMap
-import org.maplibre.android.maps.MapLibreMap.OnMapClickListener
-import org.maplibre.android.maps.MapLibreMapOptions
+import org.maplibre.android.maps.MapHeroMap
+import org.maplibre.android.maps.MapHeroMap.OnMapClickListener
+import org.maplibre.android.maps.MapHeroMapOptions
 import org.maplibre.android.maps.OnMapReadyCallback
 import org.maplibre.android.maps.Style
 import org.maplibre.android.style.expressions.Expression
@@ -49,14 +49,14 @@ class SymbolLayerActivity : AppCompatActivity(), OnMapClickListener, OnMapReadyC
     private var markerSymbolLayer: SymbolLayer? = null
     private var mapboxSignSymbolLayer: SymbolLayer? = null
     private var numberFormatSymbolLayer: SymbolLayer? = null
-    private lateinit var maplibreMap: MapLibreMap
+    private lateinit var maplibreMap: MapHeroMap
     private lateinit var mapView: MapView
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_symbollayer)
 
         // Create map configuration
-        val maplibreMapOptions = MapLibreMapOptions.createFromAttributes(this)
+        val maplibreMapOptions = MapHeroMapOptions.createFromAttributes(this)
         maplibreMapOptions.camera(
             CameraPosition.Builder().target(
                 LatLng(52.35273, 4.91638)
@@ -83,8 +83,8 @@ class SymbolLayerActivity : AppCompatActivity(), OnMapClickListener, OnMapReadyC
         }
     }
 
-    override fun onMapReady(maplibreMap: MapLibreMap) {
-        this.maplibreMap = maplibreMap
+    override fun onMapReady(mapHeroMap: MapHeroMap) {
+        this.maplibreMap = mapHeroMap
         val carBitmap = BitmapUtils.getBitmapFromDrawable(
             ResourcesCompat.getDrawable(resources, R.drawable.ic_directions_car_black, null)
         )
@@ -151,7 +151,7 @@ class SymbolLayerActivity : AppCompatActivity(), OnMapClickListener, OnMapReadyC
                 )
             )
         )
-        maplibreMap.setStyle(
+        mapHeroMap.setStyle(
             Style.Builder()
                 .fromUri("asset://streets.json")
                 .withImage("Car", carBitmap!!, false)
@@ -160,7 +160,7 @@ class SymbolLayerActivity : AppCompatActivity(), OnMapClickListener, OnMapReadyC
         )
 
         // Set a click-listener so we can manipulate the map
-        maplibreMap.addOnMapClickListener(this@SymbolLayerActivity)
+        mapHeroMap.addOnMapClickListener(this@SymbolLayerActivity)
     }
 
     override fun onMapClick(point: LatLng): Boolean {

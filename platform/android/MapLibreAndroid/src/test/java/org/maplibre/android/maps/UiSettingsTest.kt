@@ -56,7 +56,7 @@ class UiSettingsTest {
         FrameLayout.LayoutParams::class.java
     )
     private var uiSettings: UiSettings? = null
-    private val maplibreMapOptions: MapLibreMapOptions? = null
+    private val mapHeroMapOptions: MapHeroMapOptions? = null
 
     @Before
     fun beforeTest() {

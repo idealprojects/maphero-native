@@ -34,7 +34,7 @@ public class SupportMapFragment extends Fragment implements OnMapReadyCallback {
 
   private final List<OnMapReadyCallback> mapReadyCallbackList = new ArrayList<>();
   private MapFragment.OnMapViewReadyCallback mapViewReadyCallback;
-  private MapLibreMap maplibreMap;
+  private MapHeroMap mapHeroMap;
   private MapView map;
 
   /**
@@ -49,13 +49,13 @@ public class SupportMapFragment extends Fragment implements OnMapReadyCallback {
   /**
    * Creates a MapFragment instance
    *
-   * @param maplibreMapOptions The configuration options to be used.
+   * @param mapHeroMapOptions The configuration options to be used.
    * @return MapFragment created.
    */
   @NonNull
-  public static SupportMapFragment newInstance(@Nullable MapLibreMapOptions maplibreMapOptions) {
+  public static SupportMapFragment newInstance(@Nullable MapHeroMapOptions mapHeroMapOptions) {
     SupportMapFragment mapFragment = new SupportMapFragment();
-    mapFragment.setArguments(MapFragmentUtils.createFragmentArgs(maplibreMapOptions));
+    mapFragment.setArguments(MapFragmentUtils.createFragmentArgs(mapHeroMapOptions));
     return mapFragment;
   }
 
@@ -82,7 +82,7 @@ public class SupportMapFragment extends Fragment implements OnMapReadyCallback {
   @Override
   public void onInflate(@NonNull Context context, AttributeSet attrs, Bundle savedInstanceState) {
     super.onInflate(context, attrs, savedInstanceState);
-    setArguments(MapFragmentUtils.createFragmentArgs(MapLibreMapOptions.createFromAttributes(context, attrs)));
+    setArguments(MapFragmentUtils.createFragmentArgs(MapHeroMapOptions.createFromAttributes(context, attrs)));
   }
 
   /**
@@ -120,10 +120,10 @@ public class SupportMapFragment extends Fragment implements OnMapReadyCallback {
   }
 
   @Override
-  public void onMapReady(@NonNull MapLibreMap maplibreMap) {
-    this.maplibreMap = maplibreMap;
+  public void onMapReady(@NonNull MapHeroMap mapHeroMap) {
+    this.mapHeroMap = mapHeroMap;
     for (OnMapReadyCallback onMapReadyCallback : mapReadyCallbackList) {
-      onMapReadyCallback.onMapReady(maplibreMap);
+      onMapReadyCallback.onMapReady(mapHeroMap);
     }
   }
 
@@ -206,15 +206,15 @@ public class SupportMapFragment extends Fragment implements OnMapReadyCallback {
   }
 
   /**
-   * Sets a callback object which will be triggered when the MapLibreMap instance is ready to be used.
+   * Sets a callback object which will be triggered when the MapHeroMap instance is ready to be used.
    *
    * @param onMapReadyCallback The callback to be invoked.
    */
   public void getMapAsync(@NonNull final OnMapReadyCallback onMapReadyCallback) {
-    if (maplibreMap == null) {
+    if (mapHeroMap == null) {
       mapReadyCallbackList.add(onMapReadyCallback);
     } else {
-      onMapReadyCallback.onMapReady(maplibreMap);
+      onMapReadyCallback.onMapReady(mapHeroMap);
     }
   }
 }

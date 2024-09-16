@@ -17,7 +17,7 @@ class AttributionDialogManagerTest {
     )
 
     @InjectMocks
-    var maplibreMap = Mockito.mock(MapLibreMap::class.java)
+    var mapHeroMap = Mockito.mock(MapHeroMap::class.java)
 
     @InjectMocks
     var style = Mockito.mock(
@@ -27,7 +27,7 @@ class AttributionDialogManagerTest {
 
     @Before
     fun beforeTest() {
-        attributionDialogManager = AttributionDialogManager(context, maplibreMap)
+        attributionDialogManager = AttributionDialogManager(context, mapHeroMap)
     }
 
     @Test

@@ -6,7 +6,7 @@ import android.os.Looper
 import androidx.annotation.IntDef
 import androidx.annotation.Keep
 import org.maplibre.android.LibraryLoader
-import org.maplibre.android.MapLibre
+import org.maplibre.android.MapHero
 import org.maplibre.android.net.ConnectivityReceiver
 import org.maplibre.android.storage.FileSource
 
@@ -82,13 +82,13 @@ class OfflineRegion @Keep private constructor(offlineRegionPtr: Long, fileSource
         fun onError(error: OfflineRegionError)
 
         /*
-     * Implement this method to be notified when the limit on the number of MapLibre
+     * Implement this method to be notified when the limit on the number of MapHero
      * tiles stored for offline regions has been reached.
      *
      * Once the limit has been reached, the SDK will not download further offline
-     * tiles from MapLibre APIs until existing tiles have been removed.
+     * tiles from MapHero APIs until existing tiles have been removed.
      *
-     * This limit does not apply to non-MapLibre tile sources.
+     * This limit does not apply to non-MapHero tile sources.
      *
      * This method will be executed on the main thread.
      */
@@ -229,7 +229,7 @@ class OfflineRegion @Keep private constructor(offlineRegionPtr: Long, fileSource
      * [com.mapbox.mapboxsdk.offline.OfflineManager.createOfflineRegion] instead.
      */
     init {
-        context = MapLibre.getApplicationContext()
+        context = MapHero.getApplicationContext()
         this.fileSource = fileSource
         this.id = idParam
         this.definition = definition
@@ -361,7 +361,7 @@ class OfflineRegion @Keep private constructor(offlineRegionPtr: Long, fileSource
     }
 
     /**
-     * Invalidate all the tiles from an offline region forcing MapLibre GL to revalidate
+     * Invalidate all the tiles from an offline region forcing MapHero GL to revalidate
      * the tiles with the server before using. This is more efficient than deleting the
      * offline region and downloading it again because if the data on the cache matches
      * the server, no new data gets transmitted.

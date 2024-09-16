@@ -12,7 +12,7 @@ import org.maplibre.geojson.FeatureCollection
 import org.maplibre.geojson.Point
 import org.maplibre.android.geometry.LatLng
 import org.maplibre.android.maps.MapView
-import org.maplibre.android.maps.MapLibreMap
+import org.maplibre.android.maps.MapHeroMap
 import org.maplibre.android.maps.Style
 import org.maplibre.android.style.expressions.Expression
 import org.maplibre.android.style.layers.CircleLayer
@@ -25,7 +25,7 @@ import org.maplibre.android.testapp.styles.TestStyles
  */
 class QuerySourceFeaturesActivity : AppCompatActivity() {
     lateinit var mapView: MapView
-    private lateinit var maplibreMap: MapLibreMap
+    private lateinit var mapHeroMap: MapHeroMap
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_query_source_features)
@@ -33,12 +33,12 @@ class QuerySourceFeaturesActivity : AppCompatActivity() {
         // Initialize map as normal
         mapView = findViewById<View>(R.id.mapView) as MapView
         mapView.onCreate(savedInstanceState)
-        mapView.getMapAsync { map: MapLibreMap? ->
+        mapView.getMapAsync { map: MapHeroMap? ->
             if (map != null) {
-                maplibreMap = map
+                mapHeroMap = map
             }
-            maplibreMap.getStyle { style: Style -> initStyle(style) }
-            maplibreMap.setStyle(TestStyles.getPredefinedStyleWithFallback("Streets"))
+            mapHeroMap.getStyle { style: Style -> initStyle(style) }
+            mapHeroMap.setStyle(TestStyles.getPredefinedStyleWithFallback("Streets"))
         }
     }
 
@@ -64,7 +64,7 @@ class QuerySourceFeaturesActivity : AppCompatActivity() {
         style.addLayer(layer)
 
         // Add a click listener
-        maplibreMap.addOnMapClickListener { point: LatLng? ->
+        mapHeroMap.addOnMapClickListener { point: LatLng? ->
             // Query
             val features = source.querySourceFeatures(
                 Expression.eq(

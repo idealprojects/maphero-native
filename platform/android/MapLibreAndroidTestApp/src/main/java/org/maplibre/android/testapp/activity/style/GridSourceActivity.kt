@@ -9,7 +9,7 @@ import org.maplibre.geojson.MultiLineString
 import org.maplibre.geojson.Point
 import org.maplibre.android.geometry.LatLngBounds
 import org.maplibre.android.maps.MapView
-import org.maplibre.android.maps.MapLibreMap
+import org.maplibre.android.maps.MapHeroMap
 import org.maplibre.android.maps.OnMapReadyCallback
 import org.maplibre.android.maps.Style
 import org.maplibre.android.style.layers.*
@@ -94,13 +94,13 @@ class GridSourceActivity : AppCompatActivity(), OnMapReadyCallback {
         mapView.getMapAsync(this)
     }
 
-    override fun onMapReady(map: MapLibreMap) {
+    override fun onMapReady(mapHeroMap: MapHeroMap) {
         source = CustomGeometrySource(ID_GRID_SOURCE, GridProvider())
         layer = LineLayer(ID_GRID_LAYER, ID_GRID_SOURCE)
         layer!!.setProperties(
             PropertyFactory.lineColor(Color.parseColor("#000000"))
         )
-        map.setStyle(
+        mapHeroMap.setStyle(
             Style.Builder()
                 .fromUri(Style.getPredefinedStyles()[0].url)
                 .withLayer(layer!!)

@@ -24,7 +24,7 @@ class MapSnapshot private constructor(val nativePtr: Long, bitmap: Bitmap, attri
     val attributions: Array<String>
 
     /**
-     * @return Flag indicating to show the MapLibre logo.
+     * @return Flag indicating to show the MapHero logo.
      */
     val isShowLogo: Boolean
 

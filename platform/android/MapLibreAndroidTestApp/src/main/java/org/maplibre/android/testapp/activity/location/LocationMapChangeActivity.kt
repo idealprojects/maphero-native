@@ -11,14 +11,14 @@ import org.maplibre.android.location.modes.RenderMode
 import org.maplibre.android.location.permissions.PermissionsListener
 import org.maplibre.android.location.permissions.PermissionsManager
 import org.maplibre.android.maps.MapView
-import org.maplibre.android.maps.MapLibreMap
+import org.maplibre.android.maps.MapHeroMap
 import org.maplibre.android.maps.OnMapReadyCallback
 import org.maplibre.android.maps.Style
 import org.maplibre.android.testapp.R
 
 class LocationMapChangeActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var mapView: MapView
-    private lateinit var maplibreMap: MapLibreMap
+    private lateinit var mapHeroMap1: MapHeroMap
     private var permissionsManager: PermissionsManager? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,8 +26,8 @@ class LocationMapChangeActivity : AppCompatActivity(), OnMapReadyCallback {
         mapView = findViewById(R.id.mapView)
         val stylesFab = findViewById<FloatingActionButton>(R.id.fabStyles)
         stylesFab.setOnClickListener { v: View? ->
-            if (this::maplibreMap.isInitialized) {
-                maplibreMap.setStyle(Style.Builder().fromUri(Utils.nextStyle()))
+            if (this::mapHeroMap1.isInitialized) {
+                mapHeroMap1.setStyle(Style.Builder().fromUri(Utils.nextStyle()))
             }
         }
         mapView.onCreate(savedInstanceState)
@@ -64,16 +64,16 @@ class LocationMapChangeActivity : AppCompatActivity(), OnMapReadyCallback {
         permissionsManager!!.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
-    override fun onMapReady(maplibreMap: MapLibreMap) {
-        this.maplibreMap = maplibreMap
-        maplibreMap.setStyle(
+    override fun onMapReady(mapHeroMap: MapHeroMap) {
+        this.mapHeroMap1 = mapHeroMap
+        mapHeroMap.setStyle(
             Style.Builder().fromUri(Utils.nextStyle())
         ) { style: Style -> activateLocationComponent(style) }
     }
 
     @SuppressLint("MissingPermission")
     private fun activateLocationComponent(style: Style) {
-        val locationComponent = maplibreMap.locationComponent
+        val locationComponent = mapHeroMap1.locationComponent
         locationComponent.activateLocationComponent(
             LocationComponentActivationOptions
                 .builder(this, style)

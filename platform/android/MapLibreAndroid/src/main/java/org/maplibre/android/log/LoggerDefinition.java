@@ -1,7 +1,7 @@
 package org.maplibre.android.log;
 
 /**
- * Definition of a logger for the MapLibre Maps SDK for Android.
+ * Definition of a logger for the MapHero Maps SDK for Android.
  */
 public interface LoggerDefinition {
 

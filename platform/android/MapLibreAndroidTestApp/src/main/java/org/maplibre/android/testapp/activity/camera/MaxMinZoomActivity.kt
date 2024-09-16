@@ -3,8 +3,8 @@ package org.maplibre.android.testapp.activity.camera
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import org.maplibre.android.maps.MapView
-import org.maplibre.android.maps.MapLibreMap
-import org.maplibre.android.maps.MapLibreMap.OnMapClickListener
+import org.maplibre.android.maps.MapHeroMap
+import org.maplibre.android.maps.MapHeroMap.OnMapClickListener
 import org.maplibre.android.maps.OnMapReadyCallback
 import org.maplibre.android.maps.Style
 import org.maplibre.android.testapp.R
@@ -14,10 +14,10 @@ import timber.log.Timber
 /** Test activity showcasing using maximum and minimum zoom levels to restrict camera movement. */
 class MaxMinZoomActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var mapView: MapView
-    private lateinit var maplibreMap: MapLibreMap
+    private lateinit var mapHeroMap1: MapHeroMap
     private val clickListener = OnMapClickListener {
-        if (this::maplibreMap.isInitialized) {
-            maplibreMap.setStyle(Style.Builder().fromUri(TestStyles.getPredefinedStyleWithFallback("Outdoor")))
+        if (this::mapHeroMap1.isInitialized) {
+            mapHeroMap1.setStyle(Style.Builder().fromUri(TestStyles.getPredefinedStyleWithFallback("Outdoor")))
         }
         true
     }
@@ -31,12 +31,12 @@ class MaxMinZoomActivity : AppCompatActivity(), OnMapReadyCallback {
         mapView.addOnDidFinishLoadingStyleListener { Timber.d("Style Loaded") }
     }
 
-    override fun onMapReady(map: MapLibreMap) {
-        maplibreMap = map
-        maplibreMap.setStyle(TestStyles.getPredefinedStyleWithFallback("Streets"))
-        maplibreMap.setMinZoomPreference(3.0)
-        maplibreMap.setMaxZoomPreference(5.0)
-        maplibreMap.addOnMapClickListener(clickListener)
+    override fun onMapReady(mapHeroMap: MapHeroMap) {
+        mapHeroMap1 = mapHeroMap
+        mapHeroMap1.setStyle(TestStyles.getPredefinedStyleWithFallback("Streets"))
+        mapHeroMap1.setMinZoomPreference(3.0)
+        mapHeroMap1.setMaxZoomPreference(5.0)
+        mapHeroMap1.addOnMapClickListener(clickListener)
     }
 
     override fun onStart() {
@@ -66,8 +66,8 @@ class MaxMinZoomActivity : AppCompatActivity(), OnMapReadyCallback {
 
     override fun onDestroy() {
         super.onDestroy()
-        if (this::maplibreMap.isInitialized) {
-            maplibreMap.removeOnMapClickListener(clickListener)
+        if (this::mapHeroMap1.isInitialized) {
+            mapHeroMap1.removeOnMapClickListener(clickListener)
         }
         mapView.onDestroy()
     }

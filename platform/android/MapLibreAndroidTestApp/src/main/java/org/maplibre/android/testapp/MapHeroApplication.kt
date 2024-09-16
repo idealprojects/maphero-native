@@ -1,28 +1,27 @@
 package org.maplibre.android.testapp
 
+import android.os.Build
 import android.os.StrictMode
 import android.os.StrictMode.ThreadPolicy
 import android.os.StrictMode.VmPolicy
 import android.text.TextUtils
 import androidx.multidex.MultiDexApplication
 import org.maplibre.android.MapStrictMode
-import org.maplibre.android.MapLibre
-import org.maplibre.android.WellKnownTileServer
+import org.maplibre.android.MapHero
 import org.maplibre.android.log.Logger
 import org.maplibre.android.testapp.utils.ApiKeyUtils
 import org.maplibre.android.testapp.utils.TileLoadingMeasurementUtils
 import org.maplibre.android.testapp.utils.TimberLogger
 import timber.log.Timber
-import timber.log.Timber.DebugTree
 
 /**
  * Application class of the test application.
  *
  *
- * Initialises components as LeakCanary, Strictmode, Timber and MapLibre
+ * Initialises components as LeakCanary, Strictmode, Timber and MapHero
  *
  */
-open class MapLibreApplication : MultiDexApplication() {
+open class MapHeroApplication : MultiDexApplication() {
     override fun onCreate() {
         super.onCreate()
         initializeLogger()
@@ -32,9 +31,6 @@ open class MapLibreApplication : MultiDexApplication() {
 
     private fun initializeLogger() {
         Logger.setLoggerDefinition(TimberLogger())
-        if (BuildConfig.DEBUG) {
-            Timber.plant(DebugTree())
-        }
     }
 
     private fun initializeStrictMode() {
@@ -60,20 +56,21 @@ open class MapLibreApplication : MultiDexApplication() {
         if (apiKey != null) {
             validateApiKey(apiKey)
         }
-        MapLibre.getInstance(applicationContext, apiKey, TILE_SERVER)
-        TileLoadingMeasurementUtils.setUpTileLoadingMeasurement()
+        MapHero.getInstance(applicationContext, apiKey)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            TileLoadingMeasurementUtils.setUpTileLoadingMeasurement()
+        }
         MapStrictMode.setStrictModeEnabled(true)
     }
 
     companion object {
-        val TILE_SERVER = WellKnownTileServer.MapLibre
         private const val DEFAULT_API_KEY = "YOUR_API_KEY_GOES_HERE"
         private const val API_KEY_NOT_SET_MESSAGE =
             (
                 "In order to run the Test App you need to set a valid " +
                     "API key. During development, you can set the MLN_API_KEY environment variable for the SDK to " +
                     "automatically include it in the Test App. Otherwise, you can manually include it in the " +
-                    "res/values/developer-config.xml file in the MapLibreAndroidTestApp folder."
+                    "res/values/developer-config.xml file in the MapHeroAndroidTestApp folder."
                 )
 
         private fun validateApiKey(apiKey: String) {

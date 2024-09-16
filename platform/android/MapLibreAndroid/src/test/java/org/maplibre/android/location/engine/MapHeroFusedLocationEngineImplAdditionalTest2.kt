@@ -18,7 +18,7 @@ import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 
 @RunWith(MockitoJUnitRunner::class)
-class MapLibreFusedLocationEngineImplAdditionalTest2 {
+class MapHeroFusedLocationEngineImplAdditionalTest2 {
     private val engines = ArrayList<LocationEngineProxy<*>>()
     private var mockLocationManager: LocationManager? = null
     private var location = Location(PROVIDER)
@@ -46,7 +46,11 @@ class MapLibreFusedLocationEngineImplAdditionalTest2 {
         }.`when`(mockLocationManager)
                 // J2K: add ?
                 ?.requestLocationUpdates(ArgumentMatchers.anyString(), ArgumentMatchers.anyLong(), ArgumentMatchers.anyFloat(), ArgumentMatchers.any(LocationListener::class.java), ArgumentMatchers.any(Looper::class.java))
-        engines.add(LocationEngineProxy(MapLibreFusedLocationEngineImpl(mockContext)))
+        engines.add(LocationEngineProxy(
+            MapHeroFusedLocationEngineImpl(
+                mockContext
+            )
+        ))
         engines.add(LocationEngineProxy(AndroidLocationEngineImpl(mockContext)))
     }
 

@@ -8,7 +8,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import org.maplibre.geojson.FeatureCollection
 import org.maplibre.android.maps.MapView
-import org.maplibre.android.maps.MapLibreMap
+import org.maplibre.android.maps.MapHeroMap
 import org.maplibre.android.maps.Style
 import org.maplibre.android.style.expressions.Expression
 import org.maplibre.android.style.layers.FillLayer
@@ -24,7 +24,7 @@ import timber.log.Timber
  */
 class QueryRenderedFeaturesBoxHighlightActivity : AppCompatActivity() {
     lateinit var mapView: MapView
-    lateinit var maplibreMap: MapLibreMap
+    lateinit var mapHeroMap: MapHeroMap
         private set
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,8 +35,8 @@ class QueryRenderedFeaturesBoxHighlightActivity : AppCompatActivity() {
         // Initialize map as normal
         mapView = findViewById<View>(R.id.mapView) as MapView
         mapView.onCreate(savedInstanceState)
-        mapView.getMapAsync { maplibreMap: MapLibreMap ->
-            this@QueryRenderedFeaturesBoxHighlightActivity.maplibreMap = maplibreMap
+        mapView.getMapAsync { mapHeroMap: MapHeroMap ->
+            this@QueryRenderedFeaturesBoxHighlightActivity.mapHeroMap = mapHeroMap
 
             // Add layer / source
             val source = GeoJsonSource("highlighted-shapes-source")
@@ -57,7 +57,7 @@ class QueryRenderedFeaturesBoxHighlightActivity : AppCompatActivity() {
                     Expression.toNumber(Expression.get("height")),
                     Expression.literal(10)
                 )
-                val features = maplibreMap.queryRenderedFeatures(box, filter, "building")
+                val features = mapHeroMap.queryRenderedFeatures(box, filter, "building")
 
                 // Show count
                 Toast.makeText(
@@ -69,7 +69,7 @@ class QueryRenderedFeaturesBoxHighlightActivity : AppCompatActivity() {
                 // Update source data
                 source.setGeoJson(FeatureCollection.fromFeatures(features))
             }
-            maplibreMap.setStyle(
+            mapHeroMap.setStyle(
                 Style.Builder()
                     .fromUri(TestStyles.getPredefinedStyleWithFallback("Streets"))
                     .withSource(source)

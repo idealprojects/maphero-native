@@ -12,8 +12,8 @@ import androidx.annotation.StringDef
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import org.maplibre.android.MapStrictMode
-import org.maplibre.android.MapLibre
-import org.maplibre.android.constants.MapLibreConstants
+import org.maplibre.android.MapHero
+import org.maplibre.android.constants.MapHeroConstants
 import org.maplibre.android.module.http.HttpRequestUtil
 import okhttp3.Interceptor
 import okhttp3.Interceptor.Chain
@@ -41,14 +41,14 @@ class TileLoadingMeasurementUtils {
 
         private val isTileLoadingMeasurementOn: Boolean
             get() = isBooleanMetaDataValueOn(
-                MapLibreConstants.KEY_META_DATA_MEASURE_TILE_DOWNLOAD_ON,
-                MapLibreConstants.DEFAULT_MEASURE_TILE_DOWNLOAD_ON
+                MapHeroConstants.KEY_META_DATA_MEASURE_TILE_DOWNLOAD_ON,
+                MapHeroConstants.DEFAULT_MEASURE_TILE_DOWNLOAD_ON
             )
 
         private fun isBooleanMetaDataValueOn(propKey: String, defaultValue: Boolean): Boolean {
             try {
                 // Try getting a custom value from the app Manifest
-                val context = MapLibre.getApplicationContext()
+                val context = MapHero.getApplicationContext()
                 val appInfo = context.packageManager.getApplicationInfo(
                     context.packageName,
                     PackageManager.GET_META_DATA
@@ -133,7 +133,7 @@ class TileLoadingMeasurementUtils {
 
                 private val ram: String
                     get() {
-                        val actManager = MapLibre.getApplicationContext()
+                        val actManager = MapHero.getApplicationContext()
                             .getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
                         val memInfo = ActivityManager.MemoryInfo()
                         actManager.getMemoryInfo(memInfo)
@@ -141,14 +141,14 @@ class TileLoadingMeasurementUtils {
                     }
                 private val windowSize: String
                     get() {
-                        val metrics = MapLibre.getApplicationContext().resources.displayMetrics
+                        val metrics = MapHero.getApplicationContext().resources.displayMetrics
                         return "{${metrics.widthPixels},${metrics.heightPixels}}"
                     }
 
                 @get:ConnectionState
                 private val connectionState: String
                     get() {
-                        val appContext = MapLibre.getApplicationContext()
+                        val appContext = MapHero.getApplicationContext()
                         val connectivityManager =
                             appContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

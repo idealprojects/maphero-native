@@ -23,7 +23,7 @@ import java.net.URISyntaxException
  */
 class RealTimeGeoJsonActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var mapView: MapView
-    private lateinit var maplibreMap: MapLibreMap
+    private lateinit var maplibreMap: MapHeroMap
     private var handler: Handler? = null
     private var runnable: Runnable? = null
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,8 +34,8 @@ class RealTimeGeoJsonActivity : AppCompatActivity(), OnMapReadyCallback {
         mapView.getMapAsync(this)
     }
 
-    override fun onMapReady(map: MapLibreMap) {
-        maplibreMap = map
+    override fun onMapReady(mapHeroMap: MapHeroMap) {
+        maplibreMap = mapHeroMap
         maplibreMap.setStyle(TestStyles.getPredefinedStyleWithFallback("Streets")) { style -> // add source
             try {
                 style.addSource(GeoJsonSource(ID_GEOJSON_SOURCE, URI(URL_GEOJSON_SOURCE)))
@@ -91,7 +91,7 @@ class RealTimeGeoJsonActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private class RefreshGeoJsonRunnable(
-        private val maplibreMap: MapLibreMap,
+        private val maplibreMap: MapHeroMap,
         private val handler: Handler
     ) : Runnable {
         override fun run() {

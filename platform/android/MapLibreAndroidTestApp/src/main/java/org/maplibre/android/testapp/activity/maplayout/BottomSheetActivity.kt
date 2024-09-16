@@ -118,14 +118,14 @@ class BottomSheetActivity : AppCompatActivity() {
             map!!.getMapAsync(this)
         }
 
-        override fun onMapReady(maplibreMap: MapLibreMap) {
-            maplibreMap.moveCamera(
+        override fun onMapReady(mapHeroMap: MapHeroMap) {
+            mapHeroMap.moveCamera(
                 CameraUpdateFactory.newLatLngZoom(
                     LatLng(37.760545, -122.436055),
                     15.0
                 )
             )
-            maplibreMap.setStyle(
+            mapHeroMap.setStyle(
                 Style.Builder().fromUri(
                     STYLES[
                         min(
@@ -187,8 +187,8 @@ class BottomSheetActivity : AppCompatActivity() {
                 val bundle = Bundle()
                 bundle.putInt("mapcounter", mapCounter)
                 mapFragment.arguments = bundle
-                val maplibreMapOptions = MapLibreMapOptions.createFromAttributes(context!!)
-                mapFragment.arguments = MapFragmentUtils.createFragmentArgs(maplibreMapOptions)
+                val mapHeroMapOptions = MapHeroMapOptions.createFromAttributes(context!!)
+                mapFragment.arguments = MapFragmentUtils.createFragmentArgs(mapHeroMapOptions)
                 return mapFragment
             }
         }
@@ -214,14 +214,14 @@ class BottomSheetActivity : AppCompatActivity() {
             map!!.getMapAsync(this)
         }
 
-        override fun onMapReady(maplibreMap: MapLibreMap) {
-            maplibreMap.moveCamera(
+        override fun onMapReady(mapHeroMap: MapHeroMap) {
+            mapHeroMap.moveCamera(
                 CameraUpdateFactory.newLatLngZoom(
                     LatLng(37.760545, -122.436055),
                     15.0
                 )
             )
-            maplibreMap.setStyle(TestStyles.getPredefinedStyleWithFallback("Bright"))
+            mapHeroMap.setStyle(TestStyles.getPredefinedStyleWithFallback("Bright"))
         }
 
         override fun onStart() {
@@ -262,9 +262,9 @@ class BottomSheetActivity : AppCompatActivity() {
         companion object {
             fun newInstance(context: Context?): BottomSheetFragment {
                 val mapFragment = BottomSheetFragment()
-                val maplibreMapOptions = MapLibreMapOptions.createFromAttributes(context!!)
-                maplibreMapOptions.renderSurfaceOnTop(true)
-                mapFragment.arguments = MapFragmentUtils.createFragmentArgs(maplibreMapOptions)
+                val mapHeroMapOptions = MapHeroMapOptions.createFromAttributes(context!!)
+                mapHeroMapOptions.renderSurfaceOnTop(true)
+                mapFragment.arguments = MapFragmentUtils.createFragmentArgs(mapHeroMapOptions)
                 return mapFragment
             }
         }

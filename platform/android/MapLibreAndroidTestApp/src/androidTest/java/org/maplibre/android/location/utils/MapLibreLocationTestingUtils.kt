@@ -9,21 +9,21 @@ import android.os.Handler
 import android.os.Looper
 import org.maplibre.geojson.Feature
 import org.maplibre.android.geometry.LatLng
-import org.maplibre.android.maps.MapLibreMap
+import org.maplibre.android.maps.MapHeroMap
 import org.maplibre.android.style.layers.Property
 import org.maplibre.android.style.sources.GeoJsonSource
 
-fun MapLibreMap.querySourceFeatures(sourceId: String): List<Feature> {
+fun MapHeroMap.querySourceFeatures(sourceId: String): List<Feature> {
     return this.style!!.getSourceAs<GeoJsonSource>(sourceId)?.querySourceFeatures(null) ?: emptyList()
 }
 
-fun MapLibreMap.queryRenderedFeatures(location: Location, layerId: String): List<Feature> {
+fun MapHeroMap.queryRenderedFeatures(location: Location, layerId: String): List<Feature> {
     val latLng = LatLng(location.latitude, location.longitude)
     val point = this.projection.toScreenLocation(latLng)
     return this.queryRenderedFeatures(point, layerId)
 }
 
-fun MapLibreMap.isLayerVisible(layerId: String): Boolean {
+fun MapHeroMap.isLayerVisible(layerId: String): Boolean {
     return this.style!!.getLayer(layerId)?.visibility?.value?.equals(Property.VISIBLE)!!
 }
 
@@ -63,7 +63,7 @@ class MapLibreTestingUtils {
     }
 }
 
-fun MapLibreMap.addImageFromDrawable(string: String, drawable: Drawable) {
+fun MapHeroMap.addImageFromDrawable(string: String, drawable: Drawable) {
     val bitmapFromDrawable = getBitmapFromDrawable(drawable)
     this.style!!.addImage(string, bitmapFromDrawable)
 }

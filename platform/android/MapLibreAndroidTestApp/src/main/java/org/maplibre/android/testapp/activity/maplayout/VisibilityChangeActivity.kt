@@ -16,7 +16,7 @@ import org.maplibre.android.testapp.styles.TestStyles
  */
 class VisibilityChangeActivity : AppCompatActivity() {
     private lateinit var mapView: MapView
-    private lateinit var maplibreMap: MapLibreMap
+    private lateinit var mapHeroMap: MapHeroMap
     private val handler = Handler(Looper.getMainLooper())
     private var runnable: Runnable? = null
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,12 +25,12 @@ class VisibilityChangeActivity : AppCompatActivity() {
         mapView = findViewById(R.id.mapView)
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(
-            OnMapReadyCallback { map: MapLibreMap? ->
+            OnMapReadyCallback { map: MapHeroMap? ->
                 if (map != null) {
-                    maplibreMap = map
+                    mapHeroMap = map
                 }
-                maplibreMap.setStyle(TestStyles.getPredefinedStyleWithFallback("Streets"))
-                maplibreMap.animateCamera(
+                mapHeroMap.setStyle(TestStyles.getPredefinedStyleWithFallback("Streets"))
+                mapHeroMap.animateCamera(
                     CameraUpdateFactory.newLatLngZoom(
                         LatLng(55.754020, 37.620948),
                         12.0

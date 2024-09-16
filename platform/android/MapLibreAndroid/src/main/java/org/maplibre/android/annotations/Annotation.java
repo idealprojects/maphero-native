@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import org.maplibre.android.maps.MapView;
-import org.maplibre.android.maps.MapLibreMap;
+import org.maplibre.android.maps.MapHeroMap;
 
 /**
  * Annotation is an overlay on top of a Map.
@@ -15,11 +15,8 @@ import org.maplibre.android.maps.MapLibreMap;
  * This class manages attachment to a map and identification, but does not require
  * content to be placed at a geographical point.
  * </p>
- * @deprecated As of 7.0.0,
  * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
- *   MapLibre Annotation Plugin</a> instead
  */
-@Deprecated
 public abstract class Annotation implements Comparable<Annotation> {
 
   /**
@@ -29,7 +26,7 @@ public abstract class Annotation implements Comparable<Annotation> {
    * Internal C++ id is stored as unsigned int.
    */
   private long id = -1; // -1 unless added to a MapView
-  protected MapLibreMap maplibreMap;
+  protected MapHeroMap mapHeroMap;
   protected MapView mapView;
 
   protected Annotation() {
@@ -52,10 +49,10 @@ public abstract class Annotation implements Comparable<Annotation> {
    * Do not use this method, used internally by the SDK.
    */
   public void remove() {
-    if (maplibreMap == null) {
+    if (mapHeroMap == null) {
       return;
     }
-    maplibreMap.removeAnnotation(this);
+    mapHeroMap.removeAnnotation(this);
   }
 
   /**
@@ -70,19 +67,19 @@ public abstract class Annotation implements Comparable<Annotation> {
   /**
    * Do not use this method, used internally by the SDK.
    *
-   * @param maplibreMap the hosting MapLibreMap
+   * @param mapHeroMap the hosting MapHeroMap
    */
-  public void setMapLibreMap(MapLibreMap maplibreMap) {
-    this.maplibreMap = maplibreMap;
+  public void setMapHeroMap(MapHeroMap mapHeroMap) {
+    this.mapHeroMap = mapHeroMap;
   }
 
   /**
-   * Gets the hosting MapLibreMap.
+   * Gets the hosting MapHeroMap.
    *
-   * @return the MapLibreMap
+   * @return the MapHeroMap
    */
-  protected MapLibreMap getMapLibreMap() {
-    return maplibreMap;
+  protected MapHeroMap getMapHeroMap() {
+    return mapHeroMap;
   }
 
   /**

@@ -25,14 +25,14 @@ import org.maplibre.android.location.engine.LocationEngineRequest;
 import org.maplibre.android.location.engine.LocationEngineResult;
 import org.maplibre.android.location.modes.CameraMode;
 import org.maplibre.android.location.modes.RenderMode;
-import org.maplibre.android.location.engine.MapLibreFusedLocationEngineImpl;
+import org.maplibre.android.location.engine.MapHeroFusedLocationEngineImpl;
 import org.maplibre.android.location.permissions.PermissionsManager;
 import org.maplibre.android.log.Logger;
 import org.maplibre.android.maps.MapView;
-import org.maplibre.android.maps.MapLibreMap;
-import org.maplibre.android.maps.MapLibreMap.OnCameraIdleListener;
-import org.maplibre.android.maps.MapLibreMap.OnCameraMoveListener;
-import org.maplibre.android.maps.MapLibreMap.OnMapClickListener;
+import org.maplibre.android.maps.MapHeroMap;
+import org.maplibre.android.maps.MapHeroMap.OnCameraIdleListener;
+import org.maplibre.android.maps.MapHeroMap.OnCameraMoveListener;
+import org.maplibre.android.maps.MapHeroMap.OnMapClickListener;
 import org.maplibre.android.maps.Style;
 import org.maplibre.android.maps.Transform;
 import org.maplibre.android.style.layers.SymbolLayer;
@@ -69,7 +69,7 @@ import static org.maplibre.android.location.modes.RenderMode.GPS;
  * mode set with {@link LocationComponent#setCameraMode(int)}.
  * <p>
  * <strong>
- * To get the component object use {@link MapLibreMap#getLocationComponent()} and activate it with
+ * To get the component object use {@link MapHeroMap#getLocationComponent()} and activate it with
  * {@link #activateLocationComponent(LocationComponentActivationOptions)}.
  * Then, manage its visibility with {@link #setLocationComponentEnabled(boolean)}.
  * The component will not process location updates right after activation, but only after being enabled.
@@ -81,7 +81,7 @@ import static org.maplibre.android.location.modes.RenderMode.GPS;
  * this component to work as expected.
  * <p>
  * This component offers a default, built-in {@link LocationEngine} called
- * {@link MapLibreFusedLocationEngineImpl}.
+ * {@link MapHeroFusedLocationEngineImpl}.
  * If you'd like to utilize the previously available Google Play Services for more precise location updates,
  * refer to the migration guide of 10.0.0 in the changelog.
  * After a custom engine is passed to the component, or the built-in is initialized,
@@ -102,7 +102,7 @@ public final class LocationComponent {
   private static final String TAG = "Mbgl-LocationComponent";
 
   @NonNull
-  private final MapLibreMap maplibreMap;
+  private final MapHeroMap mapHeroMap;
   @NonNull
   private final Transform transform;
   private Style style;
@@ -148,21 +148,21 @@ public final class LocationComponent {
   private boolean useSpecializedLocationLayer;
 
   /**
-   * Indicates that the component is enabled and should be displaying location if MapLibre components are available and
+   * Indicates that the component is enabled and should be displaying location if MapHero components are available and
    * the lifecycle is in a started state.
    */
   private boolean isEnabled;
 
   /**
    * Indicated that component's lifecycle {@link #onStart()} method has been called.
-   * This allows MapLibre components enter started state and display data, and adds state safety for methods like
+   * This allows MapHero components enter started state and display data, and adds state safety for methods like
    * {@link #setLocationComponentEnabled(boolean)}
    */
   private boolean isComponentStarted;
 
   /**
-   * Indicates if MapLibre components are ready to be interacted with. This can differ from {@link #isComponentStarted}
-   * if the MapLibre style is being reloaded.
+   * Indicates if MapHero components are ready to be interacted with. This can differ from {@link #isComponentStarted}
+   * if the MapHero style is being reloaded.
    */
   private boolean isLayerReady;
 
@@ -190,12 +190,12 @@ public final class LocationComponent {
   /**
    * Internal use.
    * <p>
-   * To get the component object use {@link MapLibreMap#getLocationComponent()}.
+   * To get the component object use {@link MapHeroMap#getLocationComponent()}.
    */
-  public LocationComponent(@NonNull MapLibreMap maplibreMap,
+  public LocationComponent(@NonNull MapHeroMap mapHeroMap,
                            @NonNull Transform transform,
-                           @NonNull List<MapLibreMap.OnDeveloperAnimationListener> developerAnimationListeners) {
-    this.maplibreMap = maplibreMap;
+                           @NonNull List<MapHeroMap.OnDeveloperAnimationListener> developerAnimationListeners) {
+    this.mapHeroMap = mapHeroMap;
     this.transform = transform;
     developerAnimationListeners.add(developerAnimationListener);
   }
@@ -203,14 +203,14 @@ public final class LocationComponent {
   // used for creating a spy
   LocationComponent() {
     //noinspection ConstantConditions
-    maplibreMap = null;
+    mapHeroMap = null;
     transform = null;
   }
 
   @VisibleForTesting
-  LocationComponent(@NonNull MapLibreMap maplibreMap,
+  LocationComponent(@NonNull MapHeroMap mapHeroMap,
                     @NonNull Transform transform,
-                    @NonNull List<MapLibreMap.OnDeveloperAnimationListener> developerAnimationListeners,
+                    @NonNull List<MapHeroMap.OnDeveloperAnimationListener> developerAnimationListeners,
                     @NonNull LocationEngineCallback<LocationEngineResult> currentListener,
                     @NonNull LocationEngineCallback<LocationEngineResult> lastListener,
                     @NonNull LocationLayerController locationLayerController,
@@ -219,7 +219,7 @@ public final class LocationComponent {
                     @NonNull StaleStateManager staleStateManager,
                     @NonNull CompassEngine compassEngine,
                     boolean useSpecializedLocationLayer) {
-    this.maplibreMap = maplibreMap;
+    this.mapHeroMap = mapHeroMap;
     this.transform = transform;
     developerAnimationListeners.add(developerAnimationListener);
     this.currentLocationEngineListener = currentListener;
@@ -418,7 +418,7 @@ public final class LocationComponent {
     }
 
     private void reset(@CameraMode.Mode int cameraMode) {
-      locationAnimatorCoordinator.resetAllCameraAnimations(maplibreMap.getCameraPosition(),
+      locationAnimatorCoordinator.resetAllCameraAnimations(mapHeroMap.getCameraPosition(),
         cameraMode == CameraMode.TRACKING_GPS_NORTH);
     }
   }
@@ -496,7 +496,7 @@ public final class LocationComponent {
   public void applyStyle(@NonNull final LocationComponentOptions options) {
     checkActivationState();
     LocationComponent.this.options = options;
-    if (maplibreMap.getStyle() != null) {
+    if (mapHeroMap.getStyle() != null) {
       locationLayerController.applyStyle(options);
       locationCameraController.initializeOptions(options);
       staleStateManager.setEnabled(options.enableStaleState());
@@ -527,8 +527,8 @@ public final class LocationComponent {
    * Zooms to the desired zoom level.
    * This API can only be used in pair with camera modes other than {@link CameraMode#NONE}.
    * If you are not using any of {@link CameraMode} modes,
-   * use one of {@link MapLibreMap#moveCamera(CameraUpdate)},
-   * {@link MapLibreMap#easeCamera(CameraUpdate)} or {@link MapLibreMap#animateCamera(CameraUpdate)} instead.
+   * use one of {@link MapHeroMap#moveCamera(CameraUpdate)},
+   * {@link MapHeroMap#easeCamera(CameraUpdate)} or {@link MapHeroMap#animateCamera(CameraUpdate)} instead.
    * <p>
    * If the camera is transitioning when the zoom change is requested, the call is going to be ignored.
    * Use {@link CameraTransitionListener} to chain the animations, or provide the zoom as a camera change argument.
@@ -539,7 +539,7 @@ public final class LocationComponent {
    * @param callback          The callback with finish/cancel information
    */
   public void zoomWhileTracking(double zoomLevel, long animationDuration,
-                                @Nullable MapLibreMap.CancelableCallback callback) {
+                                @Nullable MapHeroMap.CancelableCallback callback) {
     checkActivationState();
     if (!isLayerReady) {
       notifyUnsuccessfulCameraOperation(callback, null);
@@ -555,7 +555,7 @@ public final class LocationComponent {
       return;
     }
     locationAnimatorCoordinator.feedNewZoomLevel(
-      zoomLevel, maplibreMap.getCameraPosition(), animationDuration, callback
+      zoomLevel, mapHeroMap.getCameraPosition(), animationDuration, callback
     );
   }
 
@@ -563,8 +563,8 @@ public final class LocationComponent {
    * Zooms to the desired zoom level.
    * This API can only be used in pair with camera modes other than {@link CameraMode#NONE}.
    * If you are not using any of {@link CameraMode} modes,
-   * use one of {@link MapLibreMap#moveCamera(CameraUpdate)},
-   * {@link MapLibreMap#easeCamera(CameraUpdate)} or {@link MapLibreMap#animateCamera(CameraUpdate)} instead.
+   * use one of {@link MapHeroMap#moveCamera(CameraUpdate)},
+   * {@link MapHeroMap#easeCamera(CameraUpdate)} or {@link MapHeroMap#animateCamera(CameraUpdate)} instead.
    * <p>
    * If the camera is transitioning when the zoom change is requested, the call is going to be ignored.
    * Use {@link CameraTransitionListener} to chain the animations, or provide the zoom as a camera change argument.
@@ -582,8 +582,8 @@ public final class LocationComponent {
    * Zooms to the desired zoom level.
    * This API can only be used in pair with camera modes other than {@link CameraMode#NONE}.
    * If you are not using any of {@link CameraMode} modes,
-   * use one of {@link MapLibreMap#moveCamera(CameraUpdate)},
-   * {@link MapLibreMap#easeCamera(CameraUpdate)} or {@link MapLibreMap#animateCamera(CameraUpdate)} instead.
+   * use one of {@link MapHeroMap#moveCamera(CameraUpdate)},
+   * {@link MapHeroMap#easeCamera(CameraUpdate)} or {@link MapHeroMap#animateCamera(CameraUpdate)} instead.
    * <p>
    * If the camera is transitioning when the zoom change is requested, the call is going to be ignored.
    * Use {@link CameraTransitionListener} to chain the animations, or provide the zoom as a camera change argument.
@@ -597,7 +597,7 @@ public final class LocationComponent {
   }
 
   /**
-   * Cancels animation started by {@link #zoomWhileTracking(double, long, MapLibreMap.CancelableCallback)}.
+   * Cancels animation started by {@link #zoomWhileTracking(double, long, MapHeroMap.CancelableCallback)}.
    */
   public void cancelZoomWhileTrackingAnimation() {
     checkActivationState();
@@ -608,8 +608,8 @@ public final class LocationComponent {
    * Sets the padding.
    * This API can only be used in pair with camera modes other than {@link CameraMode#NONE}.
    * If you are not using any of {@link CameraMode} modes,
-   * use one of {@link MapLibreMap#moveCamera(CameraUpdate)},
-   * {@link MapLibreMap#easeCamera(CameraUpdate)} or {@link MapLibreMap#animateCamera(CameraUpdate)} instead.
+   * use one of {@link MapHeroMap#moveCamera(CameraUpdate)},
+   * {@link MapHeroMap#easeCamera(CameraUpdate)} or {@link MapHeroMap#animateCamera(CameraUpdate)} instead.
    * <p>
    * If the camera is transitioning when the padding change is requested, the call is going to be ignored.
    * Use {@link CameraTransitionListener} to chain the animations, or provide the padding as a camera change argument.
@@ -625,8 +625,8 @@ public final class LocationComponent {
    * Sets the padding.
    * This API can only be used in pair with camera modes other than {@link CameraMode#NONE}.
    * If you are not using any of {@link CameraMode} modes,
-   * use one of {@link MapLibreMap#moveCamera(CameraUpdate)},
-   * {@link MapLibreMap#easeCamera(CameraUpdate)} or {@link MapLibreMap#animateCamera(CameraUpdate)} instead.
+   * use one of {@link MapHeroMap#moveCamera(CameraUpdate)},
+   * {@link MapHeroMap#easeCamera(CameraUpdate)} or {@link MapHeroMap#animateCamera(CameraUpdate)} instead.
    * <p>
    * If the camera is transitioning when the padding change is requested, the call is going to be ignored.
    * Use {@link CameraTransitionListener} to chain the animations, or provide the padding as a camera change argument.
@@ -643,8 +643,8 @@ public final class LocationComponent {
    * Sets the padding.
    * This API can only be used in pair with camera modes other than {@link CameraMode#NONE}.
    * If you are not using any of {@link CameraMode} modes,
-   * use one of {@link MapLibreMap#moveCamera(CameraUpdate)},
-   * {@link MapLibreMap#easeCamera(CameraUpdate)} or {@link MapLibreMap#animateCamera(CameraUpdate)} instead.
+   * use one of {@link MapHeroMap#moveCamera(CameraUpdate)},
+   * {@link MapHeroMap#easeCamera(CameraUpdate)} or {@link MapHeroMap#animateCamera(CameraUpdate)} instead.
    * <p>
    * If the camera is transitioning when the padding change is requested, the call is going to be ignored.
    * Use {@link CameraTransitionListener} to chain the animations, or provide the padding as a camera change argument.
@@ -655,7 +655,7 @@ public final class LocationComponent {
    * @param callback          The callback with finish/cancel information
    */
   public void paddingWhileTracking(double[] padding, long animationDuration,
-                                   @Nullable MapLibreMap.CancelableCallback callback) {
+                                   @Nullable MapHeroMap.CancelableCallback callback) {
     checkActivationState();
     if (!isLayerReady) {
       notifyUnsuccessfulCameraOperation(callback, null);
@@ -671,11 +671,11 @@ public final class LocationComponent {
       return;
     }
 
-    locationAnimatorCoordinator.feedNewPadding(padding, maplibreMap.getCameraPosition(), animationDuration, callback);
+    locationAnimatorCoordinator.feedNewPadding(padding, mapHeroMap.getCameraPosition(), animationDuration, callback);
   }
 
   /**
-   * Cancels animation started by {@link #paddingWhileTracking(double[], long, MapLibreMap.CancelableCallback)}.
+   * Cancels animation started by {@link #paddingWhileTracking(double[], long, MapHeroMap.CancelableCallback)}.
    */
   public void cancelPaddingWhileTrackingAnimation() {
     checkActivationState();
@@ -686,8 +686,8 @@ public final class LocationComponent {
    * Tilts the camera.
    * This API can only be used in pair with camera modes other than {@link CameraMode#NONE}.
    * If you are not using any of {@link CameraMode} modes,
-   * use one of {@link MapLibreMap#moveCamera(CameraUpdate)},
-   * {@link MapLibreMap#easeCamera(CameraUpdate)} or {@link MapLibreMap#animateCamera(CameraUpdate)} instead.
+   * use one of {@link MapHeroMap#moveCamera(CameraUpdate)},
+   * {@link MapHeroMap#easeCamera(CameraUpdate)} or {@link MapHeroMap#animateCamera(CameraUpdate)} instead.
    * <p>
    * If the camera is transitioning when the tilt change is requested, the call is going to be ignored.
    * Use {@link CameraTransitionListener} to chain the animations, or provide the tilt as a camera change argument.
@@ -698,7 +698,7 @@ public final class LocationComponent {
    * @param callback          The callback with finish/cancel information
    */
   public void tiltWhileTracking(double tilt, long animationDuration,
-                                @Nullable MapLibreMap.CancelableCallback callback) {
+                                @Nullable MapHeroMap.CancelableCallback callback) {
     checkActivationState();
     if (!isLayerReady) {
       notifyUnsuccessfulCameraOperation(callback, null);
@@ -713,15 +713,15 @@ public final class LocationComponent {
         "LocationComponent#tiltWhileTracking method call is ignored because the camera mode is transitioning");
       return;
     }
-    locationAnimatorCoordinator.feedNewTilt(tilt, maplibreMap.getCameraPosition(), animationDuration, callback);
+    locationAnimatorCoordinator.feedNewTilt(tilt, mapHeroMap.getCameraPosition(), animationDuration, callback);
   }
 
   /**
    * Tilts the camera.
    * This API can only be used in pair with camera modes other than {@link CameraMode#NONE}.
    * If you are not using any of {@link CameraMode} modes,
-   * use one of {@link MapLibreMap#moveCamera(CameraUpdate)},
-   * {@link MapLibreMap#easeCamera(CameraUpdate)} or {@link MapLibreMap#animateCamera(CameraUpdate)} instead.
+   * use one of {@link MapHeroMap#moveCamera(CameraUpdate)},
+   * {@link MapHeroMap#easeCamera(CameraUpdate)} or {@link MapHeroMap#animateCamera(CameraUpdate)} instead.
    * <p>
    * If the camera is transitioning when the tilt change is requested, the call is going to be ignored.
    * Use {@link CameraTransitionListener} to chain the animations, or provide the tilt as a camera change argument.
@@ -739,8 +739,8 @@ public final class LocationComponent {
    * Tilts the camera.
    * This API can only be used in pair with camera modes other than {@link CameraMode#NONE}.
    * If you are not using any of {@link CameraMode} modes,
-   * use one of {@link MapLibreMap#moveCamera(CameraUpdate)},
-   * {@link MapLibreMap#easeCamera(CameraUpdate)} or {@link MapLibreMap#animateCamera(CameraUpdate)} instead.
+   * use one of {@link MapHeroMap#moveCamera(CameraUpdate)},
+   * {@link MapHeroMap#easeCamera(CameraUpdate)} or {@link MapHeroMap#animateCamera(CameraUpdate)} instead.
    * <p>
    * If the camera is transitioning when the tilt change is requested, the call is going to be ignored.
    * Use {@link CameraTransitionListener} to chain the animations, or provide the tilt as a camera change argument.
@@ -754,7 +754,7 @@ public final class LocationComponent {
   }
 
   /**
-   * Cancels animation started by {@link #tiltWhileTracking(double, long, MapLibreMap.CancelableCallback)}.
+   * Cancels animation started by {@link #tiltWhileTracking(double, long, MapHeroMap.CancelableCallback)}.
    */
   public void cancelTiltWhileTrackingAnimation() {
     checkActivationState();
@@ -802,7 +802,7 @@ public final class LocationComponent {
    * Set max FPS at which location animators can output updates. The throttling will only impact the location puck
    * and camera tracking smooth animations.
    * <p>
-   * Setting this <b>will not impact</b> any other animations schedule with {@link MapLibreMap}, gesture animations or
+   * Setting this <b>will not impact</b> any other animations schedule with {@link MapHeroMap}, gesture animations or
    * {@link #zoomWhileTracking(double)}/{@link #tiltWhileTracking(double)}.
    * <p>
    * Use this setting to limit animation rate of the location puck on higher zoom levels to decrease the stress on
@@ -811,10 +811,10 @@ public final class LocationComponent {
    * Example usage:
    * <pre>
    * {@code
-   * MapLibreMap.addOnCameraIdleListener(new MapLibreMap.OnCameraIdleListener() {
+   * MapHeroMap.addOnCameraIdleListener(new MapHeroMap.OnCameraIdleListener() {
    *   {@literal @}Override
    *   public void onCameraIdle() {
-   *     double zoom = MapLibreMap.getCameraPosition().zoom;
+   *     double zoom = MapHeroMap.getCameraPosition().zoom;
    *     int maxAnimationFps;
    *     if (zoom < 5) {
    *       maxAnimationFps = 3;
@@ -947,7 +947,7 @@ public final class LocationComponent {
    * <p>
    * If there are registered location click listeners and the location is clicked,
    * only {@link OnLocationClickListener#onLocationComponentClick()} is going to be delivered,
-   * {@link MapLibreMap.OnMapClickListener#onMapClick(LatLng)} is going to be consumed
+   * {@link MapHeroMap.OnMapClickListener#onMapClick(LatLng)} is going to be consumed
    * and not pushed to the listeners registered after the component's activation.
    *
    * @param listener The location click listener that is invoked when the
@@ -971,7 +971,7 @@ public final class LocationComponent {
    * <p>
    * If there are registered location long click listeners and the location is long clicked,
    * only {@link OnLocationLongClickListener#onLocationComponentLongClick()} is going to be delivered,
-   * {@link MapLibreMap.OnMapLongClickListener#onMapLongClick(LatLng)} is going to be consumed
+   * {@link MapHeroMap.OnMapLongClickListener#onMapLongClick(LatLng)} is going to be consumed
    * and not pushed to the listeners registered after the component's activation.
    *
    * @param listener The location click listener that is invoked when the
@@ -1081,7 +1081,7 @@ public final class LocationComponent {
    */
   public void onFinishLoadingStyle() {
     if (isComponentInitialized) {
-      style = maplibreMap.getStyle();
+      style = mapHeroMap.getStyle();
       locationLayerController.initializeComponents(style, options);
       locationCameraController.initializeOptions(options);
       onLocationLayerStart();
@@ -1098,14 +1098,14 @@ public final class LocationComponent {
 
   @SuppressLint("MissingPermission")
   private void onLocationLayerStart() {
-    if (!isComponentInitialized || !isComponentStarted || maplibreMap.getStyle() == null) {
+    if (!isComponentInitialized || !isComponentStarted || mapHeroMap.getStyle() == null) {
       return;
     }
 
     if (!isLayerReady) {
       isLayerReady = true;
-      maplibreMap.addOnCameraMoveListener(onCameraMoveListener);
-      maplibreMap.addOnCameraIdleListener(onCameraIdleListener);
+      mapHeroMap.addOnCameraMoveListener(onCameraMoveListener);
+      mapHeroMap.addOnCameraIdleListener(onCameraIdleListener);
       if (options.enableStaleState()) {
         staleStateManager.onStart();
       }
@@ -1148,8 +1148,8 @@ public final class LocationComponent {
     if (locationEngine != null) {
       locationEngine.removeLocationUpdates(currentLocationEngineListener);
     }
-    maplibreMap.removeOnCameraMoveListener(onCameraMoveListener);
-    maplibreMap.removeOnCameraIdleListener(onCameraIdleListener);
+    mapHeroMap.removeOnCameraMoveListener(onCameraMoveListener);
+    mapHeroMap.removeOnCameraIdleListener(onCameraIdleListener);
   }
 
   private void initialize(@NonNull final Context context, @NonNull Style style, boolean useSpecializedLocationLayer,
@@ -1167,21 +1167,21 @@ public final class LocationComponent {
     this.options = options;
     this.useSpecializedLocationLayer = useSpecializedLocationLayer;
 
-    maplibreMap.addOnMapClickListener(onMapClickListener);
-    maplibreMap.addOnMapLongClickListener(onMapLongClickListener);
+    mapHeroMap.addOnMapClickListener(onMapClickListener);
+    mapHeroMap.addOnMapLongClickListener(onMapLongClickListener);
 
     LayerSourceProvider sourceProvider = new LayerSourceProvider();
     LayerFeatureProvider featureProvider = new LayerFeatureProvider();
     LayerBitmapProvider bitmapProvider = new LayerBitmapProvider(context);
-    locationLayerController = new LocationLayerController(maplibreMap, style, sourceProvider, featureProvider,
+    locationLayerController = new LocationLayerController(mapHeroMap, style, sourceProvider, featureProvider,
       bitmapProvider, options, renderModeChangedListener, useSpecializedLocationLayer);
     locationCameraController = new LocationCameraController(
-      context, maplibreMap, transform, cameraTrackingChangedListener, options, onCameraMoveInvalidateListener);
+      context, mapHeroMap, transform, cameraTrackingChangedListener, options, onCameraMoveInvalidateListener);
 
     locationAnimatorCoordinator = new LocationAnimatorCoordinator(
-      maplibreMap.getProjection(),
-      MapLibreAnimatorSetProvider.getInstance(),
-      MapLibreAnimatorProvider.getInstance()
+      mapHeroMap.getProjection(),
+      MapHeroAnimatorSetProvider.getInstance(),
+      MapHeroAnimatorProvider.getInstance()
     );
     locationAnimatorCoordinator.setTrackingAnimationDurationMultiplier(options
       .trackingAnimationDurationMultiplier());
@@ -1247,7 +1247,7 @@ public final class LocationComponent {
   private void updateMapWithOptions(@NonNull LocationComponentOptions options) {
     int[] padding = options.padding();
     if (padding != null) {
-      maplibreMap.setPadding(
+      mapHeroMap.setPadding(
         padding[0], padding[1], padding[2], padding[3]
       );
     }
@@ -1283,7 +1283,7 @@ public final class LocationComponent {
     if (!fromLastLocation) {
       staleStateManager.updateLatestLocationTime();
     }
-    CameraPosition currentCameraPosition = maplibreMap.getCameraPosition();
+    CameraPosition currentCameraPosition = mapHeroMap.getCameraPosition();
     boolean isGpsNorth = getCameraMode() == CameraMode.TRACKING_GPS_NORTH;
     if (intermediatePoints != null) {
       locationAnimatorCoordinator.feedNewLocation(
@@ -1318,7 +1318,7 @@ public final class LocationComponent {
   }
 
   private void updateCompassHeading(float heading) {
-    locationAnimatorCoordinator.feedNewCompassBearing(heading, maplibreMap.getCameraPosition());
+    locationAnimatorCoordinator.feedNewCompassBearing(heading, mapHeroMap.getCameraPosition());
   }
 
   /**
@@ -1344,7 +1344,7 @@ public final class LocationComponent {
       return;
     }
 
-    CameraPosition position = maplibreMap.getCameraPosition();
+    CameraPosition position = mapHeroMap.getCameraPosition();
     if (lastCameraPosition == null || forceUpdate) {
       lastCameraPosition = position;
       locationLayerController.cameraBearingUpdated(position.bearing);
@@ -1372,7 +1372,7 @@ public final class LocationComponent {
     } else if (useSpecializedLocationLayer) {
       radius = location.getAccuracy();
     } else {
-      radius = Utils.calculateZoomLevelRadius(maplibreMap, location);
+      radius = Utils.calculateZoomLevelRadius(mapHeroMap, location);
     }
     locationAnimatorCoordinator.feedNewAccuracyRadius(radius, noAnimation);
   }
@@ -1382,7 +1382,7 @@ public final class LocationComponent {
     animationsValueChangeListeners.addAll(locationLayerController.getAnimationListeners());
     animationsValueChangeListeners.addAll(locationCameraController.getAnimationListeners());
     locationAnimatorCoordinator.updateAnimatorListenerHolders(animationsValueChangeListeners);
-    locationAnimatorCoordinator.resetAllCameraAnimations(maplibreMap.getCameraPosition(),
+    locationAnimatorCoordinator.resetAllCameraAnimations(mapHeroMap.getCameraPosition(),
       locationCameraController.getCameraMode() == CameraMode.TRACKING_GPS_NORTH);
     locationAnimatorCoordinator.resetAllLayerAnimations();
   }
@@ -1418,7 +1418,7 @@ public final class LocationComponent {
   };
 
   @NonNull
-  private MapLibreMap.OnMapLongClickListener onMapLongClickListener = new MapLibreMap.OnMapLongClickListener() {
+  private MapHeroMap.OnMapLongClickListener onMapLongClickListener = new MapHeroMap.OnMapLongClickListener() {
     @Override
     public boolean onMapLongClick(@NonNull LatLng point) {
       if (!onLocationLongClickListeners.isEmpty() && locationLayerController.onMapClick(point)) {
@@ -1542,8 +1542,8 @@ public final class LocationComponent {
   };
 
   @NonNull
-  private final MapLibreMap.OnDeveloperAnimationListener developerAnimationListener =
-    new MapLibreMap.OnDeveloperAnimationListener() {
+  private final MapHeroMap.OnDeveloperAnimationListener developerAnimationListener =
+    new MapHeroMap.OnDeveloperAnimationListener() {
       @Override
       public void onDeveloperAnimationStarted() {
         if (isComponentInitialized && isEnabled) {
@@ -1558,7 +1558,7 @@ public final class LocationComponent {
     }
   }
 
-  private void notifyUnsuccessfulCameraOperation(@Nullable MapLibreMap.CancelableCallback callback,
+  private void notifyUnsuccessfulCameraOperation(@Nullable MapHeroMap.CancelableCallback callback,
                                                  @Nullable String msg) {
     if (msg != null) {
       Logger.e(TAG, msg);

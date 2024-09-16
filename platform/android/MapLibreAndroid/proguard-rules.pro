@@ -17,14 +17,19 @@
 }
 
 # dontnote for keeps the entry point x but not the descriptor class y
--dontnote org.maplibre.android.maps.MapLibreMap$OnFpsChangedListener
+-dontnote org.maplibre.android.maps.MapHeroMap$OnFpsChangedListener
 -dontnote org.maplibre.android.style.layers.PropertyValue
--dontnote org.maplibre.android.maps.MapLibreMap
--dontnote org.maplibre.android.maps.MapLibreMapOptions
+-dontnote org.maplibre.android.maps.MapHeroMap
+-dontnote org.maplibre.android.maps.MapHeroMapOptions
 -dontnote org.maplibre.android.log.LoggerDefinition
 
 # config for mapbox-sdk-geojson:3.0.1
 -keep class org.maplibre.geojson.** { *; }
+-keep class org.maplibre.** { *; }
+-keep class org.geojson.** { *; }
+
+# Keep the GeoJSON Feature class
+-keep class org.maplibre.geojson.Feature { *; }
 -dontwarn com.google.auto.value.**
 
 # config for additional notes

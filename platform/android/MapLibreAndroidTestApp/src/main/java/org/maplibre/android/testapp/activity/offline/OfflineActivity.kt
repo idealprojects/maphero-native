@@ -5,12 +5,12 @@ import android.text.TextUtils
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import org.maplibre.android.MapLibre
+import org.maplibre.android.MapHero
 import org.maplibre.android.camera.CameraPosition
 import org.maplibre.android.camera.CameraUpdateFactory
 import org.maplibre.android.geometry.LatLng
 import org.maplibre.android.maps.MapView
-import org.maplibre.android.maps.MapLibreMap
+import org.maplibre.android.maps.MapHeroMap
 import org.maplibre.android.maps.Style
 import org.maplibre.android.offline.OfflineManager
 import org.maplibre.android.offline.OfflineManager.CreateOfflineRegionCallback
@@ -41,7 +41,7 @@ class OfflineActivity : AppCompatActivity(), DownloadRegionDialogListener {
    * UI elements
    */
     private lateinit var mapView: MapView
-    private lateinit var maplibreMap: MapLibreMap
+    private lateinit var mapHeroMap: MapHeroMap
     private var progressBar: ProgressBar? = null
     private var downloadRegion: Button? = null
     private var listRegions: Button? = null
@@ -58,21 +58,19 @@ class OfflineActivity : AppCompatActivity(), DownloadRegionDialogListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_offline)
 
-        // You can use MapLibre.setConnected(Boolean) to manually set the connectivity
         // state of your app. This will override any checks performed via the ConnectivityManager.
-        // MapLibre.getInstance().setConnected(false);
-        val connected = MapLibre.isConnected()
-        Timber.d("MapLibre is connected: %s", connected)
+        val connected = MapHero.isConnected()
+        Timber.d("MapHero is connected: %s", connected)
 
         // Set up map
         mapView = findViewById<View>(R.id.mapView) as MapView
         mapView.onCreate(savedInstanceState)
-        mapView.getMapAsync { maplibreMap: MapLibreMap ->
+        mapView.getMapAsync { mapHeroMap1: MapHeroMap ->
             Timber.d("Map is ready")
-            this@OfflineActivity.maplibreMap = maplibreMap
-            maplibreMap.setStyle(Style.Builder().fromUri(STYLE_URL))
+            this@OfflineActivity.mapHeroMap = mapHeroMap1
+            mapHeroMap1.setStyle(Style.Builder().fromUri(STYLE_URL))
             // Set initial position to UNHQ in NYC
-            maplibreMap.moveCamera(
+            mapHeroMap1.moveCamera(
                 CameraUpdateFactory.newCameraPosition(
                     CameraPosition.Builder()
                         .target(LatLng(40.749851, -73.967966))
@@ -196,9 +194,9 @@ class OfflineActivity : AppCompatActivity(), DownloadRegionDialogListener {
         startProgress()
 
         // Definition
-        val bounds = maplibreMap.projection.visibleRegion.latLngBounds
-        val minZoom = maplibreMap.cameraPosition.zoom
-        val maxZoom = maplibreMap.maxZoomLevel
+        val bounds = mapHeroMap.projection.visibleRegion.latLngBounds
+        val minZoom = mapHeroMap.cameraPosition.zoom
+        val maxZoom = mapHeroMap.maxZoomLevel
         val pixelRatio = this.resources.displayMetrics.density
         val definition = OfflineTilePyramidRegionDefinition(
             STYLE_URL,
@@ -264,7 +262,7 @@ class OfflineActivity : AppCompatActivity(), DownloadRegionDialogListener {
             }
 
             override fun mapboxTileCountLimitExceeded(limit: Long) {
-                Timber.e("MapLibre tile count limit exceeded: %s", limit)
+                Timber.e("MapHero tile count limit exceeded: %s", limit)
                 offlineRegion!!.setDownloadState(OfflineRegion.STATE_INACTIVE)
             }
         })

@@ -142,9 +142,9 @@ open class GLSurfaceRecyclerViewActivity : AppCompatActivity() {
             }
 
             fun bind(mapItem: MapItem) {
-                mapView.getMapAsync { maplibreMap ->
-                    maplibreMap.setStyle(mapItem.style) {
-                        maplibreMap.snapshot { }
+                mapView.getMapAsync { mapHeroMap ->
+                    mapHeroMap.setStyle(mapItem.style) {
+                        mapHeroMap.snapshot { }
                     }
                 }
             }

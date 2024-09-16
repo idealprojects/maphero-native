@@ -9,7 +9,8 @@ import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 
 import org.maplibre.android.BuildConfig;
-import org.maplibre.android.constants.MapLibreConstants;
+import org.maplibre.android.MapHero;
+import org.maplibre.android.constants.MapHeroConstants;
 import org.maplibre.android.http.HttpIdentifier;
 import org.maplibre.android.http.HttpLogger;
 import org.maplibre.android.http.HttpRequest;
@@ -22,6 +23,7 @@ import java.net.NoRouteToHostException;
 import java.net.ProtocolException;
 import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.util.Optional;
 
 import javax.net.ssl.SSLException;
 
@@ -66,12 +68,13 @@ public class HttpRequestImpl implements HttpRequest {
         return;
       }
 
-      final String host = httpUrl.host().toLowerCase(MapLibreConstants.MAPLIBRE_LOCALE);
+      final String host = httpUrl.host().toLowerCase(MapHeroConstants.MAPHERO_LOCALE);
       resourceUrl = HttpRequestUrl.buildResourceUrl(host, resourceUrl, httpUrl.querySize(), offlineUsage);
 
       final Request.Builder builder = new Request.Builder()
         .url(resourceUrl)
-        .tag(resourceUrl.toLowerCase(MapLibreConstants.MAPLIBRE_LOCALE))
+        .tag(resourceUrl.toLowerCase(MapHeroConstants.MAPHERO_LOCALE))
+              .addHeader("map-token", Optional.ofNullable(MapHero.getApiKey()).orElse(""))
         .addHeader("User-Agent", userAgentString);
       if (etag.length() > 0) {
         builder.addHeader("If-None-Match", etag);

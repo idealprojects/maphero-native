@@ -12,7 +12,7 @@ import static android.opengl.GLSurfaceView.RENDERMODE_WHEN_DIRTY;
 public class GLSurfaceViewMapRenderer extends SurfaceViewMapRenderer {
 
   public GLSurfaceViewMapRenderer(Context context,
-                                @NonNull MapLibreGLSurfaceView surfaceView,
+                                @NonNull MapHeroGLSurfaceView surfaceView,
                                 String localIdeographFontFamily) {
     super(context, surfaceView, localIdeographFontFamily);
 

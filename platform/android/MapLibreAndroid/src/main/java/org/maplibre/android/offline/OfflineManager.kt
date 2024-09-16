@@ -327,7 +327,7 @@ class OfflineManager private constructor(context: Context) {
     /**
      * Forces re-validation of the ambient cache.
      *
-     * Forces MapLibre Native to revalidate resources stored in the ambient
+     * Force MapHero Native to revalidate resources stored in the ambient
      * cache with the tile server before using them, making sure they
      * are the latest version. This is more efficient than cleaning the
      * cache because if the resource is considered valid after the server

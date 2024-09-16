@@ -9,8 +9,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import org.maplibre.android.maps.*
-import org.maplibre.android.maps.MapLibreMap.OnCameraMoveListener
-import org.maplibre.android.maps.MapLibreMap.OnFpsChangedListener
+import org.maplibre.android.maps.MapHeroMap.OnCameraMoveListener
+import org.maplibre.android.maps.MapHeroMap.OnFpsChangedListener
 import org.maplibre.android.style.layers.Layer
 import org.maplibre.android.style.layers.Property
 import org.maplibre.android.style.layers.PropertyFactory
@@ -24,7 +24,7 @@ import java.util.*
  */
 open class DebugModeActivity : AppCompatActivity(), OnMapReadyCallback, OnFpsChangedListener {
     private lateinit var mapView: MapView
-    private lateinit var maplibreMap: MapLibreMap
+    private lateinit var mapHeroMap1: MapHeroMap
     private var cameraMoveListener: OnCameraMoveListener? = null
     private var actionBarDrawerToggle: ActionBarDrawerToggle? = null
     private var currentStyleIndex = 0
@@ -57,12 +57,12 @@ open class DebugModeActivity : AppCompatActivity(), OnMapReadyCallback, OnFpsCha
     }
 
     private fun setupMapView(savedInstanceState: Bundle?) {
-        val maplibreMapOptions = setupMapLibreMapOptions()
-        mapView = MapView(this, maplibreMapOptions)
+        val mapHeroMapOptions = setupMapHeroMapOptions()
+        mapView = MapView(this, mapHeroMapOptions)
         (findViewById<View>(R.id.coordinator_layout) as ViewGroup).addView(mapView, 0)
         mapView.addOnDidFinishLoadingStyleListener {
-            if (this::maplibreMap.isInitialized) {
-                setupNavigationView(maplibreMap.style!!.layers)
+            if (this::mapHeroMap1.isInitialized) {
+                setupNavigationView(mapHeroMap1.style!!.layers)
             }
         }
         mapView.tag = true
@@ -71,13 +71,13 @@ open class DebugModeActivity : AppCompatActivity(), OnMapReadyCallback, OnFpsCha
         mapView.addOnDidFinishLoadingStyleListener { Timber.d("Style loaded") }
     }
 
-    protected open fun setupMapLibreMapOptions(): MapLibreMapOptions {
-        return MapLibreMapOptions.createFromAttributes(this, null)
+    protected open fun setupMapHeroMapOptions(): MapHeroMapOptions {
+        return MapHeroMapOptions.createFromAttributes(this, null)
     }
 
-    override fun onMapReady(map: MapLibreMap) {
-        maplibreMap = map
-        maplibreMap.setStyle(
+    override fun onMapReady(mapHeroMap: MapHeroMap) {
+        mapHeroMap1 = mapHeroMap
+        mapHeroMap1.setStyle(
             Style.Builder().fromUri(STYLES[currentStyleIndex])
         ) { style: Style -> setupNavigationView(style.layers) }
         setupZoomView()
@@ -86,7 +86,7 @@ open class DebugModeActivity : AppCompatActivity(), OnMapReadyCallback, OnFpsCha
 
     private fun setFpsView() {
         fpsView = findViewById(R.id.fpsView)
-        maplibreMap.setOnFpsChangedListener(this)
+        mapHeroMap1.setOnFpsChangedListener(this)
     }
 
     override fun onFpsChanged(fps: Double) {
@@ -94,7 +94,7 @@ open class DebugModeActivity : AppCompatActivity(), OnMapReadyCallback, OnFpsCha
     }
 
     private fun setupNavigationView(layerList: List<Layer>) {
-        Timber.v("New style loaded with JSON: %s", maplibreMap.style!!.json)
+        Timber.v("New style loaded with JSON: %s", mapHeroMap1.style!!.json)
         val adapter = LayerListAdapter(this, layerList)
         val listView = findViewById<ListView>(R.id.listView)
         listView.adapter = adapter
@@ -122,13 +122,13 @@ open class DebugModeActivity : AppCompatActivity(), OnMapReadyCallback, OnFpsCha
 
     private fun setupZoomView() {
         val textView = findViewById<TextView>(R.id.textZoom)
-        maplibreMap.addOnCameraMoveListener(
+        mapHeroMap1.addOnCameraMoveListener(
             OnCameraMoveListener {
                 textView.text = String.format(
                     this@DebugModeActivity.getString(
                         R.string.debug_zoom
                     ),
-                    maplibreMap.cameraPosition.zoom
+                    mapHeroMap1.cameraPosition.zoom
                 )
             }.also { cameraMoveListener = it }
         )
@@ -137,9 +137,9 @@ open class DebugModeActivity : AppCompatActivity(), OnMapReadyCallback, OnFpsCha
     private fun setupDebugChangeView() {
         val fabDebug = findViewById<FloatingActionButton>(R.id.fabDebug)
         fabDebug.setOnClickListener { view: View? ->
-            if (this::maplibreMap.isInitialized) {
-                maplibreMap.isDebugActive = !maplibreMap.isDebugActive
-                Timber.d("Debug FAB: isDebug Active? %s", maplibreMap.isDebugActive)
+            if (this::mapHeroMap1.isInitialized) {
+                mapHeroMap1.isDebugActive = !mapHeroMap1.isDebugActive
+                Timber.d("Debug FAB: isDebug Active? %s", mapHeroMap1.isDebugActive)
             }
         }
     }
@@ -147,12 +147,12 @@ open class DebugModeActivity : AppCompatActivity(), OnMapReadyCallback, OnFpsCha
     private fun setupStyleChangeView() {
         val fabStyles = findViewById<FloatingActionButton>(R.id.fabStyles)
         fabStyles.setOnClickListener { view: View? ->
-            if (this::maplibreMap.isInitialized) {
+            if (this::mapHeroMap1.isInitialized) {
                 currentStyleIndex++
                 if (currentStyleIndex == STYLES.size) {
                     currentStyleIndex = 0
                 }
-                maplibreMap.setStyle(Style.Builder().fromUri(STYLES[currentStyleIndex]))
+                mapHeroMap1.setStyle(Style.Builder().fromUri(STYLES[currentStyleIndex]))
             }
         }
     }
@@ -162,7 +162,7 @@ open class DebugModeActivity : AppCompatActivity(), OnMapReadyCallback, OnFpsCha
         if (itemId == R.id.menu_action_toggle_report_fps) {
             isReportFps = !isReportFps
             fpsView!!.visibility = if (isReportFps) View.VISIBLE else View.GONE
-            maplibreMap.setOnFpsChangedListener(if (isReportFps) this else null)
+            mapHeroMap1.setOnFpsChangedListener(if (isReportFps) this else null)
         } else if (itemId == R.id.menu_action_limit_to_30_fps) {
             mapView.setMaximumFps(30)
         } else if (itemId == R.id.menu_action_limit_to_60_fps) {
@@ -205,8 +205,8 @@ open class DebugModeActivity : AppCompatActivity(), OnMapReadyCallback, OnFpsCha
 
     override fun onDestroy() {
         super.onDestroy()
-        if (this::maplibreMap.isInitialized) {
-            maplibreMap.removeOnCameraMoveListener(cameraMoveListener!!)
+        if (this::mapHeroMap1.isInitialized) {
+            mapHeroMap1.removeOnCameraMoveListener(cameraMoveListener!!)
         }
         mapView.onDestroy()
     }

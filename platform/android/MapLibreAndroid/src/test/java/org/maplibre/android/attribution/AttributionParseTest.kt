@@ -24,7 +24,7 @@ class AttributionParseTest {
                         "https://www.mapbox.com/about/maps/",
                         attribution.url
                     )
-                    Assert.assertEquals("Title mapbox should match", "© MapLibre", attribution.title)
+                    Assert.assertEquals("Title mapbox should match", "© MapHero", attribution.title)
                 }
                 1 -> {
                     Assert.assertEquals(
@@ -70,7 +70,7 @@ class AttributionParseTest {
                         "https://www.mapbox.com/about/maps/",
                         attribution.url
                     )
-                    Assert.assertEquals("Title mapbox should match", "© MapLibre", attribution.title)
+                    Assert.assertEquals("Title mapbox should match", "© MapHero", attribution.title)
                 }
                 1 -> {
                     Assert.assertEquals(
@@ -131,7 +131,7 @@ class AttributionParseTest {
                         "https://www.mapbox.com/about/maps/",
                         attribution.url
                     )
-                    Assert.assertEquals("Title mapbox should match", "© MapLibre", attribution.title)
+                    Assert.assertEquals("Title mapbox should match", "© MapHero", attribution.title)
                 }
                 1 -> {
                     Assert.assertEquals(
@@ -178,7 +178,7 @@ class AttributionParseTest {
                         "https://www.mapbox.com/about/maps/",
                         attribution.url
                     )
-                    Assert.assertEquals("Title mapbox should match", "© MapLibre", attribution.title)
+                    Assert.assertEquals("Title mapbox should match", "© MapHero", attribution.title)
                 }
                 1 -> {
                     Assert.assertEquals(
@@ -225,7 +225,7 @@ class AttributionParseTest {
                         "https://www.mapbox.com/about/maps/",
                         attribution.url
                     )
-                    Assert.assertEquals("Title mapbox should match", "MapLibre", attribution.title)
+                    Assert.assertEquals("Title mapbox should match", "MapHero", attribution.title)
                 }
                 1 -> {
                     Assert.assertEquals(
@@ -265,7 +265,7 @@ class AttributionParseTest {
             .build()
         Assert.assertEquals(
             "Attribution string should match",
-            "© MapLibre / OpenStreetMap",
+            "© MapHero / OpenStreetMap",
             attributionParser.createAttributionString()
         )
     }
@@ -279,7 +279,7 @@ class AttributionParseTest {
             .build()
         Assert.assertEquals(
             "Attribution string should match",
-            "© MapLibre / © OpenStreetMap",
+            "© MapHero / © OpenStreetMap",
             attributionParser.createAttributionString()
         )
     }
@@ -357,15 +357,15 @@ class AttributionParseTest {
             .build()
         Assert.assertEquals(
             "Attribution string should match",
-            "© MapLibre / OSM / DigitalGlobe",
+            "© MapHero / OSM / DigitalGlobe",
             attributionParser.createAttributionString(true)
         )
     }
 
     companion object {
         private const val STREETS_ATTRIBUTION =
-            "<a href=\"https://www.mapbox.com/about/maps/\" target=\"_blank\">&copy; MapLibre</a> <a href=\"http://www.openstreetmap.org/about/\" target=\"_blank\">&copy; OpenStreetMap</a> \n"
+            "<a href=\"https://www.mapbox.com/about/maps/\" target=\"_blank\">&copy; MapHero</a> <a href=\"http://www.openstreetmap.org/about/\" target=\"_blank\">&copy; OpenStreetMap</a> \n"
         private const val SATELLITE_ATTRIBUTION =
-            "<a href=\"https://www.mapbox.com/about/maps/\" target=\"_blank\">&copy; MapLibre</a> <a href=\"http://www.openstreetmap.org/about/\" target=\"_blank\">&copy; OpenStreetMap</a> <a href=\"https://www.digitalglobe.com/\" target=\"_blank\">&copy; DigitalGlobe</a>\n"
+            "<a href=\"https://www.mapbox.com/about/maps/\" target=\"_blank\">&copy; MapHero</a> <a href=\"http://www.openstreetmap.org/about/\" target=\"_blank\">&copy; OpenStreetMap</a> <a href=\"https://www.digitalglobe.com/\" target=\"_blank\">&copy; DigitalGlobe</a>\n"
     }
 }

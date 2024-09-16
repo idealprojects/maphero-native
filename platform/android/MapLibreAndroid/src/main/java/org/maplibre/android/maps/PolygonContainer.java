@@ -25,12 +25,12 @@ class PolygonContainer implements Polygons {
   }
 
   @Override
-  public Polygon addBy(@NonNull PolygonOptions polygonOptions, @NonNull MapLibreMap maplibreMap) {
+  public Polygon addBy(@NonNull PolygonOptions polygonOptions, @NonNull MapHeroMap mapHeroMap) {
     Polygon polygon = polygonOptions.getPolygon();
     if (!polygon.getPoints().isEmpty()) {
       long id = nativeMap != null ? nativeMap.addPolygon(polygon) : 0;
       polygon.setId(id);
-      polygon.setMapLibreMap(maplibreMap);
+      polygon.setMapHeroMap(mapHeroMap);
       annotations.put(id, polygon);
     }
     return polygon;
@@ -38,7 +38,7 @@ class PolygonContainer implements Polygons {
 
   @NonNull
   @Override
-  public List<Polygon> addBy(@NonNull List<PolygonOptions> polygonOptionsList, @NonNull MapLibreMap maplibreMap) {
+  public List<Polygon> addBy(@NonNull List<PolygonOptions> polygonOptionsList, @NonNull MapHeroMap mapHeroMap) {
     int count = polygonOptionsList.size();
 
     Polygon polygon;
@@ -54,7 +54,7 @@ class PolygonContainer implements Polygons {
       long[] ids = nativeMap.addPolygons(polygons);
       for (int i = 0; i < ids.length; i++) {
         polygon = polygons.get(i);
-        polygon.setMapLibreMap(maplibreMap);
+        polygon.setMapHeroMap(mapHeroMap);
         polygon.setId(ids[i]);
         annotations.put(ids[i], polygon);
       }

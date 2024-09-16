@@ -10,9 +10,9 @@ import org.maplibre.android.annotations.MarkerOptions
 import org.maplibre.android.camera.CameraUpdateFactory
 import org.maplibre.android.geometry.LatLng
 import org.maplibre.android.maps.MapView
-import org.maplibre.android.maps.MapLibreMap
-import org.maplibre.android.maps.MapLibreMap.InfoWindowAdapter
-import org.maplibre.android.maps.MapLibreMap.OnMapClickListener
+import org.maplibre.android.maps.MapHeroMap
+import org.maplibre.android.maps.MapHeroMap.InfoWindowAdapter
+import org.maplibre.android.maps.MapHeroMap.OnMapClickListener
 import org.maplibre.android.maps.OnMapReadyCallback
 import org.maplibre.android.testapp.R
 import org.maplibre.android.testapp.styles.TestStyles
@@ -20,10 +20,10 @@ import org.maplibre.android.testapp.utils.IconUtils
 import java.util.*
 
 /**
- * Test activity showcasing how to dynamically update InfoWindow when Using an MapLibreMap.InfoWindowAdapter.
+ * Test activity showcasing how to dynamically update InfoWindow when Using an MapHeroMap.InfoWindowAdapter.
  */
 class DynamicInfoWindowAdapterActivity : AppCompatActivity(), OnMapReadyCallback {
-    private lateinit var maplibreMap: MapLibreMap
+    private lateinit var mapHeroMap1: MapHeroMap
     private lateinit var mapView: MapView
     private var marker: Marker? = null
     private val mapClickListener = OnMapClickListener { point ->
@@ -56,29 +56,29 @@ class DynamicInfoWindowAdapterActivity : AppCompatActivity(), OnMapReadyCallback
         mapView.getMapAsync(this)
     }
 
-    override fun onMapReady(map: MapLibreMap) {
-        maplibreMap = map
-        map.setStyle(TestStyles.getPredefinedStyleWithFallback("Streets"))
+    override fun onMapReady(mapHeroMap: MapHeroMap) {
+        mapHeroMap1 = mapHeroMap
+        mapHeroMap.setStyle(TestStyles.getPredefinedStyleWithFallback("Streets"))
 
         // Add info window adapter
-        addCustomInfoWindowAdapter(maplibreMap)
+        addCustomInfoWindowAdapter(mapHeroMap1)
 
         // Keep info windows open on click
-        maplibreMap.uiSettings.isDeselectMarkersOnTap = false
+        mapHeroMap1.uiSettings.isDeselectMarkersOnTap = false
 
         // Add a marker
-        marker = addMarker(maplibreMap)
-        maplibreMap.selectMarker(marker!!)
+        marker = addMarker(mapHeroMap1)
+        mapHeroMap1.selectMarker(marker!!)
 
         // On map click, change the info window contents
-        maplibreMap.addOnMapClickListener(mapClickListener)
+        mapHeroMap1.addOnMapClickListener(mapClickListener)
 
         // Focus on Paris
-        maplibreMap.animateCamera(CameraUpdateFactory.newLatLng(PARIS))
+        mapHeroMap1.animateCamera(CameraUpdateFactory.newLatLng(PARIS))
     }
 
-    private fun addMarker(maplibreMap: MapLibreMap): Marker {
-        return maplibreMap.addMarker(
+    private fun addMarker(mapHeroMap: MapHeroMap): Marker {
+        return mapHeroMap.addMarker(
             MarkerOptions()
                 .position(PARIS)
                 .icon(
@@ -91,9 +91,9 @@ class DynamicInfoWindowAdapterActivity : AppCompatActivity(), OnMapReadyCallback
         )
     }
 
-    private fun addCustomInfoWindowAdapter(maplibreMap: MapLibreMap) {
+    private fun addCustomInfoWindowAdapter(mapHeroMap: MapHeroMap) {
         val padding = resources.getDimension(R.dimen.attr_margin).toInt()
-        maplibreMap.infoWindowAdapter = InfoWindowAdapter { marker: Marker ->
+        mapHeroMap.infoWindowAdapter = InfoWindowAdapter { marker: Marker ->
             val textView = TextView(this@DynamicInfoWindowAdapterActivity)
             textView.text = marker.title
             textView.setBackgroundColor(Color.WHITE)
@@ -130,8 +130,8 @@ class DynamicInfoWindowAdapterActivity : AppCompatActivity(), OnMapReadyCallback
 
     override fun onDestroy() {
         super.onDestroy()
-        if (this::maplibreMap.isInitialized) {
-            maplibreMap.removeOnMapClickListener(mapClickListener)
+        if (this::mapHeroMap1.isInitialized) {
+            mapHeroMap1.removeOnMapClickListener(mapClickListener)
         }
         mapView.onDestroy()
     }

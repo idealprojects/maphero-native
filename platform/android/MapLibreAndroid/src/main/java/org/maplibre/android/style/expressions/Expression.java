@@ -3033,13 +3033,13 @@ public class Expression {
    * Returns true if the input string is expected to render legibly.
    * Returns false if the input string contains sections that cannot be rendered without potential loss of meaning
    * (e.g. Indic scripts that require complex text shaping,
-   * or right-to-left scripts if the the mapbox-gl-rtl-text plugin is not in use in MapLibre GL JS).
+   * or right-to-left scripts if the the mapbox-gl-rtl-text plugin is not in use in MapHero JS).
    * <p>
    * Example usage:
    * </p>
    * <pre>
    * {@code
-   * maplibreMap.getStyle().addLayer(new SymbolLayer("layer-id", "source-id")
+   * mapHeroMap.getStyle().addLayer(new SymbolLayer("layer-id", "source-id")
    * .withProperties(
    *   textField(
    *     switchCase(

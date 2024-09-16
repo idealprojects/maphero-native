@@ -3,19 +3,19 @@ package org.maplibre.android.constants;
 import java.util.Locale;
 
 /**
- * MapLibreConstants exposes MapLibre related constants
+ * MapHeroConstants exposes MapHero related constants
  */
-public class MapLibreConstants {
+public class MapHeroConstants {
 
   /**
    * Default Locale for data processing (ex: String.toLowerCase(MAPBOX_LOCALE, "foo"))
    */
-  public static final Locale MAPLIBRE_LOCALE = Locale.US;
+  public static final Locale MAPHERO_LOCALE = Locale.US;
 
   /**
    * The name of the desired preferences file for Android's SharedPreferences.
    */
-  public static final String MAPLIBRE_SHARED_PREFERENCES = "MapboxSharedPreferences";
+  public static final String MAPHERO_SHARED_PREFERENCES = "MapHeroSharedPreferences";
 
   /**
    * Key used to switch storage to external in AndroidManifest.xml
@@ -190,9 +190,9 @@ public class MapLibreConstants {
   public static final float ZOOM_RATE = 0.65f;
 
   /**
-   * Fragment Argument Key for MapLibreMapOptions
+   * Fragment Argument Key for MapHeroMapOptions
    */
-  public static final String FRAG_ARG_MAPLIBREMAPOPTIONS = "MapLibreMapOptions";
+  public static final String FRAG_ARG_MAPHEROMAPOPTIONS = "MapHeroMapOptions";
 
   /**
    * Layer Id of annotations layer
@@ -200,43 +200,43 @@ public class MapLibreConstants {
   public static final String LAYER_ID_ANNOTATIONS = "org.maplibre.annotations.points";
 
   // Save instance state keys
-  public static final String STATE_HAS_SAVED_STATE = "maplibre_savedState";
-  public static final String STATE_CAMERA_POSITION = "maplibre_cameraPosition";
-  public static final String STATE_ZOOM_ENABLED = "maplibre_zoomEnabled";
-  public static final String STATE_SCROLL_ENABLED = "maplibre_scrollEnabled";
-  public static final String STATE_HORIZONAL_SCROLL_ENABLED = "maplibre_horizontalScrollEnabled";
-  public static final String STATE_ROTATE_ENABLED = "maplibre_rotateEnabled";
-  public static final String STATE_TILT_ENABLED = "maplibre_tiltEnabled";
-  public static final String STATE_DOUBLE_TAP_ENABLED = "maplibre_doubleTapEnabled";
-  public static final String STATE_QUICK_ZOOM_ENABLED = "maplibre_quickZoom";
-  public static final String STATE_ZOOM_RATE = "maplibre_zoomRate";
-  public static final String STATE_DEBUG_ACTIVE = "maplibre_debugActive";
-  public static final String STATE_COMPASS_ENABLED = "maplibre_compassEnabled";
-  public static final String STATE_COMPASS_GRAVITY = "maplibre_compassGravity";
-  public static final String STATE_COMPASS_MARGIN_LEFT = "maplibre_compassMarginLeft";
-  public static final String STATE_COMPASS_MARGIN_TOP = "maplibre_compassMarginTop";
-  public static final String STATE_COMPASS_MARGIN_RIGHT = "maplibre_compassMarginRight";
-  public static final String STATE_COMPASS_MARGIN_BOTTOM = "maplibre_compassMarginBottom";
-  public static final String STATE_COMPASS_FADE_WHEN_FACING_NORTH = "maplibre_compassFade";
-  public static final String STATE_COMPASS_IMAGE_BITMAP = "maplibre_compassImage";
-  public static final String STATE_LOGO_GRAVITY = "maplibre_logoGravity";
-  public static final String STATE_LOGO_MARGIN_LEFT = "maplibre_logoMarginLeft";
-  public static final String STATE_LOGO_MARGIN_TOP = "maplibre_logoMarginTop";
-  public static final String STATE_LOGO_MARGIN_RIGHT = "maplibre_logoMarginRight";
-  public static final String STATE_LOGO_MARGIN_BOTTOM = "maplibre_logoMarginBottom";
-  public static final String STATE_LOGO_ENABLED = "maplibre_logoEnabled";
-  public static final String STATE_ATTRIBUTION_GRAVITY = "maplibre_attrGravity";
-  public static final String STATE_ATTRIBUTION_MARGIN_LEFT = "maplibre_attrMarginLeft";
-  public static final String STATE_ATTRIBUTION_MARGIN_TOP = "maplibre_attrMarginTop";
-  public static final String STATE_ATTRIBUTION_MARGIN_RIGHT = "maplibre_attrMarginRight";
-  public static final String STATE_ATTRIBUTION_MARGIN_BOTTOM = "maplibre_atrrMarginBottom";
-  public static final String STATE_ATTRIBUTION_ENABLED = "maplibre_atrrEnabled";
-  public static final String STATE_DESELECT_MARKER_ON_TAP = "maplibre_deselectMarkerOnTap";
-  public static final String STATE_USER_FOCAL_POINT = "maplibre_userFocalPoint";
-  public static final String STATE_SCALE_ANIMATION_ENABLED = "maplibre_scaleAnimationEnabled";
-  public static final String STATE_ROTATE_ANIMATION_ENABLED = "maplibre_rotateAnimationEnabled";
-  public static final String STATE_FLING_ANIMATION_ENABLED = "maplibre_flingAnimationEnabled";
-  public static final String STATE_INCREASE_ROTATE_THRESHOLD = "maplibre_increaseRotateThreshold";
-  public static final String STATE_DISABLE_ROTATE_WHEN_SCALING = "maplibre_disableRotateWhenScaling";
-  public static final String STATE_INCREASE_SCALE_THRESHOLD = "maplibre_increaseScaleThreshold";
+  public static final String STATE_HAS_SAVED_STATE = "maphero_savedState";
+  public static final String STATE_CAMERA_POSITION = "maphero_cameraPosition";
+  public static final String STATE_ZOOM_ENABLED = "maphero_zoomEnabled";
+  public static final String STATE_SCROLL_ENABLED = "maphero_scrollEnabled";
+  public static final String STATE_HORIZONAL_SCROLL_ENABLED = "maphero_horizontalScrollEnabled";
+  public static final String STATE_ROTATE_ENABLED = "maphero_rotateEnabled";
+  public static final String STATE_TILT_ENABLED = "maphero_tiltEnabled";
+  public static final String STATE_DOUBLE_TAP_ENABLED = "maphero_doubleTapEnabled";
+  public static final String STATE_QUICK_ZOOM_ENABLED = "maphero_quickZoom";
+  public static final String STATE_ZOOM_RATE = "maphero_zoomRate";
+  public static final String STATE_DEBUG_ACTIVE = "maphero_debugActive";
+  public static final String STATE_COMPASS_ENABLED = "maphero_compassEnabled";
+  public static final String STATE_COMPASS_GRAVITY = "maphero_compassGravity";
+  public static final String STATE_COMPASS_MARGIN_LEFT = "maphero_compassMarginLeft";
+  public static final String STATE_COMPASS_MARGIN_TOP = "maphero_compassMarginTop";
+  public static final String STATE_COMPASS_MARGIN_RIGHT = "maphero_compassMarginRight";
+  public static final String STATE_COMPASS_MARGIN_BOTTOM = "maphero_compassMarginBottom";
+  public static final String STATE_COMPASS_FADE_WHEN_FACING_NORTH = "maphero_compassFade";
+  public static final String STATE_COMPASS_IMAGE_BITMAP = "maphero_compassImage";
+  public static final String STATE_LOGO_GRAVITY = "maphero_logoGravity";
+  public static final String STATE_LOGO_MARGIN_LEFT = "maphero_logoMarginLeft";
+  public static final String STATE_LOGO_MARGIN_TOP = "maphero_logoMarginTop";
+  public static final String STATE_LOGO_MARGIN_RIGHT = "maphero_logoMarginRight";
+  public static final String STATE_LOGO_MARGIN_BOTTOM = "maphero_logoMarginBottom";
+  public static final String STATE_LOGO_ENABLED = "maphero_logoEnabled";
+  public static final String STATE_ATTRIBUTION_GRAVITY = "maphero_attrGravity";
+  public static final String STATE_ATTRIBUTION_MARGIN_LEFT = "maphero_attrMarginLeft";
+  public static final String STATE_ATTRIBUTION_MARGIN_TOP = "maphero_attrMarginTop";
+  public static final String STATE_ATTRIBUTION_MARGIN_RIGHT = "maphero_attrMarginRight";
+  public static final String STATE_ATTRIBUTION_MARGIN_BOTTOM = "maphero_atrrMarginBottom";
+  public static final String STATE_ATTRIBUTION_ENABLED = "maphero_atrrEnabled";
+  public static final String STATE_DESELECT_MARKER_ON_TAP = "maphero_deselectMarkerOnTap";
+  public static final String STATE_USER_FOCAL_POINT = "maphero_userFocalPoint";
+  public static final String STATE_SCALE_ANIMATION_ENABLED = "maphero_scaleAnimationEnabled";
+  public static final String STATE_ROTATE_ANIMATION_ENABLED = "maphero_rotateAnimationEnabled";
+  public static final String STATE_FLING_ANIMATION_ENABLED = "maphero_flingAnimationEnabled";
+  public static final String STATE_INCREASE_ROTATE_THRESHOLD = "maphero_increaseRotateThreshold";
+  public static final String STATE_DISABLE_ROTATE_WHEN_SCALING = "maphero_disableRotateWhenScaling";
+  public static final String STATE_INCREASE_SCALE_THRESHOLD = "maphero_increaseScaleThreshold";
 }

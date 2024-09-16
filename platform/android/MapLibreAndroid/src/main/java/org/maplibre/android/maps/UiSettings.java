@@ -23,13 +23,13 @@ import androidx.core.content.res.ResourcesCompat;
 
 import org.maplibre.android.R;
 import org.maplibre.android.camera.CameraPosition;
-import org.maplibre.android.constants.MapLibreConstants;
+import org.maplibre.android.constants.MapHeroConstants;
 import org.maplibre.android.maps.widgets.CompassView;
 import org.maplibre.android.utils.BitmapUtils;
 import org.maplibre.android.utils.ColorUtils;
 
 /**
- * Settings for the user interface of a MapLibreMap. To obtain this interface, call getUiSettings().
+ * Settings for the user interface of a MapHeroMap. To obtain this interface, call getUiSettings().
  */
 public final class UiSettings {
 
@@ -83,8 +83,8 @@ public final class UiSettings {
 
   private boolean deselectMarkersOnTap = true;
 
-  private long flingAnimationBaseTime = MapLibreConstants.ANIMATION_DURATION_FLING_BASE;
-  private long flingThreshold = MapLibreConstants.VELOCITY_THRESHOLD_IGNORE_FLING;
+  private long flingAnimationBaseTime = MapHeroConstants.ANIMATION_DURATION_FLING_BASE;
+  private long flingThreshold = MapHeroConstants.VELOCITY_THRESHOLD_IGNORE_FLING;
 
   @Nullable
   private PointF userProvidedFocalPoint;
@@ -105,7 +105,7 @@ public final class UiSettings {
     this.mapView = mapView;
   }
 
-  void initialise(@NonNull Context context, @NonNull MapLibreMapOptions options) {
+  void initialise(@NonNull Context context, @NonNull MapHeroMapOptions options) {
     Resources resources = context.getResources();
     initialiseGestures(options);
     if (options.getCompassEnabled()) {
@@ -137,7 +137,7 @@ public final class UiSettings {
     restoreFocalPoint(savedInstanceState);
   }
 
-  private void initialiseGestures(MapLibreMapOptions options) {
+  private void initialiseGestures(MapHeroMapOptions options) {
     setZoomGesturesEnabled(options.getZoomGesturesEnabled());
     setScrollGesturesEnabled(options.getScrollGesturesEnabled());
     setHorizontalScrollGesturesEnabled(options.getHorizontalScrollGesturesEnabled());
@@ -148,42 +148,42 @@ public final class UiSettings {
   }
 
   private void saveGestures(Bundle outState) {
-    outState.putBoolean(MapLibreConstants.STATE_HORIZONAL_SCROLL_ENABLED, isHorizontalScrollGesturesEnabled());
-    outState.putBoolean(MapLibreConstants.STATE_ZOOM_ENABLED, isZoomGesturesEnabled());
-    outState.putBoolean(MapLibreConstants.STATE_SCROLL_ENABLED, isScrollGesturesEnabled());
-    outState.putBoolean(MapLibreConstants.STATE_ROTATE_ENABLED, isRotateGesturesEnabled());
-    outState.putBoolean(MapLibreConstants.STATE_TILT_ENABLED, isTiltGesturesEnabled());
-    outState.putBoolean(MapLibreConstants.STATE_DOUBLE_TAP_ENABLED, isDoubleTapGesturesEnabled());
-    outState.putBoolean(MapLibreConstants.STATE_SCALE_ANIMATION_ENABLED, isScaleVelocityAnimationEnabled());
-    outState.putBoolean(MapLibreConstants.STATE_ROTATE_ANIMATION_ENABLED, isRotateVelocityAnimationEnabled());
-    outState.putBoolean(MapLibreConstants.STATE_FLING_ANIMATION_ENABLED, isFlingVelocityAnimationEnabled());
-    outState.putBoolean(MapLibreConstants.STATE_INCREASE_ROTATE_THRESHOLD, isIncreaseRotateThresholdWhenScaling());
-    outState.putBoolean(MapLibreConstants.STATE_DISABLE_ROTATE_WHEN_SCALING, isDisableRotateWhenScaling());
-    outState.putBoolean(MapLibreConstants.STATE_INCREASE_SCALE_THRESHOLD, isIncreaseScaleThresholdWhenRotating());
-    outState.putBoolean(MapLibreConstants.STATE_QUICK_ZOOM_ENABLED, isQuickZoomGesturesEnabled());
-    outState.putFloat(MapLibreConstants.STATE_ZOOM_RATE, getZoomRate());
+    outState.putBoolean(MapHeroConstants.STATE_HORIZONAL_SCROLL_ENABLED, isHorizontalScrollGesturesEnabled());
+    outState.putBoolean(MapHeroConstants.STATE_ZOOM_ENABLED, isZoomGesturesEnabled());
+    outState.putBoolean(MapHeroConstants.STATE_SCROLL_ENABLED, isScrollGesturesEnabled());
+    outState.putBoolean(MapHeroConstants.STATE_ROTATE_ENABLED, isRotateGesturesEnabled());
+    outState.putBoolean(MapHeroConstants.STATE_TILT_ENABLED, isTiltGesturesEnabled());
+    outState.putBoolean(MapHeroConstants.STATE_DOUBLE_TAP_ENABLED, isDoubleTapGesturesEnabled());
+    outState.putBoolean(MapHeroConstants.STATE_SCALE_ANIMATION_ENABLED, isScaleVelocityAnimationEnabled());
+    outState.putBoolean(MapHeroConstants.STATE_ROTATE_ANIMATION_ENABLED, isRotateVelocityAnimationEnabled());
+    outState.putBoolean(MapHeroConstants.STATE_FLING_ANIMATION_ENABLED, isFlingVelocityAnimationEnabled());
+    outState.putBoolean(MapHeroConstants.STATE_INCREASE_ROTATE_THRESHOLD, isIncreaseRotateThresholdWhenScaling());
+    outState.putBoolean(MapHeroConstants.STATE_DISABLE_ROTATE_WHEN_SCALING, isDisableRotateWhenScaling());
+    outState.putBoolean(MapHeroConstants.STATE_INCREASE_SCALE_THRESHOLD, isIncreaseScaleThresholdWhenRotating());
+    outState.putBoolean(MapHeroConstants.STATE_QUICK_ZOOM_ENABLED, isQuickZoomGesturesEnabled());
+    outState.putFloat(MapHeroConstants.STATE_ZOOM_RATE, getZoomRate());
   }
 
   private void restoreGestures(Bundle savedInstanceState) {
-    setHorizontalScrollGesturesEnabled(savedInstanceState.getBoolean(MapLibreConstants.STATE_HORIZONAL_SCROLL_ENABLED));
-    setZoomGesturesEnabled(savedInstanceState.getBoolean(MapLibreConstants.STATE_ZOOM_ENABLED));
-    setScrollGesturesEnabled(savedInstanceState.getBoolean(MapLibreConstants.STATE_SCROLL_ENABLED));
-    setRotateGesturesEnabled(savedInstanceState.getBoolean(MapLibreConstants.STATE_ROTATE_ENABLED));
-    setTiltGesturesEnabled(savedInstanceState.getBoolean(MapLibreConstants.STATE_TILT_ENABLED));
-    setDoubleTapGesturesEnabled(savedInstanceState.getBoolean(MapLibreConstants.STATE_DOUBLE_TAP_ENABLED));
-    setScaleVelocityAnimationEnabled(savedInstanceState.getBoolean(MapLibreConstants.STATE_SCALE_ANIMATION_ENABLED));
-    setRotateVelocityAnimationEnabled(savedInstanceState.getBoolean(MapLibreConstants.STATE_ROTATE_ANIMATION_ENABLED));
-    setFlingVelocityAnimationEnabled(savedInstanceState.getBoolean(MapLibreConstants.STATE_FLING_ANIMATION_ENABLED));
+    setHorizontalScrollGesturesEnabled(savedInstanceState.getBoolean(MapHeroConstants.STATE_HORIZONAL_SCROLL_ENABLED));
+    setZoomGesturesEnabled(savedInstanceState.getBoolean(MapHeroConstants.STATE_ZOOM_ENABLED));
+    setScrollGesturesEnabled(savedInstanceState.getBoolean(MapHeroConstants.STATE_SCROLL_ENABLED));
+    setRotateGesturesEnabled(savedInstanceState.getBoolean(MapHeroConstants.STATE_ROTATE_ENABLED));
+    setTiltGesturesEnabled(savedInstanceState.getBoolean(MapHeroConstants.STATE_TILT_ENABLED));
+    setDoubleTapGesturesEnabled(savedInstanceState.getBoolean(MapHeroConstants.STATE_DOUBLE_TAP_ENABLED));
+    setScaleVelocityAnimationEnabled(savedInstanceState.getBoolean(MapHeroConstants.STATE_SCALE_ANIMATION_ENABLED));
+    setRotateVelocityAnimationEnabled(savedInstanceState.getBoolean(MapHeroConstants.STATE_ROTATE_ANIMATION_ENABLED));
+    setFlingVelocityAnimationEnabled(savedInstanceState.getBoolean(MapHeroConstants.STATE_FLING_ANIMATION_ENABLED));
     setIncreaseRotateThresholdWhenScaling(
-      savedInstanceState.getBoolean(MapLibreConstants.STATE_INCREASE_ROTATE_THRESHOLD));
-    setDisableRotateWhenScaling(savedInstanceState.getBoolean(MapLibreConstants.STATE_DISABLE_ROTATE_WHEN_SCALING));
+      savedInstanceState.getBoolean(MapHeroConstants.STATE_INCREASE_ROTATE_THRESHOLD));
+    setDisableRotateWhenScaling(savedInstanceState.getBoolean(MapHeroConstants.STATE_DISABLE_ROTATE_WHEN_SCALING));
     setIncreaseScaleThresholdWhenRotating(
-      savedInstanceState.getBoolean(MapLibreConstants.STATE_INCREASE_SCALE_THRESHOLD));
-    setQuickZoomGesturesEnabled(savedInstanceState.getBoolean(MapLibreConstants.STATE_QUICK_ZOOM_ENABLED));
-    setZoomRate(savedInstanceState.getFloat(MapLibreConstants.STATE_ZOOM_RATE, 1.0f));
+      savedInstanceState.getBoolean(MapHeroConstants.STATE_INCREASE_SCALE_THRESHOLD));
+    setQuickZoomGesturesEnabled(savedInstanceState.getBoolean(MapHeroConstants.STATE_QUICK_ZOOM_ENABLED));
+    setZoomRate(savedInstanceState.getFloat(MapHeroConstants.STATE_ZOOM_RATE, 1.0f));
   }
 
-  private void initialiseCompass(MapLibreMapOptions options, @NonNull Resources resources) {
+  private void initialiseCompass(MapHeroMapOptions options, @NonNull Resources resources) {
     isCompassInitialized = true;
     compassView = mapView.initialiseCompassView();
     setCompassEnabled(options.getCompassEnabled());
@@ -203,35 +203,35 @@ public final class UiSettings {
   }
 
   private void saveCompass(Bundle outState) {
-    outState.putBoolean(MapLibreConstants.STATE_COMPASS_ENABLED, isCompassEnabled());
-    outState.putInt(MapLibreConstants.STATE_COMPASS_GRAVITY, getCompassGravity());
-    outState.putInt(MapLibreConstants.STATE_COMPASS_MARGIN_LEFT, getCompassMarginLeft());
-    outState.putInt(MapLibreConstants.STATE_COMPASS_MARGIN_TOP, getCompassMarginTop());
-    outState.putInt(MapLibreConstants.STATE_COMPASS_MARGIN_BOTTOM, getCompassMarginBottom());
-    outState.putInt(MapLibreConstants.STATE_COMPASS_MARGIN_RIGHT, getCompassMarginRight());
-    outState.putBoolean(MapLibreConstants.STATE_COMPASS_FADE_WHEN_FACING_NORTH, isCompassFadeWhenFacingNorth());
-    outState.putByteArray(MapLibreConstants.STATE_COMPASS_IMAGE_BITMAP,
+    outState.putBoolean(MapHeroConstants.STATE_COMPASS_ENABLED, isCompassEnabled());
+    outState.putInt(MapHeroConstants.STATE_COMPASS_GRAVITY, getCompassGravity());
+    outState.putInt(MapHeroConstants.STATE_COMPASS_MARGIN_LEFT, getCompassMarginLeft());
+    outState.putInt(MapHeroConstants.STATE_COMPASS_MARGIN_TOP, getCompassMarginTop());
+    outState.putInt(MapHeroConstants.STATE_COMPASS_MARGIN_BOTTOM, getCompassMarginBottom());
+    outState.putInt(MapHeroConstants.STATE_COMPASS_MARGIN_RIGHT, getCompassMarginRight());
+    outState.putBoolean(MapHeroConstants.STATE_COMPASS_FADE_WHEN_FACING_NORTH, isCompassFadeWhenFacingNorth());
+    outState.putByteArray(MapHeroConstants.STATE_COMPASS_IMAGE_BITMAP,
       BitmapUtils.getByteArrayFromDrawable(getCompassImage()));
   }
 
   private void restoreCompass(Bundle savedInstanceState) {
-    boolean compassEnabled = savedInstanceState.getBoolean(MapLibreConstants.STATE_COMPASS_ENABLED);
+    boolean compassEnabled = savedInstanceState.getBoolean(MapHeroConstants.STATE_COMPASS_ENABLED);
     if (compassEnabled && !isCompassInitialized) {
       compassView = mapView.initialiseCompassView();
       isCompassInitialized = true;
     }
-    setCompassEnabled(savedInstanceState.getBoolean(MapLibreConstants.STATE_COMPASS_ENABLED));
-    setCompassGravity(savedInstanceState.getInt(MapLibreConstants.STATE_COMPASS_GRAVITY));
-    setCompassMargins(savedInstanceState.getInt(MapLibreConstants.STATE_COMPASS_MARGIN_LEFT),
-      savedInstanceState.getInt(MapLibreConstants.STATE_COMPASS_MARGIN_TOP),
-      savedInstanceState.getInt(MapLibreConstants.STATE_COMPASS_MARGIN_RIGHT),
-      savedInstanceState.getInt(MapLibreConstants.STATE_COMPASS_MARGIN_BOTTOM));
-    setCompassFadeFacingNorth(savedInstanceState.getBoolean(MapLibreConstants.STATE_COMPASS_FADE_WHEN_FACING_NORTH));
+    setCompassEnabled(savedInstanceState.getBoolean(MapHeroConstants.STATE_COMPASS_ENABLED));
+    setCompassGravity(savedInstanceState.getInt(MapHeroConstants.STATE_COMPASS_GRAVITY));
+    setCompassMargins(savedInstanceState.getInt(MapHeroConstants.STATE_COMPASS_MARGIN_LEFT),
+      savedInstanceState.getInt(MapHeroConstants.STATE_COMPASS_MARGIN_TOP),
+      savedInstanceState.getInt(MapHeroConstants.STATE_COMPASS_MARGIN_RIGHT),
+      savedInstanceState.getInt(MapHeroConstants.STATE_COMPASS_MARGIN_BOTTOM));
+    setCompassFadeFacingNorth(savedInstanceState.getBoolean(MapHeroConstants.STATE_COMPASS_FADE_WHEN_FACING_NORTH));
     setCompassImage(BitmapUtils.getDrawableFromByteArray(
-      mapView.getContext(), savedInstanceState.getByteArray(MapLibreConstants.STATE_COMPASS_IMAGE_BITMAP)));
+      mapView.getContext(), savedInstanceState.getByteArray(MapHeroConstants.STATE_COMPASS_IMAGE_BITMAP)));
   }
 
-  private void initialiseLogo(MapLibreMapOptions options, @NonNull Resources resources) {
+  private void initialiseLogo(MapHeroMapOptions options, @NonNull Resources resources) {
     isLogoInitialized = true;
     logoView = mapView.initialiseLogoView();
     setLogoEnabled(options.getLogoEnabled());
@@ -250,29 +250,29 @@ public final class UiSettings {
   }
 
   private void saveLogo(Bundle outState) {
-    outState.putInt(MapLibreConstants.STATE_LOGO_GRAVITY, getLogoGravity());
-    outState.putInt(MapLibreConstants.STATE_LOGO_MARGIN_LEFT, getLogoMarginLeft());
-    outState.putInt(MapLibreConstants.STATE_LOGO_MARGIN_TOP, getLogoMarginTop());
-    outState.putInt(MapLibreConstants.STATE_LOGO_MARGIN_RIGHT, getLogoMarginRight());
-    outState.putInt(MapLibreConstants.STATE_LOGO_MARGIN_BOTTOM, getLogoMarginBottom());
-    outState.putBoolean(MapLibreConstants.STATE_LOGO_ENABLED, isLogoEnabled());
+    outState.putInt(MapHeroConstants.STATE_LOGO_GRAVITY, getLogoGravity());
+    outState.putInt(MapHeroConstants.STATE_LOGO_MARGIN_LEFT, getLogoMarginLeft());
+    outState.putInt(MapHeroConstants.STATE_LOGO_MARGIN_TOP, getLogoMarginTop());
+    outState.putInt(MapHeroConstants.STATE_LOGO_MARGIN_RIGHT, getLogoMarginRight());
+    outState.putInt(MapHeroConstants.STATE_LOGO_MARGIN_BOTTOM, getLogoMarginBottom());
+    outState.putBoolean(MapHeroConstants.STATE_LOGO_ENABLED, isLogoEnabled());
   }
 
   private void restoreLogo(Bundle savedInstanceState) {
-    boolean logoEnabled = savedInstanceState.getBoolean(MapLibreConstants.STATE_LOGO_ENABLED);
+    boolean logoEnabled = savedInstanceState.getBoolean(MapHeroConstants.STATE_LOGO_ENABLED);
     if (logoEnabled && !isLogoInitialized) {
       logoView = mapView.initialiseLogoView();
       isLogoInitialized = true;
     }
-    setLogoEnabled(savedInstanceState.getBoolean(MapLibreConstants.STATE_LOGO_ENABLED));
-    setLogoGravity(savedInstanceState.getInt(MapLibreConstants.STATE_LOGO_GRAVITY));
-    setLogoMargins(savedInstanceState.getInt(MapLibreConstants.STATE_LOGO_MARGIN_LEFT),
-      savedInstanceState.getInt(MapLibreConstants.STATE_LOGO_MARGIN_TOP),
-      savedInstanceState.getInt(MapLibreConstants.STATE_LOGO_MARGIN_RIGHT),
-      savedInstanceState.getInt(MapLibreConstants.STATE_LOGO_MARGIN_BOTTOM));
+    setLogoEnabled(savedInstanceState.getBoolean(MapHeroConstants.STATE_LOGO_ENABLED));
+    setLogoGravity(savedInstanceState.getInt(MapHeroConstants.STATE_LOGO_GRAVITY));
+    setLogoMargins(savedInstanceState.getInt(MapHeroConstants.STATE_LOGO_MARGIN_LEFT),
+      savedInstanceState.getInt(MapHeroConstants.STATE_LOGO_MARGIN_TOP),
+      savedInstanceState.getInt(MapHeroConstants.STATE_LOGO_MARGIN_RIGHT),
+      savedInstanceState.getInt(MapHeroConstants.STATE_LOGO_MARGIN_BOTTOM));
   }
 
-  private void initialiseAttribution(@NonNull Context context, MapLibreMapOptions options) {
+  private void initialiseAttribution(@NonNull Context context, MapHeroMapOptions options) {
     isAttributionInitialized = true;
     attributionsView = mapView.initialiseAttributionView();
     setAttributionEnabled(options.getAttributionEnabled());
@@ -297,26 +297,26 @@ public final class UiSettings {
   }
 
   private void saveAttribution(Bundle outState) {
-    outState.putInt(MapLibreConstants.STATE_ATTRIBUTION_GRAVITY, getAttributionGravity());
-    outState.putInt(MapLibreConstants.STATE_ATTRIBUTION_MARGIN_LEFT, getAttributionMarginLeft());
-    outState.putInt(MapLibreConstants.STATE_ATTRIBUTION_MARGIN_TOP, getAttributionMarginTop());
-    outState.putInt(MapLibreConstants.STATE_ATTRIBUTION_MARGIN_RIGHT, getAttributionMarginRight());
-    outState.putInt(MapLibreConstants.STATE_ATTRIBUTION_MARGIN_BOTTOM, getAttributionMarginBottom());
-    outState.putBoolean(MapLibreConstants.STATE_ATTRIBUTION_ENABLED, isAttributionEnabled());
+    outState.putInt(MapHeroConstants.STATE_ATTRIBUTION_GRAVITY, getAttributionGravity());
+    outState.putInt(MapHeroConstants.STATE_ATTRIBUTION_MARGIN_LEFT, getAttributionMarginLeft());
+    outState.putInt(MapHeroConstants.STATE_ATTRIBUTION_MARGIN_TOP, getAttributionMarginTop());
+    outState.putInt(MapHeroConstants.STATE_ATTRIBUTION_MARGIN_RIGHT, getAttributionMarginRight());
+    outState.putInt(MapHeroConstants.STATE_ATTRIBUTION_MARGIN_BOTTOM, getAttributionMarginBottom());
+    outState.putBoolean(MapHeroConstants.STATE_ATTRIBUTION_ENABLED, isAttributionEnabled());
   }
 
   private void restoreAttribution(Bundle savedInstanceState) {
-    boolean attributionEnabled = savedInstanceState.getBoolean(MapLibreConstants.STATE_ATTRIBUTION_ENABLED);
+    boolean attributionEnabled = savedInstanceState.getBoolean(MapHeroConstants.STATE_ATTRIBUTION_ENABLED);
     if (attributionEnabled && !isAttributionInitialized) {
       attributionsView = mapView.initialiseAttributionView();
       isAttributionInitialized = true;
     }
-    setAttributionEnabled(savedInstanceState.getBoolean(MapLibreConstants.STATE_ATTRIBUTION_ENABLED));
-    setAttributionGravity(savedInstanceState.getInt(MapLibreConstants.STATE_ATTRIBUTION_GRAVITY));
-    setAttributionMargins(savedInstanceState.getInt(MapLibreConstants.STATE_ATTRIBUTION_MARGIN_LEFT),
-      savedInstanceState.getInt(MapLibreConstants.STATE_ATTRIBUTION_MARGIN_TOP),
-      savedInstanceState.getInt(MapLibreConstants.STATE_ATTRIBUTION_MARGIN_RIGHT),
-      savedInstanceState.getInt(MapLibreConstants.STATE_ATTRIBUTION_MARGIN_BOTTOM));
+    setAttributionEnabled(savedInstanceState.getBoolean(MapHeroConstants.STATE_ATTRIBUTION_ENABLED));
+    setAttributionGravity(savedInstanceState.getInt(MapHeroConstants.STATE_ATTRIBUTION_GRAVITY));
+    setAttributionMargins(savedInstanceState.getInt(MapHeroConstants.STATE_ATTRIBUTION_MARGIN_LEFT),
+      savedInstanceState.getInt(MapHeroConstants.STATE_ATTRIBUTION_MARGIN_TOP),
+      savedInstanceState.getInt(MapHeroConstants.STATE_ATTRIBUTION_MARGIN_RIGHT),
+      savedInstanceState.getInt(MapHeroConstants.STATE_ATTRIBUTION_MARGIN_BOTTOM));
   }
 
   public long getFlingAnimationBaseTime() {
@@ -348,7 +348,7 @@ public final class UiSettings {
    */
   public void setCompassEnabled(boolean compassEnabled) {
     if (compassEnabled && !isCompassInitialized) {
-      initialiseCompass(mapView.maplibreMapOptions, mapView.getContext().getResources());
+      initialiseCompass(mapView.mapHeroMapOptions, mapView.getContext().getResources());
     }
     if (compassView != null) {
       compassView.setEnabled(compassEnabled);
@@ -518,7 +518,7 @@ public final class UiSettings {
 
   /**
    * <p>
-   * Enables or disables the MapLibre logo.
+   * Enables or disables the MapHero logo.
    * </p>
    * By default, the logo is enabled.
    *
@@ -526,7 +526,7 @@ public final class UiSettings {
    */
   public void setLogoEnabled(boolean enabled) {
     if (enabled && !isLogoInitialized) {
-      initialiseLogo(mapView.maplibreMapOptions, mapView.getContext().getResources());
+      initialiseLogo(mapView.mapHeroMapOptions, mapView.getContext().getResources());
     }
     if (logoView != null) {
       logoView.setVisibility(enabled ? View.VISIBLE : View.GONE);
@@ -549,7 +549,7 @@ public final class UiSettings {
   /**
    * <p>
    * Sets the gravity of the logo view. Use this to change the corner of the map view that the
-   * MapLibre logo is displayed in.
+   * MapHero logo is displayed in.
    * </p>
    * By default, the logo is in the bottom left corner.
    *
@@ -575,7 +575,7 @@ public final class UiSettings {
   }
 
   /**
-   * Sets the margins of the logo view in pixels. Use this to change the distance of the MapLibre logo from the
+   * Sets the margins of the logo view in pixels. Use this to change the distance of the MapHero logo from the
    * map view edge.
    *
    * @param left   The left margin in pixels.
@@ -639,7 +639,7 @@ public final class UiSettings {
    */
   public void setAttributionEnabled(boolean enabled) {
     if (enabled && !isAttributionInitialized) {
-      initialiseAttribution(mapView.getContext(), mapView.maplibreMapOptions);
+      initialiseAttribution(mapView.getContext(), mapView.mapHeroMapOptions);
     }
     if (attributionsView != null) {
       attributionsView.setVisibility(enabled ? View.VISIBLE : View.GONE);
@@ -686,7 +686,7 @@ public final class UiSettings {
    * <p>
    * Sets the gravity of the attribution.
    * </p>
-   * By default, the attribution is in the bottom left corner next to the MapLibre logo.
+   * By default, the attribution is in the bottom left corner next to the MapHero logo.
    *
    * @param gravity Android SDK Gravity.
    */
@@ -929,11 +929,11 @@ public final class UiSettings {
   }
 
   private void restoreDeselectMarkersOnTap(Bundle savedInstanceState) {
-    setDeselectMarkersOnTap(savedInstanceState.getBoolean(MapLibreConstants.STATE_DESELECT_MARKER_ON_TAP));
+    setDeselectMarkersOnTap(savedInstanceState.getBoolean(MapHeroConstants.STATE_DESELECT_MARKER_ON_TAP));
   }
 
   private void saveDeselectMarkersOnTap(Bundle outState) {
-    outState.putBoolean(MapLibreConstants.STATE_DESELECT_MARKER_ON_TAP, isDeselectMarkersOnTap());
+    outState.putBoolean(MapHeroConstants.STATE_DESELECT_MARKER_ON_TAP, isDeselectMarkersOnTap());
   }
 
   /**
@@ -1169,11 +1169,11 @@ public final class UiSettings {
   }
 
   private void saveFocalPoint(Bundle outState) {
-    outState.putParcelable(MapLibreConstants.STATE_USER_FOCAL_POINT, getFocalPoint());
+    outState.putParcelable(MapHeroConstants.STATE_USER_FOCAL_POINT, getFocalPoint());
   }
 
   private void restoreFocalPoint(Bundle savedInstanceState) {
-    PointF pointF = savedInstanceState.getParcelable(MapLibreConstants.STATE_USER_FOCAL_POINT);
+    PointF pointF = savedInstanceState.getParcelable(MapHeroConstants.STATE_USER_FOCAL_POINT);
     if (pointF != null) {
       setFocalPoint(pointF);
     }
