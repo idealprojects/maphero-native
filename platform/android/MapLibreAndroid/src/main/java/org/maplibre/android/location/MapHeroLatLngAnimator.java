@@ -6,10 +6,10 @@ import androidx.annotation.NonNull;
 
 import org.maplibre.android.geometry.LatLng;
 
-class MapLibreLatLngAnimator extends MapLibreAnimator<LatLng> {
+class MapHeroLatLngAnimator extends MapHeroAnimator<LatLng> {
 
-  MapLibreLatLngAnimator(@NonNull LatLng[] values, @NonNull AnimationsValueChangeListener updateListener,
-                         int maxAnimationFps) {
+  MapHeroLatLngAnimator(@NonNull LatLng[] values, @NonNull AnimationsValueChangeListener updateListener,
+                        int maxAnimationFps) {
     super(values, updateListener, maxAnimationFps);
   }
 

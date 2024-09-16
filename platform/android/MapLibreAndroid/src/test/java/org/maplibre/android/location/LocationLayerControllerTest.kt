@@ -4,9 +4,9 @@ import android.graphics.Bitmap
 import com.google.gson.JsonElement
 import org.maplibre.geojson.Feature
 import org.maplibre.android.geometry.LatLng
-import org.maplibre.android.location.MapLibreAnimator.AnimationsValueChangeListener
+import org.maplibre.android.location.MapHeroAnimator.AnimationsValueChangeListener
 import org.maplibre.android.location.modes.RenderMode
-import org.maplibre.android.maps.MapLibreMap
+import org.maplibre.android.maps.MapHeroMap
 import org.maplibre.android.maps.Style
 import org.maplibre.android.style.layers.Layer
 import org.maplibre.android.style.sources.GeoJsonSource
@@ -17,7 +17,7 @@ import org.mockito.ArgumentMatchers
 import org.mockito.Mockito
 
 class LocationLayerControllerTest {
-    private val maplibreMap = Mockito.mock(MapLibreMap::class.java)
+    private val mapHeroMap = Mockito.mock(MapHeroMap::class.java)
     private val style = Mockito.mock(
         Style::class.java
     )
@@ -27,7 +27,7 @@ class LocationLayerControllerTest {
 
     @Before
     fun before() {
-        Mockito.`when`(maplibreMap.style).thenReturn(style)
+        Mockito.`when`(mapHeroMap.style).thenReturn(style)
     }
 
     @Test
@@ -51,8 +51,8 @@ class LocationLayerControllerTest {
             LocationComponentOptions::class.java
         )
         LocationLayerController(
-            maplibreMap,
-            maplibreMap.style,
+            mapHeroMap,
+            mapHeroMap.style,
             sourceProvider,
             buildFeatureProvider(options),
             bitmapProvider,
@@ -89,8 +89,8 @@ class LocationLayerControllerTest {
             LocationComponentOptions::class.java
         )
         LocationLayerController(
-            maplibreMap,
-            maplibreMap.style,
+            mapHeroMap,
+            mapHeroMap.style,
             sourceProvider,
             buildFeatureProvider(options),
             bitmapProvider,
@@ -128,8 +128,8 @@ class LocationLayerControllerTest {
             LocationComponentOptions::class.java
         )
         LocationLayerController(
-            maplibreMap,
-            maplibreMap.style,
+            mapHeroMap,
+            mapHeroMap.style,
             sourceProvider,
             buildFeatureProvider(options),
             bitmapProvider,
@@ -167,8 +167,8 @@ class LocationLayerControllerTest {
             LocationComponentOptions::class.java
         )
         LocationLayerController(
-            maplibreMap,
-            maplibreMap.style,
+            mapHeroMap,
+            mapHeroMap.style,
             sourceProvider,
             buildFeatureProvider(options),
             bitmapProvider,
@@ -208,8 +208,8 @@ class LocationLayerControllerTest {
         val layerBelow = "layer-below"
         Mockito.`when`(options.layerBelow()).thenReturn(layerBelow)
         LocationLayerController(
-            maplibreMap,
-            maplibreMap.style,
+            mapHeroMap,
+            mapHeroMap.style,
             sourceProvider,
             buildFeatureProvider(options),
             bitmapProvider,
@@ -245,8 +245,8 @@ class LocationLayerControllerTest {
             LocationComponentOptions::class.java
         )
         LocationLayerController(
-            maplibreMap,
-            maplibreMap.style,
+            mapHeroMap,
+            mapHeroMap.style,
             sourceProvider,
             buildFeatureProvider(options),
             bitmapProvider,
@@ -283,8 +283,8 @@ class LocationLayerControllerTest {
             LocationComponentOptions::class.java
         )
         LocationLayerController(
-            maplibreMap,
-            maplibreMap.style,
+            mapHeroMap,
+            mapHeroMap.style,
             sourceProvider,
             buildFeatureProvider(options),
             bitmapProvider,
@@ -319,8 +319,8 @@ class LocationLayerControllerTest {
             LocationComponentOptions::class.java
         )
         val controller = LocationLayerController(
-            maplibreMap,
-            maplibreMap.style,
+            mapHeroMap,
+            mapHeroMap.style,
             sourceProvider,
             buildFeatureProvider(options),
             bitmapProvider,
@@ -328,7 +328,7 @@ class LocationLayerControllerTest {
             internalRenderModeChangedListener,
             false
         )
-        controller.initializeComponents(maplibreMap.style, options)
+        controller.initializeComponents(mapHeroMap.style, options)
         Assert.assertEquals(6, layerSet.size)
     }
 
@@ -367,8 +367,8 @@ class LocationLayerControllerTest {
 
         // Style is applied on initialization
         LocationLayerController(
-            maplibreMap,
-            maplibreMap.style,
+            mapHeroMap,
+            mapHeroMap.style,
             sourceProvider,
             buildFeatureProvider(options),
             bitmapProvider,
@@ -412,8 +412,8 @@ class LocationLayerControllerTest {
         )
         Mockito.`when`(options.elevation()).thenReturn(0f)
         LocationLayerController(
-            maplibreMap,
-            maplibreMap.style,
+            mapHeroMap,
+            mapHeroMap.style,
             sourceProvider,
             buildFeatureProvider(options),
             bitmapProvider,
@@ -455,8 +455,8 @@ class LocationLayerControllerTest {
         val bitmap = Mockito.mock(Bitmap::class.java)
         Mockito.`when`(bitmapProvider.generateBitmap(drawableResId, tintColor)).thenReturn(bitmap)
         LocationLayerController(
-            maplibreMap,
-            maplibreMap.style,
+            mapHeroMap,
+            mapHeroMap.style,
             sourceProvider,
             buildFeatureProvider(options),
             bitmapProvider,
@@ -497,8 +497,8 @@ class LocationLayerControllerTest {
         val bitmap = Mockito.mock(Bitmap::class.java)
         Mockito.`when`(bitmapProvider.generateBitmap(drawableResId, tintColor)).thenReturn(bitmap)
         LocationLayerController(
-            maplibreMap,
-            maplibreMap.style,
+            mapHeroMap,
+            mapHeroMap.style,
             sourceProvider,
             buildFeatureProvider(options),
             bitmapProvider,
@@ -539,8 +539,8 @@ class LocationLayerControllerTest {
         val bitmap = Mockito.mock(Bitmap::class.java)
         Mockito.`when`(bitmapProvider.generateBitmap(drawableResId, tintColor)).thenReturn(bitmap)
         LocationLayerController(
-            maplibreMap,
-            maplibreMap.style,
+            mapHeroMap,
+            mapHeroMap.style,
             sourceProvider,
             buildFeatureProvider(options),
             bitmapProvider,
@@ -581,8 +581,8 @@ class LocationLayerControllerTest {
         val bitmap = Mockito.mock(Bitmap::class.java)
         Mockito.`when`(bitmapProvider.generateBitmap(drawableResId, tintColor)).thenReturn(bitmap)
         LocationLayerController(
-            maplibreMap,
-            maplibreMap.style,
+            mapHeroMap,
+            mapHeroMap.style,
             sourceProvider,
             buildFeatureProvider(options),
             bitmapProvider,
@@ -623,8 +623,8 @@ class LocationLayerControllerTest {
         val bitmap = Mockito.mock(Bitmap::class.java)
         Mockito.`when`(bitmapProvider.generateBitmap(drawableResId, tintColor)).thenReturn(bitmap)
         LocationLayerController(
-            maplibreMap,
-            maplibreMap.style,
+            mapHeroMap,
+            mapHeroMap.style,
             sourceProvider,
             buildFeatureProvider(options),
             bitmapProvider,
@@ -649,8 +649,8 @@ class LocationLayerControllerTest {
             LayerBitmapProvider::class.java
         )
         LocationLayerController(
-            maplibreMap,
-            maplibreMap.style,
+            mapHeroMap,
+            mapHeroMap.style,
             sourceProvider,
             buildFeatureProvider(options),
             bitmapProvider,
@@ -699,8 +699,8 @@ class LocationLayerControllerTest {
             )
         ).thenReturn(bitmap)
         val layerController = LocationLayerController(
-            maplibreMap,
-            maplibreMap.style,
+            mapHeroMap,
+            mapHeroMap.style,
             sourceProvider,
             buildFeatureProvider(options),
             bitmapProvider,
@@ -785,8 +785,8 @@ class LocationLayerControllerTest {
         var layerBelow = "layer-below"
         Mockito.`when`(options.layerBelow()).thenReturn(layerBelow)
         val layerController = LocationLayerController(
-            maplibreMap,
-            maplibreMap.style,
+            mapHeroMap,
+            mapHeroMap.style,
             sourceProvider,
             buildFeatureProvider(options),
             bitmapProvider,
@@ -845,8 +845,8 @@ class LocationLayerControllerTest {
             )
         ).thenReturn(bitmap)
         val layerController = LocationLayerController(
-            maplibreMap,
-            maplibreMap.style,
+            mapHeroMap,
+            mapHeroMap.style,
             sourceProvider,
             buildFeatureProvider(options),
             bitmapProvider,
@@ -898,8 +898,8 @@ class LocationLayerControllerTest {
             Feature::class.java
         )
         val layer = LocationLayerController(
-            maplibreMap,
-            maplibreMap.style,
+            mapHeroMap,
+            mapHeroMap.style,
             sourceProvider,
             buildFeatureProvider(locationFeature, options),
             bitmapProvider,
@@ -940,8 +940,8 @@ class LocationLayerControllerTest {
             Feature::class.java
         )
         val layer = LocationLayerController(
-            maplibreMap,
-            maplibreMap.style,
+            mapHeroMap,
+            mapHeroMap.style,
             sourceProvider,
             buildFeatureProvider(locationFeature, options),
             bitmapProvider,
@@ -984,8 +984,8 @@ class LocationLayerControllerTest {
             Feature::class.java
         )
         val layer = LocationLayerController(
-            maplibreMap,
-            maplibreMap.style,
+            mapHeroMap,
+            mapHeroMap.style,
             sourceProvider,
             buildFeatureProvider(locationFeature, options),
             bitmapProvider,
@@ -994,7 +994,7 @@ class LocationLayerControllerTest {
             false
         )
         getAnimationListener<Any>(
-            MapLibreAnimator.ANIMATOR_LAYER_LATLNG,
+            MapHeroAnimator.ANIMATOR_LAYER_LATLNG,
             layer.animationListeners
         )!!.onNewAnimationValue(LatLng())
 
@@ -1028,8 +1028,8 @@ class LocationLayerControllerTest {
             Feature::class.java
         )
         val layer = LocationLayerController(
-            maplibreMap,
-            maplibreMap.style,
+            mapHeroMap,
+            mapHeroMap.style,
             sourceProvider,
             buildFeatureProvider(locationFeature, options),
             bitmapProvider,
@@ -1040,7 +1040,7 @@ class LocationLayerControllerTest {
         layer.renderMode = RenderMode.GPS
         val gpsBearing = 2f
         getAnimationListener<Any>(
-            MapLibreAnimator.ANIMATOR_LAYER_GPS_BEARING,
+            MapHeroAnimator.ANIMATOR_LAYER_GPS_BEARING,
             layer.animationListeners
         )!!.onNewAnimationValue(gpsBearing)
         Mockito.verify(locationFeature)
@@ -1073,8 +1073,8 @@ class LocationLayerControllerTest {
             Feature::class.java
         )
         val layer = LocationLayerController(
-            maplibreMap,
-            maplibreMap.style,
+            mapHeroMap,
+            mapHeroMap.style,
             sourceProvider,
             buildFeatureProvider(locationFeature, options),
             bitmapProvider,
@@ -1086,7 +1086,7 @@ class LocationLayerControllerTest {
         val gpsBearing = 2f
         Assert.assertNull(
             getAnimationListener<Any>(
-                MapLibreAnimator.ANIMATOR_LAYER_GPS_BEARING,
+                MapHeroAnimator.ANIMATOR_LAYER_GPS_BEARING,
                 layer.animationListeners
             )
         )
@@ -1120,8 +1120,8 @@ class LocationLayerControllerTest {
             Feature::class.java
         )
         val layer = LocationLayerController(
-            maplibreMap,
-            maplibreMap.style,
+            mapHeroMap,
+            mapHeroMap.style,
             sourceProvider,
             buildFeatureProvider(locationFeature, options),
             bitmapProvider,
@@ -1132,7 +1132,7 @@ class LocationLayerControllerTest {
         layer.renderMode = RenderMode.COMPASS
         val compassBearing = 2f
         getAnimationListener<Any>(
-            MapLibreAnimator.ANIMATOR_LAYER_COMPASS_BEARING,
+            MapHeroAnimator.ANIMATOR_LAYER_COMPASS_BEARING,
             layer.animationListeners
         )
             ?.onNewAnimationValue(compassBearing)
@@ -1166,8 +1166,8 @@ class LocationLayerControllerTest {
             Feature::class.java
         )
         val layer = LocationLayerController(
-            maplibreMap,
-            maplibreMap.style,
+            mapHeroMap,
+            mapHeroMap.style,
             sourceProvider,
             buildFeatureProvider(locationFeature, options),
             bitmapProvider,
@@ -1179,7 +1179,7 @@ class LocationLayerControllerTest {
         val compassBearing = 2f
         Assert.assertNull(
             getAnimationListener<Any>(
-                MapLibreAnimator.ANIMATOR_LAYER_COMPASS_BEARING,
+                MapHeroAnimator.ANIMATOR_LAYER_COMPASS_BEARING,
                 layer.animationListeners
             )
         )
@@ -1213,8 +1213,8 @@ class LocationLayerControllerTest {
             Feature::class.java
         )
         val layer = LocationLayerController(
-            maplibreMap,
-            maplibreMap.style,
+            mapHeroMap,
+            mapHeroMap.style,
             sourceProvider,
             buildFeatureProvider(locationFeature, options),
             bitmapProvider,
@@ -1224,7 +1224,7 @@ class LocationLayerControllerTest {
         )
         layer.renderMode = RenderMode.NORMAL
         val accuracyRadiusValue = 2f
-        getAnimationListener<Any>(MapLibreAnimator.ANIMATOR_LAYER_ACCURACY, layer.animationListeners)
+        getAnimationListener<Any>(MapHeroAnimator.ANIMATOR_LAYER_ACCURACY, layer.animationListeners)
             ?.onNewAnimationValue(accuracyRadiusValue)
         Mockito.verify(locationFeature).addNumberProperty(
             LocationComponentConstants.PROPERTY_ACCURACY_RADIUS,
@@ -1258,8 +1258,8 @@ class LocationLayerControllerTest {
             Feature::class.java
         )
         val layer = LocationLayerController(
-            maplibreMap,
-            maplibreMap.style,
+            mapHeroMap,
+            mapHeroMap.style,
             sourceProvider,
             buildFeatureProvider(locationFeature, options),
             bitmapProvider,
@@ -1271,7 +1271,7 @@ class LocationLayerControllerTest {
         val accuracyRadiusValue = 2f
         Assert.assertNull(
             getAnimationListener<Any>(
-                MapLibreAnimator.ANIMATOR_LAYER_ACCURACY,
+                MapHeroAnimator.ANIMATOR_LAYER_ACCURACY,
                 layer.animationListeners
             )
         )
@@ -1303,8 +1303,8 @@ class LocationLayerControllerTest {
             LocationComponentOptions::class.java
         )
         val controller = LocationLayerController(
-            maplibreMap,
-            maplibreMap.style,
+            mapHeroMap,
+            mapHeroMap.style,
             sourceProvider,
             buildFeatureProvider(options),
             bitmapProvider,
@@ -1340,8 +1340,8 @@ class LocationLayerControllerTest {
             LocationComponentOptions::class.java
         )
         val controller = LocationLayerController(
-            maplibreMap,
-            maplibreMap.style,
+            mapHeroMap,
+            mapHeroMap.style,
             sourceProvider,
             buildFeatureProvider(options),
             bitmapProvider,
@@ -1386,8 +1386,8 @@ class LocationLayerControllerTest {
         val bitmap = Mockito.mock(Bitmap::class.java)
         Mockito.`when`(bitmapProvider.generateBitmap(drawableResId, tintColor)).thenReturn(bitmap)
         val controller = LocationLayerController(
-            maplibreMap,
-            maplibreMap.style,
+            mapHeroMap,
+            mapHeroMap.style,
             sourceProvider,
             buildFeatureProvider(options),
             bitmapProvider,
@@ -1490,11 +1490,11 @@ class LocationLayerControllerTest {
     }
 
     private fun <T> getAnimationListener(
-        @MapLibreAnimator.Type animatorType: Int,
+        @MapHeroAnimator.Type animatorType: Int,
         holders: Set<AnimatorListenerHolder>
     ): AnimationsValueChangeListener<Any>? {
         for (holder in holders) {
-            @MapLibreAnimator.Type val type = holder.animatorType
+            @MapHeroAnimator.Type val type = holder.animatorType
             if (type == animatorType) {
                 return holder.listener
             }

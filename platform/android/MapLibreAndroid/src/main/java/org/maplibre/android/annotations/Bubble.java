@@ -11,7 +11,6 @@ import android.graphics.drawable.Drawable;
 
 import androidx.annotation.NonNull;
 
-@Deprecated
 class Bubble extends Drawable {
 
   private RectF rect;

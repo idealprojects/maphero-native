@@ -24,7 +24,7 @@ import java.util.ArrayList
  */
 class PolygonActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var mapView: MapView
-    private lateinit var maplibreMap: MapLibreMap
+    private lateinit var mapHeroMap: MapHeroMap
     private var polygon: Polygon? = null
     private var fullAlpha = true
     private var polygonIsVisible = true
@@ -35,7 +35,7 @@ class PolygonActivity : AppCompatActivity(), OnMapReadyCallback {
         super.onCreate(savedInstanceState)
 
         // configure inital map state
-        val options = MapLibreMapOptions.createFromAttributes(this, null)
+        val options = MapHeroMapOptions.createFromAttributes(this, null)
             .attributionTintColor(Config.RED_COLOR)
             .compassFadesWhenFacingNorth(false)
             .camera(
@@ -54,17 +54,17 @@ class PolygonActivity : AppCompatActivity(), OnMapReadyCallback {
         setContentView(mapView)
     }
 
-    override fun onMapReady(map: MapLibreMap) {
-        maplibreMap = map
-        map.setStyle(TestStyles.getPredefinedStyleWithFallback("Streets"))
-        map.setOnPolygonClickListener { polygon: Polygon ->
+    override fun onMapReady(mapHeroMap: MapHeroMap) {
+        this.mapHeroMap = mapHeroMap
+        mapHeroMap.setStyle(TestStyles.getPredefinedStyleWithFallback("Streets"))
+        mapHeroMap.setOnPolygonClickListener { polygon: Polygon ->
             Toast.makeText(
                 this@PolygonActivity,
                 "You clicked on polygon with id = " + polygon.id,
                 Toast.LENGTH_SHORT
             ).show()
         }
-        polygon = maplibreMap.addPolygon(
+        polygon = this.mapHeroMap.addPolygon(
             PolygonOptions()
                 .addAll(Config.STAR_SHAPE_POINTS)
                 .fillColor(Config.BLUE_COLOR)

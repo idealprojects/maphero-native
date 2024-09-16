@@ -4,8 +4,7 @@ import androidx.test.annotation.UiThreadTest
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import androidx.test.platform.app.InstrumentationRegistry
 import org.maplibre.android.AppCenter
-import org.maplibre.android.MapLibre
-import org.maplibre.android.WellKnownTileServer
+import org.maplibre.android.MapHero
 import org.maplibre.android.storage.FileSource
 import org.maplibre.android.util.TileServerOptions
 import org.junit.*
@@ -19,14 +18,14 @@ class BootstrapTest : AppCenter() {
     @Before
     @UiThreadTest
     fun before() {
-        apiKeyBackup = MapLibre.getApiKey()
+        apiKeyBackup = MapHero.getApiKey()
     }
 
     @After
     @UiThreadTest
     fun after() {
         val context = InstrumentationRegistry.getInstrumentation().context
-        MapLibre.getInstance(context)
+        MapHero.getInstance(context)
     }
 
     @Test
@@ -34,9 +33,9 @@ class BootstrapTest : AppCenter() {
     fun defaultBootstrap() {
         val context = InstrumentationRegistry.getInstrumentation().context
 
-        MapLibre.getInstance(context)
+        MapHero.getInstance(context)
 
-        val tileServerOptions = TileServerOptions.get(WellKnownTileServer.MapLibre)
+        val tileServerOptions = TileServerOptions.get()
         Assert.assertTrue(
             Style.getPredefinedStyles().count() == tileServerOptions.defaultStyles.count()
         )
@@ -54,9 +53,9 @@ class BootstrapTest : AppCenter() {
         val context = InstrumentationRegistry.getInstrumentation().context
 
         val key = "abcdef"
-        MapLibre.getInstance(context, key, WellKnownTileServer.MapTiler)
+        MapHero.getInstance(context, key)
 
-        val tileServerOptions = TileServerOptions.get(WellKnownTileServer.MapTiler)
+        val tileServerOptions = TileServerOptions.get()
         Assert.assertTrue(
             Style.getPredefinedStyles().count() == tileServerOptions.defaultStyles.count()
         )
@@ -76,11 +75,11 @@ class BootstrapTest : AppCenter() {
 
         val key = "pk.abcdef"
 
-        MapLibre.getInstance(context, key, WellKnownTileServer.MapTiler)
-        MapLibre.getInstance(context)
-        MapLibre.getInstance(context, key, WellKnownTileServer.Mapbox)
+        MapHero.getInstance(context, key)
+        MapHero.getInstance(context)
+        MapHero.getInstance(context, key)
 
-        val tileServerOptions = TileServerOptions.get(WellKnownTileServer.Mapbox)
+        val tileServerOptions = TileServerOptions.get()
         Assert.assertTrue(
             Style.getPredefinedStyles().count() == tileServerOptions.defaultStyles.count()
         )

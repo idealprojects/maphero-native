@@ -29,11 +29,8 @@ import java.io.InputStream;
  * icon is used to display bitmaps on top of the map using {@link Marker}.
  * </p>
  *
- * @deprecated As of 7.0.0,
  * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
- * MapLibre Annotation Plugin</a> instead
  */
-@Deprecated
 public final class IconFactory {
 
   private static final String ICON_ID_PREFIX = "com.mapbox.icons.icon_";

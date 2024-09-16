@@ -17,7 +17,7 @@ import org.maplibre.android.location.engine.LocationEngineResult
 import org.maplibre.android.location.permissions.PermissionsListener
 import org.maplibre.android.location.permissions.PermissionsManager
 import org.maplibre.android.maps.MapView
-import org.maplibre.android.maps.MapLibreMap
+import org.maplibre.android.maps.MapHeroMap
 import org.maplibre.android.testapp.R
 import org.maplibre.android.testapp.databinding.ActivityLocationLayerFragmentBinding
 import org.maplibre.android.testapp.styles.TestStyles
@@ -95,7 +95,7 @@ class LocationFragmentActivity : AppCompatActivity() {
         }
 
         private lateinit var mapView: MapView
-        private lateinit var maplibreMap: MapLibreMap
+        private lateinit var mapHeroMap: MapHeroMap
 
         override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
             mapView = MapView(inflater.context)
@@ -107,9 +107,9 @@ class LocationFragmentActivity : AppCompatActivity() {
             super.onViewCreated(view, savedInstanceState)
             mapView.onCreate(savedInstanceState)
             mapView.getMapAsync {
-                maplibreMap = it
+                mapHeroMap = it
                 it.setStyle(TestStyles.getPredefinedStyleWithFallback("Streets")) { style ->
-                    val component = maplibreMap.locationComponent
+                    val component = mapHeroMap.locationComponent
 
                     component.activateLocationComponent(
                         LocationComponentActivationOptions
@@ -125,7 +125,7 @@ class LocationFragmentActivity : AppCompatActivity() {
         }
 
         override fun onSuccess(result: LocationEngineResult?) {
-            if (!mapView.isDestroyed) maplibreMap.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLng(result?.lastLocation!!), 12.0))
+            if (!mapView.isDestroyed) mapHeroMap.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLng(result?.lastLocation!!), 12.0))
         }
 
         override fun onFailure(exception: Exception) {

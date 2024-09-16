@@ -17,7 +17,7 @@ import org.maplibre.android.testapp.styles.TestStyles
  */
 class LatLngBoundsForCameraActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var mapView: MapView
-    private lateinit var maplibreMap: MapLibreMap
+    private lateinit var mapHeroMap1: MapHeroMap
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_restricted_bounds)
@@ -26,11 +26,11 @@ class LatLngBoundsForCameraActivity : AppCompatActivity(), OnMapReadyCallback {
         mapView.getMapAsync(this)
     }
 
-    override fun onMapReady(maplibreMap: MapLibreMap) {
-        this.maplibreMap = maplibreMap
-        maplibreMap.setStyle(TestStyles.getPredefinedStyleWithFallback("Satellite Hybrid"))
-        maplibreMap.setMinZoomPreference(2.0)
-        maplibreMap.uiSettings.isFlingVelocityAnimationEnabled = false
+    override fun onMapReady(mapHeroMap: MapHeroMap) {
+        this.mapHeroMap1 = mapHeroMap
+        mapHeroMap.setStyle(TestStyles.getPredefinedStyleWithFallback("Satellite Hybrid"))
+        mapHeroMap.setMinZoomPreference(2.0)
+        mapHeroMap.uiSettings.isFlingVelocityAnimationEnabled = false
         showCrosshair()
         setupBounds(ICELAND_BOUNDS)
     }
@@ -59,12 +59,12 @@ class LatLngBoundsForCameraActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private fun setupBounds(bounds: LatLngBounds?) {
-        maplibreMap.setLatLngBoundsForCameraTarget(bounds)
+        mapHeroMap1.setLatLngBoundsForCameraTarget(bounds)
         showBoundsArea(bounds)
     }
 
     private fun showBoundsArea(bounds: LatLngBounds?) {
-        maplibreMap.clear()
+        mapHeroMap1.clear()
         if (bounds != null) {
             val boundsArea = PolygonOptions()
                 .add(bounds.northWest)
@@ -73,7 +73,7 @@ class LatLngBoundsForCameraActivity : AppCompatActivity(), OnMapReadyCallback {
                 .add(bounds.southWest)
             boundsArea.alpha(0.25f)
             boundsArea.fillColor(Color.RED)
-            maplibreMap.addPolygon(boundsArea)
+            mapHeroMap1.addPolygon(boundsArea)
         }
     }
 

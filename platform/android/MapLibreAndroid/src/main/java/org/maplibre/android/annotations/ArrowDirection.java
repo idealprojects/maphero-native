@@ -5,7 +5,6 @@ import androidx.annotation.IntDef;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-@Deprecated
 class ArrowDirection {
   @IntDef( {LEFT, RIGHT, TOP, BOTTOM})
   @Retention(RetentionPolicy.SOURCE)

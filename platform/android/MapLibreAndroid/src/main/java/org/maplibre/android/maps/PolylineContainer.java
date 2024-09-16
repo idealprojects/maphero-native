@@ -25,11 +25,11 @@ class PolylineContainer implements Polylines {
   }
 
   @Override
-  public Polyline addBy(@NonNull PolylineOptions polylineOptions, @NonNull MapLibreMap maplibreMap) {
+  public Polyline addBy(@NonNull PolylineOptions polylineOptions, @NonNull MapHeroMap mapHeroMap) {
     Polyline polyline = polylineOptions.getPolyline();
     if (!polyline.getPoints().isEmpty()) {
       long id = nativeMap != null ? nativeMap.addPolyline(polyline) : 0;
-      polyline.setMapLibreMap(maplibreMap);
+      polyline.setMapHeroMap(mapHeroMap);
       polyline.setId(id);
       annotations.put(id, polyline);
     }
@@ -38,7 +38,7 @@ class PolylineContainer implements Polylines {
 
   @NonNull
   @Override
-  public List<Polyline> addBy(@NonNull List<PolylineOptions> polylineOptionsList, @NonNull MapLibreMap maplibreMap) {
+  public List<Polyline> addBy(@NonNull List<PolylineOptions> polylineOptionsList, @NonNull MapHeroMap mapHeroMap) {
     int count = polylineOptionsList.size();
     Polyline polyline;
     List<Polyline> polylines = new ArrayList<>(count);
@@ -53,7 +53,7 @@ class PolylineContainer implements Polylines {
       long[] ids = nativeMap.addPolylines(polylines);
       for (int i = 0; i < ids.length; i++) {
         Polyline polylineCreated = polylines.get(i);
-        polylineCreated.setMapLibreMap(maplibreMap);
+        polylineCreated.setMapHeroMap(mapHeroMap);
         polylineCreated.setId(ids[i]);
         annotations.put(ids[i], polylineCreated);
       }

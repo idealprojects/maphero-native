@@ -11,15 +11,15 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.ExpectedException
-import org.maplibre.android.MapLibreInjector.clear
-import org.maplibre.android.MapLibreInjector.inject
-import org.maplibre.android.exceptions.MapLibreConfigurationException
+import org.maplibre.android.MapHeroInjector.clear
+import org.maplibre.android.MapHeroInjector.inject
+import org.maplibre.android.exceptions.MapHeroConfigurationException
 import org.maplibre.android.maps.MapView
 import org.maplibre.android.utils.ConfigUtils.Companion.getMockedOptions
 import org.mockito.ArgumentMatchers
 import org.mockito.Mockito
 
-class MapLibreTest {
+class MapHeroTest {
     private var context: Context? = null
     private var appContext: Context? = null
 
@@ -38,30 +38,30 @@ class MapLibreTest {
     fun testGetApiKey() {
         val apiKey = "pk.0000000001"
         inject(context!!, apiKey, getMockedOptions())
-        Assert.assertSame(apiKey, MapLibre.getApiKey())
+        Assert.assertSame(apiKey, MapHero.getApiKey())
     }
 
     @Test
     fun testApplicationContext() {
         inject(context!!, "pk.0000000001", getMockedOptions())
-        Assert.assertNotNull(MapLibre.getApplicationContext())
+        Assert.assertNotNull(MapHero.getApplicationContext())
         Assert.assertNotEquals(context, appContext)
         Assert.assertEquals(appContext, appContext)
     }
 
     @Test
     fun testPlainTokenValid() {
-        Assert.assertTrue(MapLibre.isApiKeyValid("apiKey"))
+        Assert.assertTrue(MapHero.isApiKeyValid("apiKey"))
     }
 
     @Test
     fun testEmptyToken() {
-        Assert.assertFalse(MapLibre.isApiKeyValid(""))
+        Assert.assertFalse(MapHero.isApiKeyValid(""))
     }
 
     @Test
     fun testNullToken() {
-        Assert.assertFalse(MapLibre.isApiKeyValid(null))
+        Assert.assertFalse(MapHero.isApiKeyValid(null))
     }
 
     @Test
@@ -73,10 +73,10 @@ class MapLibreTest {
         val typedArray = Mockito.mock(TypedArray::class.java)
         Mockito.`when`(context!!.obtainStyledAttributes(ArgumentMatchers.nullable(AttributeSet::class.java), ArgumentMatchers.any(IntArray::class.java), ArgumentMatchers.anyInt(), ArgumentMatchers.anyInt()))
                 .thenReturn(typedArray)
-        expectedException.expect(MapLibreConfigurationException::class.java)
+        expectedException.expect(MapHeroConfigurationException::class.java)
         expectedException.expectMessage("""
     
-    Using MapView requires calling MapLibre.getInstance(Context context, String apiKey, WellKnownTileServer wellKnownTileServer) before inflating or creating the view.
+    Using MapView requires calling MapHero.getInstance(Context context, String apiKey) before inflating or creating the view.
     """.trimIndent())
         MapView(context!!)
     }

@@ -15,7 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import org.maplibre.android.MapStrictMode;
-import org.maplibre.android.MapLibre;
+import org.maplibre.android.MapHero;
 import org.maplibre.android.R;
 import org.maplibre.android.attribution.Attribution;
 import org.maplibre.android.attribution.AttributionParser;
@@ -47,19 +47,19 @@ public class AttributionDialogManager implements View.OnClickListener, DialogInt
   @NonNull
   private final Context context;
   @NonNull
-  private final MapLibreMap maplibreMap;
+  private final MapHeroMap mapHeroMap;
   private Set<Attribution> attributionSet;
   private AlertDialog dialog;
 
-  public AttributionDialogManager(@NonNull Context context, @NonNull MapLibreMap maplibreMap) {
+  public AttributionDialogManager(@NonNull Context context, @NonNull MapHeroMap mapHeroMap) {
     this.context = context;
-    this.maplibreMap = maplibreMap;
+    this.mapHeroMap = mapHeroMap;
   }
 
   // Called when someone presses the attribution icon on the map
   @Override
   public void onClick(@NonNull View view) {
-    attributionSet = new AttributionBuilder(maplibreMap, view.getContext()).build();
+    attributionSet = new AttributionBuilder(mapHeroMap, view.getContext()).build();
 
     boolean isActivityFinishing = false;
     if (context instanceof Activity) {
@@ -108,7 +108,7 @@ public class AttributionDialogManager implements View.OnClickListener, DialogInt
     Attribution[] attributions = attributionSet.toArray(new Attribution[attributionSet.size()]);
     String url = attributions[which].getUrl();
     if (url.contains(MAP_FEEDBACK_URL_OLD) || url.contains(MAP_FEEDBACK_URL)) {
-      url = buildMapFeedbackMapUrl(MapLibre.getApiKey());
+      url = buildMapFeedbackMapUrl(MapHero.getApiKey());
     }
     showWebPage(url);
   }
@@ -120,7 +120,7 @@ public class AttributionDialogManager implements View.OnClickListener, DialogInt
 
     Uri.Builder builder = Uri.parse(MAP_FEEDBACK_URL).buildUpon();
 
-    CameraPosition cameraPosition = maplibreMap.getCameraPosition();
+    CameraPosition cameraPosition = mapHeroMap.getCameraPosition();
     if (cameraPosition != null) {
       builder.encodedFragment(String.format(Locale.getDefault(), MAP_FEEDBACK_URL_LOCATION_FRAGMENT_FORMAT,
               cameraPosition.target.getLongitude(), cameraPosition.target.getLatitude(),
@@ -137,7 +137,7 @@ public class AttributionDialogManager implements View.OnClickListener, DialogInt
       builder.appendQueryParameter("access_token", apiKey);
     }
 
-    Style style = maplibreMap.getStyle();
+    Style style = mapHeroMap.getStyle();
     if (style != null) {
       String styleUri = style.getUri();
       Pattern pattern = Pattern.compile(MAP_FEEDBACK_STYLE_URI_REGEX);
@@ -169,12 +169,12 @@ public class AttributionDialogManager implements View.OnClickListener, DialogInt
 
   private static class AttributionBuilder {
 
-    private final MapLibreMap maplibreMap;
+    private final MapHeroMap mapHeroMap1;
     @NonNull
     private final WeakReference<Context> context;
 
-    AttributionBuilder(MapLibreMap maplibreMap, Context context) {
-      this.maplibreMap = maplibreMap;
+    AttributionBuilder(MapHeroMap mapHeroMap, Context context) {
+      this.mapHeroMap1 = mapHeroMap;
       this.context = new WeakReference<>(context);
     }
 
@@ -187,7 +187,7 @@ public class AttributionDialogManager implements View.OnClickListener, DialogInt
       List<String> attributions = new ArrayList<>();
       String attribution;
 
-      Style style = maplibreMap.getStyle();
+      Style style = mapHeroMap1.getStyle();
       if (style != null) {
         for (Source source : style.getSources()) {
           attribution = source.getAttribution();

@@ -214,7 +214,7 @@ interface NativeMap {
   // Utils API
   //
 
-  void setOnFpsChangedListener(@NonNull MapLibreMap.OnFpsChangedListener listener);
+  void setOnFpsChangedListener(@NonNull MapHeroMap.OnFpsChangedListener listener);
 
   void setDebug(boolean debug);
 
@@ -291,5 +291,5 @@ interface NativeMap {
 
   long getNativePtr();
 
-  void addSnapshotCallback(@NonNull MapLibreMap.SnapshotReadyCallback callback);
+  void addSnapshotCallback(@NonNull MapHeroMap.SnapshotReadyCallback callback);
 }

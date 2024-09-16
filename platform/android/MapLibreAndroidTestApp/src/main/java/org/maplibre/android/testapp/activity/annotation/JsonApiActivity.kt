@@ -14,13 +14,13 @@ import okhttp3.HttpUrl.Companion.toHttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
-import org.maplibre.android.MapLibre
+import org.maplibre.android.MapHero
 import org.maplibre.android.annotations.IconFactory
 import org.maplibre.android.annotations.MarkerOptions
 import org.maplibre.android.camera.CameraPosition
 import org.maplibre.android.geometry.LatLng
 import org.maplibre.android.geometry.LatLngBounds
-import org.maplibre.android.maps.MapLibreMap
+import org.maplibre.android.maps.MapHeroMap
 import org.maplibre.android.maps.MapView
 import org.maplibre.android.testapp.R
 import java.io.IOException
@@ -33,14 +33,14 @@ class JsonApiActivity : AppCompatActivity() {
     // Declare a variable for MapView
     private lateinit var mapView: MapView
 
-    // Declare a variable for MapLibreMap
-    private lateinit var maplibreMap: MapLibreMap
+    // Declare a variable for MapHeroMap
+    private lateinit var mapHeroMap: MapHeroMap
     /* ANCHOR_END: top */
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // Init MapLibre
-        MapLibre.getInstance(this)
+        // Init MapHero
+        MapHero.getInstance(this)
 
         // Init layout view
         setContentView(R.layout.activity_json_api)
@@ -50,9 +50,9 @@ class JsonApiActivity : AppCompatActivity() {
 
         /* ANCHOR: mapAsync */
         mapView.getMapAsync { map ->
-            maplibreMap = map
+            mapHeroMap = map
 
-            maplibreMap.setStyle("https://demotiles.maplibre.org/style.json")
+            mapHeroMap.setStyle("https://demotiles.maplibre.org/style.json")
 
             // Fetch data from USGS
             getEarthQuakeDataFromUSGS()
@@ -134,16 +134,16 @@ class JsonApiActivity : AppCompatActivity() {
                 .title(dateString)
                 .snippet(title)
                 .icon(icon)
-            maplibreMap.addMarker(markerOptions)
+            mapHeroMap.addMarker(markerOptions)
         }
 
         // Move camera to newly added annotations
-        maplibreMap.getCameraForLatLngBounds(LatLngBounds.fromLatLngs(bounds))?.let {
+        mapHeroMap.getCameraForLatLngBounds(LatLngBounds.fromLatLngs(bounds))?.let {
             val newCameraPosition = CameraPosition.Builder()
                 .target(it.target)
                 .zoom(it.zoom - 0.5)
                 .build()
-            maplibreMap.cameraPosition = newCameraPosition
+            mapHeroMap.cameraPosition = newCameraPosition
         }
     }
     /* ANCHOR_END: addMarkers */

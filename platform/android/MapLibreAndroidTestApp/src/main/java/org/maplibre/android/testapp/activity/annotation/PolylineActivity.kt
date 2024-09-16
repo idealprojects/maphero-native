@@ -11,7 +11,7 @@ import org.maplibre.android.annotations.Polyline
 import org.maplibre.android.annotations.PolylineOptions
 import org.maplibre.android.geometry.LatLng
 import org.maplibre.android.maps.MapView
-import org.maplibre.android.maps.MapLibreMap
+import org.maplibre.android.maps.MapHeroMap
 import org.maplibre.android.testapp.R
 import org.maplibre.android.testapp.styles.TestStyles
 import java.util.*
@@ -27,7 +27,7 @@ class PolylineActivity : AppCompatActivity() {
     private var polylines: MutableList<Polyline>? = null
     private var polylineOptions: ArrayList<PolylineOptions?>? = ArrayList()
     private lateinit var mapView: MapView
-    private lateinit var maplibreMap: MapLibreMap
+    private lateinit var mapHeroMap: MapHeroMap
     private var fullAlpha = true
     private var showPolylines = true
     private var width = true
@@ -44,7 +44,7 @@ class PolylineActivity : AppCompatActivity() {
         mapView = findViewById(R.id.mapView)
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync {
-            maplibreMap = it
+            mapHeroMap = it
             it.setStyle(TestStyles.getPredefinedStyleWithFallback("Satellite Hybrid"))
             it.setOnPolylineClickListener { polyline: Polyline ->
                 Toast.makeText(
@@ -57,19 +57,19 @@ class PolylineActivity : AppCompatActivity() {
         }
         val fab = findViewById<View>(R.id.fab)
         fab?.setOnClickListener {
-            if (this::maplibreMap.isInitialized) {
+            if (this::mapHeroMap.isInitialized) {
                 if (polylines != null && polylines!!.size > 0) {
                     if (polylines!!.size == 1) {
                         // test for removing annotation
-                        maplibreMap.removeAnnotation(polylines!![0])
+                        mapHeroMap.removeAnnotation(polylines!![0])
                     } else {
                         // test for removing annotations
-                        maplibreMap.removeAnnotations(polylines!!)
+                        mapHeroMap.removeAnnotations(polylines!!)
                     }
                 }
                 polylineOptions!!.clear()
                 polylineOptions!!.add(allPolylines.random())
-                polylines = maplibreMap.addPolylines(polylineOptions!!)
+                polylines = mapHeroMap.addPolylines(polylineOptions!!)
             }
         }
     }
@@ -144,7 +144,7 @@ class PolylineActivity : AppCompatActivity() {
             R.id.action_id_remove -> {
                 // test to remove all annotations
                 polylineOptions!!.clear()
-                maplibreMap.clear()
+                mapHeroMap.clear()
                 polylines!!.clear()
                 true
             }

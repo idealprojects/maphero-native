@@ -24,9 +24,7 @@ import org.maplibre.android.style.layers.SymbolLayer;
  * After the bitmap is added to the {@link Style} object, a
  * {@link SymbolLayer} or the
  * <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
- *   MapLibre Annotation Plugin</a> can reference the image ID.
  */
-@Deprecated
 public class BubbleLayout extends LinearLayout {
 
   public static final float DEFAULT_STROKE_WIDTH = -1;

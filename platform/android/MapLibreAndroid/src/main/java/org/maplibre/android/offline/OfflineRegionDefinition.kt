@@ -56,7 +56,7 @@ interface OfflineRegionDefinition : Parcelable {
      * Defaults to `true`
      *
      * @return true if offline region will include ideographic glyphs
-     * @see MapLibreMapOptions.localIdeographFontFamily
+     * @see MapHeroMapOptions.localIdeographFontFamily
      */
     val includeIdeographs: Boolean
 

@@ -7,7 +7,7 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.contentOrNull
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
-import org.maplibre.android.MapLibre
+import org.maplibre.android.MapHero
 import java.lang.Exception
 import java.io.File
 
@@ -41,7 +41,7 @@ object ApiKeyUtils {
 
         return try {
             // Read out AndroidManifest
-            val apiKey = MapLibre.getApiKey()
+            val apiKey = MapHero.getApiKey()
             require(!(apiKey == null || apiKey.isEmpty()))
             apiKey
         } catch (exception: Exception) {

@@ -28,7 +28,7 @@ class DoubleMapActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_map_fragment)
         if (savedInstanceState == null) {
-            val options = MapLibreMapOptions.createFromAttributes(this, null)
+            val options = MapHeroMapOptions.createFromAttributes(this, null)
             options.camera(
                 CameraPosition.Builder()
                     .target(MACHU_PICCHU)
@@ -63,8 +63,8 @@ class DoubleMapActivity : AppCompatActivity() {
             // MapView large
             mapView = MapView(view.context, MapFragmentUtils.resolveArgs(view.context, arguments))
             mapView.onCreate(savedInstanceState)
-            mapView.getMapAsync { maplibreMap: MapLibreMap ->
-                maplibreMap.setStyle(
+            mapView.getMapAsync { mapHeroMap: MapHeroMap ->
+                mapHeroMap.setStyle(
                     TestStyles.getPredefinedStyleWithFallback(
                         "Streets"
                     )
@@ -76,21 +76,21 @@ class DoubleMapActivity : AppCompatActivity() {
             mapViewMini = view.findViewById(R.id.mini_map)
             mapViewMini.onCreate(savedInstanceState)
             mapViewMini.getMapAsync(
-                OnMapReadyCallback { maplibreMap: MapLibreMap ->
-                    maplibreMap.moveCamera(
+                OnMapReadyCallback { mapHeroMap: MapHeroMap ->
+                    mapHeroMap.moveCamera(
                         CameraUpdateFactory.newCameraPosition(
                             CameraPosition.Builder().target(MACHU_PICCHU)
                                 .zoom(ZOOM_OUT)
                                 .build()
                         )
                     )
-                    maplibreMap.setStyle(Style.Builder().fromUri(TestStyles.getPredefinedStyleWithFallback("Bright")))
-                    val uiSettings = maplibreMap.uiSettings
+                    mapHeroMap.setStyle(Style.Builder().fromUri(TestStyles.getPredefinedStyleWithFallback("Bright")))
+                    val uiSettings = mapHeroMap.uiSettings
                     uiSettings.setAllGesturesEnabled(false)
                     uiSettings.isCompassEnabled = false
                     uiSettings.isAttributionEnabled = false
                     uiSettings.isLogoEnabled = false
-                    maplibreMap.addOnMapClickListener { point: LatLng? ->
+                    mapHeroMap.addOnMapClickListener { point: LatLng? ->
                         // test if we can open 2 activities after each other
                         Toast.makeText(
                             mapViewMini.getContext(),

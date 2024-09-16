@@ -14,7 +14,6 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.ArgumentCaptor
-import org.mockito.ArgumentMatchers.*
 import org.mockito.Mock
 import org.mockito.Mockito.*
 import org.mockito.junit.MockitoJUnitRunner
@@ -23,17 +22,20 @@ import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicReference
 
 @RunWith(MockitoJUnitRunner::class)
-class MapLibreFusedLocationEngineImplTest {
+class MapHeroFusedLocationEngineImplTest {
     @Mock
     private val locationManagerMock: LocationManager? = null
     private var engine: LocationEngine? = null
-    private var maplibreFusedLocationEngineImpl: MapLibreFusedLocationEngineImpl? = null
+    private var mapHeroFusedLocationEngineImpl: MapHeroFusedLocationEngineImpl? = null
     @Before
     fun setUp() {
         val context = mock(Context::class.java)
         `when`(context.getSystemService(Context.LOCATION_SERVICE)).thenReturn(locationManagerMock)
-        maplibreFusedLocationEngineImpl = MapLibreFusedLocationEngineImpl(context)
-        engine = LocationEngineProxy(maplibreFusedLocationEngineImpl)
+        mapHeroFusedLocationEngineImpl =
+            MapHeroFusedLocationEngineImpl(
+                context
+            )
+        engine = LocationEngineProxy(mapHeroFusedLocationEngineImpl)
     }
 
     // J2K: rewrite test to not use "@get"
@@ -56,7 +58,7 @@ class MapLibreFusedLocationEngineImplTest {
     fun createListener() {
         // J2K: IDE suggestion "as LocationEngineCallback<LocationEngineResult>"
         val callback: LocationEngineCallback<LocationEngineResult> = mock(LocationEngineCallback::class.java) as LocationEngineCallback<LocationEngineResult>
-        val locationListener = maplibreFusedLocationEngineImpl!!.createListener(callback)
+        val locationListener = mapHeroFusedLocationEngineImpl!!.createListener(callback)
         val mockLocation = getMockLocation(LATITUDE, LONGITUDE)
         locationListener.onLocationChanged(mockLocation)
         val argument = ArgumentCaptor.forClass(LocationEngineResult::class.java)

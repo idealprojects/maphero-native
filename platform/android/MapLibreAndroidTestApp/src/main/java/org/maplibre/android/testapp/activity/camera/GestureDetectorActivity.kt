@@ -26,12 +26,12 @@ import org.maplibre.android.annotations.Marker
 import org.maplibre.android.annotations.MarkerOptions
 import org.maplibre.android.camera.CameraUpdateFactory
 import org.maplibre.android.geometry.LatLng
-import org.maplibre.android.maps.MapLibreMap
-import org.maplibre.android.maps.MapLibreMap.CancelableCallback
-import org.maplibre.android.maps.MapLibreMap.OnMoveListener
-import org.maplibre.android.maps.MapLibreMap.OnRotateListener
-import org.maplibre.android.maps.MapLibreMap.OnScaleListener
-import org.maplibre.android.maps.MapLibreMap.OnShoveListener
+import org.maplibre.android.maps.MapHeroMap
+import org.maplibre.android.maps.MapHeroMap.CancelableCallback
+import org.maplibre.android.maps.MapHeroMap.OnMoveListener
+import org.maplibre.android.maps.MapHeroMap.OnRotateListener
+import org.maplibre.android.maps.MapHeroMap.OnScaleListener
+import org.maplibre.android.maps.MapHeroMap.OnShoveListener
 import org.maplibre.android.maps.MapView
 import org.maplibre.android.testapp.R
 import org.maplibre.android.testapp.styles.TestStyles
@@ -41,7 +41,7 @@ import org.maplibre.android.testapp.utils.ResourceUtils
 /** Test activity showcasing APIs around gestures implementation. */
 class GestureDetectorActivity : AppCompatActivity() {
     private lateinit var mapView: MapView
-    private lateinit var maplibreMap: MapLibreMap
+    private lateinit var mapHeroMap: MapHeroMap
     private lateinit var recyclerView: RecyclerView
     private var gestureAlertsAdapter: GestureAlertsAdapter? = null
     private var gesturesManager: AndroidGesturesManager? = null
@@ -52,9 +52,9 @@ class GestureDetectorActivity : AppCompatActivity() {
         setContentView(R.layout.activity_gesture_detector)
         mapView = findViewById(R.id.mapView)
         mapView.onCreate(savedInstanceState)
-        mapView.getMapAsync { map: MapLibreMap ->
-            maplibreMap = map
-            maplibreMap.setStyle(TestStyles.getPredefinedStyleWithFallback("Streets"))
+        mapView.getMapAsync { map: MapHeroMap ->
+            mapHeroMap = map
+            mapHeroMap.setStyle(TestStyles.getPredefinedStyleWithFallback("Streets"))
             initializeMap()
         }
         recyclerView = findViewById(R.id.alerts_recycler)
@@ -100,17 +100,17 @@ class GestureDetectorActivity : AppCompatActivity() {
     }
 
     private fun initializeMap() {
-        gesturesManager = maplibreMap.gesturesManager
+        gesturesManager = mapHeroMap.gesturesManager
         val layoutParams = recyclerView.layoutParams as RelativeLayout.LayoutParams
         layoutParams.height = (mapView.height / 1.75).toInt()
         layoutParams.width = mapView.width / 3
         recyclerView.layoutParams = layoutParams
         attachListeners()
-        fixedFocalPointEnabled(maplibreMap.uiSettings.focalPoint != null)
+        fixedFocalPointEnabled(mapHeroMap.uiSettings.focalPoint != null)
     }
 
     fun attachListeners() {
-        maplibreMap.addOnMoveListener(
+        mapHeroMap.addOnMoveListener(
             object : OnMoveListener {
                 override fun onMoveBegin(detector: MoveGestureDetector) {
                     gestureAlertsAdapter!!.addAlert(
@@ -132,7 +132,7 @@ class GestureDetectorActivity : AppCompatActivity() {
                 }
             }
         )
-        maplibreMap.addOnRotateListener(
+        mapHeroMap.addOnRotateListener(
             object : OnRotateListener {
                 override fun onRotateBegin(detector: RotateGestureDetector) {
                     gestureAlertsAdapter!!.addAlert(
@@ -154,7 +154,7 @@ class GestureDetectorActivity : AppCompatActivity() {
                 }
             }
         )
-        maplibreMap.addOnScaleListener(
+        mapHeroMap.addOnScaleListener(
             object : OnScaleListener {
                 override fun onScaleBegin(detector: StandardScaleGestureDetector) {
                     gestureAlertsAdapter!!.addAlert(
@@ -202,7 +202,7 @@ class GestureDetectorActivity : AppCompatActivity() {
                 }
             }
         )
-        maplibreMap.addOnShoveListener(
+        mapHeroMap.addOnShoveListener(
             object : OnShoveListener {
                 override fun onShoveBegin(detector: ShoveGestureDetector) {
                     gestureAlertsAdapter!!.addAlert(
@@ -231,7 +231,7 @@ class GestureDetectorActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val uiSettings = maplibreMap.uiSettings
+        val uiSettings = mapHeroMap.uiSettings
         when (item.itemId) {
             R.id.menu_gesture_focus_point -> {
                 fixedFocalPointEnabled(focalPointLatLng == null)
@@ -282,8 +282,8 @@ class GestureDetectorActivity : AppCompatActivity() {
     private fun fixedFocalPointEnabled(enabled: Boolean) {
         if (enabled) {
             focalPointLatLng = LatLng(51.50325, -0.12968)
-            marker = maplibreMap.addMarker(MarkerOptions().position(focalPointLatLng))
-            maplibreMap.easeCamera(
+            marker = mapHeroMap.addMarker(MarkerOptions().position(focalPointLatLng))
+            mapHeroMap.easeCamera(
                 CameraUpdateFactory.newLatLngZoom(focalPointLatLng!!, 16.0),
                 object : CancelableCallback {
                     override fun onCancel() {
@@ -297,18 +297,18 @@ class GestureDetectorActivity : AppCompatActivity() {
             )
         } else {
             if (marker != null) {
-                maplibreMap.removeMarker(marker!!)
+                mapHeroMap.removeMarker(marker!!)
                 marker = null
             }
             focalPointLatLng = null
-            maplibreMap.uiSettings.focalPoint = null
+            mapHeroMap.uiSettings.focalPoint = null
         }
     }
 
     private fun recalculateFocalPoint() {
         if (focalPointLatLng != null) {
-            maplibreMap.uiSettings.focalPoint =
-                maplibreMap.projection.toScreenLocation(focalPointLatLng!!)
+            mapHeroMap.uiSettings.focalPoint =
+                mapHeroMap.projection.toScreenLocation(focalPointLatLng!!)
         }
     }
 

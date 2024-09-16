@@ -7,7 +7,7 @@ import android.view.TextureView;
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 
-import org.maplibre.android.maps.renderer.surfaceview.MapLibreVulkanSurfaceView;
+import org.maplibre.android.maps.renderer.surfaceview.MapHeroVulkanSurfaceView;
 import org.maplibre.android.maps.renderer.surfaceview.SurfaceViewMapRenderer;
 import org.maplibre.android.maps.renderer.surfaceview.VulkanSurfaceViewMapRenderer;
 import org.maplibre.android.maps.renderer.textureview.TextureViewMapRenderer;
@@ -35,7 +35,7 @@ public class MapRendererFactory {
   public static SurfaceViewMapRenderer newSurfaceViewMapRenderer(@NonNull Context context, String localFontFamily,
                                                                  boolean renderSurfaceOnTop, Runnable initCallback) {
 
-    MapLibreVulkanSurfaceView surfaceView = new MapLibreVulkanSurfaceView(context);
+    MapHeroVulkanSurfaceView surfaceView = new MapHeroVulkanSurfaceView(context);
     surfaceView.setZOrderMediaOverlay(renderSurfaceOnTop);
 
     return new VulkanSurfaceViewMapRenderer(context, surfaceView, localFontFamily) {

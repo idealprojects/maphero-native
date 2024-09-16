@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.collection.LongSparseArray;
 
-import org.maplibre.android.MapLibre;
+import org.maplibre.android.MapHero;
 import org.maplibre.android.R;
 import org.maplibre.android.annotations.Annotation;
 import org.maplibre.android.annotations.BaseMarkerOptions;
@@ -26,7 +26,7 @@ import java.util.List;
 
 /**
  * Responsible for managing and tracking state of Annotations linked to Map. All events related to
- * annotations that occur on {@link MapLibreMap} are forwarded to this class.
+ * annotations that occur on {@link MapHeroMap} are forwarded to this class.
  * <p>
  * Responsible for referencing {@link InfoWindowManager}.
  * </p>
@@ -48,13 +48,13 @@ class AnnotationManager {
   private final LongSparseArray<Annotation> annotationsArray;
   private final List<Marker> selectedMarkers = new ArrayList<>();
 
-  private MapLibreMap maplibreMap;
+  private MapHeroMap mapHeroMap;
   @Nullable
-  private MapLibreMap.OnMarkerClickListener onMarkerClickListener;
+  private MapHeroMap.OnMarkerClickListener onMarkerClickListener;
   @Nullable
-  private MapLibreMap.OnPolygonClickListener onPolygonClickListener;
+  private MapHeroMap.OnPolygonClickListener onPolygonClickListener;
   @Nullable
-  private MapLibreMap.OnPolylineClickListener onPolylineClickListener;
+  private MapHeroMap.OnPolylineClickListener onPolylineClickListener;
 
   private Annotations annotations;
   private ShapeAnnotations shapeAnnotations;
@@ -75,11 +75,11 @@ class AnnotationManager {
     this.shapeAnnotations = shapeAnnotations;
   }
 
-  // TODO refactor MapLibreMap out for Projection and Transform
-  // Requires removing MapLibreMap from Annotations by using Peer model from #6912
+  // TODO refactor MapHeroMap out for Projection and Transform
+  // Requires removing MapHeroMap from Annotations by using Peer model from #6912
   @NonNull
-  AnnotationManager bind(MapLibreMap maplibreMap) {
-    this.maplibreMap = maplibreMap;
+  AnnotationManager bind(MapHeroMap mapHeroMap) {
+    this.mapHeroMap = mapHeroMap;
     return this;
   }
 
@@ -151,21 +151,21 @@ class AnnotationManager {
   // Markers
   //
 
-  Marker addMarker(@NonNull BaseMarkerOptions markerOptions, @NonNull MapLibreMap maplibreMap) {
-    return markers.addBy(markerOptions, maplibreMap);
+  Marker addMarker(@NonNull BaseMarkerOptions markerOptions, @NonNull MapHeroMap mapHeroMapMap) {
+    return markers.addBy(markerOptions, mapHeroMapMap);
   }
 
   List<Marker> addMarkers(@NonNull List<? extends BaseMarkerOptions> markerOptionsList,
-                          @NonNull MapLibreMap maplibreMap) {
-    return markers.addBy(markerOptionsList, maplibreMap);
+                          @NonNull MapHeroMap mapHeroMap) {
+    return markers.addBy(markerOptionsList, mapHeroMap);
   }
 
-  void updateMarker(@NonNull Marker updatedMarker, @NonNull MapLibreMap maplibreMap) {
+  void updateMarker(@NonNull Marker updatedMarker, @NonNull MapHeroMap mapHeroMap) {
     if (!isAddedToMap(updatedMarker)) {
       logNonAdded(updatedMarker);
       return;
     }
-    markers.update(updatedMarker, maplibreMap);
+    markers.update(updatedMarker, mapHeroMap);
   }
 
   List<Marker> getMarkers() {
@@ -185,12 +185,12 @@ class AnnotationManager {
   // Polygons
   //
 
-  Polygon addPolygon(@NonNull PolygonOptions polygonOptions, @NonNull MapLibreMap maplibreMap) {
-    return polygons.addBy(polygonOptions, maplibreMap);
+  Polygon addPolygon(@NonNull PolygonOptions polygonOptions, @NonNull MapHeroMap mapHeroMap) {
+    return polygons.addBy(polygonOptions, mapHeroMap);
   }
 
-  List<Polygon> addPolygons(@NonNull List<PolygonOptions> polygonOptionsList, @NonNull MapLibreMap maplibreMap) {
-    return polygons.addBy(polygonOptionsList, maplibreMap);
+  List<Polygon> addPolygons(@NonNull List<PolygonOptions> polygonOptionsList, @NonNull MapHeroMap mapHeroMap) {
+    return polygons.addBy(polygonOptionsList, mapHeroMap);
   }
 
   void updatePolygon(@NonNull Polygon polygon) {
@@ -209,12 +209,12 @@ class AnnotationManager {
   // Polylines
   //
 
-  Polyline addPolyline(@NonNull PolylineOptions polylineOptions, @NonNull MapLibreMap maplibreMap) {
-    return polylines.addBy(polylineOptions, maplibreMap);
+  Polyline addPolyline(@NonNull PolylineOptions polylineOptions, @NonNull MapHeroMap mapHeroMapMap) {
+    return polylines.addBy(polylineOptions, mapHeroMapMap);
   }
 
-  List<Polyline> addPolylines(@NonNull List<PolylineOptions> polylineOptionsList, @NonNull MapLibreMap maplibreMap) {
-    return polylines.addBy(polylineOptionsList, maplibreMap);
+  List<Polyline> addPolylines(@NonNull List<PolylineOptions> polylineOptionsList, @NonNull MapHeroMap mapHeroMap) {
+    return polylines.addBy(polylineOptionsList, mapHeroMap);
   }
 
   void updatePolyline(@NonNull Polyline polyline) {
@@ -230,15 +230,15 @@ class AnnotationManager {
   }
 
   // TODO Refactor from here still in progress
-  void setOnMarkerClickListener(@Nullable MapLibreMap.OnMarkerClickListener listener) {
+  void setOnMarkerClickListener(@Nullable MapHeroMap.OnMarkerClickListener listener) {
     onMarkerClickListener = listener;
   }
 
-  void setOnPolygonClickListener(@Nullable MapLibreMap.OnPolygonClickListener listener) {
+  void setOnPolygonClickListener(@Nullable MapHeroMap.OnPolygonClickListener listener) {
     onPolygonClickListener = listener;
   }
 
-  void setOnPolylineClickListener(@Nullable MapLibreMap.OnPolylineClickListener listener) {
+  void setOnPolylineClickListener(@Nullable MapHeroMap.OnPolylineClickListener listener) {
     onPolylineClickListener = listener;
   }
 
@@ -253,7 +253,7 @@ class AnnotationManager {
     }
 
     if (infoWindowManager.isInfoWindowValidForMarker(marker) || infoWindowManager.getInfoWindowAdapter() != null) {
-      infoWindowManager.add(marker.showInfoWindow(maplibreMap, mapView));
+      infoWindowManager.add(marker.showInfoWindow(mapHeroMap, mapView));
     }
 
     // only add to selected markers if user didn't handle the click event themselves #3176
@@ -298,7 +298,7 @@ class AnnotationManager {
     return infoWindowManager;
   }
 
-  void adjustTopOffsetPixels(@NonNull MapLibreMap maplibreMap) {
+  void adjustTopOffsetPixels(@NonNull MapHeroMap mapHeroMap) {
     int count = annotationsArray.size();
     for (int i = 0; i < count; i++) {
       Annotation annotation = annotationsArray.get(i);
@@ -312,7 +312,7 @@ class AnnotationManager {
     for (Marker marker : selectedMarkers) {
       if (marker.isInfoWindowShown()) {
         marker.hideInfoWindow();
-        marker.showInfoWindow(maplibreMap, mapView);
+        marker.showInfoWindow(mapHeroMap, mapView);
       }
     }
   }
@@ -333,7 +333,7 @@ class AnnotationManager {
 
   boolean onTap(@NonNull PointF tapPoint) {
     MarkerHit markerHit = getMarkerHitFromTouchArea(tapPoint);
-    long markerId = new MarkerHitResolver(maplibreMap).execute(markerHit);
+    long markerId = new MarkerHitResolver(mapHeroMap).execute(markerHit);
     if (markerId != NO_ANNOTATION_ID) {
       if (isClickHandledForMarker(markerId)) {
         return true;
@@ -346,7 +346,7 @@ class AnnotationManager {
   }
 
   private ShapeAnnotationHit getShapeAnnotationHitFromTap(PointF tapPoint) {
-    float touchTargetSide = MapLibre.getApplicationContext().getResources().getDimension(R.dimen.maplibre_eight_dp);
+    float touchTargetSide = MapHero.getApplicationContext().getResources().getDimension(R.dimen.maplibre_eight_dp);
     RectF tapRect = new RectF(
       tapPoint.x - touchTargetSide,
       tapPoint.y - touchTargetSide,
@@ -441,9 +441,9 @@ class AnnotationManager {
 
     private long closestMarkerId = NO_ANNOTATION_ID;
 
-    MarkerHitResolver(@NonNull MapLibreMap maplibreMap) {
-      this.projection = maplibreMap.getProjection();
-      this.minimalTouchSize = (int) (32 * MapLibre.getApplicationContext().getResources().getDisplayMetrics().density);
+    MarkerHitResolver(@NonNull MapHeroMap mapHeroMap) {
+      this.projection = mapHeroMap.getProjection();
+      this.minimalTouchSize = (int) (32 * MapHero.getApplicationContext().getResources().getDisplayMetrics().density);
     }
 
     public long execute(@NonNull MarkerHit markerHit) {

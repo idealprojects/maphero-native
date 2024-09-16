@@ -10,7 +10,7 @@ import org.maplibre.geojson.FeatureCollection.fromJson
 import org.maplibre.geojson.Point
 import org.maplibre.android.geometry.LatLng
 import org.maplibre.android.geometry.LatLngBounds
-import org.maplibre.android.maps.MapLibreMap
+import org.maplibre.android.maps.MapHeroMap
 import org.maplibre.android.maps.Style
 import org.maplibre.android.style.layers.Property.ICON_ANCHOR_CENTER
 import org.maplibre.android.style.layers.PropertyFactory.*
@@ -26,7 +26,7 @@ import java.net.URISyntaxException
 /** Test activity showcasing using the LatLngBounds camera API. */
 class LatLngBoundsActivity : AppCompatActivity() {
 
-    private lateinit var maplibreMap: MapLibreMap
+    private lateinit var mapHeroMap: MapHeroMap
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<*>
     private lateinit var bounds: LatLngBounds
     private lateinit var binding: ActivityLatlngboundsBinding
@@ -50,7 +50,7 @@ class LatLngBoundsActivity : AppCompatActivity() {
     private fun initMapView(savedInstanceState: Bundle?) {
         binding.mapView.onCreate(savedInstanceState)
         binding.mapView.getMapAsync { map ->
-            maplibreMap = map
+            mapHeroMap = map
 
             val featureCollection: FeatureCollection =
                 fromJson(GeoParseUtil.loadStringFromAssets(this, "points-sf.geojson"))
@@ -69,7 +69,7 @@ class LatLngBoundsActivity : AppCompatActivity() {
     }
 
     private fun loadStyle(featureCollection: FeatureCollection) {
-        maplibreMap.setStyle(
+        mapHeroMap.setStyle(
             Style.Builder()
                 .fromUri(TestStyles.getPredefinedStyleWithFallback("Streets"))
                 .withLayer(
@@ -105,8 +105,8 @@ class LatLngBoundsActivity : AppCompatActivity() {
                     val offset = convertSlideOffset(slideOffset)
                     val bottomPadding = (peekHeight * offset).toInt()
 
-                    maplibreMap.getCameraForLatLngBounds(bounds, createPadding(bottomPadding))
-                        ?.let { maplibreMap.cameraPosition = it }
+                    mapHeroMap.getCameraForLatLngBounds(bounds, createPadding(bottomPadding))
+                        ?.let { mapHeroMap.cameraPosition = it }
                 }
 
                 override fun onStateChanged(bottomSheet: View, newState: Int) {

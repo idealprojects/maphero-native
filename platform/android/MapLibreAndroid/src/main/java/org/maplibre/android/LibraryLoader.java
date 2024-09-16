@@ -13,7 +13,7 @@ public abstract class LibraryLoader {
 
   private static final String TAG = "Mbgl-LibraryLoader";
 
-  private static final LibraryLoader DEFAULT = MapLibre.getModuleProvider()
+  private static final LibraryLoader DEFAULT = MapHero.getModuleProvider()
     .createLibraryLoaderProvider()
     .getDefaultLibraryLoader();
 

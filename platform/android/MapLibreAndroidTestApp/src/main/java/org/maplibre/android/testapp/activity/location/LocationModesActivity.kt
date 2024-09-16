@@ -25,8 +25,8 @@ import org.maplibre.android.location.modes.CameraMode
 import org.maplibre.android.location.modes.RenderMode
 import org.maplibre.android.location.permissions.PermissionsListener
 import org.maplibre.android.location.permissions.PermissionsManager
-import org.maplibre.android.maps.MapLibreMap
-import org.maplibre.android.maps.MapLibreMap.CancelableCallback
+import org.maplibre.android.maps.MapHeroMap
+import org.maplibre.android.maps.MapHeroMap.CancelableCallback
 import org.maplibre.android.maps.MapView
 import org.maplibre.android.maps.OnMapReadyCallback
 import org.maplibre.android.maps.Style
@@ -45,7 +45,7 @@ class LocationModesActivity :
     private var protectedGestureArea: View? = null
     private var permissionsManager: PermissionsManager? = null
     private var locationComponent: LocationComponent? = null
-    private lateinit var maplibreMap: MapLibreMap
+    private lateinit var mapHeroMap1: MapHeroMap
     private var defaultStyle = false
 
     @CameraMode.Mode
@@ -118,10 +118,10 @@ class LocationModesActivity :
     }
 
     @SuppressLint("MissingPermission")
-    override fun onMapReady(maplibreMap: MapLibreMap) {
-        this.maplibreMap = maplibreMap
-        maplibreMap.setStyle(TestStyles.getPredefinedStyleWithFallback("Streets")) { style: Style? ->
-            locationComponent = maplibreMap.locationComponent
+    override fun onMapReady(mapHeroMap: MapHeroMap) {
+        this.mapHeroMap1 = mapHeroMap
+        mapHeroMap.setStyle(TestStyles.getPredefinedStyleWithFallback("Streets")) { style: Style? ->
+            locationComponent = mapHeroMap.locationComponent
             locationComponent!!.activateLocationComponent(
                 LocationComponentActivationOptions
                     .builder(this, style!!)
@@ -247,7 +247,7 @@ class LocationModesActivity :
         if (locationComponent == null) {
             return
         }
-        maplibreMap.getStyle { style: Style ->
+        mapHeroMap1.getStyle { style: Style ->
             val styleUrl =
                 TestStyles.getPredefinedStyleWithFallback(
                     if (TestStyles.getPredefinedStyleWithFallback("Bright") == style.uri) {
@@ -257,7 +257,7 @@ class LocationModesActivity :
                     }
                 )
 
-            maplibreMap.setStyle(Style.Builder().fromUri(styleUrl))
+            mapHeroMap1.setStyle(Style.Builder().fromUri(styleUrl))
         }
     }
 

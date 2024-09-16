@@ -10,7 +10,6 @@ import androidx.annotation.NonNull;
 
 import org.maplibre.android.R;
 
-@Deprecated
 class BubblePopupHelper {
 
   @NonNull

@@ -6,15 +6,15 @@ import android.util.Log;
 
 import java.lang.ref.WeakReference;
 
-public class MapLibreVulkanSurfaceView extends MapLibreSurfaceView {
+public class MapHeroVulkanSurfaceView extends MapHeroSurfaceView {
 
-  protected final WeakReference<MapLibreVulkanSurfaceView> viewWeakReference = new WeakReference<>(this);
+  protected final WeakReference<MapHeroVulkanSurfaceView> viewWeakReference = new WeakReference<>(this);
 
-  public MapLibreVulkanSurfaceView(Context context) {
+  public MapHeroVulkanSurfaceView(Context context) {
     super(context);
   }
 
-  public MapLibreVulkanSurfaceView(Context context, AttributeSet attrs) {
+  public MapHeroVulkanSurfaceView(Context context, AttributeSet attrs) {
     super(context, attrs);
   }
 
@@ -23,8 +23,8 @@ public class MapLibreVulkanSurfaceView extends MapLibreSurfaceView {
     renderThread = new VulkanThread(viewWeakReference);
   }
 
-  static class VulkanThread extends MapLibreSurfaceView.RenderThread {
-    VulkanThread(WeakReference<MapLibreVulkanSurfaceView> surfaceViewWeakRef) {
+  static class VulkanThread extends MapHeroSurfaceView.RenderThread {
+    VulkanThread(WeakReference<MapHeroVulkanSurfaceView> surfaceViewWeakRef) {
       super();
       mSurfaceViewWeakRef = surfaceViewWeakRef;
     }
@@ -62,7 +62,7 @@ public class MapLibreVulkanSurfaceView extends MapLibreSurfaceView {
             }
 
             if (paused && graphicsSurfaceCreated) {
-              MapLibreVulkanSurfaceView view = mSurfaceViewWeakRef.get();
+              MapHeroVulkanSurfaceView view = mSurfaceViewWeakRef.get();
               if (view != null) {
                 destroySurface = true;
                 graphicsSurfaceCreated = false;
@@ -72,7 +72,7 @@ public class MapLibreVulkanSurfaceView extends MapLibreSurfaceView {
 
             // lost surface
             if (!hasSurface && !waitingForSurface) {
-              MapLibreVulkanSurfaceView view = mSurfaceViewWeakRef.get();
+              MapHeroVulkanSurfaceView view = mSurfaceViewWeakRef.get();
               if (view != null) {
                 destroySurface = true;
                 graphicsSurfaceCreated = false;
@@ -83,7 +83,7 @@ public class MapLibreVulkanSurfaceView extends MapLibreSurfaceView {
 
             // acquired surface
             if (hasSurface && waitingForSurface) {
-              MapLibreVulkanSurfaceView view = mSurfaceViewWeakRef.get();
+              MapHeroVulkanSurfaceView view = mSurfaceViewWeakRef.get();
               if (view != null) {
                 initSurface = true;
                 graphicsSurfaceCreated = true;
@@ -138,7 +138,7 @@ public class MapLibreVulkanSurfaceView extends MapLibreSurfaceView {
           continue;
         }
 
-        MapLibreVulkanSurfaceView view = mSurfaceViewWeakRef.get();
+        MapHeroVulkanSurfaceView view = mSurfaceViewWeakRef.get();
 
         if (destroySurface) {
           if (view != null) {
@@ -178,6 +178,6 @@ public class MapLibreVulkanSurfaceView extends MapLibreSurfaceView {
 
     private boolean graphicsSurfaceCreated;
 
-    private WeakReference<MapLibreVulkanSurfaceView> mSurfaceViewWeakRef;
+    private WeakReference<MapHeroVulkanSurfaceView> mSurfaceViewWeakRef;
   }
 }

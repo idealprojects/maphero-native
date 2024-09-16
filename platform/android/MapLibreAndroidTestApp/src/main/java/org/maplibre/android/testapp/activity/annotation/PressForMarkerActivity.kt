@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import org.maplibre.android.annotations.MarkerOptions
 import org.maplibre.android.geometry.LatLng
 import org.maplibre.android.maps.MapView
-import org.maplibre.android.maps.MapLibreMap
+import org.maplibre.android.maps.MapHeroMap
 import org.maplibre.android.testapp.R
 import org.maplibre.android.testapp.styles.TestStyles
 import java.text.DecimalFormat
@@ -23,7 +23,7 @@ import java.util.ArrayList
  */
 class PressForMarkerActivity : AppCompatActivity() {
     private lateinit var mapView: MapView
-    private lateinit var maplibreMap: MapLibreMap
+    private lateinit var mapHeroMap: MapHeroMap
     private var markerList: ArrayList<MarkerOptions>? = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,31 +31,31 @@ class PressForMarkerActivity : AppCompatActivity() {
         setContentView(R.layout.activity_press_for_marker)
         mapView = findViewById<View>(R.id.mapView) as MapView
         mapView.onCreate(savedInstanceState)
-        mapView.getMapAsync { map: MapLibreMap? ->
+        mapView.getMapAsync { map: MapHeroMap? ->
             if (map != null) {
-                maplibreMap = map
+                mapHeroMap = map
             }
             resetMap()
-            maplibreMap.addOnMapLongClickListener { point: LatLng ->
+            mapHeroMap.addOnMapLongClickListener { point: LatLng ->
                 addMarker(point)
                 false
             }
-            maplibreMap.addOnMapClickListener { point: LatLng ->
+            mapHeroMap.addOnMapClickListener { point: LatLng ->
                 addMarker(point)
                 false
             }
-            maplibreMap.setStyle(TestStyles.getPredefinedStyleWithFallback("Streets"))
+            mapHeroMap.setStyle(TestStyles.getPredefinedStyleWithFallback("Streets"))
             if (savedInstanceState != null) {
                 markerList = savedInstanceState.getParcelableArrayList(STATE_MARKER_LIST, MarkerOptions::class.java)
                 if (markerList != null) {
-                    maplibreMap.addMarkers(markerList!!)
+                    mapHeroMap.addMarkers(markerList!!)
                 }
             }
         }
     }
 
     private fun addMarker(point: LatLng) {
-        val pixel = maplibreMap.projection.toScreenLocation(point)
+        val pixel = mapHeroMap.projection.toScreenLocation(point)
         val title = (
             LAT_LON_FORMATTER.format(point.latitude) + ", " +
                 LAT_LON_FORMATTER.format(point.longitude)
@@ -66,13 +66,13 @@ class PressForMarkerActivity : AppCompatActivity() {
             .title(title)
             .snippet(snippet)
         markerList!!.add(marker)
-        maplibreMap.addMarker(marker)
+        mapHeroMap.addMarker(marker)
     }
 
     private fun resetMap() {
-        if (this::maplibreMap.isInitialized) {
+        if (this::mapHeroMap.isInitialized) {
             markerList?.clear()
-            maplibreMap.removeAnnotations()
+            mapHeroMap.removeAnnotations()
         }
     }
 

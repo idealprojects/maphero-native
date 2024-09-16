@@ -9,7 +9,7 @@ import androidx.annotation.Nullable;
 import org.maplibre.geojson.Feature;
 import org.maplibre.android.location.modes.RenderMode;
 import org.maplibre.android.log.Logger;
-import org.maplibre.android.maps.MapLibreMap;
+import org.maplibre.android.maps.MapHeroMap;
 import org.maplibre.android.maps.Style;
 import org.maplibre.android.style.expressions.Expression;
 
@@ -39,7 +39,7 @@ final class LocationLayerController {
   @RenderMode.Mode
   private int renderMode;
 
-  private final MapLibreMap maplibreMap;
+  private final MapHeroMap mapHeroMap;
   private final LayerBitmapProvider bitmapProvider;
   private LocationComponentOptions options;
   private final OnRenderModeChangedListener internalRenderModeChangedListener;
@@ -52,14 +52,14 @@ final class LocationLayerController {
 
   private LocationLayerRenderer locationLayerRenderer;
 
-  LocationLayerController(MapLibreMap maplibreMap, Style style,
+  LocationLayerController(MapHeroMap mapHeroMap, Style style,
                           LayerSourceProvider layerSourceProvider,
                           LayerFeatureProvider featureProvider,
                           LayerBitmapProvider bitmapProvider,
                           @NonNull LocationComponentOptions options,
                           @NonNull OnRenderModeChangedListener internalRenderModeChangedListener,
                           boolean useSpecializedLocationLayer) {
-    this.maplibreMap = maplibreMap;
+    this.mapHeroMap = mapHeroMap;
     this.bitmapProvider = bitmapProvider;
     this.internalRenderModeChangedListener = internalRenderModeChangedListener;
     this.useSpecializedLocationLayer = useSpecializedLocationLayer;
@@ -203,8 +203,8 @@ final class LocationLayerController {
 
   private void styleScaling(@NonNull LocationComponentOptions options) {
     Expression scaleExpression = interpolate(linear(), zoom(),
-      stop(maplibreMap.getMinZoomLevel(), options.minZoomIconScale()),
-      stop(maplibreMap.getMaxZoomLevel(), options.maxZoomIconScale())
+      stop(mapHeroMap.getMinZoomLevel(), options.minZoomIconScale()),
+      stop(mapHeroMap.getMaxZoomLevel(), options.maxZoomIconScale())
     );
 
     locationLayerRenderer.styleScaling(scaleExpression);
@@ -249,8 +249,8 @@ final class LocationLayerController {
   //
 
   boolean onMapClick(@NonNull LatLng point) {
-    PointF screenLoc = maplibreMap.getProjection().toScreenLocation(point);
-    List<Feature> features = maplibreMap.queryRenderedFeatures(screenLoc,
+    PointF screenLoc = mapHeroMap.getProjection().toScreenLocation(point);
+    List<Feature> features = mapHeroMap.queryRenderedFeatures(screenLoc,
       BACKGROUND_LAYER,
       FOREGROUND_LAYER,
       BEARING_LAYER
@@ -258,32 +258,32 @@ final class LocationLayerController {
     return !features.isEmpty();
   }
 
-  private final MapLibreAnimator.AnimationsValueChangeListener<LatLng> latLngValueListener =
-    new MapLibreAnimator.AnimationsValueChangeListener<LatLng>() {
+  private final MapHeroAnimator.AnimationsValueChangeListener<LatLng> latLngValueListener =
+    new MapHeroAnimator.AnimationsValueChangeListener<LatLng>() {
       @Override
       public void onNewAnimationValue(LatLng value) {
         locationLayerRenderer.setLatLng(value);
       }
   };
 
-  private final MapLibreAnimator.AnimationsValueChangeListener<Float> gpsBearingValueListener =
-    new MapLibreAnimator.AnimationsValueChangeListener<Float>() {
+  private final MapHeroAnimator.AnimationsValueChangeListener<Float> gpsBearingValueListener =
+    new MapHeroAnimator.AnimationsValueChangeListener<Float>() {
       @Override
       public void onNewAnimationValue(Float value) {
         locationLayerRenderer.setGpsBearing(value);
       }
   };
 
-  private final MapLibreAnimator.AnimationsValueChangeListener<Float> compassBearingValueListener =
-    new MapLibreAnimator.AnimationsValueChangeListener<Float>() {
+  private final MapHeroAnimator.AnimationsValueChangeListener<Float> compassBearingValueListener =
+    new MapHeroAnimator.AnimationsValueChangeListener<Float>() {
       @Override
       public void onNewAnimationValue(Float value) {
         locationLayerRenderer.setCompassBearing(value);
       }
   };
 
-  private final MapLibreAnimator.AnimationsValueChangeListener<Float> accuracyValueListener =
-    new MapLibreAnimator.AnimationsValueChangeListener<Float>() {
+  private final MapHeroAnimator.AnimationsValueChangeListener<Float> accuracyValueListener =
+    new MapHeroAnimator.AnimationsValueChangeListener<Float>() {
       @Override
       public void onNewAnimationValue(Float value) {
         locationLayerRenderer.setAccuracyRadius(value);
@@ -293,8 +293,8 @@ final class LocationLayerController {
   /**
    * The listener that handles the updating of the pulsing circle's radius and opacity.
    */
-  private final MapLibreAnimator.AnimationsValueChangeListener<Float> pulsingCircleRadiusListener =
-    new MapLibreAnimator.AnimationsValueChangeListener<Float>() {
+  private final MapHeroAnimator.AnimationsValueChangeListener<Float> pulsingCircleRadiusListener =
+    new MapHeroAnimator.AnimationsValueChangeListener<Float>() {
       @Override
       public void onNewAnimationValue(Float newPulseRadiusValue) {
         Float newPulseOpacityValue = null;
@@ -307,21 +307,21 @@ final class LocationLayerController {
 
   Set<AnimatorListenerHolder> getAnimationListeners() {
     Set<AnimatorListenerHolder> holders = new HashSet<>();
-    holders.add(new AnimatorListenerHolder(MapLibreAnimator.ANIMATOR_LAYER_LATLNG, latLngValueListener));
+    holders.add(new AnimatorListenerHolder(MapHeroAnimator.ANIMATOR_LAYER_LATLNG, latLngValueListener));
 
     if (renderMode == RenderMode.GPS) {
-      holders.add(new AnimatorListenerHolder(MapLibreAnimator.ANIMATOR_LAYER_GPS_BEARING, gpsBearingValueListener));
+      holders.add(new AnimatorListenerHolder(MapHeroAnimator.ANIMATOR_LAYER_GPS_BEARING, gpsBearingValueListener));
     } else if (renderMode == RenderMode.COMPASS) {
       holders.add(
-        new AnimatorListenerHolder(MapLibreAnimator.ANIMATOR_LAYER_COMPASS_BEARING, compassBearingValueListener));
+        new AnimatorListenerHolder(MapHeroAnimator.ANIMATOR_LAYER_COMPASS_BEARING, compassBearingValueListener));
     }
 
     if (renderMode == RenderMode.COMPASS || renderMode == RenderMode.NORMAL) {
-      holders.add(new AnimatorListenerHolder(MapLibreAnimator.ANIMATOR_LAYER_ACCURACY, accuracyValueListener));
+      holders.add(new AnimatorListenerHolder(MapHeroAnimator.ANIMATOR_LAYER_ACCURACY, accuracyValueListener));
     }
 
     if (options.pulseEnabled()) {
-      holders.add(new AnimatorListenerHolder(MapLibreAnimator.ANIMATOR_PULSING_CIRCLE,
+      holders.add(new AnimatorListenerHolder(MapHeroAnimator.ANIMATOR_PULSING_CIRCLE,
           pulsingCircleRadiusListener));
     }
     return holders;

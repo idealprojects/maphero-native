@@ -84,7 +84,7 @@ public abstract class Source {
    * Set the tile pre-fetching zoom delta for current source. Pre-fetching makes sure that a low-resolution
    * tile at the (current_zoom_level - delta) is rendered as soon as possible at the
    * expense of a little bandwidth.
-   * If delta has not been set or set to null, it will use the value in MapLibreMap instance.
+   * If delta has not been set or set to null, it will use the value in MapHeroMap instance.
    *
    * @param delta zoom delta
    */

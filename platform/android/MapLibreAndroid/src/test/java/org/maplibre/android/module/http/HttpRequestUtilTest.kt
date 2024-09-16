@@ -1,6 +1,6 @@
 package org.maplibre.android.module.http
 
-import org.maplibre.android.MapLibreInjector
+import org.maplibre.android.MapHeroInjector
 import org.maplibre.android.utils.ConfigUtils
 import io.mockk.mockk
 import okhttp3.OkHttpClient
@@ -14,7 +14,7 @@ class HttpRequestUtilTest {
 
     @Test
     fun replaceHttpClient() {
-        MapLibreInjector.inject(mockk(relaxed = true), "", ConfigUtils.getMockedOptions())
+        MapHeroInjector.inject(mockk(relaxed = true), "", ConfigUtils.getMockedOptions())
 
         assertEquals(HttpRequestImpl.DEFAULT_CLIENT, HttpRequestImpl.client)
 
@@ -33,6 +33,6 @@ class HttpRequestUtilTest {
             HttpRequestImpl.client
         )
 
-        MapLibreInjector.clear()
+        MapHeroInjector.clear()
     }
 }

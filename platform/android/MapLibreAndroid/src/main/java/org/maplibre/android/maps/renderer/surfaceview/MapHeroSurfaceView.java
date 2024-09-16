@@ -10,9 +10,9 @@ import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 
-public abstract class MapLibreSurfaceView extends SurfaceView implements SurfaceHolder.Callback2 {
+public abstract class MapHeroSurfaceView extends SurfaceView implements SurfaceHolder.Callback2 {
 
-  protected static final String TAG = "MapLibreSurfaceView";
+  protected static final String TAG = "MapHeroSurfaceView";
   protected static final RenderThreadManager renderThreadManager = new RenderThreadManager();
 
   protected SurfaceViewMapRenderer renderer;
@@ -43,7 +43,7 @@ public abstract class MapLibreSurfaceView extends SurfaceView implements Surface
    * Standard View constructor. In order to render something, you
    * must call {@link #setRenderer} to register a renderer.
    */
-  public MapLibreSurfaceView(Context context) {
+  public MapHeroSurfaceView(Context context) {
     super(context);
     init();
   }
@@ -52,7 +52,7 @@ public abstract class MapLibreSurfaceView extends SurfaceView implements Surface
    * Standard View constructor. In order to render something, you
    * must call {@link #setRenderer} to register a renderer.
    */
-  public MapLibreSurfaceView(Context context, AttributeSet attrs) {
+  public MapHeroSurfaceView(Context context, AttributeSet attrs) {
     super(context, attrs);
     init();
   }
@@ -158,7 +158,7 @@ public abstract class MapLibreSurfaceView extends SurfaceView implements Surface
 
   /**
    * This method is part of the SurfaceHolder.Callback interface, and is
-   * not normally called or subclassed by clients of MapLibreSurfaceView.
+   * not normally called or subclassed by clients of MapHeroSurfaceView.
    */
   public void surfaceCreated(SurfaceHolder holder) {
     renderThread.surfaceCreated();
@@ -166,7 +166,7 @@ public abstract class MapLibreSurfaceView extends SurfaceView implements Surface
 
   /**
    * This method is part of the SurfaceHolder.Callback interface, and is
-   * not normally called or subclassed by clients of MapLibreSurfaceView.
+   * not normally called or subclassed by clients of MapHeroSurfaceView.
    */
   public void surfaceDestroyed(SurfaceHolder holder) {
     // Surface will be destroyed when we return
@@ -175,7 +175,7 @@ public abstract class MapLibreSurfaceView extends SurfaceView implements Surface
 
   /**
    * This method is part of the SurfaceHolder.Callback interface, and is
-   * not normally called or subclassed by clients of MapLibreSurfaceView.
+   * not normally called or subclassed by clients of MapHeroSurfaceView.
    */
   public void surfaceChanged(SurfaceHolder holder, int format, int w, int h) {
     renderThread.onWindowResize(w, h);
@@ -183,7 +183,7 @@ public abstract class MapLibreSurfaceView extends SurfaceView implements Surface
 
   /**
    * This method is part of the SurfaceHolder.Callback2 interface, and is
-   * not normally called or subclassed by clients of MapLibreSurfaceView.
+   * not normally called or subclassed by clients of MapHeroSurfaceView.
    */
   @Override
   public void surfaceRedrawNeededAsync(SurfaceHolder holder, Runnable finishDrawing) {
@@ -194,7 +194,7 @@ public abstract class MapLibreSurfaceView extends SurfaceView implements Surface
 
   /**
    * This method is part of the SurfaceHolder.Callback2 interface, and is
-   * not normally called or subclassed by clients of MapLibreSurfaceView.
+   * not normally called or subclassed by clients of MapHeroSurfaceView.
    */
   @Deprecated
   @Override
@@ -243,7 +243,7 @@ public abstract class MapLibreSurfaceView extends SurfaceView implements Surface
 
   /**
    * This method is used as part of the View class and is not normally
-   * called or subclassed by clients of MapLibreSurfaceView.
+   * called or subclassed by clients of MapHeroSurfaceView.
    */
   @Override
   protected void onAttachedToWindow() {
@@ -531,12 +531,12 @@ public abstract class MapLibreSurfaceView extends SurfaceView implements Surface
   }
 
   /**
-   * Listener interface that notifies when a {@link MapLibreSurfaceView} is detached from window.
+   * Listener interface that notifies when a {@link MapHeroSurfaceView} is detached from window.
    */
   public interface OnSurfaceViewDetachedListener {
 
     /**
-     * Called when a {@link MapLibreSurfaceView} is detached from window.
+     * Called when a {@link MapHeroSurfaceView} is detached from window.
      */
     void onSurfaceViewDetached();
   }

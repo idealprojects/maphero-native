@@ -18,9 +18,9 @@ import javax.microedition.khronos.egl.EGLSurface;
 import javax.microedition.khronos.opengles.GL;
 import javax.microedition.khronos.opengles.GL10;
 
-public class MapLibreGLSurfaceView extends MapLibreSurfaceView {
+public class MapHeroGLSurfaceView extends MapHeroSurfaceView {
 
-  protected final WeakReference<MapLibreGLSurfaceView> viewWeakReference = new WeakReference<>(this);
+  protected final WeakReference<MapHeroGLSurfaceView> viewWeakReference = new WeakReference<>(this);
 
   private GLSurfaceView.EGLConfigChooser eglConfigChooser;
   private GLSurfaceView.EGLContextFactory eglContextFactory;
@@ -28,11 +28,11 @@ public class MapLibreGLSurfaceView extends MapLibreSurfaceView {
 
   private boolean preserveEGLContextOnPause;
 
-  public MapLibreGLSurfaceView(Context context) {
+  public MapHeroGLSurfaceView(Context context) {
     super(context);
   }
 
-  public MapLibreGLSurfaceView(Context context, AttributeSet attrs) {
+  public MapHeroGLSurfaceView(Context context, AttributeSet attrs) {
     super(context, attrs);
   }
 
@@ -123,7 +123,7 @@ public class MapLibreGLSurfaceView extends MapLibreSurfaceView {
    * An EGL helper class.
    */
   private static class EglHelper {
-    private EglHelper(WeakReference<MapLibreGLSurfaceView> glSurfaceViewWeakRef) {
+    private EglHelper(WeakReference<MapHeroGLSurfaceView> glSurfaceViewWeakRef) {
       mGLSurfaceViewWeakRef = glSurfaceViewWeakRef;
     }
 
@@ -155,7 +155,7 @@ public class MapLibreGLSurfaceView extends MapLibreSurfaceView {
           Log.e(TAG, "eglInitialize failed");
           return;
         }
-        MapLibreGLSurfaceView view = mGLSurfaceViewWeakRef.get();
+        MapHeroGLSurfaceView view = mGLSurfaceViewWeakRef.get();
         if (view == null) {
           mEglConfig = null;
           mEglContext = null;
@@ -215,7 +215,7 @@ public class MapLibreGLSurfaceView extends MapLibreSurfaceView {
       /*
        * Create an EGL surface we can render into.
        */
-      MapLibreGLSurfaceView view = mGLSurfaceViewWeakRef.get();
+      MapHeroGLSurfaceView view = mGLSurfaceViewWeakRef.get();
       if (view != null) {
         mEglSurface = view.eglWindowSurfaceFactory.createWindowSurface(mEgl,
           mEglDisplay, mEglConfig, view.getHolder());
@@ -275,7 +275,7 @@ public class MapLibreGLSurfaceView extends MapLibreSurfaceView {
         mEgl.eglMakeCurrent(mEglDisplay, EGL10.EGL_NO_SURFACE,
           EGL10.EGL_NO_SURFACE,
           EGL10.EGL_NO_CONTEXT);
-        MapLibreGLSurfaceView view = mGLSurfaceViewWeakRef.get();
+        MapHeroGLSurfaceView view = mGLSurfaceViewWeakRef.get();
         if (view != null) {
           view.eglWindowSurfaceFactory.destroySurface(mEgl, mEglDisplay, mEglSurface);
         }
@@ -285,7 +285,7 @@ public class MapLibreGLSurfaceView extends MapLibreSurfaceView {
 
     public void finish() {
       if (mEglContext != null) {
-        MapLibreGLSurfaceView view = mGLSurfaceViewWeakRef.get();
+        MapHeroGLSurfaceView view = mGLSurfaceViewWeakRef.get();
         if (view != null) {
           view.eglContextFactory.destroyContext(mEgl, mEglDisplay, mEglContext);
         }
@@ -305,7 +305,7 @@ public class MapLibreGLSurfaceView extends MapLibreSurfaceView {
       return function + " failed: " + EGLLogWrapper.getErrorString(error);
     }
 
-    private WeakReference<MapLibreGLSurfaceView> mGLSurfaceViewWeakRef;
+    private WeakReference<MapHeroGLSurfaceView> mGLSurfaceViewWeakRef;
     EGL10 mEgl;
     EGLDisplay mEglDisplay;
     EGLSurface mEglSurface;
@@ -322,8 +322,8 @@ public class MapLibreGLSurfaceView extends MapLibreSurfaceView {
    * All potentially blocking synchronization is done through the
    * sGLThreadManager object. This avoids multiple-lock ordering issues.
    */
-  static class GLThread extends MapLibreSurfaceView.RenderThread {
-    GLThread(WeakReference<MapLibreGLSurfaceView> surfaceViewWeakRef) {
+  static class GLThread extends MapHeroSurfaceView.RenderThread {
+    GLThread(WeakReference<MapHeroGLSurfaceView> surfaceViewWeakRef) {
       super();
 
       mSurfaceViewWeakRef = surfaceViewWeakRef;
@@ -416,7 +416,7 @@ public class MapLibreGLSurfaceView extends MapLibreSurfaceView {
 
               // When pausing, optionally release the EGL Context:
               if (pausing && haveEglContext) {
-                MapLibreGLSurfaceView view = mSurfaceViewWeakRef.get();
+                MapHeroGLSurfaceView view = mSurfaceViewWeakRef.get();
                 boolean preserveEglContextOnPause = view != null && view.preserveEGLContextOnPause;
                 if (!preserveEglContextOnPause) {
                   stopEglContextLocked();
@@ -541,7 +541,7 @@ public class MapLibreGLSurfaceView extends MapLibreSurfaceView {
           }
 
           if (createEglContext) {
-            MapLibreSurfaceView view = mSurfaceViewWeakRef.get();
+            MapHeroSurfaceView view = mSurfaceViewWeakRef.get();
             if (view != null) {
               view.renderer.onSurfaceCreated(null);
             }
@@ -549,14 +549,14 @@ public class MapLibreGLSurfaceView extends MapLibreSurfaceView {
           }
 
           if (sizeChanged) {
-            MapLibreSurfaceView view = mSurfaceViewWeakRef.get();
+            MapHeroSurfaceView view = mSurfaceViewWeakRef.get();
             if (view != null) {
               view.renderer.onSurfaceChanged(w, h);
             }
             sizeChanged = false;
           }
 
-          MapLibreSurfaceView view = mSurfaceViewWeakRef.get();
+          MapHeroSurfaceView view = mSurfaceViewWeakRef.get();
           if (view != null) {
             view.renderer.onDrawFrame();
             if (finishDrawingRunnable != null) {
@@ -647,6 +647,6 @@ public class MapLibreGLSurfaceView extends MapLibreSurfaceView {
      * called. This weak reference allows the SurfaceView to be garbage collected while
      * the RenderThread is still alive.
      */
-    protected WeakReference<MapLibreGLSurfaceView> mSurfaceViewWeakRef;
+    protected WeakReference<MapHeroGLSurfaceView> mSurfaceViewWeakRef;
   }
 }

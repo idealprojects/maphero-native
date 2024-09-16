@@ -13,11 +13,11 @@ import java.util.List;
  * Interface that defines convenient methods for working with a {@link Marker}'s collection.
  */
 interface Markers {
-  Marker addBy(@NonNull BaseMarkerOptions markerOptions, @NonNull MapLibreMap maplibreMap);
+  Marker addBy(@NonNull BaseMarkerOptions markerOptions, @NonNull MapHeroMap mapHeroMap);
 
-  List<Marker> addBy(@NonNull List<? extends BaseMarkerOptions> markerOptionsList, @NonNull MapLibreMap maplibreMap);
+  List<Marker> addBy(@NonNull List<? extends BaseMarkerOptions> markerOptionsList, @NonNull MapHeroMap mapHeroMap);
 
-  void update(@NonNull Marker updatedMarker, @NonNull MapLibreMap maplibreMap);
+  void update(@NonNull Marker updatedMarker, @NonNull MapHeroMap mapHeroMap);
 
   List<Marker> obtainAll();
 

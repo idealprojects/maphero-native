@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import org.maplibre.android.log.Logger
 import org.maplibre.android.maps.MapView
-import org.maplibre.android.maps.MapLibreMap
+import org.maplibre.android.maps.MapHeroMap
 import org.maplibre.android.maps.OnMapReadyCallback
 import org.maplibre.android.maps.Style
 import org.maplibre.android.testapp.databinding.ActivitySnapshotBinding
@@ -18,14 +18,14 @@ class SnapshotActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var binding: ActivitySnapshotBinding
 
-    private lateinit var maplibreMap: MapLibreMap
+    private lateinit var mapHeroMap1: MapHeroMap
 
     private val idleListener = object : MapView.OnDidFinishRenderingFrameListener {
         override fun onDidFinishRenderingFrame(fully: Boolean, frameEncodingTime: Double, frameRenderingTime: Double) {
             if (fully) {
                 binding.mapView.removeOnDidFinishRenderingFrameListener(this)
                 Logger.v(TAG, LOG_MESSAGE)
-                maplibreMap.snapshot { snapshot ->
+                mapHeroMap1.snapshot { snapshot ->
                     binding.imageView.setImageBitmap(snapshot)
                     binding.mapView.addOnDidFinishRenderingFrameListener(this)
                 }
@@ -41,9 +41,9 @@ class SnapshotActivity : AppCompatActivity(), OnMapReadyCallback {
         binding.mapView.getMapAsync(this)
     }
 
-    override fun onMapReady(map: MapLibreMap) {
-        maplibreMap = map
-        maplibreMap.setStyle(Style.Builder().fromUri(TestStyles.getPredefinedStyleWithFallback("Outdoor"))) { binding.mapView.addOnDidFinishRenderingFrameListener(idleListener) }
+    override fun onMapReady(mapHeroMap: MapHeroMap) {
+        mapHeroMap1 = mapHeroMap
+        mapHeroMap1.setStyle(Style.Builder().fromUri(TestStyles.getPredefinedStyleWithFallback("Outdoor"))) { binding.mapView.addOnDidFinishRenderingFrameListener(idleListener) }
     }
 
     override fun onStart() {
@@ -58,7 +58,7 @@ class SnapshotActivity : AppCompatActivity(), OnMapReadyCallback {
 
     override fun onPause() {
         super.onPause()
-        maplibreMap.snapshot {
+        mapHeroMap1.snapshot {
             Timber.e("Regression test for https://github.com/mapbox/mapbox-gl-native/pull/11358")
         }
         binding.mapView.onPause()

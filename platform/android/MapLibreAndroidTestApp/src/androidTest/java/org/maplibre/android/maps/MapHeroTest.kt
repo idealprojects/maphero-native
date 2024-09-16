@@ -8,54 +8,54 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.maplibre.android.AppCenter
-import org.maplibre.android.MapLibre
-import org.maplibre.android.exceptions.MapLibreConfigurationException
+import org.maplibre.android.MapHero
+import org.maplibre.android.exceptions.MapHeroConfigurationException
 
 @RunWith(AndroidJUnit4ClassRunner::class)
-class MapLibreTest : AppCenter() {
+class MapHeroTest : AppCenter() {
     private var realToken: String? = null
     @Before
     fun setup() {
-        realToken = MapLibre.getApiKey()
+        realToken = MapHero.getApiKey()
     }
 
     @Test
     @UiThreadTest
     fun testConnected() {
-        Assert.assertTrue(MapLibre.isConnected())
+        Assert.assertTrue(MapHero.isConnected())
 
         // test manual connectivity
-        MapLibre.setConnected(true)
-        Assert.assertTrue(MapLibre.isConnected())
-        MapLibre.setConnected(false)
-        Assert.assertFalse(MapLibre.isConnected())
+        MapHero.setConnected(true)
+        Assert.assertTrue(MapHero.isConnected())
+        MapHero.setConnected(false)
+        Assert.assertFalse(MapHero.isConnected())
 
         // reset to Android connectivity
-        MapLibre.setConnected(null)
-        Assert.assertTrue(MapLibre.isConnected())
+        MapHero.setConnected(null)
+        Assert.assertTrue(MapHero.isConnected())
     }
 
     @Test
     @UiThreadTest
     fun setApiKey() {
-        MapLibre.setApiKey(API_KEY)
-        Assert.assertSame(API_KEY, MapLibre.getApiKey())
-        MapLibre.setApiKey(API_KEY_2)
-        Assert.assertSame(API_KEY_2, MapLibre.getApiKey())
+        MapHero.setApiKey(API_KEY)
+        Assert.assertSame(API_KEY, MapHero.getApiKey())
+        MapHero.setApiKey(API_KEY_2)
+        Assert.assertSame(API_KEY_2, MapHero.getApiKey())
     }
 
     @Test
     @UiThreadTest
     fun setNullApiKey() {
         Assert.assertThrows(
-            MapLibreConfigurationException::class.java
-        ) { MapLibre.setApiKey(null) }
+            MapHeroConfigurationException::class.java
+        ) { MapHero.setApiKey(null) }
     }
 
     @After
     fun tearDown() {
         if (realToken?.isNotEmpty() == true) {
-            MapLibre.setApiKey(realToken)
+            MapHero.setApiKey(realToken)
         }
 
     }

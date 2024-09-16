@@ -13,24 +13,21 @@ import java.util.List;
 
 /**
  * Builder for composing {@link Polyline} objects.
- * @deprecated As of 7.0.0,
- * use <a href="https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation">
- *   MapLibre Annotation Plugin</a> instead
  */
-@Deprecated
+
 public final class PolylineOptions implements Parcelable {
 
 
   public static final Parcelable.Creator<PolylineOptions> CREATOR =
-    new Parcelable.Creator<PolylineOptions>() {
-      public PolylineOptions createFromParcel(@NonNull Parcel in) {
-        return new PolylineOptions(in);
-      }
+          new Parcelable.Creator<>() {
+              public PolylineOptions createFromParcel(@NonNull Parcel in) {
+                  return new PolylineOptions(in);
+              }
 
-      public PolylineOptions[] newArray(int size) {
-        return new PolylineOptions[size];
-      }
-    };
+              public PolylineOptions[] newArray(int size) {
+                  return new PolylineOptions[size];
+              }
+          };
 
   private PolylineOptions(Parcel in) {
     polyline = new Polyline();

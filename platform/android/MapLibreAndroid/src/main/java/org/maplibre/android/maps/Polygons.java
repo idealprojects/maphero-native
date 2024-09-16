@@ -12,9 +12,9 @@ import java.util.List;
  * Interface that defines convenient methods for working with a {@link Polygon}'s collection.
  */
 interface Polygons {
-  Polygon addBy(@NonNull PolygonOptions polygonOptions, @NonNull MapLibreMap maplibreMap);
+  Polygon addBy(@NonNull PolygonOptions polygonOptions, @NonNull MapHeroMap mapHeroMap);
 
-  List<Polygon> addBy(@NonNull List<PolygonOptions> polygonOptionsList, @NonNull MapLibreMap maplibreMap);
+  List<Polygon> addBy(@NonNull List<PolygonOptions> polygonOptionsList, @NonNull MapHeroMap mapHeroMap);
 
   void update(Polygon polygon);
 

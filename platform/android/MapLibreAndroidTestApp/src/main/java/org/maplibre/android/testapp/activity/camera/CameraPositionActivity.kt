@@ -20,8 +20,8 @@ import org.maplibre.android.camera.CameraUpdateFactory
 import org.maplibre.android.constants.GeometryConstants
 import org.maplibre.android.geometry.LatLng
 import org.maplibre.android.maps.MapView
-import org.maplibre.android.maps.MapLibreMap
-import org.maplibre.android.maps.MapLibreMap.*
+import org.maplibre.android.maps.MapHeroMap
+import org.maplibre.android.maps.MapHeroMap.*
 import org.maplibre.android.maps.OnMapReadyCallback
 import org.maplibre.android.maps.Style
 import org.maplibre.android.testapp.R
@@ -31,7 +31,7 @@ import timber.log.Timber
 /** Test activity showcasing how to listen to camera change events. */
 class CameraPositionActivity : FragmentActivity(), OnMapReadyCallback, View.OnClickListener, OnMapLongClickListener {
     private lateinit var mapView: MapView
-    private lateinit var maplibreMap: MapLibreMap
+    private lateinit var mapHeroMap: MapHeroMap
     private lateinit var fab: FloatingActionButton
     private var logCameraChanges = false
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,9 +46,9 @@ class CameraPositionActivity : FragmentActivity(), OnMapReadyCallback, View.OnCl
         mapView.getMapAsync(this)
     }
 
-    override fun onMapReady(map: MapLibreMap) {
-        maplibreMap = map
-        map.setStyle(TestStyles.getPredefinedStyleWithFallback("Satellite Hybrid")) { style: Style? ->
+    override fun onMapReady(mapHeroMap: MapHeroMap) {
+        this.mapHeroMap = mapHeroMap
+        mapHeroMap.setStyle(TestStyles.getPredefinedStyleWithFallback("Satellite Hybrid")) { style: Style? ->
             // add a listener to FAB
             fab = findViewById(R.id.fab)
             fab.setColorFilter(ContextCompat.getColor(this@CameraPositionActivity, R.color.primary))
@@ -56,7 +56,7 @@ class CameraPositionActivity : FragmentActivity(), OnMapReadyCallback, View.OnCl
             toggleLogCameraChanges()
 
             // listen to long click events to toggle logging camera changes
-            maplibreMap.addOnMapLongClickListener(this)
+            this.mapHeroMap.addOnMapLongClickListener(this)
         }
     }
 
@@ -72,7 +72,7 @@ class CameraPositionActivity : FragmentActivity(), OnMapReadyCallback, View.OnCl
         val builder = AlertDialog.Builder(context)
         builder.setTitle(R.string.dialog_camera_position)
         builder.setView(onInflateDialogContent(dialogContent))
-        builder.setPositiveButton("Animate", DialogClickListener(maplibreMap, dialogContent))
+        builder.setPositiveButton("Animate", DialogClickListener(mapHeroMap, dialogContent))
         builder.setNegativeButton("Cancel", null)
         builder.setCancelable(false)
         builder.show()
@@ -81,15 +81,15 @@ class CameraPositionActivity : FragmentActivity(), OnMapReadyCallback, View.OnCl
     private fun toggleLogCameraChanges() {
         logCameraChanges = !logCameraChanges
         if (logCameraChanges) {
-            maplibreMap.addOnCameraIdleListener(idleListener)
-            maplibreMap.addOnCameraMoveCancelListener(moveCanceledListener)
-            maplibreMap.addOnCameraMoveListener(moveListener)
-            maplibreMap.addOnCameraMoveStartedListener(moveStartedListener)
+            mapHeroMap.addOnCameraIdleListener(idleListener)
+            mapHeroMap.addOnCameraMoveCancelListener(moveCanceledListener)
+            mapHeroMap.addOnCameraMoveListener(moveListener)
+            mapHeroMap.addOnCameraMoveStartedListener(moveStartedListener)
         } else {
-            maplibreMap.removeOnCameraIdleListener(idleListener)
-            maplibreMap.removeOnCameraMoveCancelListener(moveCanceledListener)
-            maplibreMap.removeOnCameraMoveListener(moveListener)
-            maplibreMap.removeOnCameraMoveStartedListener(moveStartedListener)
+            mapHeroMap.removeOnCameraIdleListener(idleListener)
+            mapHeroMap.removeOnCameraMoveCancelListener(moveCanceledListener)
+            mapHeroMap.removeOnCameraMoveListener(moveListener)
+            mapHeroMap.removeOnCameraMoveStartedListener(moveStartedListener)
         }
     }
 
@@ -115,8 +115,8 @@ class CameraPositionActivity : FragmentActivity(), OnMapReadyCallback, View.OnCl
 
     override fun onDestroy() {
         super.onDestroy()
-        if (::maplibreMap.isInitialized) {
-            maplibreMap.removeOnMapLongClickListener(this)
+        if (::mapHeroMap.isInitialized) {
+            mapHeroMap.removeOnMapLongClickListener(this)
         }
         if (::mapView.isInitialized) {
             mapView.onDestroy()
@@ -191,7 +191,7 @@ class CameraPositionActivity : FragmentActivity(), OnMapReadyCallback, View.OnCl
         }
     }
 
-    private class DialogClickListener(private val maplibreMap: MapLibreMap?, private val dialogContent: View) : DialogInterface.OnClickListener {
+    private class DialogClickListener(private val mapHeroMap: MapHeroMap?, private val dialogContent: View) : DialogInterface.OnClickListener {
         override fun onClick(dialog: DialogInterface, which: Int) {
             val latitude = (dialogContent.findViewById<View>(R.id.value_lat) as TextView).text.toString().toDouble()
             val longitude = (dialogContent.findViewById<View>(R.id.value_lon) as TextView).text.toString().toDouble()
@@ -205,7 +205,7 @@ class CameraPositionActivity : FragmentActivity(), OnMapReadyCallback, View.OnCl
 
             val cameraPosition = CameraPosition.Builder().target(LatLng(latitude, longitude)).zoom(zoom).bearing(bearing).tilt(tilt).build()
 
-            maplibreMap?.animateCamera(
+            mapHeroMap?.animateCamera(
                 CameraUpdateFactory.newCameraPosition(cameraPosition),
                 5000,
                 object : CancelableCallback {

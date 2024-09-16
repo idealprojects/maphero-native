@@ -12,7 +12,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import org.maplibre.android.maps.MapView
-import org.maplibre.android.maps.MapLibreMap
+import org.maplibre.android.maps.MapHeroMap
 import org.maplibre.android.maps.OnMapReadyCallback
 import org.maplibre.android.testapp.R
 import org.maplibre.android.testapp.styles.TestStyles
@@ -22,7 +22,7 @@ import org.maplibre.android.testapp.styles.TestStyles
  */
 class ScrollByActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var mapView: MapView
-    private lateinit var maplibreMap: MapLibreMap
+    private lateinit var mapHeroMap: MapHeroMap
     private lateinit var seekBarX: SeekBar
     private lateinit var seekBarY: SeekBar
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,16 +51,16 @@ class ScrollByActivity : AppCompatActivity(), OnMapReadyCallback {
         mapView.getMapAsync(this)
     }
 
-    override fun onMapReady(map: MapLibreMap) {
-        maplibreMap = map
-        maplibreMap.setStyle(TestStyles.getPredefinedStyleWithFallback("Pastel"))
-        val uiSettings = maplibreMap.uiSettings
+    override fun onMapReady(mapHeroMap: MapHeroMap) {
+        this.mapHeroMap = mapHeroMap
+        this.mapHeroMap.setStyle(TestStyles.getPredefinedStyleWithFallback("Pastel"))
+        val uiSettings = this.mapHeroMap.uiSettings
         uiSettings.isLogoEnabled = false
         uiSettings.isAttributionEnabled = false
         val fab = findViewById<FloatingActionButton>(R.id.fab)
         fab.setColorFilter(ContextCompat.getColor(this@ScrollByActivity, R.color.primary))
         fab.setOnClickListener { _: View? ->
-            maplibreMap.scrollBy(
+            this.mapHeroMap.scrollBy(
                 (seekBarX.progress * MULTIPLIER_PER_PIXEL).toFloat(),
                 (seekBarY.progress * MULTIPLIER_PER_PIXEL).toFloat()
             )

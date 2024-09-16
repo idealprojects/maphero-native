@@ -17,7 +17,7 @@ import org.maplibre.android.testapp.styles.TestStyles
  */
 class MapPaddingActivity : AppCompatActivity() {
     private lateinit var mapView: MapView
-    private lateinit var maplibreMap: MapLibreMap
+    private lateinit var mapHeroMap: MapHeroMap
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_map_padding)
@@ -25,7 +25,7 @@ class MapPaddingActivity : AppCompatActivity() {
         mapView.setTag(true)
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync {
-            maplibreMap = it
+            mapHeroMap = it
             it.setStyle(TestStyles.getPredefinedStyleWithFallback("Streets"))
             val paddingLeft = resources.getDimension(R.dimen.map_padding_left).toInt()
             val paddingBottom = resources.getDimension(R.dimen.map_padding_bottom).toInt()
@@ -88,14 +88,14 @@ class MapPaddingActivity : AppCompatActivity() {
             .bearing(40.0)
             .tilt(45.0)
             .build()
-        maplibreMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
-        maplibreMap.addMarker(MarkerOptions().title("Center map").position(bangalore))
+        mapHeroMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
+        mapHeroMap.addMarker(MarkerOptions().title("Center map").position(bangalore))
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_bangalore -> {
-                if (this::maplibreMap.isInitialized) {
+                if (this::mapHeroMap.isInitialized) {
                     moveToBangalore()
                 }
                 true

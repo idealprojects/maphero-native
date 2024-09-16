@@ -16,21 +16,21 @@ import timber.log.Timber;
 import static org.maplibre.android.location.engine.Utils.isBetterLocation;
 
 /**
- * MapLibre replacement for Google Play Services Fused Location Client
+ * MapHero replacement for Google Play Services Fused Location Client
  * <p>
  * Note: fusion will not work in background mode.
  */
-public class MapLibreFusedLocationEngineImpl extends AndroidLocationEngineImpl {
-  private static final String TAG = "MapLibreLocationEngine";
+public class MapHeroFusedLocationEngineImpl extends AndroidLocationEngineImpl {
+  private static final String TAG = "MapHeroLocationEngine";
 
-  public MapLibreFusedLocationEngineImpl(@NonNull Context context) {
+  public MapHeroFusedLocationEngineImpl(@NonNull Context context) {
     super(context);
   }
 
   @NonNull
   @Override
   public LocationListener createListener(LocationEngineCallback<LocationEngineResult> callback) {
-    return new MapLibreLocationEngineCallbackTransport(callback);
+    return new MapHeroLocationEngineCallbackTransport(callback);
   }
 
   @Override
@@ -100,11 +100,11 @@ public class MapLibreFusedLocationEngineImpl extends AndroidLocationEngineImpl {
       && currentProvider.equals(LocationManager.GPS_PROVIDER);
   }
 
-  private static final class MapLibreLocationEngineCallbackTransport implements LocationListener {
+  private static final class MapHeroLocationEngineCallbackTransport implements LocationListener {
     private final LocationEngineCallback<LocationEngineResult> callback;
     private Location currentBestLocation;
 
-    MapLibreLocationEngineCallbackTransport(LocationEngineCallback<LocationEngineResult> callback) {
+    MapHeroLocationEngineCallbackTransport(LocationEngineCallback<LocationEngineResult> callback) {
       this.callback = callback;
     }
 

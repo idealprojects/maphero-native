@@ -18,7 +18,7 @@ import org.maplibre.android.annotations.PolygonOptions
 import org.maplibre.android.annotations.PolylineOptions
 import org.maplibre.android.exceptions.InvalidMarkerPositionException
 import org.maplibre.android.geometry.LatLng
-import org.maplibre.android.maps.MapLibreMap.InfoWindowAdapter
+import org.maplibre.android.maps.MapHeroMap.InfoWindowAdapter
 import org.maplibre.android.testapp.R
 import org.maplibre.android.testapp.activity.EspressoTest
 

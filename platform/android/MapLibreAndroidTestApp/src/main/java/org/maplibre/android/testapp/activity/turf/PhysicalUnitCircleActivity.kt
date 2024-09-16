@@ -40,9 +40,9 @@ class PhysicalUnitCircleActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeL
         binding = ActivityPhysicalCircleBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.mapView.onCreate(savedInstanceState)
-        binding.mapView.getMapAsync { maplibreMap ->
+        binding.mapView.getMapAsync { mapHeroMap ->
 
-            maplibreMap.cameraPosition = CameraPosition.Builder()
+            mapHeroMap.cameraPosition = CameraPosition.Builder()
                 .target(LatLng(LATITUDE, LONGITUDE))
                 .zoom(ZOOM)
                 .build()
@@ -60,7 +60,7 @@ class PhysicalUnitCircleActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeL
             binding.stepsBar.setOnSeekBarChangeListener(this)
             binding.radiusBar.setOnSeekBarChangeListener(this)
 
-            maplibreMap.setStyle(
+            mapHeroMap.setStyle(
                 Style.Builder()
                     .fromUri(TestStyles.getPredefinedStyleWithFallback("Satellite Hybrid"))
                     .withLayer(

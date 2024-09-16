@@ -15,7 +15,7 @@ import org.maplibre.android.location.modes.CameraMode
 import org.maplibre.android.location.permissions.PermissionsListener
 import org.maplibre.android.location.permissions.PermissionsManager
 import org.maplibre.android.maps.MapView
-import org.maplibre.android.maps.MapLibreMap
+import org.maplibre.android.maps.MapHeroMap
 import org.maplibre.android.maps.OnMapReadyCallback
 import org.maplibre.android.maps.Style
 import org.maplibre.android.testapp.R
@@ -31,7 +31,7 @@ class BasicLocationPulsingCircleActivity : AppCompatActivity(), OnMapReadyCallba
     private lateinit var mapView: MapView
     private var permissionsManager: PermissionsManager? = null
     private var locationComponent: LocationComponent? = null
-    private lateinit var maplibreMap: MapLibreMap
+    private lateinit var mapHeroMap1: MapHeroMap
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,10 +47,10 @@ class BasicLocationPulsingCircleActivity : AppCompatActivity(), OnMapReadyCallba
 
     /* ANCHOR: onMapReady */
     @SuppressLint("MissingPermission")
-    override fun onMapReady(maplibreMap: MapLibreMap) {
-        this.maplibreMap = maplibreMap
-        maplibreMap.setStyle(TestStyles.getPredefinedStyleWithFallback("Streets")) { style: Style ->
-            locationComponent = maplibreMap.locationComponent
+    override fun onMapReady(mapHeroMap: MapHeroMap) {
+        this.mapHeroMap1 = mapHeroMap
+        mapHeroMap.setStyle(TestStyles.getPredefinedStyleWithFallback("Streets")) { style: Style ->
+            locationComponent = mapHeroMap.locationComponent
             val locationComponentOptions =
                 LocationComponentOptions.builder(this@BasicLocationPulsingCircleActivity)
                     .pulseEnabled(true)
@@ -133,7 +133,7 @@ class BasicLocationPulsingCircleActivity : AppCompatActivity(), OnMapReadyCallba
     }
 
     private fun loadNewStyle() {
-        maplibreMap.setStyle(Style.Builder().fromUri(Utils.nextStyle()))
+        mapHeroMap1.setStyle(Style.Builder().fromUri(Utils.nextStyle()))
     }
 
     /* ANCHOR: permission */

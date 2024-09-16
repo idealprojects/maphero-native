@@ -8,7 +8,7 @@ import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 
 import org.maplibre.android.maps.renderer.surfaceview.GLSurfaceViewMapRenderer;
-import org.maplibre.android.maps.renderer.surfaceview.MapLibreGLSurfaceView;
+import org.maplibre.android.maps.renderer.surfaceview.MapHeroGLSurfaceView;
 import org.maplibre.android.maps.renderer.surfaceview.SurfaceViewMapRenderer;
 import org.maplibre.android.maps.renderer.textureview.GLTextureViewRenderThread;
 import org.maplibre.android.maps.renderer.textureview.TextureViewMapRenderer;
@@ -35,7 +35,7 @@ public class MapRendererFactory {
   public static SurfaceViewMapRenderer newSurfaceViewMapRenderer(@NonNull Context context, String localFontFamily,
                                                                  boolean renderSurfaceOnTop, Runnable initCallback) {
 
-    MapLibreGLSurfaceView surfaceView = new MapLibreGLSurfaceView(context);
+    MapHeroGLSurfaceView surfaceView = new MapHeroGLSurfaceView(context);
     surfaceView.setZOrderMediaOverlay(renderSurfaceOnTop);
 
     return new GLSurfaceViewMapRenderer(context, surfaceView, localFontFamily) {

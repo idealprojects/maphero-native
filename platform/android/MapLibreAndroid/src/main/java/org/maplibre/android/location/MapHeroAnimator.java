@@ -17,7 +17,7 @@ import java.lang.annotation.RetentionPolicy;
  *
  * @param <K> Data type that will be animated.
  */
-public abstract class MapLibreAnimator<K> extends ValueAnimator implements ValueAnimator.AnimatorUpdateListener {
+public abstract class MapHeroAnimator<K> extends ValueAnimator implements ValueAnimator.AnimatorUpdateListener {
   @Retention(RetentionPolicy.SOURCE)
   @IntDef( {
     ANIMATOR_LAYER_LATLNG,
@@ -61,8 +61,8 @@ public abstract class MapLibreAnimator<K> extends ValueAnimator implements Value
    */
   private boolean invalid;
 
-  public MapLibreAnimator(@NonNull @Size(min = 2) K[] values, @NonNull AnimationsValueChangeListener<K> updateListener,
-                   int maxAnimationFps) {
+  public MapHeroAnimator(@NonNull @Size(min = 2) K[] values, @NonNull AnimationsValueChangeListener<K> updateListener,
+                         int maxAnimationFps) {
     minUpdateInterval = 1E9 / maxAnimationFps;
     setObjectValues((Object[]) values);
     setEvaluator(provideEvaluator());
@@ -72,8 +72,8 @@ public abstract class MapLibreAnimator<K> extends ValueAnimator implements Value
     addListener(new AnimatorListener());
   }
 
-  public MapLibreAnimator(AnimationsValueChangeListener<K> updateListener, K target, K animatedValue,
-                          double minUpdateInterval, long timeElapsed) {
+  public MapHeroAnimator(AnimationsValueChangeListener<K> updateListener, K target, K animatedValue,
+                         double minUpdateInterval, long timeElapsed) {
     this.updateListener = updateListener;
     this.target = target;
     this.animatedValue = animatedValue;

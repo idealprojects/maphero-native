@@ -15,7 +15,7 @@ import org.maplibre.android.testapp.styles.TestStyles
  * Test activity showcasing using the MapFragment API using SDK Fragments.
  *
  *
- * Uses MapLibreMapOptions to initialise the Fragment.
+ * Uses MapHeroMapOptions to initialise the Fragment.
  *
  */
 class MapFragmentActivity :
@@ -23,7 +23,7 @@ class MapFragmentActivity :
     OnMapViewReadyCallback,
     OnMapReadyCallback,
     OnDidFinishRenderingFrameListener {
-    private lateinit var maplibreMap: MapLibreMap
+    private lateinit var mapHeroMap1: MapHeroMap
     private lateinit var mapView: MapView
     private var initialCameraAnimation = true
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,8 +42,8 @@ class MapFragmentActivity :
         mapFragment.getMapAsync(this)
     }
 
-    private fun createFragmentOptions(): MapLibreMapOptions {
-        val options = MapLibreMapOptions.createFromAttributes(this, null)
+    private fun createFragmentOptions(): MapHeroMapOptions {
+        val options = MapHeroMapOptions.createFromAttributes(this, null)
         options.scrollGesturesEnabled(false)
         options.zoomGesturesEnabled(false)
         options.tiltGesturesEnabled(false)
@@ -66,9 +66,9 @@ class MapFragmentActivity :
         mapView.addOnDidFinishRenderingFrameListener(this)
     }
 
-    override fun onMapReady(map: MapLibreMap) {
-        maplibreMap = map
-        maplibreMap.setStyle(TestStyles.getPredefinedStyleWithFallback("Outdoor"))
+    override fun onMapReady(mapHeroMap: MapHeroMap) {
+        mapHeroMap1 = mapHeroMap
+        mapHeroMap1.setStyle(TestStyles.getPredefinedStyleWithFallback("Outdoor"))
     }
 
     override fun onDestroy() {
@@ -79,8 +79,8 @@ class MapFragmentActivity :
     }
 
     override fun onDidFinishRenderingFrame(fully: Boolean, frameEncodingTime: Double, frameRenderingTime: Double) {
-        if (initialCameraAnimation && fully && this::maplibreMap.isInitialized) {
-            maplibreMap.animateCamera(
+        if (initialCameraAnimation && fully && this::mapHeroMap1.isInitialized) {
+            mapHeroMap1.animateCamera(
                 CameraUpdateFactory.newCameraPosition(CameraPosition.Builder().tilt(45.0).build()),
                 5000
             )

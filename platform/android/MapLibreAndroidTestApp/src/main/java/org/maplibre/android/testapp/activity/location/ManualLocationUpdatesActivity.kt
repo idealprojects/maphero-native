@@ -16,7 +16,7 @@ import org.maplibre.android.location.modes.RenderMode
 import org.maplibre.android.location.permissions.PermissionsListener
 import org.maplibre.android.location.permissions.PermissionsManager
 import org.maplibre.android.maps.MapView
-import org.maplibre.android.maps.MapLibreMap
+import org.maplibre.android.maps.MapHeroMap
 import org.maplibre.android.maps.OnMapReadyCallback
 import org.maplibre.android.maps.Style
 import org.maplibre.android.testapp.R
@@ -102,11 +102,11 @@ class ManualLocationUpdatesActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     @SuppressLint("MissingPermission")
-    override fun onMapReady(maplibreMap: MapLibreMap) {
-        maplibreMap.setStyle(
+    override fun onMapReady(mapHeroMap: MapHeroMap) {
+        mapHeroMap.setStyle(
             Style.Builder().fromUri(TestStyles.getPredefinedStyleWithFallback("Streets"))
         ) { style: Style? ->
-            locationComponent = maplibreMap.locationComponent
+            locationComponent = mapHeroMap.locationComponent
             locationComponent!!.activateLocationComponent(
                 LocationComponentActivationOptions
                     .builder(this, style!!)

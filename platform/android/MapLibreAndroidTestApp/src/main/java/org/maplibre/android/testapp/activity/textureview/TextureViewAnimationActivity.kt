@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import org.maplibre.android.camera.CameraUpdateFactory
 import org.maplibre.android.geometry.LatLng
 import org.maplibre.android.maps.*
-import org.maplibre.android.maps.MapLibreMap.CancelableCallback
+import org.maplibre.android.maps.MapHeroMap.CancelableCallback
 import org.maplibre.android.testapp.R
 import org.maplibre.android.testapp.styles.TestStyles
 import java.util.*
@@ -19,7 +19,7 @@ import java.util.*
  */
 class TextureViewAnimationActivity : AppCompatActivity() {
     private lateinit var mapView: MapView
-    private lateinit var maplibreMap: MapLibreMap
+    private lateinit var mapHeroMap: MapHeroMap
     private var handler: Handler? = null
     private var delayed: Runnable? = null
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,10 +40,10 @@ class TextureViewAnimationActivity : AppCompatActivity() {
 
     private fun setupMapView(savedInstanceState: Bundle?) {
         mapView = findViewById<View>(R.id.mapView) as MapView
-        mapView.getMapAsync { maplibreMap: MapLibreMap ->
-            this@TextureViewAnimationActivity.maplibreMap = maplibreMap
-            maplibreMap.setStyle(TestStyles.getPredefinedStyleWithFallback("Streets"))
-            setFpsView(maplibreMap)
+        mapView.getMapAsync { mapHeroMap1: MapHeroMap ->
+            this@TextureViewAnimationActivity.mapHeroMap = mapHeroMap1
+            mapHeroMap1.setStyle(TestStyles.getPredefinedStyleWithFallback("Streets"))
+            setFpsView(mapHeroMap1)
 
             // Animate the map view
             val animation = ObjectAnimator.ofFloat(mapView!!, "rotationY", 0.0f, 360f)
@@ -52,19 +52,19 @@ class TextureViewAnimationActivity : AppCompatActivity() {
             animation.start()
 
             // Start an animation on the map as well
-            flyTo(maplibreMap, 0, 14.0)
+            flyTo(mapHeroMap1, 0, 14.0)
         }
     }
 
-    private fun flyTo(maplibreMap: MapLibreMap, place: Int, zoom: Double) {
-        maplibreMap.animateCamera(
+    private fun flyTo(mapHeroMap1: MapHeroMap, place: Int, zoom: Double) {
+        mapHeroMap1.animateCamera(
             CameraUpdateFactory.newLatLngZoom(PLACES[place], zoom),
             10000,
             object : CancelableCallback {
                 override fun onCancel() {
                     delayed = Runnable {
                         delayed = null
-                        flyTo(maplibreMap, place, zoom)
+                        flyTo(mapHeroMap1, place, zoom)
                     }
                     delayed?.let {
                         handler!!.postDelayed(it, 2000)
@@ -72,15 +72,15 @@ class TextureViewAnimationActivity : AppCompatActivity() {
                 }
 
                 override fun onFinish() {
-                    flyTo(maplibreMap, if (place == PLACES.size - 1) 0 else place + 1, zoom)
+                    flyTo(mapHeroMap1, if (place == PLACES.size - 1) 0 else place + 1, zoom)
                 }
             }
         )
     }
 
-    private fun setFpsView(maplibreMap: MapLibreMap) {
+    private fun setFpsView(mapHeroMap1: MapHeroMap) {
         val fpsView = findViewById<View>(R.id.fpsView) as TextView
-        maplibreMap.setOnFpsChangedListener { fps: Double ->
+        mapHeroMap1.setOnFpsChangedListener { fps: Double ->
             fpsView.text = String.format(Locale.US, "FPS: %4.2f", fps)
         }
     }

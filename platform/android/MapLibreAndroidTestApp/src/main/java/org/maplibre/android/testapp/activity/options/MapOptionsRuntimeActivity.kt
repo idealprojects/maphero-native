@@ -6,28 +6,26 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import org.maplibre.android.camera.CameraPosition
 import org.maplibre.android.geometry.LatLng
-import org.maplibre.android.maps.MapLibreMap
-import org.maplibre.android.maps.MapLibreMapOptions
+import org.maplibre.android.maps.MapHeroMap
+import org.maplibre.android.maps.MapHeroMapOptions
 import org.maplibre.android.maps.MapView
 import org.maplibre.android.maps.OnMapReadyCallback
-import org.maplibre.android.maps.Style
 import org.maplibre.android.testapp.R
-import org.maplibre.android.testapp.styles.TestStyles
 
 /**
  *  TestActivity demonstrating configuring MapView with MapOptions
  */
 class MapOptionsRuntimeActivity : AppCompatActivity(), OnMapReadyCallback {
 
-    private lateinit var maplibreMap: MapLibreMap
+    private lateinit var mapHeroMap1: MapHeroMap
     private lateinit var mapView: MapView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_map_options_runtime)
 
         // Create map configuration
-        val maplibreMapOptions = MapLibreMapOptions.createFromAttributes(this)
-        maplibreMapOptions.apply {
+        val mapHeroMapOptions = MapHeroMapOptions.createFromAttributes(this)
+        mapHeroMapOptions.apply {
             apiBaseUri("https://api.maplibre.org")
             camera(
                 CameraPosition.Builder()
@@ -51,15 +49,15 @@ class MapOptionsRuntimeActivity : AppCompatActivity(), OnMapReadyCallback {
         }
 
         // Create map programmatically, add to view hierarchy
-        mapView = MapView(this, maplibreMapOptions)
+        mapView = MapView(this, mapHeroMapOptions)
         mapView.getMapAsync(this)
         mapView.onCreate(savedInstanceState)
         (findViewById<View>(R.id.container) as ViewGroup).addView(mapView)
     }
 
-    override fun onMapReady(maplibreMap: MapLibreMap) {
-        this.maplibreMap = maplibreMap
-        this.maplibreMap.setStyle("https://demotiles.maplibre.org/style.json")
+    override fun onMapReady(mapHeroMap: MapHeroMap) {
+        this.mapHeroMap1 = mapHeroMap
+        this.mapHeroMap1.setStyle("https://demotiles.maplibre.org/style.json")
     }
 
     override fun onStart() {

@@ -6,11 +6,11 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
-import org.maplibre.android.MapLibre
+import org.maplibre.android.MapHero
 import org.maplibre.android.geometry.LatLng
 import org.maplibre.android.geometry.LatLngQuad
 import org.maplibre.android.maps.MapView
-import org.maplibre.android.maps.MapLibreMap
+import org.maplibre.android.maps.MapHeroMap
 import org.maplibre.android.maps.OnMapReadyCallback
 import org.maplibre.android.maps.Style
 import org.maplibre.android.style.layers.RasterLayer
@@ -39,7 +39,7 @@ class AnimatedImageSourceActivity : AppCompatActivity(), OnMapReadyCallback {
         mapView.getMapAsync(this)
     }
 
-    override fun onMapReady(map: MapLibreMap) {
+    override fun onMapReady(mapHeroMap: MapHeroMap) {
         val quad = LatLngQuad(
             LatLng(46.437, -80.425),
             LatLng(46.437, -71.516),
@@ -48,7 +48,7 @@ class AnimatedImageSourceActivity : AppCompatActivity(), OnMapReadyCallback {
         )
         val imageSource = ImageSource(ID_IMAGE_SOURCE, quad, R.drawable.southeast_radar_0)
         val layer = RasterLayer(ID_IMAGE_LAYER, ID_IMAGE_SOURCE)
-        map.setStyle(
+        mapHeroMap.setStyle(
             Style.Builder()
                 .fromUri(TestStyles.getPredefinedStyleWithFallback("Streets"))
                 .withSource(imageSource)
@@ -101,7 +101,7 @@ class AnimatedImageSourceActivity : AppCompatActivity(), OnMapReadyCallback {
         private val drawables: Array<Bitmap?>
         private var drawableIndex: Int
         fun getBitmap(resourceId: Int): Bitmap? {
-            val context = MapLibre.getApplicationContext()
+            val context = MapHero.getApplicationContext()
             val drawable = BitmapUtils.getDrawableFromRes(context, resourceId)
             if (drawable is BitmapDrawable) {
                 return drawable.bitmap

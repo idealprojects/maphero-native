@@ -16,7 +16,7 @@ import kotlinx.coroutines.withContext
 import org.maplibre.android.annotations.MarkerOptions
 import org.maplibre.android.geometry.LatLng
 import org.maplibre.android.maps.MapView
-import org.maplibre.android.maps.MapLibreMap
+import org.maplibre.android.maps.MapHeroMap
 import org.maplibre.android.testapp.R
 import org.maplibre.android.testapp.styles.TestStyles
 import org.maplibre.android.testapp.utils.GeoParseUtil
@@ -30,7 +30,7 @@ import kotlin.math.min
  * Test activity showcasing adding a large amount of Markers.
  */
 class BulkMarkerActivity : AppCompatActivity(), OnItemSelectedListener {
-    private lateinit var maplibreMap: MapLibreMap
+    private lateinit var mapHeroMap: MapHeroMap
     private lateinit var mapView: MapView
     private var locations: List<LatLng>? = null
     private var progressDialog: ProgressDialog? = null
@@ -42,9 +42,9 @@ class BulkMarkerActivity : AppCompatActivity(), OnItemSelectedListener {
         mapView.getMapAsync { initMap(it) }
     }
 
-    private fun initMap(maplibreMap: MapLibreMap) {
-        this.maplibreMap = maplibreMap
-        maplibreMap.setStyle(TestStyles.getPredefinedStyleWithFallback("Streets"))
+    private fun initMap(mapHeroMap: MapHeroMap) {
+        this.mapHeroMap = mapHeroMap
+        mapHeroMap.setStyle(TestStyles.getPredefinedStyleWithFallback("Streets"))
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -84,10 +84,10 @@ class BulkMarkerActivity : AppCompatActivity(), OnItemSelectedListener {
     }
 
     private fun showMarkers(amount: Int) {
-        if (!this::maplibreMap.isInitialized || locations == null || mapView.isDestroyed) {
+        if (!this::mapHeroMap.isInitialized || locations == null || mapView.isDestroyed) {
             return
         }
-        maplibreMap.clear()
+        mapHeroMap.clear()
         showGlMarkers(min(amount, locations!!.size))
     }
 
@@ -106,7 +106,7 @@ class BulkMarkerActivity : AppCompatActivity(), OnItemSelectedListener {
                     .snippet(formatter.format(latLng.latitude) + "`, " + formatter.format(latLng.longitude))
             )
         }
-        maplibreMap.addMarkers(markerOptionsList)
+        mapHeroMap.addMarkers(markerOptionsList)
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {

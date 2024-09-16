@@ -7,7 +7,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import org.maplibre.android.maps.MapView
-import org.maplibre.android.maps.MapLibreMap
+import org.maplibre.android.maps.MapHeroMap
 import org.maplibre.android.maps.Style
 import org.maplibre.android.style.expressions.Expression
 import org.maplibre.android.style.layers.BackgroundLayer
@@ -24,7 +24,7 @@ import java.io.IOException
  */
 class QueryRenderedFeaturesBoxSymbolCountActivity : AppCompatActivity() {
     lateinit var mapView: MapView
-    lateinit var maplibreMap: MapLibreMap
+    lateinit var mapHeroMap: MapHeroMap
         private set
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,8 +35,8 @@ class QueryRenderedFeaturesBoxSymbolCountActivity : AppCompatActivity() {
         // Initialize map as normal
         mapView = findViewById<View>(R.id.mapView) as MapView
         mapView.onCreate(savedInstanceState)
-        mapView.getMapAsync { maplibreMap: MapLibreMap ->
-            this@QueryRenderedFeaturesBoxSymbolCountActivity.maplibreMap = maplibreMap
+        mapView.getMapAsync { mapHeroMap1: MapHeroMap ->
+            this@QueryRenderedFeaturesBoxSymbolCountActivity.mapHeroMap = mapHeroMap1
             try {
                 val testPoints = ResourceUtils.readRawResource(
                     mapView.context,
@@ -44,7 +44,7 @@ class QueryRenderedFeaturesBoxSymbolCountActivity : AppCompatActivity() {
                 )
                 val markerImage =
                     BitmapFactory.decodeResource(resources, R.drawable.maplibre_marker_icon_default)
-                maplibreMap.setStyle(
+                mapHeroMap1.setStyle(
                     Style.Builder()
                         .withLayer(
                             BackgroundLayer("bg")
@@ -77,7 +77,7 @@ class QueryRenderedFeaturesBoxSymbolCountActivity : AppCompatActivity() {
                     (top + selectionBox.height).toFloat()
                 )
                 Timber.i("Querying box %s", box)
-                val features = maplibreMap.queryRenderedFeatures(box, "symbols-layer")
+                val features = mapHeroMap1.queryRenderedFeatures(box, "symbols-layer")
 
                 // Show count
                  Toast.makeText(
