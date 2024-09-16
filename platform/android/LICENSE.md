@@ -1,4 +1,4 @@
-MapLibre Native Android
+MapHero Native Android
 
 BSD 2-Clause License
 

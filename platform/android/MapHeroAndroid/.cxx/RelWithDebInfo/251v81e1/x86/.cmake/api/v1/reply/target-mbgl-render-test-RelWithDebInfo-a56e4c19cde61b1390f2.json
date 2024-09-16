@@ -1,0 +1,413 @@
+{
+	"archive" : {},
+	"artifacts" : 
+	[
+		{
+			"path" : "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/platform/android/x86/render-test/libmbgl-render-test.a"
+		}
+	],
+	"backtrace" : 1,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_library",
+			"target_link_libraries",
+			"target_compile_definitions",
+			"target_include_directories"
+		],
+		"files" : 
+		[
+			"/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/render-test/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 1,
+				"parent" : 0
+			},
+			{
+				"command" : 1,
+				"file" : 0,
+				"line" : 57,
+				"parent" : 0
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 71,
+				"parent" : 0
+			},
+			{
+				"command" : 3,
+				"file" : 0,
+				"line" : 39,
+				"parent" : 0
+			},
+			{
+				"command" : 3,
+				"file" : 0,
+				"line" : 44,
+				"parent" : 0
+			},
+			{
+				"command" : 3,
+				"file" : 0,
+				"line" : 50,
+				"parent" : 0
+			}
+		]
+	},
+	"compileGroups" : 
+	[
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : "-g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mstackrealign -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security -fexceptions -Qunused-arguments -O2 -g -DNDEBUG -fPIC -fvisibility=hidden -fvisibility-inlines-hidden"
+				},
+				{
+					"backtrace" : 2,
+					"fragment" : "-fno-rtti"
+				},
+				{
+					"backtrace" : 2,
+					"fragment" : "-Wall"
+				},
+				{
+					"backtrace" : 2,
+					"fragment" : "-Wshadow"
+				},
+				{
+					"backtrace" : 2,
+					"fragment" : "-Wextra"
+				},
+				{
+					"backtrace" : 2,
+					"fragment" : "-Werror"
+				},
+				{
+					"backtrace" : 2,
+					"fragment" : "-Wno-error=tautological-constant-compare"
+				},
+				{
+					"backtrace" : 2,
+					"fragment" : "-frtti"
+				},
+				{
+					"fragment" : "-std=c++20"
+				}
+			],
+			"defines" : 
+			[
+				{
+					"backtrace" : 2,
+					"define" : "MH_DRAWABLE_RENDERER=1"
+				},
+				{
+					"backtrace" : 2,
+					"define" : "MH_LEGACY_RENDERER=0"
+				},
+				{
+					"backtrace" : 3,
+					"define" : "MH_RENDER_BACKEND_OPENGL=1"
+				},
+				{
+					"backtrace" : 2,
+					"define" : "MH_USE_UNORDERED_DENSE=1"
+				},
+				{
+					"backtrace" : 2,
+					"define" : "RAPIDJSON_HAS_STDSTRING=1"
+				}
+			],
+			"includes" : 
+			[
+				{
+					"backtrace" : 4,
+					"path" : "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/src"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/platform/default/include"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/render-test/include"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/include"
+				},
+				{
+					"backtrace" : 6,
+					"path" : "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/expression-test"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/vendor/unordered_dense/include"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/vendor/mapbox-base/extras/args"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/vendor/mapbox-base/extras/filesystem/include"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/vendor/mapbox-base/deps/pixelmatch-cpp/include"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/vendor/boost/include"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/vendor/mapbox-base/include"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/vendor/mapbox-base/extras/expected-lite/include"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/vendor/mapbox-base/deps/geojson-vt-cpp/include"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/vendor/mapbox-base/deps/geojson.hpp/include"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/vendor/mapbox-base/deps/geometry.hpp/include"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/vendor/mapbox-base/deps/jni.hpp/include"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/vendor/mapbox-base/deps/shelf-pack-cpp/include"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/vendor/mapbox-base/deps/supercluster.hpp/include"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/vendor/mapbox-base/deps/variant/include"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/vendor/mapbox-base/deps/cheap-ruler-cpp/include"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/vendor/mapbox-base/extras/rapidjson/include"
+				}
+			],
+			"language" : "CXX",
+			"languageStandard" : 
+			{
+				"backtraces" : 
+				[
+					2
+				],
+				"standard" : "20"
+			},
+			"sourceIndexes" : 
+			[
+				0,
+				2,
+				4,
+				8,
+				11,
+				13,
+				14
+			],
+			"sysroot" : 
+			{
+				"path" : "/Users/khalidtaha/Library/Android/sdk/ndk/27.0.12077973/toolchains/llvm/prebuilt/darwin-x86_64/sysroot"
+			}
+		}
+	],
+	"dependencies" : 
+	[
+		{
+			"backtrace" : 2,
+			"id" : "mbgl-core::@99ccea00644b24fbabc2"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "mbgl-vendor-csscolorparser::@99ccea00644b24fbabc2"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "mbgl-vendor-parsedate::@99ccea00644b24fbabc2"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "mbgl-vendor-icu::@99ccea00644b24fbabc2"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "mbgl-vendor-sqlite::@99ccea00644b24fbabc2"
+		}
+	],
+	"folder" : 
+	{
+		"name" : "MapLibre"
+	},
+	"id" : "mbgl-render-test::@16566f71d3baa18da25e",
+	"name" : "mbgl-render-test",
+	"nameOnDisk" : "libmbgl-render-test.a",
+	"paths" : 
+	{
+		"build" : "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/platform/android/x86/render-test",
+		"source" : "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/render-test"
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "Source Files",
+			"sourceIndexes" : 
+			[
+				0,
+				2,
+				4,
+				8,
+				11,
+				13,
+				14
+			]
+		},
+		{
+			"name" : "Header Files",
+			"sourceIndexes" : 
+			[
+				1,
+				3,
+				5,
+				6,
+				7,
+				9,
+				10,
+				12,
+				15
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/expression-test/test_runner_common.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/expression-test/test_runner_common.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/render-test/allocation_index.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/render-test/allocation_index.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/render-test/file_source.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/render-test/file_source.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/render-test/filesystem.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/render-test/include/mbgl/render_test.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/render-test/manifest_parser.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/render-test/manifest_parser.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/render-test/metadata.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/render-test/parser.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/render-test/parser.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/render-test/render_test.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/render-test/runner.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/render-test/runner.hpp",
+			"sourceGroupIndex" : 1
+		}
+	],
+	"type" : "STATIC_LIBRARY"
+}

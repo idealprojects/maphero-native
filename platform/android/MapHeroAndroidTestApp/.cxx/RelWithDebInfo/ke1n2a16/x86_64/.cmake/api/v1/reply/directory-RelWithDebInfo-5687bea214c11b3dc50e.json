@@ -1,0 +1,57 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"install",
+			"include"
+		],
+		"files" : 
+		[
+			"/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/platform/android/android.cmake",
+			"/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 1
+			},
+			{
+				"command" : 1,
+				"file" : 1,
+				"line" : 1554,
+				"parent" : 0
+			},
+			{
+				"file" : 0,
+				"parent" : 1
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 279,
+				"parent" : 2
+			}
+		]
+	},
+	"installers" : 
+	[
+		{
+			"backtrace" : 3,
+			"component" : "Unspecified",
+			"destination" : "lib",
+			"paths" : 
+			[
+				"/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/platform/android/MapHeroAndroidTestApp/build/intermediates/cxx/RelWithDebInfo/ke1n2a16/obj/x86_64/libmbgl-render-test-runner.so"
+			],
+			"targetId" : "mbgl-render-test-runner::@737ba4ba5b7cd6e32bad",
+			"targetIndex" : 35,
+			"type" : "target"
+		}
+	],
+	"paths" : 
+	{
+		"build" : "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/platform/android/x86_64",
+		"source" : "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native"
+	}
+}

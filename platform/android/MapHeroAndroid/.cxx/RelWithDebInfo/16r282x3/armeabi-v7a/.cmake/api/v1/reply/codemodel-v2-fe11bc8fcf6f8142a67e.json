@@ -1,0 +1,774 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-RelWithDebInfo-a3aa8bf8f479ab3ede5e.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.6.0"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						36
+					]
+				},
+				{
+					"build" : "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/platform/android/armeabi-v7a",
+					"childIndexes" : 
+					[
+						2,
+						6,
+						7,
+						12,
+						13,
+						14
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-RelWithDebInfo-87a82cde7a4129ae979b.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.19"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 1,
+					"source" : "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						14,
+						15,
+						16,
+						17,
+						20,
+						21,
+						22,
+						23,
+						24,
+						25,
+						26,
+						27,
+						28,
+						29,
+						33,
+						38,
+						39,
+						40,
+						42,
+						44,
+						46,
+						48,
+						49,
+						50
+					]
+				},
+				{
+					"build" : "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/platform/android/armeabi-v7a/vendor/mapbox-base",
+					"childIndexes" : 
+					[
+						3,
+						4,
+						5
+					],
+					"jsonFile" : "directory-RelWithDebInfo-7d1341219ae5422c41b0.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.5.1"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 2,
+					"source" : "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/vendor/mapbox-base"
+				},
+				{
+					"build" : "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/platform/android/armeabi-v7a/vendor/mapbox-base/extras",
+					"jsonFile" : "directory-RelWithDebInfo-b17d99dbfb286ebfd20d.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.5.1"
+					},
+					"parentIndex" : 2,
+					"projectIndex" : 2,
+					"source" : "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/vendor/mapbox-base/extras"
+				},
+				{
+					"build" : "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/platform/android/armeabi-v7a/vendor/mapbox-base/include",
+					"jsonFile" : "directory-RelWithDebInfo-ff537c31d880c133edd8.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.5.1"
+					},
+					"parentIndex" : 2,
+					"projectIndex" : 2,
+					"source" : "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/vendor/mapbox-base/include"
+				},
+				{
+					"build" : "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/platform/android/armeabi-v7a/vendor/mapbox-base/deps",
+					"jsonFile" : "directory-RelWithDebInfo-02f627acddbb208f86eb.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.5.1"
+					},
+					"parentIndex" : 2,
+					"projectIndex" : 2,
+					"source" : "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/vendor/mapbox-base/deps"
+				},
+				{
+					"build" : "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/platform/android/armeabi-v7a/vendor/unordered_dense",
+					"jsonFile" : "directory-RelWithDebInfo-bbd8c29bc608d0b4437f.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 3,
+					"source" : "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/vendor/unordered_dense"
+				},
+				{
+					"build" : "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/platform/android/armeabi-v7a/vendor/glslang",
+					"childIndexes" : 
+					[
+						8,
+						9,
+						11
+					],
+					"jsonFile" : "directory-RelWithDebInfo-d9dedda9d06a241a94e1.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.17.2"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 4,
+					"source" : "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/vendor/glslang"
+				},
+				{
+					"build" : "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/platform/android/armeabi-v7a/vendor/glslang/External",
+					"jsonFile" : "directory-RelWithDebInfo-0e5eb63beba0f2275ded.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.17.2"
+					},
+					"parentIndex" : 7,
+					"projectIndex" : 4,
+					"source" : "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/vendor/glslang/External"
+				},
+				{
+					"build" : "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/platform/android/armeabi-v7a/vendor/glslang/glslang",
+					"childIndexes" : 
+					[
+						10
+					],
+					"jsonFile" : "directory-RelWithDebInfo-6e0a153df1256b8e9854.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.17.2"
+					},
+					"parentIndex" : 7,
+					"projectIndex" : 4,
+					"source" : "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/vendor/glslang/glslang",
+					"targetIndexes" : 
+					[
+						18,
+						19,
+						34,
+						35
+					]
+				},
+				{
+					"build" : "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/platform/android/armeabi-v7a/vendor/glslang/glslang/OSDependent/Unix",
+					"jsonFile" : "directory-RelWithDebInfo-891c29ffba071d02fb50.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.17.2"
+					},
+					"parentIndex" : 9,
+					"projectIndex" : 4,
+					"source" : "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/vendor/glslang/glslang/OSDependent/Unix",
+					"targetIndexes" : 
+					[
+						30
+					]
+				},
+				{
+					"build" : "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/platform/android/armeabi-v7a/vendor/glslang/SPIRV",
+					"jsonFile" : "directory-RelWithDebInfo-5ab70ef4d440e02bfb69.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.17.2"
+					},
+					"parentIndex" : 7,
+					"projectIndex" : 4,
+					"source" : "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/vendor/glslang/SPIRV",
+					"targetIndexes" : 
+					[
+						31,
+						32
+					]
+				},
+				{
+					"build" : "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/platform/android/armeabi-v7a/test",
+					"jsonFile" : "directory-RelWithDebInfo-cd59ff18ced4f04383b9.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.19"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 1,
+					"source" : "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/test",
+					"targetIndexes" : 
+					[
+						43,
+						47
+					]
+				},
+				{
+					"build" : "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/platform/android/armeabi-v7a/benchmark",
+					"jsonFile" : "directory-RelWithDebInfo-f1db8a93323310f37010.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.19"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 1,
+					"source" : "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/benchmark",
+					"targetIndexes" : 
+					[
+						37,
+						45
+					]
+				},
+				{
+					"build" : "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/platform/android/armeabi-v7a/render-test",
+					"jsonFile" : "directory-RelWithDebInfo-f4c5fcfc9d4c4881b7f3.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.19"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 1,
+					"source" : "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/render-test",
+					"targetIndexes" : 
+					[
+						41
+					]
+				}
+			],
+			"name" : "RelWithDebInfo",
+			"projects" : 
+			[
+				{
+					"childIndexes" : 
+					[
+						1
+					],
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "MapHeroAndroid",
+					"targetIndexes" : 
+					[
+						36
+					]
+				},
+				{
+					"childIndexes" : 
+					[
+						2,
+						3,
+						4
+					],
+					"directoryIndexes" : 
+					[
+						1,
+						12,
+						13,
+						14
+					],
+					"name" : "Mapbox GL Native",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						14,
+						15,
+						16,
+						17,
+						20,
+						21,
+						22,
+						23,
+						24,
+						25,
+						26,
+						27,
+						28,
+						29,
+						33,
+						37,
+						38,
+						39,
+						40,
+						41,
+						42,
+						43,
+						44,
+						45,
+						46,
+						47,
+						48,
+						49,
+						50
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						2,
+						3,
+						4,
+						5
+					],
+					"name" : "MAPBOX_BASE",
+					"parentIndex" : 1
+				},
+				{
+					"directoryIndexes" : 
+					[
+						6
+					],
+					"name" : "unordered_dense",
+					"parentIndex" : 1
+				},
+				{
+					"directoryIndexes" : 
+					[
+						7,
+						8,
+						9,
+						10,
+						11
+					],
+					"name" : "glslang",
+					"parentIndex" : 1,
+					"targetIndexes" : 
+					[
+						18,
+						19,
+						30,
+						31,
+						32,
+						34,
+						35
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 1,
+					"id" : "Continuous::@6d2a36a9ecc220af5d5f",
+					"jsonFile" : "target-Continuous-RelWithDebInfo-2d8ab81a887f7650d2aa.json",
+					"name" : "Continuous",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "ContinuousBuild::@6d2a36a9ecc220af5d5f",
+					"jsonFile" : "target-ContinuousBuild-RelWithDebInfo-9a655222d72aed1fb834.json",
+					"name" : "ContinuousBuild",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "ContinuousConfigure::@6d2a36a9ecc220af5d5f",
+					"jsonFile" : "target-ContinuousConfigure-RelWithDebInfo-9d29c3c5209a629f4b29.json",
+					"name" : "ContinuousConfigure",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "ContinuousCoverage::@6d2a36a9ecc220af5d5f",
+					"jsonFile" : "target-ContinuousCoverage-RelWithDebInfo-e27994c18a53f15a8df3.json",
+					"name" : "ContinuousCoverage",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "ContinuousMemCheck::@6d2a36a9ecc220af5d5f",
+					"jsonFile" : "target-ContinuousMemCheck-RelWithDebInfo-c0db4270a70fa1c1b0e0.json",
+					"name" : "ContinuousMemCheck",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "ContinuousStart::@6d2a36a9ecc220af5d5f",
+					"jsonFile" : "target-ContinuousStart-RelWithDebInfo-4ac61390f685311a8035.json",
+					"name" : "ContinuousStart",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "ContinuousSubmit::@6d2a36a9ecc220af5d5f",
+					"jsonFile" : "target-ContinuousSubmit-RelWithDebInfo-932629f8853a8bfed09b.json",
+					"name" : "ContinuousSubmit",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "ContinuousTest::@6d2a36a9ecc220af5d5f",
+					"jsonFile" : "target-ContinuousTest-RelWithDebInfo-0d7277fe1eb4504b94bb.json",
+					"name" : "ContinuousTest",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "ContinuousUpdate::@6d2a36a9ecc220af5d5f",
+					"jsonFile" : "target-ContinuousUpdate-RelWithDebInfo-069163ae4a9ef488bef9.json",
+					"name" : "ContinuousUpdate",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "Experimental::@6d2a36a9ecc220af5d5f",
+					"jsonFile" : "target-Experimental-RelWithDebInfo-5a60a0b65a63cb03b886.json",
+					"name" : "Experimental",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "ExperimentalBuild::@6d2a36a9ecc220af5d5f",
+					"jsonFile" : "target-ExperimentalBuild-RelWithDebInfo-51b1a42d2f76ce51929d.json",
+					"name" : "ExperimentalBuild",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "ExperimentalConfigure::@6d2a36a9ecc220af5d5f",
+					"jsonFile" : "target-ExperimentalConfigure-RelWithDebInfo-f058ded712b25e3427e7.json",
+					"name" : "ExperimentalConfigure",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "ExperimentalCoverage::@6d2a36a9ecc220af5d5f",
+					"jsonFile" : "target-ExperimentalCoverage-RelWithDebInfo-54a9fa604aee7bda045f.json",
+					"name" : "ExperimentalCoverage",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "ExperimentalMemCheck::@6d2a36a9ecc220af5d5f",
+					"jsonFile" : "target-ExperimentalMemCheck-RelWithDebInfo-d97b9a120b1caf63be94.json",
+					"name" : "ExperimentalMemCheck",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "ExperimentalStart::@6d2a36a9ecc220af5d5f",
+					"jsonFile" : "target-ExperimentalStart-RelWithDebInfo-8610903373a6cbad0ec8.json",
+					"name" : "ExperimentalStart",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "ExperimentalSubmit::@6d2a36a9ecc220af5d5f",
+					"jsonFile" : "target-ExperimentalSubmit-RelWithDebInfo-fc422474ded414ebb75c.json",
+					"name" : "ExperimentalSubmit",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "ExperimentalTest::@6d2a36a9ecc220af5d5f",
+					"jsonFile" : "target-ExperimentalTest-RelWithDebInfo-e208ffcf971dc0216464.json",
+					"name" : "ExperimentalTest",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "ExperimentalUpdate::@6d2a36a9ecc220af5d5f",
+					"jsonFile" : "target-ExperimentalUpdate-RelWithDebInfo-6f3b96ed28f48b2e4c3e.json",
+					"name" : "ExperimentalUpdate",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 9,
+					"id" : "GenericCodeGen::@3ab05649f5aa62e10d86",
+					"jsonFile" : "target-GenericCodeGen-RelWithDebInfo-48cf4f7ccf4d8cdc3155.json",
+					"name" : "GenericCodeGen",
+					"projectIndex" : 4
+				},
+				{
+					"directoryIndex" : 9,
+					"id" : "MachineIndependent::@3ab05649f5aa62e10d86",
+					"jsonFile" : "target-MachineIndependent-RelWithDebInfo-18cdce7b6ded341a1bd5.json",
+					"name" : "MachineIndependent",
+					"projectIndex" : 4
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "Nightly::@6d2a36a9ecc220af5d5f",
+					"jsonFile" : "target-Nightly-RelWithDebInfo-f5884c4d087ad97b086b.json",
+					"name" : "Nightly",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "NightlyBuild::@6d2a36a9ecc220af5d5f",
+					"jsonFile" : "target-NightlyBuild-RelWithDebInfo-37289672864771f8c347.json",
+					"name" : "NightlyBuild",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "NightlyConfigure::@6d2a36a9ecc220af5d5f",
+					"jsonFile" : "target-NightlyConfigure-RelWithDebInfo-a60b9567da261810be7a.json",
+					"name" : "NightlyConfigure",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "NightlyCoverage::@6d2a36a9ecc220af5d5f",
+					"jsonFile" : "target-NightlyCoverage-RelWithDebInfo-57345f43207cab38d1fa.json",
+					"name" : "NightlyCoverage",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "NightlyMemCheck::@6d2a36a9ecc220af5d5f",
+					"jsonFile" : "target-NightlyMemCheck-RelWithDebInfo-d9d6cf49b408705c6013.json",
+					"name" : "NightlyMemCheck",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "NightlyMemoryCheck::@6d2a36a9ecc220af5d5f",
+					"jsonFile" : "target-NightlyMemoryCheck-RelWithDebInfo-a6cd85d9cec9294aeb04.json",
+					"name" : "NightlyMemoryCheck",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "NightlyStart::@6d2a36a9ecc220af5d5f",
+					"jsonFile" : "target-NightlyStart-RelWithDebInfo-f6a6263eb85ef778d798.json",
+					"name" : "NightlyStart",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "NightlySubmit::@6d2a36a9ecc220af5d5f",
+					"jsonFile" : "target-NightlySubmit-RelWithDebInfo-7b00956538e0724098be.json",
+					"name" : "NightlySubmit",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "NightlyTest::@6d2a36a9ecc220af5d5f",
+					"jsonFile" : "target-NightlyTest-RelWithDebInfo-5fac9dd093b8e16ed11b.json",
+					"name" : "NightlyTest",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "NightlyUpdate::@6d2a36a9ecc220af5d5f",
+					"jsonFile" : "target-NightlyUpdate-RelWithDebInfo-6f8bc2ec37bf63d935c1.json",
+					"name" : "NightlyUpdate",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 10,
+					"id" : "OSDependent::@cfc0eed12f17b169626c",
+					"jsonFile" : "target-OSDependent-RelWithDebInfo-21f967ba80d468ac01ae.json",
+					"name" : "OSDependent",
+					"projectIndex" : 4
+				},
+				{
+					"directoryIndex" : 11,
+					"id" : "SPIRV::@312d1d11283bacb171f8",
+					"jsonFile" : "target-SPIRV-RelWithDebInfo-6877d3305ef2201ec75a.json",
+					"name" : "SPIRV",
+					"projectIndex" : 4
+				},
+				{
+					"directoryIndex" : 11,
+					"id" : "SPVRemapper::@312d1d11283bacb171f8",
+					"jsonFile" : "target-SPVRemapper-RelWithDebInfo-87040bf96551b84bc708.json",
+					"name" : "SPVRemapper",
+					"projectIndex" : 4
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "example-custom-layer::@6d2a36a9ecc220af5d5f",
+					"jsonFile" : "target-example-custom-layer-RelWithDebInfo-1834944b7ad889a696c8.json",
+					"name" : "example-custom-layer",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 9,
+					"id" : "glslang::@3ab05649f5aa62e10d86",
+					"jsonFile" : "target-glslang-RelWithDebInfo-d1e646fbea087b31e074.json",
+					"name" : "glslang",
+					"projectIndex" : 4
+				},
+				{
+					"directoryIndex" : 9,
+					"id" : "glslang-default-resource-limits::@3ab05649f5aa62e10d86",
+					"jsonFile" : "target-glslang-default-resource-limits-RelWithDebInfo-5ff614f1fd9977996535.json",
+					"name" : "glslang-default-resource-limits",
+					"projectIndex" : 4
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "maplibre::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-maplibre-RelWithDebInfo-ee9c2554dbfcfa2c4188.json",
+					"name" : "maplibre",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 13,
+					"id" : "mbgl-benchmark::@4ec1d9754b233593d0e4",
+					"jsonFile" : "target-mbgl-benchmark-RelWithDebInfo-38e8538eeb471df41c98.json",
+					"name" : "mbgl-benchmark",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "mbgl-benchmark-runner::@6d2a36a9ecc220af5d5f",
+					"jsonFile" : "target-mbgl-benchmark-runner-RelWithDebInfo-f22d010117aa273de4b0.json",
+					"name" : "mbgl-benchmark-runner",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "mbgl-core::@6d2a36a9ecc220af5d5f",
+					"jsonFile" : "target-mbgl-core-RelWithDebInfo-634d04c07933a5df8db8.json",
+					"name" : "mbgl-core",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "mbgl-core-license::@6d2a36a9ecc220af5d5f",
+					"jsonFile" : "target-mbgl-core-license-RelWithDebInfo-3d2aed72314d560d4a54.json",
+					"name" : "mbgl-core-license",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 14,
+					"id" : "mbgl-render-test::@0f7a9b9e7211134ae654",
+					"jsonFile" : "target-mbgl-render-test-RelWithDebInfo-e3c8435acc37c6e37eb9.json",
+					"name" : "mbgl-render-test",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "mbgl-render-test-runner::@6d2a36a9ecc220af5d5f",
+					"jsonFile" : "target-mbgl-render-test-runner-RelWithDebInfo-6329c63a0047f51c7f8e.json",
+					"name" : "mbgl-render-test-runner",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 12,
+					"id" : "mbgl-test::@4eb079357a36b91c0d7f",
+					"jsonFile" : "target-mbgl-test-RelWithDebInfo-ec53962a9ad2de6044d2.json",
+					"name" : "mbgl-test",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "mbgl-test-runner::@6d2a36a9ecc220af5d5f",
+					"jsonFile" : "target-mbgl-test-runner-RelWithDebInfo-c190e812a64ce0940b05.json",
+					"name" : "mbgl-test-runner",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 13,
+					"id" : "mbgl-vendor-benchmark::@4ec1d9754b233593d0e4",
+					"jsonFile" : "target-mbgl-vendor-benchmark-RelWithDebInfo-2a13cf0f3706d80ddb00.json",
+					"name" : "mbgl-vendor-benchmark",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "mbgl-vendor-csscolorparser::@6d2a36a9ecc220af5d5f",
+					"jsonFile" : "target-mbgl-vendor-csscolorparser-RelWithDebInfo-122adc2d016281225c19.json",
+					"name" : "mbgl-vendor-csscolorparser",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 12,
+					"id" : "mbgl-vendor-googletest::@4eb079357a36b91c0d7f",
+					"jsonFile" : "target-mbgl-vendor-googletest-RelWithDebInfo-5182168c139d93123a8b.json",
+					"name" : "mbgl-vendor-googletest",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "mbgl-vendor-icu::@6d2a36a9ecc220af5d5f",
+					"jsonFile" : "target-mbgl-vendor-icu-RelWithDebInfo-1362ab98467de923a447.json",
+					"name" : "mbgl-vendor-icu",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "mbgl-vendor-parsedate::@6d2a36a9ecc220af5d5f",
+					"jsonFile" : "target-mbgl-vendor-parsedate-RelWithDebInfo-e921f852075ae77b3fb0.json",
+					"name" : "mbgl-vendor-parsedate",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "mbgl-vendor-sqlite::@6d2a36a9ecc220af5d5f",
+					"jsonFile" : "target-mbgl-vendor-sqlite-RelWithDebInfo-d14420320b62dcc74833.json",
+					"name" : "mbgl-vendor-sqlite",
+					"projectIndex" : 1
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/platform/android/MapHeroAndroid/.cxx/RelWithDebInfo/16r282x3/armeabi-v7a",
+		"source" : "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/platform/android/MapHeroAndroid/src/cpp"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 3
+	}
+}

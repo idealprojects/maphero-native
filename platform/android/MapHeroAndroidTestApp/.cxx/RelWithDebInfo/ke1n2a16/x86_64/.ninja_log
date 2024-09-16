@@ -1,0 +1,3 @@
+# ninja log v5
+2532	2640	1726471098566970031	/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/platform/android/MapHeroAndroidTestApp/build/intermediates/cxx/RelWithDebInfo/ke1n2a16/obj/x86_64/libexample-custom-layer.so	77823ebb35663305
+4	2532	1726471098428773249	../../../../../x86_64/CMakeFiles/example-custom-layer.dir/platform/android/src/example_custom_layer.cpp.o	b80e509203a96ea4

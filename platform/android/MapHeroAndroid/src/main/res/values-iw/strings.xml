@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="maphero_compassContentDescription">מצפן. הפעל בכדי לקבע את כיוון המפה צפונה.</string>
+    <string name="maphero_attributionsIconContentDescription">סמל שיוך. הפעל כדי להציג תיבת דו-שיח של שיוך.</string>
+    <string name="maphero_myLocationViewContentDescription">סמן מיקום. מציג את המיקום הנוכחי שלך על המפה.</string>
+    <string name="maphero_mapActionDescription">מציג מפה שנוצרה עם MapLibre. גלול באמצעות גרירה עם שתי אצבעות, זום באמצעות צביטה עם שתי אצבעות.</string>
+    <string name="maphero_attributionsDialogTitle">MapLibre Maps SDK for Android</string>
+    <string name="maphero_attributionErrorNoBrowser">לא מותקן דפדפן אינטרנט במכשיר, לא ניתן לפתוח את דף האינטרנט.</string>
+    <string name="maphero_offline_error_region_definition_invalid">בתנאי ש- OfflineRegionDefinition אינו מתאים לגבולות העולם: %s</string>
+    </resources>

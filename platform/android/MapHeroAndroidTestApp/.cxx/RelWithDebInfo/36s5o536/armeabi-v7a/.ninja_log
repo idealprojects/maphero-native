@@ -1,0 +1,6 @@
+# ninja log v5
+0	3375	1726494910966831578	../../../../../armeabi-v7a/CMakeFiles/example-custom-layer.dir/platform/android/src/example_custom_layer.cpp.o	4d967a6cb4c445f
+3380	3511	1726494911131233274	/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/platform/android/MapHeroAndroidTestApp/build/intermediates/cxx/RelWithDebInfo/36s5o536/obj/armeabi-v7a/libexample-custom-layer.so	3572876f869a4ccf
+0	27	0	clean	e2bebd157400b98d
+0	26	0	clean	e2bebd157400b98d
+0	27	0	clean	e2bebd157400b98d

@@ -16,7 +16,7 @@ To create a new run configuration:
 * Click on Run -> Edit Configurations...
 * Click on the plus sign and then on "Android Tests"
 * Give a name to the configuration, e.g. `TestAppTests`
-* Choose the `MapLibreAndroidTestApp` module
+* Choose the `MapHeroAndroidTestApp` module
 * Choose `android.support.test.runner.AndroidJUnitRunner` as the instrumentation runner
 * Click OK to save the new configuration
 
@@ -34,13 +34,13 @@ You can also have a run configuration:
 * Click on "Junit Tests"
 * Give a name to the configuration, e.g. `JUnit tests`
 * As "Test Kind", choose "All in directory"
-* As folder, choose the following folder: `mapbox-gl-native/android/java/MapLibreAndroidTestApp/src/test/java`
+* As folder, choose the following folder: `mapbox-gl-native/android/java/MapHeroAndroidTestApp/src/test/java`
 * Click OK to save the new configuration
 
 You can also run the tests from the command line with:
 
 ```
-$ ./gradlew -Pmaplibre.abis=none test -p MapLibreAndroidTestApp
+$ ./gradlew -Pmaplibre.abis=none test -p MapHeroAndroidTestApp
 ```
 
 ### Running the UI/Application Exerciser Monkey
@@ -54,5 +54,5 @@ To exercise Monkey on the test app, install the package on the device (e.g. via 
 and then:
 
 ```
-$ adb shell monkey -p org.maplibre.testapp -v 500
+$ adb shell monkey -p org.maphero.testapp -v 500
 ```

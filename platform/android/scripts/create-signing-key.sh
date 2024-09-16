@@ -11,7 +11,7 @@ cat >foo <<EOF
      Subkey-Type: RSA
      Subkey-Length: 4096
      Name-Real: Petr Pokorny
-     Name-Comment: MapLibre publish
+     Name-Comment: MapHero publish
      Name-Email: petr.pokorny@maptiler.com
      Expire-Date: 0
      Passphrase: < Put your password here >

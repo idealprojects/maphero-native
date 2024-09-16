@@ -416,21 +416,21 @@ global.supportsPropertyFunction = function (property) {
 // Template processing //
 
 // Java + JNI Light (Peer model)
-const lightJava = ejs.compile(fs.readFileSync(absPath('MapLibreAndroid/src/main/java/org/maphero/android/style/light/light.java.ejs'), 'utf8'), {strict: true});
-const lightJavaUnitTests = ejs.compile(fs.readFileSync(absPath('MapLibreAndroidTestApp/src/androidTest/java/org/maphero/android/testapp/style/light.junit.ejs'), 'utf8'), {strict: true});
-writeIfModified(absPath(`MapLibreAndroid/src/main/java/org/maphero/android/style/light/Light.java`), lightJava({properties: lightProperties}));
-writeIfModified(absPath(`MapLibreAndroidTestApp/src/androidTest/java/org/maphero/android/testapp/style/LightTest.java`), lightJavaUnitTests({properties: lightProperties}));
+const lightJava = ejs.compile(fs.readFileSync(absPath('MapHeroAndroid/src/main/java/org/maphero/android/style/light/light.java.ejs'), 'utf8'), {strict: true});
+const lightJavaUnitTests = ejs.compile(fs.readFileSync(absPath('MapHeroAndroidTestApp/src/androidTest/java/org/maphero/android/testapp/style/light.junit.ejs'), 'utf8'), {strict: true});
+writeIfModified(absPath(`MapHeroAndroid/src/main/java/org/maphero/android/style/light/Light.java`), lightJava({properties: lightProperties}));
+writeIfModified(absPath(`MapHeroAndroidTestApp/src/androidTest/java/org/maphero/android/testapp/style/LightTest.java`), lightJavaUnitTests({properties: lightProperties}));
 
 // Java
-const layerJava = ejs.compile(fs.readFileSync(absPath('MapLibreAndroid/src/main/java/org/maphero/android/style/layers/layer.java.ejs'), 'utf8'), {strict: true});
-const layerJavaUnitTests = ejs.compile(fs.readFileSync(absPath('MapLibreAndroidTestApp/src/androidTest/java/org/maphero/android/testapp/style/layer.junit.ejs'), 'utf8'), {strict: true});
+const layerJava = ejs.compile(fs.readFileSync(absPath('MapHeroAndroid/src/main/java/org/maphero/android/style/layers/layer.java.ejs'), 'utf8'), {strict: true});
+const layerJavaUnitTests = ejs.compile(fs.readFileSync(absPath('MapHeroAndroidTestApp/src/androidTest/java/org/maphero/android/testapp/style/layer.junit.ejs'), 'utf8'), {strict: true});
 
 for (const layer of layers) {
-  var srcDir = 'MapLibreAndroid/src/main/java/org/maphero/android/style/layers/'
-  var testDir = 'MapLibreAndroidTestApp/src/androidTest/java/org/maphero/android/testapp/style/'
+  var srcDir = 'MapHeroAndroid/src/main/java/org/maphero/android/style/layers/'
+  var testDir = 'MapHeroAndroidTestApp/src/androidTest/java/org/maphero/android/testapp/style/'
   if (layer.type === 'location-indicator') {
-    srcDir = 'MapLibreAndroid/src/main/java/org/maphero/android/location/'
-    testDir = 'MapLibreAndroidTestApp/src/androidTest/java/org/maphero/android/location/'
+    srcDir = 'MapHeroAndroid/src/main/java/org/maphero/android/location/'
+    testDir = 'MapHeroAndroidTestApp/src/androidTest/java/org/maphero/android/location/'
   }
 
   writeIfModified(absPath(srcDir + `${camelize(layer.type)}Layer.java`), layerJava(layer));
@@ -438,34 +438,34 @@ for (const layer of layers) {
 }
 
 // Jni
-const layerHpp = ejs.compile(fs.readFileSync(absPath('MapLibreAndroid/src/cpp/style/layers/layer.hpp.ejs'), 'utf8'), {strict: true});
-const layerCpp = ejs.compile(fs.readFileSync(absPath('MapLibreAndroid/src/cpp/style/layers/layer.cpp.ejs'), 'utf8'), {strict: true});
+const layerHpp = ejs.compile(fs.readFileSync(absPath('MapHeroAndroid/src/cpp/style/layers/layer.hpp.ejs'), 'utf8'), {strict: true});
+const layerCpp = ejs.compile(fs.readFileSync(absPath('MapHeroAndroid/src/cpp/style/layers/layer.cpp.ejs'), 'utf8'), {strict: true});
 
 for (const layer of layers) {
   const layerFileName = layer.type.replace('-', '_');
 
-  writeIfModified(absPath(`MapLibreAndroid/src/cpp/style/layers/${layerFileName}_layer.hpp`), layerHpp(layer));
-  writeIfModified(absPath(`MapLibreAndroid/src/cpp/style/layers/${layerFileName}_layer.cpp`), layerCpp(layer));
+  writeIfModified(absPath(`MapHeroAndroid/src/cpp/style/layers/${layerFileName}_layer.hpp`), layerHpp(layer));
+  writeIfModified(absPath(`MapHeroAndroid/src/cpp/style/layers/${layerFileName}_layer.cpp`), layerCpp(layer));
 }
 
 // Java PropertyFactory
-const propertyFactoryTemplate = ejs.compile(fs.readFileSync(absPath('MapLibreAndroid/src/main/java/org/maphero/android/style/layers/property_factory.java.ejs'), 'utf8'), {strict: true});
+const propertyFactoryTemplate = ejs.compile(fs.readFileSync(absPath('MapHeroAndroid/src/main/java/org/maphero/android/style/layers/property_factory.java.ejs'), 'utf8'), {strict: true});
 
-const propertyFactorySrcDir = absPath('MapLibreAndroid/src/main/java/org/maphero/android/style/layers/PropertyFactory.java')
+const propertyFactorySrcDir = absPath('MapHeroAndroid/src/main/java/org/maphero/android/style/layers/PropertyFactory.java')
 writeIfModified(
     propertyFactorySrcDir,
     propertyFactoryTemplate({layoutProperties: layoutProperties, paintProperties: paintProperties, locationIndicator: false})
 );
 
-const locationPropertyFactorySrcDir = absPath('MapLibreAndroid/src/main/java/org/maphero/android/location/LocationPropertyFactory.java')
+const locationPropertyFactorySrcDir = absPath('MapHeroAndroid/src/main/java/org/maphero/android/location/LocationPropertyFactory.java')
 writeIfModified(
     locationPropertyFactorySrcDir,
     propertyFactoryTemplate({layoutProperties: locationLayoutProperties, paintProperties: locationPaintProperties, locationIndicator: true})
 );
 
 // Java Property
-const enumPropertyJavaTemplate = ejs.compile(fs.readFileSync(absPath('MapLibreAndroid/src/main/java/org/maphero/android/style/layers/property.java.ejs'), 'utf8'), {strict: true});
+const enumPropertyJavaTemplate = ejs.compile(fs.readFileSync(absPath('MapHeroAndroid/src/main/java/org/maphero/android/style/layers/property.java.ejs'), 'utf8'), {strict: true});
 writeIfModified(
-    absPath(`MapLibreAndroid/src/main/java/org/maphero/android/style/layers/Property.java`),
+    absPath(`MapHeroAndroid/src/main/java/org/maphero/android/style/layers/Property.java`),
     enumPropertyJavaTemplate({properties: enumProperties})
 );

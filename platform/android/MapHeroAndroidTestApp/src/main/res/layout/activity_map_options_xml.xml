@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.options.MapOptionsXmlActivity">
+
+    <org.maphero.android.maps.MapView
+        android:id="@+id/mapView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:maphero_apiBaseUri="https://api.maplibre.org"
+        app:maphero_cameraBearing="0.0"
+        app:maphero_cameraPitchMax="90.0"
+        app:maphero_cameraPitchMin="0.0"
+        app:maphero_cameraTargetLat="42.31230486601532"
+        app:maphero_cameraTargetLng="64.63967338936439"
+        app:maphero_cameraTilt="0.0"
+        app:maphero_cameraZoom="3.9"
+        app:maphero_cameraZoomMax="26.0"
+        app:maphero_cameraZoomMin="2.0"
+        app:maphero_localIdeographFontFamilies="@array/array_local_ideograph_family_test"
+        app:maphero_localIdeographFontFamily="Droid Sans"
+        app:maphero_uiCompass="true"
+        app:maphero_uiCompassFadeFacingNorth="true"
+        app:maphero_uiCompassGravity="top|end"
+        app:maphero_uiDoubleTapGestures="true"
+        app:maphero_uiHorizontalScrollGestures="true"
+        app:maphero_uiRotateGestures="true"
+        app:maphero_uiScrollGestures="true"
+        app:maphero_uiTiltGestures="true"
+        app:maphero_uiZoomGestures="true" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

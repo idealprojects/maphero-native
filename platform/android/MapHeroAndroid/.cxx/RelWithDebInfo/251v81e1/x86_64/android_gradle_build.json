@@ -1,0 +1,283 @@
+{
+  "buildFiles": [
+    "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/CMakeLists.txt",
+    "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/benchmark/CMakeLists.txt",
+    "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/platform/android/MapHeroAndroid/src/cpp/CMakeLists.txt",
+    "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/render-test/CMakeLists.txt",
+    "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/test/CMakeLists.txt",
+    "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/vendor/mapbox-base/CMakeLists.txt",
+    "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/vendor/mapbox-base/deps/CMakeLists.txt",
+    "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/vendor/mapbox-base/extras/CMakeLists.txt",
+    "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/vendor/mapbox-base/include/CMakeLists.txt",
+    "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/vendor/unordered_dense/CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "/Users/khalidtaha/Library/Android/sdk/cmake/3.22.1/bin/ninja",
+      "-C",
+      "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/platform/android/MapHeroAndroid/.cxx/RelWithDebInfo/251v81e1/x86_64",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "/Users/khalidtaha/Library/Android/sdk/cmake/3.22.1/bin/ninja",
+    "-C",
+    "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/platform/android/MapHeroAndroid/.cxx/RelWithDebInfo/251v81e1/x86_64",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {
+    "Continuous::@737ba4ba5b7cd6e32bad": {
+      "toolchain": "toolchain",
+      "abi": "x86_64",
+      "artifactName": "Continuous"
+    },
+    "ContinuousBuild::@737ba4ba5b7cd6e32bad": {
+      "toolchain": "toolchain",
+      "abi": "x86_64",
+      "artifactName": "ContinuousBuild"
+    },
+    "ContinuousConfigure::@737ba4ba5b7cd6e32bad": {
+      "toolchain": "toolchain",
+      "abi": "x86_64",
+      "artifactName": "ContinuousConfigure"
+    },
+    "ContinuousCoverage::@737ba4ba5b7cd6e32bad": {
+      "toolchain": "toolchain",
+      "abi": "x86_64",
+      "artifactName": "ContinuousCoverage"
+    },
+    "ContinuousMemCheck::@737ba4ba5b7cd6e32bad": {
+      "toolchain": "toolchain",
+      "abi": "x86_64",
+      "artifactName": "ContinuousMemCheck"
+    },
+    "ContinuousStart::@737ba4ba5b7cd6e32bad": {
+      "toolchain": "toolchain",
+      "abi": "x86_64",
+      "artifactName": "ContinuousStart"
+    },
+    "ContinuousSubmit::@737ba4ba5b7cd6e32bad": {
+      "toolchain": "toolchain",
+      "abi": "x86_64",
+      "artifactName": "ContinuousSubmit"
+    },
+    "ContinuousTest::@737ba4ba5b7cd6e32bad": {
+      "toolchain": "toolchain",
+      "abi": "x86_64",
+      "artifactName": "ContinuousTest"
+    },
+    "ContinuousUpdate::@737ba4ba5b7cd6e32bad": {
+      "toolchain": "toolchain",
+      "abi": "x86_64",
+      "artifactName": "ContinuousUpdate"
+    },
+    "Experimental::@737ba4ba5b7cd6e32bad": {
+      "toolchain": "toolchain",
+      "abi": "x86_64",
+      "artifactName": "Experimental"
+    },
+    "ExperimentalBuild::@737ba4ba5b7cd6e32bad": {
+      "toolchain": "toolchain",
+      "abi": "x86_64",
+      "artifactName": "ExperimentalBuild"
+    },
+    "ExperimentalConfigure::@737ba4ba5b7cd6e32bad": {
+      "toolchain": "toolchain",
+      "abi": "x86_64",
+      "artifactName": "ExperimentalConfigure"
+    },
+    "ExperimentalCoverage::@737ba4ba5b7cd6e32bad": {
+      "toolchain": "toolchain",
+      "abi": "x86_64",
+      "artifactName": "ExperimentalCoverage"
+    },
+    "ExperimentalMemCheck::@737ba4ba5b7cd6e32bad": {
+      "toolchain": "toolchain",
+      "abi": "x86_64",
+      "artifactName": "ExperimentalMemCheck"
+    },
+    "ExperimentalStart::@737ba4ba5b7cd6e32bad": {
+      "toolchain": "toolchain",
+      "abi": "x86_64",
+      "artifactName": "ExperimentalStart"
+    },
+    "ExperimentalSubmit::@737ba4ba5b7cd6e32bad": {
+      "toolchain": "toolchain",
+      "abi": "x86_64",
+      "artifactName": "ExperimentalSubmit"
+    },
+    "ExperimentalTest::@737ba4ba5b7cd6e32bad": {
+      "toolchain": "toolchain",
+      "abi": "x86_64",
+      "artifactName": "ExperimentalTest"
+    },
+    "ExperimentalUpdate::@737ba4ba5b7cd6e32bad": {
+      "toolchain": "toolchain",
+      "abi": "x86_64",
+      "artifactName": "ExperimentalUpdate"
+    },
+    "Nightly::@737ba4ba5b7cd6e32bad": {
+      "toolchain": "toolchain",
+      "abi": "x86_64",
+      "artifactName": "Nightly"
+    },
+    "NightlyBuild::@737ba4ba5b7cd6e32bad": {
+      "toolchain": "toolchain",
+      "abi": "x86_64",
+      "artifactName": "NightlyBuild"
+    },
+    "NightlyConfigure::@737ba4ba5b7cd6e32bad": {
+      "toolchain": "toolchain",
+      "abi": "x86_64",
+      "artifactName": "NightlyConfigure"
+    },
+    "NightlyCoverage::@737ba4ba5b7cd6e32bad": {
+      "toolchain": "toolchain",
+      "abi": "x86_64",
+      "artifactName": "NightlyCoverage"
+    },
+    "NightlyMemCheck::@737ba4ba5b7cd6e32bad": {
+      "toolchain": "toolchain",
+      "abi": "x86_64",
+      "artifactName": "NightlyMemCheck"
+    },
+    "NightlyMemoryCheck::@737ba4ba5b7cd6e32bad": {
+      "toolchain": "toolchain",
+      "abi": "x86_64",
+      "artifactName": "NightlyMemoryCheck"
+    },
+    "NightlyStart::@737ba4ba5b7cd6e32bad": {
+      "toolchain": "toolchain",
+      "abi": "x86_64",
+      "artifactName": "NightlyStart"
+    },
+    "NightlySubmit::@737ba4ba5b7cd6e32bad": {
+      "toolchain": "toolchain",
+      "abi": "x86_64",
+      "artifactName": "NightlySubmit"
+    },
+    "NightlyTest::@737ba4ba5b7cd6e32bad": {
+      "toolchain": "toolchain",
+      "abi": "x86_64",
+      "artifactName": "NightlyTest"
+    },
+    "NightlyUpdate::@737ba4ba5b7cd6e32bad": {
+      "toolchain": "toolchain",
+      "abi": "x86_64",
+      "artifactName": "NightlyUpdate"
+    },
+    "example-custom-layer::@737ba4ba5b7cd6e32bad": {
+      "toolchain": "toolchain",
+      "abi": "x86_64",
+      "artifactName": "example-custom-layer",
+      "output": "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/platform/android/MapHeroAndroid/build/intermediates/cxx/RelWithDebInfo/251v81e1/obj/x86_64/libexample-custom-layer.so",
+      "runtimeFiles": []
+    },
+    "maplibre::@6890427a1f51a3e7e1df": {
+      "toolchain": "toolchain",
+      "abi": "x86_64",
+      "artifactName": "maplibre",
+      "output": "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/platform/android/MapHeroAndroid/build/intermediates/cxx/RelWithDebInfo/251v81e1/obj/x86_64/libmaplibre.so",
+      "runtimeFiles": []
+    },
+    "mbgl-benchmark::@60500cf66a6afa53b147": {
+      "toolchain": "toolchain",
+      "abi": "x86_64",
+      "artifactName": "mbgl-benchmark",
+      "output": "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/platform/android/x86_64/benchmark/libmbgl-benchmark.a"
+    },
+    "mbgl-benchmark-runner::@737ba4ba5b7cd6e32bad": {
+      "toolchain": "toolchain",
+      "abi": "x86_64",
+      "artifactName": "mbgl-benchmark-runner",
+      "output": "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/platform/android/MapHeroAndroid/build/intermediates/cxx/RelWithDebInfo/251v81e1/obj/x86_64/libmbgl-benchmark-runner.so",
+      "runtimeFiles": []
+    },
+    "mbgl-core::@737ba4ba5b7cd6e32bad": {
+      "toolchain": "toolchain",
+      "abi": "x86_64",
+      "artifactName": "mbgl-core",
+      "output": "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/platform/android/x86_64/libmbgl-core.a"
+    },
+    "mbgl-core-license::@737ba4ba5b7cd6e32bad": {
+      "toolchain": "toolchain",
+      "abi": "x86_64",
+      "artifactName": "mbgl-core-license"
+    },
+    "mbgl-render-test::@8fc68b900adeebaf4fa6": {
+      "toolchain": "toolchain",
+      "abi": "x86_64",
+      "artifactName": "mbgl-render-test",
+      "output": "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/platform/android/x86_64/render-test/libmbgl-render-test.a"
+    },
+    "mbgl-render-test-runner::@737ba4ba5b7cd6e32bad": {
+      "toolchain": "toolchain",
+      "abi": "x86_64",
+      "artifactName": "mbgl-render-test-runner",
+      "output": "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/platform/android/MapHeroAndroid/build/intermediates/cxx/RelWithDebInfo/251v81e1/obj/x86_64/libmbgl-render-test-runner.so",
+      "runtimeFiles": []
+    },
+    "mbgl-test::@10bc267b1d36f6550932": {
+      "toolchain": "toolchain",
+      "abi": "x86_64",
+      "artifactName": "mbgl-test",
+      "output": "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/platform/android/x86_64/test/libmbgl-test.a"
+    },
+    "mbgl-test-runner::@737ba4ba5b7cd6e32bad": {
+      "toolchain": "toolchain",
+      "abi": "x86_64",
+      "artifactName": "mbgl-test-runner",
+      "output": "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/platform/android/MapHeroAndroid/build/intermediates/cxx/RelWithDebInfo/251v81e1/obj/x86_64/libmbgl-test-runner.so",
+      "runtimeFiles": []
+    },
+    "mbgl-vendor-benchmark::@60500cf66a6afa53b147": {
+      "toolchain": "toolchain",
+      "abi": "x86_64",
+      "artifactName": "mbgl-vendor-benchmark",
+      "output": "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/platform/android/x86_64/benchmark/libmbgl-vendor-benchmark.a"
+    },
+    "mbgl-vendor-csscolorparser::@737ba4ba5b7cd6e32bad": {
+      "toolchain": "toolchain",
+      "abi": "x86_64",
+      "artifactName": "mbgl-vendor-csscolorparser",
+      "output": "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/platform/android/x86_64/libmbgl-vendor-csscolorparser.a"
+    },
+    "mbgl-vendor-googletest::@10bc267b1d36f6550932": {
+      "toolchain": "toolchain",
+      "abi": "x86_64",
+      "artifactName": "mbgl-vendor-googletest",
+      "output": "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/platform/android/x86_64/test/libmbgl-vendor-googletest.a"
+    },
+    "mbgl-vendor-icu::@737ba4ba5b7cd6e32bad": {
+      "toolchain": "toolchain",
+      "abi": "x86_64",
+      "artifactName": "mbgl-vendor-icu",
+      "output": "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/platform/android/x86_64/libmbgl-vendor-icu.a"
+    },
+    "mbgl-vendor-parsedate::@737ba4ba5b7cd6e32bad": {
+      "toolchain": "toolchain",
+      "abi": "x86_64",
+      "artifactName": "mbgl-vendor-parsedate",
+      "output": "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/platform/android/x86_64/libmbgl-vendor-parsedate.a"
+    },
+    "mbgl-vendor-sqlite::@737ba4ba5b7cd6e32bad": {
+      "toolchain": "toolchain",
+      "abi": "x86_64",
+      "artifactName": "mbgl-vendor-sqlite",
+      "output": "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/platform/android/x86_64/libmbgl-vendor-sqlite.a"
+    }
+  },
+  "toolchains": {
+    "toolchain": {
+      "cCompilerExecutable": "/Users/khalidtaha/Library/Android/sdk/ndk/27.0.12077973/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang.lld",
+      "cppCompilerExecutable": "/Users/khalidtaha/Library/Android/sdk/ndk/27.0.12077973/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++.lld"
+    }
+  },
+  "cFileExtensions": [
+    "c"
+  ],
+  "cppFileExtensions": [
+    "cpp",
+    "cc"
+  ]
+}
