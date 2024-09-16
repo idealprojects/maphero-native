@@ -5,8 +5,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol MHFeature;
-@class MHPointFeatureClusterFeature;
-@class MHPointFeatureClusterFeatureCluster;
+@class MHPointFeature;
+@class MHPointFeatureCluster;
 @class MHShape;
 
 /**
@@ -277,7 +277,7 @@ MH_EXPORT
  source are not clipped or wrapped automatically.
 
  Unlike `-initWithIdentifier:shapes:options:`, this method accepts ``MHFeature``
- instances, such as ``MHPointFeatureClusterFeature`` objects, whose attributes you can use when
+ instances, such as ``MHPointFeature`` objects, whose attributes you can use when
  applying a predicate to ``MHVectorStyleLayer`` or configuring a style layer’s
  appearance.
 
@@ -383,14 +383,14 @@ MH_EXPORT
  This method supports pagination; you supply an offset (number of features to skip)
  and a maximum number of features to return.
 
- @param cluster An object of type ``MHPointFeatureClusterFeatureCluster`` (that conforms to the
- ``MHPointFeatureClusterFeatureCluster`` protocol).
+ @param cluster An object of type ``MHPointFeatureCluster`` (that conforms to the
+ ``MHPointFeatureCluster`` protocol).
  @param offset Number of features to skip.
  @param limit The maximum number of features to return
 
  @return An array of objects that conform to the ``MHFeature`` protocol.
  */
-- (NSArray<id<MHFeature>> *)leavesOfCluster:(MHPointFeatureClusterFeatureCluster *)cluster
+- (NSArray<id<MHFeature>> *)leavesOfCluster:(MHPointFeatureCluster *)cluster
                                       offset:(NSUInteger)offset
                                        limit:(NSUInteger)limit;
 
@@ -399,8 +399,8 @@ MH_EXPORT
  cluster *on the next zoom level*. The may include features that also conform to
  the ``MHCluster`` protocol (currently only objects of type ``MHCluster``).
 
- @param cluster An object of type ``MHPointFeatureClusterFeatureCluster`` (that conforms to the
- ``MHPointFeatureClusterFeatureCluster`` protocol).
+ @param cluster An object of type ``MHPointFeatureCluster`` (that conforms to the
+ ``MHPointFeatureCluster`` protocol).
 
  @return An array of objects that conform to the ``MHFeature`` protocol.
 
@@ -408,18 +408,18 @@ MH_EXPORT
     zoom level doesn't match the zoom level for expanding that cluster. See
     ``MHShapeSource/zoomLevelForExpandingCluster:``.
  */
-- (NSArray<id<MHFeature>> *)childrenOfCluster:(MHPointFeatureClusterFeatureCluster *)cluster;
+- (NSArray<id<MHFeature>> *)childrenOfCluster:(MHPointFeatureCluster *)cluster;
 
 /**
  Returns the zoom level at which the given cluster expands.
 
- @param cluster An object of type ``MHPointFeatureClusterFeatureCluster`` (that conforms to the
- ``MHPointFeatureClusterFeatureCluster`` protocol).
+ @param cluster An object of type ``MHPointFeatureCluster`` (that conforms to the
+ ``MHPointFeatureCluster`` protocol).
 
  @return Zoom level. This should be >= 0; any negative return value should be
     considered an error.
  */
-- (double)zoomLevelForExpandingCluster:(MHPointFeatureClusterFeatureCluster *)cluster;
+- (double)zoomLevelForExpandingCluster:(MHPointFeatureCluster *)cluster;
 
 @end
 

@@ -26,7 +26,7 @@
     self.mapView.contentInsets = NSEdgeInsetsMake(10.0, 10.0, 10.0, 10.0);
 
     // Create annotation
-    MHPointFeatureClusterFeature *point = [[MHPointFeatureClusterFeature alloc] init];
+    MHPointFeature *point = [[MHPointFeature alloc] init];
     point.title = NSStringFromSelector(_cmd);
     point.coordinate = CLLocationCoordinate2DMake(0.0, 0.0);
 

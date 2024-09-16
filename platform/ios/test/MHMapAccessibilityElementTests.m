@@ -9,7 +9,7 @@
 @implementation MHMapAccessibilityElementTests
 
 - (void)testFeatureLabels {
-    MHPointFeatureClusterFeature *feature = [[MHPointFeatureClusterFeature alloc] init];
+    MHPointFeature *feature = [[MHPointFeature alloc] init];
     feature.attributes = @{
         @"name": @"Local",
         @"name_en": @"English",
@@ -29,21 +29,21 @@
 }
 
 - (void)testPlaceFeatureValues {
-    MHPointFeatureClusterFeature *feature = [[MHPointFeatureClusterFeature alloc] init];
+    MHPointFeature *feature = [[MHPointFeature alloc] init];
     feature.attributes = @{
         @"type": @"village_green",
     };
     MHPlaceFeatureAccessibilityElement *element = [[MHPlaceFeatureAccessibilityElement alloc] initWithAccessibilityContainer:self feature:feature];
     XCTAssertEqualObjects(element.accessibilityValue, @"village green");
     
-    feature = [[MHPointFeatureClusterFeature alloc] init];
+    feature = [[MHPointFeature alloc] init];
     feature.attributes = @{
         @"maki": @"cat",
     };
     element = [[MHPlaceFeatureAccessibilityElement alloc] initWithAccessibilityContainer:self feature:feature];
     XCTAssertEqualObjects(element.accessibilityValue, @"cat");
     
-    feature = [[MHPointFeatureClusterFeature alloc] init];
+    feature = [[MHPointFeature alloc] init];
     feature.attributes = @{
         @"elevation_ft": @31337,
         @"elevation_m": @1337,

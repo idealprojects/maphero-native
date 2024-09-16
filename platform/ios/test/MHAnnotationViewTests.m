@@ -182,7 +182,7 @@ static NSString * const MHTestAnnotationReuseIdentifer = @"MHTestAnnotationReuse
     XCTAssert(reasonBefore == MHCameraChangeReasonNone, @"Camera should not have moved at start of test");
 
     // Create annotation
-    MHPointFeatureClusterFeature *point = [[MHPointFeatureClusterFeature alloc] init];
+    MHPointFeature *point = [[MHPointFeature alloc] init];
     point.title = NSStringFromSelector(_cmd);
     point.coordinate = CLLocationCoordinate2DMake(0.0, 0.0);
 
@@ -229,7 +229,7 @@ static NSString * const MHTestAnnotationReuseIdentifer = @"MHTestAnnotationReuse
     };
 
     // Create annotation
-    MHPointFeatureClusterFeature *point = [[MHPointFeatureClusterFeature alloc] init];
+    MHPointFeature *point = [[MHPointFeature alloc] init];
     point.title = NSStringFromSelector(_cmd);
     point.coordinate = CLLocationCoordinate2DMake(0.0, 0.0);
     
