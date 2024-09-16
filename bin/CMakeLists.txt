@@ -57,6 +57,6 @@ install(TARGETS mbgl-offline mbgl-render RUNTIME DESTINATION bin)
 #
 # add_test(NAME mbgl-render-tool-test COMMAND mbgl-render WORKING_DIRECTORY ${PROJECT_SOURCE_DIR} )
 
-if(MLN_WITH_OPENGL)
-    target_compile_definitions(mbgl-render PRIVATE "MLN_RENDER_BACKEND_OPENGL=1")
+if(MH_WITH_OPENGL)
+    target_compile_definitions(mbgl-render PRIVATE "MH_RENDER_BACKEND_OPENGL=1")
 endif()

@@ -51,16 +51,16 @@ if(CMAKE_SYSTEM_NAME STREQUAL Darwin)
 endif()
 
 # Needed for testing private classes
-get_target_property(MLN_CORE_PRIVATE_LIBRARIES mbgl-core LINK_LIBRARIES)
+get_target_property(MH_CORE_PRIVATE_LIBRARIES mbgl-core LINK_LIBRARIES)
 
 target_link_libraries(
     mbgl-benchmark
-    PRIVATE ${MLN_CORE_PRIVATE_LIBRARIES} mbgl-vendor-benchmark mbgl-compiler-options
+    PRIVATE ${MH_CORE_PRIVATE_LIBRARIES} mbgl-vendor-benchmark mbgl-compiler-options
     PUBLIC mbgl-core
 )
 
-set_property(TARGET mbgl-benchmark PROPERTY FOLDER MapLibre)
+set_property(TARGET mbgl-benchmark PROPERTY FOLDER MapHero)
 
-if(MLN_WITH_OPENGL)
-    target_compile_definitions(mbgl-benchmark PRIVATE "MLN_RENDER_BACKEND_OPENGL=1")
+if(MH_WITH_OPENGL)
+    target_compile_definitions(mbgl-benchmark PRIVATE "MH_RENDER_BACKEND_OPENGL=1")
 endif()

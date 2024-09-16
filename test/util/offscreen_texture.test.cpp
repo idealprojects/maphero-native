@@ -1,4 +1,4 @@
-#if MLN_RENDER_BACKEND_OPENGL
+#if MH_RENDER_BACKEND_OPENGL
 #include <mbgl/test/util.hpp>
 
 #include <mbgl/platform/gl_functions.hpp>
@@ -10,7 +10,7 @@
 #include <mbgl/gl/headless_backend.hpp>
 #include <mbgl/gl/offscreen_texture.hpp>
 
-#if MLN_LEGACY_RENDERER
+#if MH_LEGACY_RENDERER
 #include <mbgl/gl/texture.hpp>
 #else
 #include <mbgl/gl/texture2d.hpp>
@@ -173,7 +173,7 @@ void main() {
     test::checkImage("test/fixtures/offscreen_texture/render-to-fbo", image, 0, 0);
 
     // Now, composite the Framebuffer texture we've rendered to onto the main FBO.
-#if MLN_LEGACY_RENDERER
+#if MH_LEGACY_RENDERER
     gl::bindTexture(context, 0, {offscreenTexture.getTexture().getResource(), gfx::TextureFilterType::Linear});
     MBGL_CHECK_ERROR(glUniform1i(u_texture, 0));
 #else

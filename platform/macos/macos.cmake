@@ -11,7 +11,7 @@ set_target_properties(mbgl-core PROPERTIES XCODE_ATTRIBUTE_ONLY_ACTIVE_ARCH[vari
 
 set_target_properties(mbgl-core PROPERTIES XCODE_ATTRIBUTE_CLANG_ENABLE_OBJC_ARC YES)
 
-if(MLN_WITH_OPENGL)
+if(MH_WITH_OPENGL)
     find_package(OpenGL REQUIRED)
 
     target_compile_definitions(
@@ -30,7 +30,7 @@ if(MLN_WITH_OPENGL)
     )
 endif()
 
-if(MLN_WITH_METAL)
+if(MH_WITH_METAL)
     find_package(OpenGL REQUIRED)
 
     target_sources(
@@ -113,7 +113,7 @@ target_link_libraries(
 add_subdirectory(${PROJECT_SOURCE_DIR}/bin)
 add_subdirectory(${PROJECT_SOURCE_DIR}/expression-test)
 add_subdirectory(${PROJECT_SOURCE_DIR}/platform/glfw)
-if(MLN_WITH_NODE)
+if(MH_WITH_NODE)
     add_subdirectory(${PROJECT_SOURCE_DIR}/platform/node)
 endif()
 

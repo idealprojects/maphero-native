@@ -1,5 +1,5 @@
 load("@aspect_rules_js//js:defs.bzl", "js_binary")
-load("//bazel:flags.bzl", "CPP_FLAGS", "MAPLIBRE_FLAGS", "WARNING_FLAGS")
+load("//bazel:flags.bzl", "CPP_FLAGS", "MAPHERO_FLAGS", "WARNING_FLAGS")
 
 objc_library(
     name = "macos-objcpp",
@@ -13,9 +13,9 @@ objc_library(
         "//platform/macos:macos_public_hdrs",
     ],
     hdrs = [
-        "//platform/darwin:include/mbgl/util/image+MLNAdditions.hpp",
+        "//platform/darwin:include/mbgl/util/image+MHAdditions.hpp",
     ],
-    copts = CPP_FLAGS + MAPLIBRE_FLAGS + [
+    copts = CPP_FLAGS + MAPHERO_FLAGS + [
         "-fcxx-modules",
         "-fmodules",
         "-Wno-vla-extension",
@@ -27,7 +27,7 @@ objc_library(
         "darwin/src",
         "macos/src",
     ],
-    module_name = "MapLibre",
+    module_name = "MapHero",
     sdk_frameworks = [
         "Metal",
         "MetalKit",
@@ -60,7 +60,7 @@ objc_library(
     copts = select({
         "@platforms//os:ios": WARNING_FLAGS["ios"],
         "@platforms//os:macos": WARNING_FLAGS["macos"],
-    }) + MAPLIBRE_FLAGS + [
+    }) + MAPHERO_FLAGS + [
         "-fmodules",
         "-Wno-deprecated-declarations",
     ],
@@ -93,7 +93,7 @@ objc_library(
             "//platform/darwin:darwin_objcpp_custom_drawable_srcs",
         ],
     }),
-    copts = CPP_FLAGS + MAPLIBRE_FLAGS + [
+    copts = CPP_FLAGS + MAPHERO_FLAGS + [
         "-fcxx-modules",
         "-fmodules",
         "-Wno-c99-extensions",
@@ -142,12 +142,12 @@ objc_library(
         "//platform/ios:ios_sdk_hdrs",
     ],
     hdrs = [
-        "//platform/darwin:include/mbgl/util/image+MLNAdditions.hpp",
+        "//platform/darwin:include/mbgl/util/image+MHAdditions.hpp",
     ],
     copts = select({
         "@platforms//os:ios": WARNING_FLAGS["ios"],
         "@platforms//os:macos": WARNING_FLAGS["macos"],
-    }) + MAPLIBRE_FLAGS + [
+    }) + MAPHERO_FLAGS + [
         "-fmodules",
         "-Wno-gnu-zero-variadic-macro-arguments",
         "-Wno-variadic-macros",
@@ -202,7 +202,7 @@ objc_library(
         "//conditions:default": [],
     }),
     data = ["//platform/ios:resources"],
-    module_name = "MapLibre",
+    module_name = "MapHero",
     sdk_dylibs = [
         "libz",
         "libsqlite3",
@@ -247,7 +247,7 @@ objc_library(
         "//platform/darwin:app/ExampleCustomDrawableStyleLayer.h",
         "//platform/darwin:app/ExampleCustomDrawableStyleLayer.mm",
     ],
-    copts = CPP_FLAGS + MAPLIBRE_FLAGS + WARNING_FLAGS["ios"] + [
+    copts = CPP_FLAGS + MAPHERO_FLAGS + WARNING_FLAGS["ios"] + [
         "-fcxx-modules",
         "-fmodules",
         "-Wno-c99-extensions",
@@ -299,7 +299,7 @@ objc_library(
     name = "ios-benchapp",
     srcs = ["//platform/ios/benchmark:ios_benchmark_srcs"],
     hdrs = ["//platform/ios/benchmark:ios_benchmark_hdrs"],
-    copts = CPP_FLAGS + MAPLIBRE_FLAGS,
+    copts = CPP_FLAGS + MAPHERO_FLAGS,
     includes = [
         "darwin/app",
         "darwin/src",

@@ -4,7 +4,7 @@
 #include <mbgl/gfx/context.hpp>
 #include <mbgl/util/image.hpp>
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
 #include <mbgl/gfx/texture2d.hpp>
 #include <variant>
 #else
@@ -51,7 +51,7 @@ public:
     void upload(gfx::UploadPass&);
 
     // Binds the atlas texture to the GPU, and uploads data if it is out of date.
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
     const std::shared_ptr<gfx::Texture2D>& getTexture() const;
 #else
     gfx::TextureBinding textureBinding() const;
@@ -66,7 +66,7 @@ public:
 private:
     LinePatternPos from, to;
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
     std::variant<AlphaImage, gfx::Texture2DPtr> texture;
 #else
     variant<AlphaImage, gfx::Texture> texture;

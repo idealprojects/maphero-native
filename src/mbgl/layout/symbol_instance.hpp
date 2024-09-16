@@ -8,18 +8,18 @@
 
 #include <source_location>
 
-#if !defined(MLN_SYMBOL_GUARDS)
-#define MLN_SYMBOL_GUARDS 1
+#if !defined(MH_SYMBOL_GUARDS)
+#define MH_SYMBOL_GUARDS 1
 #endif
 
-#if MLN_SYMBOL_GUARDS
+#if MH_SYMBOL_GUARDS
 #define SYM_GUARD_VALUE(N) std::uint64_t check##N = checkVal;
 #else
 #define SYM_GUARD_VALUE(N)
 #endif
 
 // A temporary shim for partial C++20 support
-#if MLN_SYMBOL_GUARDS
+#if MH_SYMBOL_GUARDS
 #if defined(__clang__)
 #if __cplusplus <= 201703L || !__has_builtin(__builtin_source_location)
 namespace std {
@@ -136,7 +136,7 @@ public:
     const std::optional<SymbolQuads>& verticalIconQuads() const;
     void releaseSharedData();
 
-#if MLN_SYMBOL_GUARDS
+#if MH_SYMBOL_GUARDS
     /// Check all guard blocks
     bool check(const std::source_location&) const;
     /// Check that an index is in the valid range
@@ -202,7 +202,7 @@ public:
     static constexpr uint32_t invalidCrossTileID = std::numeric_limits<uint32_t>::max();
 
 protected:
-#if MLN_SYMBOL_GUARDS
+#if MH_SYMBOL_GUARDS
     bool check(std::uint64_t v, int n, const std::source_location&) const;
     bool checkKey(const std::source_location&) const;
     void forceFailInternal(); // this is just to avoid warnings about the values never being set
@@ -272,7 +272,7 @@ private:
     SYM_GUARD_VALUE(27)
     uint32_t crossTileID = 0;
     SYM_GUARD_VALUE(28)
-#if MLN_SYMBOL_GUARDS
+#if MH_SYMBOL_GUARDS
     mutable bool isFailed = false;
 #endif
 };

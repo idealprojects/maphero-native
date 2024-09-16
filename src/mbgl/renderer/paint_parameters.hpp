@@ -128,7 +128,7 @@ public:
     const uint64_t frameCount;
 
     static constexpr int numSublayers = 3;
-#if MLN_RENDER_BACKEND_OPENGL
+#if MH_RENDER_BACKEND_OPENGL
     static constexpr float depthEpsilon = 1.0f / (1 << 16);
 #else
     static constexpr float depthEpsilon = 1.0f / (1 << 12);

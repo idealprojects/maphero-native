@@ -14,7 +14,7 @@
 namespace mbgl {
 
 namespace gfx {
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
 class Texture2D;
 using Texture2DPtr = std::shared_ptr<Texture2D>;
 #endif
@@ -62,7 +62,7 @@ public:
     const LayerRenderData* getLayerRenderData(const style::Layer::Impl&) const;
     std::optional<ImagePosition> getPattern(const std::string& pattern) const;
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
     bool hasGlyphAtlasTexture() const;
     const gfx::Texture2DPtr& getGlyphAtlasTexture() const;
 

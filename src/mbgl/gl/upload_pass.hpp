@@ -28,7 +28,7 @@ private:
     void popDebugGroup() override;
 
 public:
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
     gfx::Context& getContext() override;
     const gfx::Context& getContext() const override;
 #endif
@@ -45,7 +45,7 @@ public:
                                                                         bool persistent) override;
     void updateIndexBufferResource(gfx::IndexBufferResource&, const void* data, std::size_t size) override;
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
     const gfx::UniqueVertexBufferResource& getBuffer(const gfx::VertexVectorBasePtr&, gfx::BufferUsageType);
 
     gfx::AttributeBindingArray buildAttributeBindings(

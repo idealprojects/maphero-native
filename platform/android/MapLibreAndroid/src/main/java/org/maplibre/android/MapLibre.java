@@ -11,7 +11,7 @@ import androidx.annotation.UiThread;
 import timber.log.Timber;
 
 import org.maplibre.android.constants.MapLibreConstants;
-import org.maplibre.android.exceptions.MapLibreConfigurationException;
+import org.maplibre.android.exceptions.MapHeroConfigurationException;
 import org.maplibre.android.net.ConnectivityReceiver;
 import org.maplibre.android.storage.FileSource;
 import org.maplibre.android.util.DefaultStyle;
@@ -244,7 +244,7 @@ public final class MapLibre {
    */
   private static void validateMapLibre() {
     if (INSTANCE == null) {
-      throw new MapLibreConfigurationException();
+      throw new MapHeroConfigurationException();
     }
   }
 
@@ -268,7 +268,7 @@ public final class MapLibre {
    */
   public static void throwIfApiKeyInvalid(@Nullable String apiKey) {
     if (!isApiKeyValid(apiKey)) {
-      throw new MapLibreConfigurationException(
+      throw new MapHeroConfigurationException(
               "A valid API key is required, currently provided key is: " + apiKey);
     }
   }

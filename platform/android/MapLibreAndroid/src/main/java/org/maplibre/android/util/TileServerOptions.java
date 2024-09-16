@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import org.maplibre.android.WellKnownTileServer;
-import org.maplibre.android.exceptions.MapLibreConfigurationException;
+import org.maplibre.android.exceptions.MapHeroConfigurationException;
 
 /**
  * Tile server options - baseUrl and similar properties
@@ -80,7 +80,7 @@ public class TileServerOptions implements Parcelable {
    * Construct a new TileServerOptions given string arguments
    *
    * @param baseURL              tile server base url
-   * @param uriSchemeAlias       scheme alias such as maplibre://
+   * @param uriSchemeAlias       scheme alias such as maphero://
    * @param sourceTemplate       tile source url template
    * @param sourceDomainName     tile source domain name
    * @param sourceVersionPrefix  tile source version prefix
@@ -395,7 +395,7 @@ public class TileServerOptions implements Parcelable {
       case MapLibre:
         return mapLibreConfiguration();
       default:
-        throw new MapLibreConfigurationException("Unknown tile server");
+        throw new MapHeroConfigurationException("Unknown tile server");
     }
   }
 

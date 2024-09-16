@@ -26,7 +26,7 @@ CircleBucket::~CircleBucket() {
 }
 
 void CircleBucket::upload([[maybe_unused]] gfx::UploadPass& uploadPass) {
-#if MLN_LEGACY_RENDERER
+#if MH_LEGACY_RENDERER
     if (!uploaded) {
         vertexBuffer = uploadPass.createVertexBuffer(std::move(vertices));
         indexBuffer = uploadPass.createIndexBuffer(std::move(triangles));
@@ -35,7 +35,7 @@ void CircleBucket::upload([[maybe_unused]] gfx::UploadPass& uploadPass) {
     for (auto& pair : paintPropertyBinders) {
         pair.second.upload(uploadPass);
     }
-#endif // MLN_LEGACY_RENDERER
+#endif // MH_LEGACY_RENDERER
 
     uploaded = true;
 }

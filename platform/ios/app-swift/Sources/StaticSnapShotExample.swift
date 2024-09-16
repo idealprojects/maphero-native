@@ -1,17 +1,17 @@
-import MapLibre
+import MapHero
 import SwiftUI
 import UIKit
 
 // #-example-code(StaticSnapshotExample)
-class StaticSnapshotExample: UIViewController, MLNMapViewDelegate {
-    var mapView: MLNMapView!
+class StaticSnapshotExample: UIViewController, MHMapViewDelegate {
+    var mapView: MHMapView!
     var button: UIButton!
     var imageView: UIImageView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        mapView = MLNMapView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height / 2), styleURL: AMERICANA_STYLE)
+        mapView = MHMapView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height / 2), styleURL: AMERICANA_STYLE)
         mapView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
 
         // Center map on the Giza Pyramid Complex in Egypt.
@@ -36,7 +36,7 @@ class StaticSnapshotExample: UIViewController, MLNMapViewDelegate {
 
     @objc func createSnapshot() {
         // Use the map's style, camera, size, and zoom level to set the snapshot's options.
-        let options = MLNMapSnapshotOptions(styleURL: mapView.styleURL, camera: mapView.camera, size: mapView.bounds.size)
+        let options = MHMapSnapshotOptions(styleURL: mapView.styleURL, camera: mapView.camera, size: mapView.bounds.size)
         options.zoomLevel = mapView.zoomLevel
 
         // Add an activity indicator to show that the snapshot is loading.
@@ -45,7 +45,7 @@ class StaticSnapshotExample: UIViewController, MLNMapViewDelegate {
         indicator.startAnimating()
 
         // Create the map snapshot.
-        let snapshotter: MLNMapSnapshotter? = MLNMapSnapshotter(options: options)
+        let snapshotter: MHMapSnapshotter? = MHMapSnapshotter(options: options)
         snapshotter?.start { snapshot, error in
             if error != nil {
                 print("Unable to create a map snapshot.")

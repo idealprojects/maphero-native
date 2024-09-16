@@ -91,11 +91,11 @@ void RenderStaticData::upload(gfx::UploadPass& uploadPass) {
             tileVertices(), gfx::BufferUsageType::StaticDraw, /*persistent=*/false);
         quadTriangleIndexBuffer = uploadPass.createIndexBuffer(
             quadTriangleIndices(), gfx::BufferUsageType::StaticDraw, /*persistent=*/false);
-#if MLN_LEGACY_RENDERER
+#if MH_LEGACY_RENDERER
         rasterVertexBuffer = uploadPass.createVertexBuffer(rasterVertices());
         heatmapTextureVertexBuffer = uploadPass.createVertexBuffer(heatmapTextureVertices());
         tileBorderIndexBuffer = uploadPass.createIndexBuffer(tileLineStripIndices());
-#endif // MLN_LEGACY_RENDERER
+#endif // MH_LEGACY_RENDERER
         uploaded = true;
     }
 }

@@ -11,14 +11,14 @@ load(
 )
 load(
     "//platform/ios/bazel:files.bzl",
-    "MLN_IOS_PRIVATE_HEADERS",
-    "MLN_IOS_PUBLIC_HEADERS",
-    "MLN_IOS_PUBLIC_OBJCPP_METAL_SOURCE",
-    "MLN_IOS_PUBLIC_OBJCPP_OPENGL_SOURCE",
-    "MLN_IOS_PUBLIC_OBJCPP_SOURCE",
-    "MLN_IOS_PUBLIC_OBJC_SOURCE",
-    "MLN_IOS_SDK_HEADERS",
-    "MLN_PUBLIC_IOS_APP_SOPURCE",
+    "MH_IOS_PRIVATE_HEADERS",
+    "MH_IOS_PUBLIC_HEADERS",
+    "MH_IOS_PUBLIC_OBJCPP_METAL_SOURCE",
+    "MH_IOS_PUBLIC_OBJCPP_OPENGL_SOURCE",
+    "MH_IOS_PUBLIC_OBJCPP_SOURCE",
+    "MH_IOS_PUBLIC_OBJC_SOURCE",
+    "MH_IOS_SDK_HEADERS",
+    "MH_PUBLIC_IOS_APP_SOPURCE",
 )
 load("//platform/ios/bazel:macros.bzl", "info_plist")
 load("//platform/ios/bazel:provisioning.bzl", "configure_device_profiles")
@@ -27,40 +27,40 @@ configure_device_profiles()
 
 filegroup(
     name = "ios_sdk_hdrs",
-    srcs = MLN_IOS_SDK_HEADERS,
+    srcs = MH_IOS_SDK_HEADERS,
     visibility = ["//visibility:public"],
 )
 
 filegroup(
     name = "ios_public_hdrs",
-    srcs = MLN_IOS_PUBLIC_HEADERS,
+    srcs = MH_IOS_PUBLIC_HEADERS,
     visibility = ["//visibility:public"],
 )
 
 filegroup(
     name = "ios_private_hdrs",
-    srcs = MLN_IOS_PRIVATE_HEADERS,
+    srcs = MH_IOS_PRIVATE_HEADERS,
     visibility = ["//visibility:public"],
 )
 
 filegroup(
     name = "ios_objcpp_srcs",
-    srcs = MLN_IOS_PUBLIC_OBJCPP_SOURCE + select({
-        "//:metal_renderer": MLN_IOS_PUBLIC_OBJCPP_METAL_SOURCE,
-        "//conditions:default": MLN_IOS_PUBLIC_OBJCPP_OPENGL_SOURCE,
+    srcs = MH_IOS_PUBLIC_OBJCPP_SOURCE + select({
+        "//:metal_renderer": MH_IOS_PUBLIC_OBJCPP_METAL_SOURCE,
+        "//conditions:default": MH_IOS_PUBLIC_OBJCPP_OPENGL_SOURCE,
     }),
     visibility = ["//visibility:public"],
 )
 
 filegroup(
     name = "ios_objc_srcs",
-    srcs = MLN_IOS_PUBLIC_OBJC_SOURCE,
+    srcs = MH_IOS_PUBLIC_OBJC_SOURCE,
     visibility = ["//visibility:public"],
 )
 
 filegroup(
     name = "ios_app_srcs",
-    srcs = MLN_PUBLIC_IOS_APP_SOPURCE,
+    srcs = MH_PUBLIC_IOS_APP_SOPURCE,
     visibility = ["//visibility:public"],
 )
 
@@ -344,13 +344,13 @@ sh_binary(
 )
 
 exports_files(
-    MLN_IOS_PUBLIC_HEADERS +
-    MLN_IOS_PRIVATE_HEADERS +
-    MLN_IOS_PUBLIC_OBJCPP_SOURCE +
-    MLN_IOS_PUBLIC_OBJCPP_METAL_SOURCE +
-    MLN_IOS_PUBLIC_OBJCPP_OPENGL_SOURCE +
-    MLN_IOS_PUBLIC_OBJC_SOURCE +
-    MLN_PUBLIC_IOS_APP_SOPURCE,
+    MH_IOS_PUBLIC_HEADERS +
+    MH_IOS_PRIVATE_HEADERS +
+    MH_IOS_PUBLIC_OBJCPP_SOURCE +
+    MH_IOS_PUBLIC_OBJCPP_METAL_SOURCE +
+    MH_IOS_PUBLIC_OBJCPP_OPENGL_SOURCE +
+    MH_IOS_PUBLIC_OBJC_SOURCE +
+    MH_PUBLIC_IOS_APP_SOPURCE,
 )
 
 js_library(

@@ -1,5 +1,5 @@
-option(MLN_WITH_X11 "Build with X11 Support" ON)
-option(MLN_WITH_WAYLAND "Build with Wayland Support" OFF)
+option(MH_WITH_X11 "Build with X11 Support" ON)
+option(MH_WITH_WAYLAND "Build with Wayland Support" OFF)
 
 find_package(CURL REQUIRED)
 find_package(ICU OPTIONAL_COMPONENTS i18n)
@@ -7,7 +7,7 @@ find_package(ICU OPTIONAL_COMPONENTS uc)
 find_package(JPEG REQUIRED)
 find_package(PNG REQUIRED)
 find_package(PkgConfig REQUIRED)
-if (MLN_WITH_X11)
+if (MH_WITH_X11)
     find_package(X11 REQUIRED)
 endif ()
 find_package(Threads REQUIRED)
@@ -15,12 +15,12 @@ find_package(Threads REQUIRED)
 pkg_search_module(WEBP libwebp REQUIRED)
 pkg_search_module(LIBUV libuv REQUIRED)
 
-if(MLN_WITH_WAYLAND)
+if(MH_WITH_WAYLAND)
     # See https://github.com/maplibre/maplibre-native/pull/2022
 
-    # MLN_WITH_EGL needs to be set for Wayland, otherwise this CMakeLists will
+    # MH_WITH_EGL needs to be set for Wayland, otherwise this CMakeLists will
     # call find_package(OpenGL REQUIRED GLX), which is for X11.
-    set(MLN_WITH_EGL TRUE)
+    set(MH_WITH_EGL TRUE)
 
     # OPENGL_USE_GLES2 or OPENGL_USE_GLES3 need to be set, otherwise
     # FindOpenGL.cmake will include the GLVND library, which is for X11.
@@ -72,7 +72,7 @@ target_sources(
         ${PROJECT_SOURCE_DIR}/platform/linux/src/gl_functions.cpp
 )
 
-if(MLN_WITH_EGL)
+if(MH_WITH_EGL)
     find_package(OpenGL REQUIRED EGL)
     target_sources(
         mbgl-core
@@ -84,14 +84,14 @@ if(MLN_WITH_EGL)
         PRIVATE
             OpenGL::EGL
     )
-    if (MLN_WITH_WAYLAND)
+    if (MH_WITH_WAYLAND)
         target_compile_definitions(mbgl-core PUBLIC
                 EGL_NO_X11
                 MESA_EGL_NO_X11_HEADERS
                 WL_EGL_PLATFORM
         )
     endif()
-elseif(MLN_WITH_VULKAN)
+elseif(MH_WITH_VULKAN)
     target_include_directories(
         mbgl-core
         PRIVATE
@@ -144,7 +144,7 @@ include(${PROJECT_SOURCE_DIR}/vendor/sqlite.cmake)
 if(NOT ${ICU_FOUND} OR "${ICU_VERSION}" VERSION_LESS 62.0)
     message(STATUS "ICU not found or too old, using builtin.")
 
-    set(MLN_USE_BUILTIN_ICU TRUE)
+    set(MH_USE_BUILTIN_ICU TRUE)
     include(${PROJECT_SOURCE_DIR}/vendor/icu.cmake)
 
     set_source_files_properties(
@@ -164,9 +164,9 @@ target_link_libraries(
         ${X11_LIBRARIES}
         ${CMAKE_THREAD_LIBS_INIT}
         ${WEBP_LIBRARIES}
-        $<$<NOT:$<BOOL:${MLN_USE_BUILTIN_ICU}>>:ICU::i18n>
-        $<$<NOT:$<BOOL:${MLN_USE_BUILTIN_ICU}>>:ICU::uc>
-        $<$<BOOL:${MLN_USE_BUILTIN_ICU}>:mbgl-vendor-icu>
+        $<$<NOT:$<BOOL:${MH_USE_BUILTIN_ICU}>>:ICU::i18n>
+        $<$<NOT:$<BOOL:${MH_USE_BUILTIN_ICU}>>:ICU::uc>
+        $<$<BOOL:${MH_USE_BUILTIN_ICU}>:mbgl-vendor-icu>
         PNG::PNG
         mbgl-vendor-nunicode
         mbgl-vendor-sqlite
@@ -175,7 +175,7 @@ target_link_libraries(
 add_subdirectory(${PROJECT_SOURCE_DIR}/bin)
 add_subdirectory(${PROJECT_SOURCE_DIR}/expression-test)
 add_subdirectory(${PROJECT_SOURCE_DIR}/platform/glfw)
-if(MLN_WITH_NODE)
+if(MH_WITH_NODE)
     add_subdirectory(${PROJECT_SOURCE_DIR}/platform/node)
 endif()
 

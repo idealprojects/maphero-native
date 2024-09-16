@@ -14,7 +14,7 @@
 #include <mbgl/shaders/shader_program_base.hpp>
 #include <mbgl/style/layers/fill_extrusion_layer_properties.hpp>
 
-#if MLN_RENDER_BACKEND_METAL
+#if MH_RENDER_BACKEND_METAL
 #include <mbgl/shaders/mtl/fill_extrusion.hpp>
 #include <mbgl/shaders/mtl/fill_extrusion_pattern.hpp>
 #endif

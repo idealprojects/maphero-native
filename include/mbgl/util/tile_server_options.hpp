@@ -286,7 +286,7 @@ public:
     /**
      * @brief Get the tile server options configured for MapLibre.
      */
-    static TileServerOptions MapLibreConfiguration();
+    static TileServerOptions MapHeroConfiguration();
 
     /**
      * @brief Get the tile server options configured for Mapbox.

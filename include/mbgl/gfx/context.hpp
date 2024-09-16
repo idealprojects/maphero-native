@@ -11,7 +11,7 @@
 #include <mbgl/gfx/texture.hpp>
 #include <mbgl/gfx/types.hpp>
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
 #include <mbgl/gfx/uniform_buffer.hpp>
 #endif
 
@@ -23,7 +23,7 @@ namespace mbgl {
 class PaintParameters;
 class ProgramParameters;
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
 class TileLayerGroup;
 class LayerGroup;
 class RenderTarget;
@@ -37,7 +37,7 @@ namespace gfx {
 class OffscreenTexture;
 class ShaderRegistry;
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
 class Drawable;
 class DrawableBuilder;
 class ShaderProgramBase;
@@ -114,7 +114,7 @@ public:
     /// Sets dirty state
     virtual void setDirtyState() = 0;
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
     /// Create a new vertex attribute array
     virtual gfx::VertexAttributeArrayPtr createVertexAttributeArray() const = 0;
 

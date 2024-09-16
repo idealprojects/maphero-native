@@ -13,7 +13,7 @@ using SourceType = mbgl::style::SourceType;
 
 namespace mapboxFixture {
 const TileServerOptions mapboxTileServerOptions = TileServerOptions::MapboxConfiguration();
-const TileServerOptions mapLibreTileServerOptions = TileServerOptions::MapLibreConfiguration();
+const TileServerOptions mapHeroTileServerOptions = TileServerOptions::MapHeroConfiguration();
 const TileServerOptions mapTilerTileServerOptions = TileServerOptions::MapTilerConfiguration();
 } // namespace mapboxFixture
 
@@ -303,20 +303,20 @@ TEST(Mapbox, CanonicalizeVectorTileset) {
     EXPECT_EQ("mapbox://tiles/mapbox.streets/{z}/{x}/{y}.vector.pbf", tileset.tiles[0]);
 }
 
-// MapLibre tests
+// MapHero tests
 TEST(MapLibre, CanonicalURL) {
     EXPECT_EQ(
         "https://demotiles.maplibre.org/style.json",
-        mbgl::util::mapbox::normalizeStyleURL(mapboxFixture::mapLibreTileServerOptions, "maplibre://maps/style", ""));
+        mbgl::util::mapbox::normalizeStyleURL(mapboxFixture::mapHeroTileServerOptions, "maphero://maps/style", ""));
     EXPECT_EQ(
         "https://demotiles.maplibre.org/tiles/tiles.json",
-        mbgl::util::mapbox::normalizeSourceURL(mapboxFixture::mapLibreTileServerOptions, "maplibre://tiles/tiles", ""));
+        mbgl::util::mapbox::normalizeSourceURL(mapboxFixture::mapHeroTileServerOptions, "maphero://tiles/tiles", ""));
     EXPECT_EQ("https://demotiles.maplibre.org/font/{fontstack}/{start}-{end}.pbf",
               mbgl::util::mapbox::normalizeGlyphsURL(
-                  mapboxFixture::mapLibreTileServerOptions, "maplibre://fonts/{fontstack}/{start}-{end}.pbf", ""));
+                  mapboxFixture::mapHeroTileServerOptions, "maphero://fonts/{fontstack}/{start}-{end}.pbf", ""));
 
-    EXPECT_EQ("maplibre://tiles/tiles/{z}/{x}/{y}.pbf",
-              mbgl::util::mapbox::canonicalizeTileURL(mapboxFixture::mapLibreTileServerOptions,
+    EXPECT_EQ("maphero://tiles/tiles/{z}/{x}/{y}.pbf",
+              mbgl::util::mapbox::canonicalizeTileURL(mapboxFixture::mapHeroTileServerOptions,
                                                       "https://demotiles.maplibre.org/tiles/{z}/{x}/{y}.pbf",
                                                       SourceType::Vector,
                                                       512));

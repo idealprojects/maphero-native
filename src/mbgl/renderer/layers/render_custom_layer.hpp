@@ -10,7 +10,7 @@ public:
     explicit RenderCustomLayer(Immutable<style::CustomLayer::Impl>);
     ~RenderCustomLayer() override;
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
     /// Generate any changes needed by the layer
     void update(gfx::ShaderRegistry&,
                 gfx::Context&,
@@ -28,7 +28,7 @@ private:
     void markContextDestroyed() override;
     void prepare(const LayerPrepareParameters&) override;
 
-#if MLN_LEGACY_RENDERER
+#if MH_LEGACY_RENDERER
     void render(PaintParameters&) override;
 #endif
 

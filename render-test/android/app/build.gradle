@@ -30,7 +30,7 @@ android {
             cmake {
                 arguments '-DANDROID_CCACHE=ccache'
                 arguments '-DANDROID_STL=c++_static'
-                arguments "-DMLN_LEGACY_RENDERER=OFF", "-DMLN_DRAWABLE_RENDERER=ON"
+                arguments "-DMH_LEGACY_RENDERER=OFF", "-DMH_DRAWABLE_RENDERER=ON"
                 targets 'mbgl-render-test-runner'
             }
         }
@@ -62,7 +62,7 @@ android {
             dimension = "renderer"
             externalNativeBuild {
                 cmake {
-                    arguments "-DMLN_WITH_OPENGL=OFF", "-DMLN_WITH_VULKAN=ON"
+                    arguments "-DMH_WITH_OPENGL=OFF", "-DMH_WITH_VULKAN=ON"
                 }
             }
         }

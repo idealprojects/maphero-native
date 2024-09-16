@@ -9,7 +9,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.maplibre.android.AppCenter
 import org.maplibre.android.MapLibre
-import org.maplibre.android.exceptions.MapLibreConfigurationException
+import org.maplibre.android.exceptions.MapHeroConfigurationException
 
 @RunWith(AndroidJUnit4ClassRunner::class)
 class MapLibreTest : AppCenter() {
@@ -48,7 +48,7 @@ class MapLibreTest : AppCenter() {
     @UiThreadTest
     fun setNullApiKey() {
         Assert.assertThrows(
-            MapLibreConfigurationException::class.java
+            MapHeroConfigurationException::class.java
         ) { MapLibre.setApiKey(null) }
     }
 

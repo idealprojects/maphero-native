@@ -49,10 +49,10 @@ public:
 
     SegmentVector<FillExtrusionAttributes> triangleSegments;
 
-#if MLN_LEGACY_RENDERER
+#if MH_LEGACY_RENDERER
     std::optional<gfx::VertexBuffer<FillExtrusionLayoutVertex>> vertexBuffer;
     std::optional<gfx::IndexBuffer> indexBuffer;
-#endif // MLN_LEGACY_RENDERER
+#endif // MH_LEGACY_RENDERER
 
     std::unordered_map<std::string, FillExtrusionProgram::Binders> paintPropertyBinders;
 };

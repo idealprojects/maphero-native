@@ -8,20 +8,20 @@
 #include <mbgl/renderer/paint_parameters.hpp>
 #include <mbgl/util/mat4.hpp>
 
-#if MLN_LEGACY_RENDERER
+#if MH_LEGACY_RENDERER
 #include <mbgl/platform/gl_functions.hpp>
 #include <mbgl/gl/context.hpp>
 #include <mbgl/gl/renderable_resource.hpp>
 #include <mbgl/style/layers/custom_layer_render_parameters.hpp>
 #endif
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
 #include <mbgl/gfx/context.hpp>
 #include <mbgl/renderer/layer_group.hpp>
 #include <mbgl/gfx/drawable_custom_layer_host_tweaker.hpp>
 #include <mbgl/gfx/drawable_builder.hpp>
 
-#if !MLN_LEGACY_RENDERER
+#if !MH_LEGACY_RENDERER
 // TODO: platform agnostic error checks
 #define MBGL_CHECK_ERROR(cmd) (cmd)
 #endif
@@ -74,7 +74,7 @@ void RenderCustomLayer::markContextDestroyed() {
 
 void RenderCustomLayer::prepare(const LayerPrepareParameters&) {}
 
-#if MLN_LEGACY_RENDERER
+#if MH_LEGACY_RENDERER
 void RenderCustomLayer::render(PaintParameters& paintParameters) {
     if (host != impl(baseImpl).host) {
         // If the context changed, deinitialize the previous one before initializing the new one.
@@ -104,7 +104,7 @@ void RenderCustomLayer::render(PaintParameters& paintParameters) {
 }
 #endif
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
 void RenderCustomLayer::update([[maybe_unused]] gfx::ShaderRegistry& shaders,
                                gfx::Context& context,
                                [[maybe_unused]] const TransformState& state,

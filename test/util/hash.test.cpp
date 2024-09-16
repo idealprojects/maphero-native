@@ -9,7 +9,7 @@
 #include <random>
 #include <vector>
 
-#if MLN_RENDER_BACKEND_METAL
+#if MH_RENDER_BACKEND_METAL
 #include <mbgl/shaders/mtl/background.hpp>
 #include <mbgl/shaders/mtl/background_pattern.hpp>
 #include <mbgl/shaders/mtl/circle.hpp>
@@ -74,7 +74,7 @@ TEST(OrderIndependentHash, Permutations) {
     }
 }
 
-#if MLN_RENDER_BACKEND_METAL
+#if MH_RENDER_BACKEND_METAL
 
 using namespace mbgl::shaders;
 

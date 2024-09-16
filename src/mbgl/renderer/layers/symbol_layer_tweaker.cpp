@@ -18,10 +18,10 @@
 #include <mbgl/util/convert.hpp>
 #include <mbgl/util/std.hpp>
 
-#if MLN_RENDER_BACKEND_METAL
+#if MH_RENDER_BACKEND_METAL
 #include <mbgl/shaders/mtl/symbol_icon.hpp>
 #include <mbgl/shaders/mtl/symbol_sdf.hpp>
-#endif // MLN_RENDER_BACKEND_METAL
+#endif // MH_RENDER_BACKEND_METAL
 
 namespace mbgl {
 

@@ -1,8 +1,8 @@
-if(MLN_WITH_EGL)
+if(MH_WITH_EGL)
     set(_RENDERER EGL)
-elseif(MLN_WITH_OSMESA)
+elseif(MH_WITH_OSMESA)
     set(_RENDERER OSMesa)
-elseif(MLN_WITH_VULKAN)
+elseif(MH_WITH_VULKAN)
     set(_RENDERER Vulkan)
 else()
     set(_RENDERER OpenGL)
@@ -79,7 +79,7 @@ target_compile_definitions(
         USE_STD_FILESYSTEM
 )
 
-if(MLN_WITH_OPENGL)
+if(MH_WITH_OPENGL)
     target_sources(
         mbgl-core
         PRIVATE
@@ -87,7 +87,7 @@ if(MLN_WITH_OPENGL)
     )
 endif()
 
-if(MLN_WITH_EGL)
+if(MH_WITH_EGL)
     find_package(unofficial-angle CONFIG REQUIRED)
     target_sources(
         mbgl-core
@@ -106,7 +106,7 @@ if(MLN_WITH_EGL)
             unofficial::angle::libEGL
             unofficial::angle::libGLESv2
     )
-elseif(MLN_WITH_OSMESA)
+elseif(MH_WITH_OSMESA)
     list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR})
     list(APPEND CMAKE_PREFIX_PATH ${CMAKE_CURRENT_LIST_DIR}/vendor/mesa3d)
 
@@ -129,7 +129,7 @@ elseif(MLN_WITH_OSMESA)
             OSMesa::osmesa
             OSMesa::libGLESv2
     )
-elseif(MLN_WITH_VULKAN)
+elseif(MH_WITH_VULKAN)
     target_sources(
         mbgl-core
         PRIVATE
@@ -173,7 +173,7 @@ include(${PROJECT_SOURCE_DIR}/vendor/sqlite.cmake)
 if(NOT ${ICU_FOUND} OR "${ICU_VERSION}" VERSION_LESS 62.0)
     message(STATUS "ICU not found or too old, using builtin.")
 
-    set(MLN_USE_BUILTIN_ICU TRUE)
+    set(MH_USE_BUILTIN_ICU TRUE)
     include(${PROJECT_SOURCE_DIR}/vendor/icu.cmake)
 
     set_source_files_properties(
@@ -192,10 +192,10 @@ target_link_libraries(
         ${LIBUV_LIBRARIES}
         ${WEBP_LIBRARIES}
 		dlfcn-win32::dl
-        $<$<NOT:$<BOOL:${MLN_USE_BUILTIN_ICU}>>:ICU::data>
-        $<$<NOT:$<BOOL:${MLN_USE_BUILTIN_ICU}>>:ICU::i18n>
-        $<$<NOT:$<BOOL:${MLN_USE_BUILTIN_ICU}>>:ICU::uc>
-        $<$<BOOL:${MLN_USE_BUILTIN_ICU}>:mbgl-vendor-icu>
+        $<$<NOT:$<BOOL:${MH_USE_BUILTIN_ICU}>>:ICU::data>
+        $<$<NOT:$<BOOL:${MH_USE_BUILTIN_ICU}>>:ICU::i18n>
+        $<$<NOT:$<BOOL:${MH_USE_BUILTIN_ICU}>>:ICU::uc>
+        $<$<BOOL:${MH_USE_BUILTIN_ICU}>:mbgl-vendor-icu>
         PNG::PNG
         mbgl-vendor-nunicode
         mbgl-vendor-sqlite
@@ -204,7 +204,7 @@ target_link_libraries(
 add_subdirectory(${PROJECT_SOURCE_DIR}/bin)
 add_subdirectory(${PROJECT_SOURCE_DIR}/expression-test)
 add_subdirectory(${PROJECT_SOURCE_DIR}/platform/glfw)
-if(MLN_WITH_NODE)
+if(MH_WITH_NODE)
     add_subdirectory(${PROJECT_SOURCE_DIR}/platform/node)
 endif()
 

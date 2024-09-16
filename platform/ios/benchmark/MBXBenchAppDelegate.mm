@@ -8,11 +8,11 @@
 - (BOOL)application:(UIApplication*)application
     didFinishLaunchingWithOptions:(NSDictionary*)launchOptions {
 
-#ifndef MLN_LOGGING_DISABLED
-    [MLNLoggingConfiguration sharedConfiguration].loggingLevel = MLNLoggingLevelFault;
+#ifndef MH_LOGGING_DISABLED
+    [MHLoggingConfiguration sharedConfiguration].loggingLevel = MHLoggingLevelFault;
 #endif
 
-    [MLNSettings useWellKnownTileServer:MLNMapTiler];
+    [MHSettings useWellKnownTileServer:MHMapTiler];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.rootViewController = [MBXBenchViewController new];

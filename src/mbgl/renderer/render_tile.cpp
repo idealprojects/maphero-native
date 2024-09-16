@@ -96,7 +96,7 @@ std::optional<ImagePosition> RenderTile::getPattern(const std::string& pattern) 
     return renderData->getPattern(pattern);
 }
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
 static const gfx::Texture2DPtr noTexture;
 
 bool RenderTile::hasGlyphAtlasTexture() const {

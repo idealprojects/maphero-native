@@ -24,8 +24,8 @@ FillBucket::~FillBucket() {
     sharedVertices->release();
 }
 
-// MLN_TRIANGULATE_FILL_OUTLINES is defined in fill_bucket.hpp
-#if MLN_TRIANGULATE_FILL_OUTLINES
+// MH_TRIANGULATE_FILL_OUTLINES is defined in fill_bucket.hpp
+#if MH_TRIANGULATE_FILL_OUTLINES
 void FillBucket::addFeature(const GeometryTileFeature& feature,
                             const GeometryCollection& geometry,
                             const ImagePositions& patternPositions,
@@ -53,7 +53,7 @@ void FillBucket::addFeature(const GeometryTileFeature& feature,
         }
     }
 }
-#else  // MLN_TRIANGULATE_FILL_OUTLINES
+#else  // MH_TRIANGULATE_FILL_OUTLINES
 void FillBucket::addFeature(const GeometryTileFeature& feature,
                             const GeometryCollection& geometry,
                             const ImagePositions& patternPositions,
@@ -73,10 +73,10 @@ void FillBucket::addFeature(const GeometryTileFeature& feature,
         }
     }
 }
-#endif // MLN_TRIANGULATE_FILL_OUTLINES
+#endif // MH_TRIANGULATE_FILL_OUTLINES
 
 void FillBucket::upload([[maybe_unused]] gfx::UploadPass& uploadPass) {
-#if MLN_LEGACY_RENDERER
+#if MH_LEGACY_RENDERER
     if (!uploaded) {
         vertexBuffer = uploadPass.createVertexBuffer(std::move(vertices));
         lineIndexBuffer = uploadPass.createIndexBuffer(std::move(basicLines));
@@ -87,7 +87,7 @@ void FillBucket::upload([[maybe_unused]] gfx::UploadPass& uploadPass) {
     for (auto& pair : paintPropertyBinders) {
         pair.second.upload(uploadPass);
     }
-#endif // MLN_LEGACY_RENDERER
+#endif // MH_LEGACY_RENDERER
 
     uploaded = true;
 }

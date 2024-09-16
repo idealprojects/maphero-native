@@ -22,7 +22,7 @@ void RasterBucket::upload([[maybe_unused]] gfx::UploadPass& uploadPass) {
     if (!hasData()) {
         return;
     }
-#if MLN_LEGACY_RENDERER
+#if MH_LEGACY_RENDERER
     if (!texture) {
         texture = uploadPass.createTexture(*image);
     }
@@ -32,15 +32,15 @@ void RasterBucket::upload([[maybe_unused]] gfx::UploadPass& uploadPass) {
     if (!indices.empty()) {
         indexBuffer = uploadPass.createIndexBuffer(std::move(indices));
     }
-#endif // MLN_LEGACY_RENDERER
+#endif // MH_LEGACY_RENDERER
     uploaded = true;
 }
 
 void RasterBucket::clear() {
-#if MLN_LEGACY_RENDERER
+#if MH_LEGACY_RENDERER
     vertexBuffer = {};
     indexBuffer = {};
-#endif // MLN_LEGACY_RENDERER
+#endif // MH_LEGACY_RENDERER
 
     segments.clear();
     vertices.clear();

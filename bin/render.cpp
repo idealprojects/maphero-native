@@ -14,7 +14,7 @@
 #include <fstream>
 
 int main(int argc, char* argv[]) {
-    args::ArgumentParser argumentParser("MapLibre Native render tool");
+    args::ArgumentParser argumentParser("MapHero Native render tool");
     args::HelpFlag helpFlag(argumentParser, "help", "Display this help menu", {"help"});
 
     args::ValueFlag<std::string> backendValue(argumentParser, "Backend", "Rendering backend", {"backend"});
@@ -67,7 +67,7 @@ int main(int argc, char* argv[]) {
     const std::string asset_root = assetsValue ? args::get(assetsValue) : ".";
 
     // Try to load the apikey from the environment.
-    const char* apikeyEnv = getenv("MLN_API_KEY");
+    const char* apikeyEnv = getenv("MH_API_KEY");
     const std::string apikey = apikeyValue ? args::get(apikeyValue) : (apikeyEnv ? apikeyEnv : std::string());
 
     const bool debug = debugFlag ? args::get(debugFlag) : false;

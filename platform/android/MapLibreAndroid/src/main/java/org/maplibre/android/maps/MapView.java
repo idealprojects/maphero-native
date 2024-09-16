@@ -26,7 +26,7 @@ import org.maplibre.android.R;
 import org.maplibre.android.WellKnownTileServer;
 import org.maplibre.android.annotations.Annotation;
 import org.maplibre.android.constants.MapLibreConstants;
-import org.maplibre.android.exceptions.MapLibreConfigurationException;
+import org.maplibre.android.exceptions.MapHeroConfigurationException;
 import org.maplibre.android.location.LocationComponent;
 import org.maplibre.android.maps.renderer.MapRenderer;
 import org.maplibre.android.maps.widgets.CompassView;
@@ -129,7 +129,7 @@ public class MapView extends FrameLayout implements NativeMapView.ViewCallback {
     }
 
     if (!MapLibre.hasInstance()) {
-      throw new MapLibreConfigurationException();
+      throw new MapHeroConfigurationException();
     }
 
     // hide surface until map is fully loaded #10990

@@ -3,23 +3,23 @@ load("@bazel_skylib//rules:common_settings.bzl", "string_flag")
 load("@npm//:defs.bzl", "npm_link_all_packages")
 load(
     "//bazel:core.bzl",
-    "MLN_CORE_HEADERS",
-    "MLN_CORE_SOURCE",
-    "MLN_DRAWABLES_GL_HEADERS",
-    "MLN_DRAWABLES_GL_SOURCE",
-    "MLN_DRAWABLES_HEADERS",
-    "MLN_DRAWABLES_MTL_HEADERS",
-    "MLN_DRAWABLES_MTL_SOURCE",
-    "MLN_DRAWABLES_SOURCE",
-    "MLN_GENERATED_OPENGL_SHADER_HEADERS",
-    "MLN_GENERATED_SHADER_HEADERS",
-    "MLN_GENERATED_STYLE_SOURCE",
-    "MLN_OPENGL_HEADERS",
-    "MLN_OPENGL_SOURCE",
-    "MLN_PRIVATE_GENERATED_STYLE_HEADERS",
-    "MLN_PUBLIC_GENERATED_STYLE_HEADERS",
+    "MH_CORE_HEADERS",
+    "MH_CORE_SOURCE",
+    "MH_DRAWABLES_GL_HEADERS",
+    "MH_DRAWABLES_GL_SOURCE",
+    "MH_DRAWABLES_HEADERS",
+    "MH_DRAWABLES_MTL_HEADERS",
+    "MH_DRAWABLES_MTL_SOURCE",
+    "MH_DRAWABLES_SOURCE",
+    "MH_GENERATED_OPENGL_SHADER_HEADERS",
+    "MH_GENERATED_SHADER_HEADERS",
+    "MH_GENERATED_STYLE_SOURCE",
+    "MH_OPENGL_HEADERS",
+    "MH_OPENGL_SOURCE",
+    "MH_PRIVATE_GENERATED_STYLE_HEADERS",
+    "MH_PUBLIC_GENERATED_STYLE_HEADERS",
 )
-load("//bazel:flags.bzl", "CPP_FLAGS", "MAPLIBRE_FLAGS")
+load("//bazel:flags.bzl", "CPP_FLAGS", "MAPHERO_FLAGS")
 
 # Generate code required by the core
 
@@ -29,9 +29,9 @@ js_run_binary(
         ["**/*.ejs"],
         allow_empty = False,
     ),
-    outs = MLN_PUBLIC_GENERATED_STYLE_HEADERS +
-           MLN_PRIVATE_GENERATED_STYLE_HEADERS +
-           MLN_GENERATED_STYLE_SOURCE,
+    outs = MH_PUBLIC_GENERATED_STYLE_HEADERS +
+           MH_PRIVATE_GENERATED_STYLE_HEADERS +
+           MH_GENERATED_STYLE_SOURCE,
     tool = ":generate-style-code-script",
 )
 
@@ -41,8 +41,8 @@ js_run_binary(
         ["shaders/*.glsl"],
         allow_empty = False,
     ),
-    outs = MLN_GENERATED_SHADER_HEADERS +
-           MLN_GENERATED_OPENGL_SHADER_HEADERS,
+    outs = MH_GENERATED_SHADER_HEADERS +
+           MH_GENERATED_OPENGL_SHADER_HEADERS,
     tool = ":generate-shader-code-script",
 )
 
@@ -53,11 +53,11 @@ cc_library(
     hdrs = [
                ":generated_shaders",
                ":generated_style_code",
-           ] + MLN_PUBLIC_GENERATED_STYLE_HEADERS +
-           MLN_GENERATED_SHADER_HEADERS +
+           ] + MH_PUBLIC_GENERATED_STYLE_HEADERS +
+           MH_GENERATED_SHADER_HEADERS +
            select({
                "//:metal_renderer": [],
-               "//conditions:default": MLN_GENERATED_OPENGL_SHADER_HEADERS,
+               "//conditions:default": MH_GENERATED_OPENGL_SHADER_HEADERS,
            }),
     visibility = ["//visibility:public"],
 )
@@ -65,7 +65,7 @@ cc_library(
 # ditto, but for private headers (under the src/ path)
 cc_library(
     name = "mbgl-core-generated-private-artifacts",
-    hdrs = [":generated_style_code"] + MLN_PRIVATE_GENERATED_STYLE_HEADERS,
+    hdrs = [":generated_style_code"] + MH_PRIVATE_GENERATED_STYLE_HEADERS,
     visibility = ["//visibility:private"],
 )
 
@@ -73,35 +73,35 @@ cc_library(
 # the prefix from the path.
 cc_library(
     name = "mbgl-core",
-    srcs = MLN_CORE_SOURCE +
-           MLN_GENERATED_STYLE_SOURCE + select({
-        ":drawable_renderer": MLN_OPENGL_SOURCE + MLN_DRAWABLES_SOURCE + MLN_DRAWABLES_GL_SOURCE,
-        ":legacy_renderer": MLN_OPENGL_SOURCE,
-        ":metal_renderer": MLN_DRAWABLES_SOURCE + MLN_DRAWABLES_MTL_SOURCE,
+    srcs = MH_CORE_SOURCE +
+           MH_GENERATED_STYLE_SOURCE + select({
+        ":drawable_renderer": MH_OPENGL_SOURCE + MH_DRAWABLES_SOURCE + MH_DRAWABLES_GL_SOURCE,
+        ":legacy_renderer": MH_OPENGL_SOURCE,
+        ":metal_renderer": MH_DRAWABLES_SOURCE + MH_DRAWABLES_MTL_SOURCE,
         "//conditions:default": [],
     }),
-    hdrs = MLN_CORE_HEADERS + select({
-        ":drawable_renderer": MLN_OPENGL_HEADERS + MLN_DRAWABLES_HEADERS + MLN_DRAWABLES_GL_HEADERS,
-        ":legacy_renderer": MLN_OPENGL_HEADERS,
-        ":metal_renderer": MLN_DRAWABLES_HEADERS + MLN_DRAWABLES_MTL_HEADERS,
+    hdrs = MH_CORE_HEADERS + select({
+        ":drawable_renderer": MH_OPENGL_HEADERS + MH_DRAWABLES_HEADERS + MH_DRAWABLES_GL_HEADERS,
+        ":legacy_renderer": MH_OPENGL_HEADERS,
+        ":metal_renderer": MH_DRAWABLES_HEADERS + MH_DRAWABLES_MTL_HEADERS,
         "//conditions:default": [],
     }),
-    copts = CPP_FLAGS + MAPLIBRE_FLAGS,
+    copts = CPP_FLAGS + MAPHERO_FLAGS,
     defines = select({
         ":legacy_renderer": [
-            "MLN_RENDER_BACKEND_OPENGL=1",
-            "MLN_LEGACY_RENDERER=1",
-            "MLN_DRAWABLE_RENDERER=0",
+            "MH_RENDER_BACKEND_OPENGL=1",
+            "MH_LEGACY_RENDERER=1",
+            "MH_DRAWABLE_RENDERER=0",
         ],
         ":drawable_renderer": [
-            "MLN_RENDER_BACKEND_OPENGL=1",
-            "MLN_LEGACY_RENDERER=0",
-            "MLN_DRAWABLE_RENDERER=1",
+            "MH_RENDER_BACKEND_OPENGL=1",
+            "MH_LEGACY_RENDERER=0",
+            "MH_DRAWABLE_RENDERER=1",
         ],
         ":metal_renderer": [
-            "MLN_RENDER_BACKEND_METAL=1",
-            "MLN_LEGACY_RENDERER=0",
-            "MLN_DRAWABLE_RENDERER=1",
+            "MH_RENDER_BACKEND_METAL=1",
+            "MH_LEGACY_RENDERER=0",
+            "MH_DRAWABLE_RENDERER=1",
         ],
     }) + select({
         "@platforms//os:ios": ["GLES_SILENCE_DEPRECATION=1"],
@@ -117,7 +117,7 @@ cc_library(
         "//conditions:default": [],
     }),
     local_defines = [
-        r"MLN_VERSION_REV=\"standalone\"",
+        r"MH_VERSION_REV=\"standalone\"",
     ],
     visibility = ["//visibility:public"],
     deps = [

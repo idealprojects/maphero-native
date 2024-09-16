@@ -27,10 +27,10 @@ const char* __ubsan_default_options(void) {
 @implementation MBXAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-#ifndef MLN_LOGGING_DISABLED
-    [MLNLoggingConfiguration sharedConfiguration].loggingLevel = MLNLoggingLevelFault;
+#ifndef MH_LOGGING_DISABLED
+    [MHLoggingConfiguration sharedConfiguration].loggingLevel = MHLoggingLevelFault;
 #endif
-    [MLNSettings useWellKnownTileServer:MLNMapTiler];
+    [MHSettings useWellKnownTileServer:MHMapTiler];
 
     return YES;
 }

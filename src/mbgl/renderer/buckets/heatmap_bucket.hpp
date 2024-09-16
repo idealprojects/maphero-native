@@ -40,10 +40,10 @@ public:
 
     SegmentVector<HeatmapAttributes> segments;
 
-#if MLN_LEGACY_RENDERER
+#if MH_LEGACY_RENDERER
     std::optional<gfx::VertexBuffer<HeatmapLayoutVertex>> vertexBuffer;
     std::optional<gfx::IndexBuffer> indexBuffer;
-#endif // MLN_LEGACY_RENDERER
+#endif // MH_LEGACY_RENDERER
 
     std::map<std::string, HeatmapProgram::Binders> paintPropertyBinders;
 

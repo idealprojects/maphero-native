@@ -2,15 +2,15 @@
 
 #import "MapDocument.h"
 
-NSString * const MLNApiKeyDefaultsKey = @"MLNApiKey";
-NSString * const MLNLastMapCameraDefaultsKey = @"MLNLastMapCamera";
-NSString * const MLNLastMapStyleURLDefaultsKey = @"MLNLastMapStyleURL";
-NSString * const MLNLastMapDebugMaskDefaultsKey = @"MLNLastMapDebugMask";
+NSString * const MHApiKeyDefaultsKey = @"MHApiKey";
+NSString * const MHLastMapCameraDefaultsKey = @"MHLastMapCamera";
+NSString * const MHLastMapStyleURLDefaultsKey = @"MHLastMapStyleURL";
+NSString * const MHLastMapDebugMaskDefaultsKey = @"MHLastMapDebugMask";
 
 /**
  Some convenience methods to make offline pack properties easier to bind to.
  */
-@implementation MLNOfflinePack (Additions)
+@implementation MHOfflinePack (Additions)
 
 + (NSSet *)keyPathsForValuesAffectingStateImage {
     return [NSSet setWithObjects:@"state", nil];
@@ -18,10 +18,10 @@ NSString * const MLNLastMapDebugMaskDefaultsKey = @"MLNLastMapDebugMask";
 
 - (NSImage *)stateImage {
     switch (self.state) {
-        case MLNOfflinePackStateComplete:
+        case MHOfflinePackStateComplete:
             return [NSImage imageNamed:@"NSMenuOnStateTemplate"];
 
-        case MLNOfflinePackStateActive:
+        case MHOfflinePackStateActive:
             return [NSImage imageNamed:@"NSFollowLinkFreestandingTemplate"];
 
         default:
@@ -83,20 +83,20 @@ NSString * const MLNLastMapDebugMaskDefaultsKey = @"MLNLastMapDebugMask";
 // MARK: Lifecycle
 
 + (void)load {
-    [MLNSettings useWellKnownTileServer:MLNMapTiler];
-    // Set access token, unless MLNSettings already read it in from Info.plist.
-    if (![MLNSettings apiKey]) {
-        NSString *apiKey = [NSProcessInfo processInfo].environment[@"MLN_API_KEY"];
+    [MHSettings useWellKnownTileServer:MHMapTiler];
+    // Set access token, unless MHSettings already read it in from Info.plist.
+    if (![MHSettings apiKey]) {
+        NSString *apiKey = [NSProcessInfo processInfo].environment[@"MH_API_KEY"];
         if (apiKey) {
             // Store to preferences so that we can launch the app later on without having to specify
             // token.
-            [[NSUserDefaults standardUserDefaults] setObject:apiKey forKey:MLNApiKeyDefaultsKey];
+            [[NSUserDefaults standardUserDefaults] setObject:apiKey forKey:MHApiKeyDefaultsKey];
         } else {
             // Try to retrieve from preferences, maybe we've stored them there previously and can reuse
             // the token.
-            apiKey = [[NSUserDefaults standardUserDefaults] stringForKey:MLNApiKeyDefaultsKey];
+            apiKey = [[NSUserDefaults standardUserDefaults] stringForKey:MHApiKeyDefaultsKey];
         }
-        [MLNSettings setApiKey:apiKey];
+        [MHSettings setApiKey:apiKey];
     }
 }
 
@@ -107,23 +107,23 @@ NSString * const MLNLastMapDebugMaskDefaultsKey = @"MLNLastMapDebugMask";
                                                         andEventID:kAEGetURL];
 
     if (![[NSUserDefaults standardUserDefaults] boolForKey:@"NSQuitAlwaysKeepsWindows"]) {
-        NSData *cameraData = [[NSUserDefaults standardUserDefaults] objectForKey:MLNLastMapCameraDefaultsKey];
+        NSData *cameraData = [[NSUserDefaults standardUserDefaults] objectForKey:MHLastMapCameraDefaultsKey];
         if (cameraData) {
             NSKeyedUnarchiver *coder = [[NSKeyedUnarchiver alloc] initForReadingWithData:cameraData];
             self.pendingZoomLevel = -1;
-            self.pendingCamera = [[MLNMapCamera alloc] initWithCoder:coder];
+            self.pendingCamera = [[MHMapCamera alloc] initWithCoder:coder];
         }
-        NSString *styleURLString = [[NSUserDefaults standardUserDefaults] objectForKey:MLNLastMapStyleURLDefaultsKey];
+        NSString *styleURLString = [[NSUserDefaults standardUserDefaults] objectForKey:MHLastMapStyleURLDefaultsKey];
         if (styleURLString) {
             self.pendingStyleURL = [NSURL URLWithString:styleURLString];
         }
-        self.pendingDebugMask = [[NSUserDefaults standardUserDefaults] integerForKey:MLNLastMapDebugMaskDefaultsKey];
+        self.pendingDebugMask = [[NSUserDefaults standardUserDefaults] integerForKey:MHLastMapDebugMaskDefaultsKey];
     }
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-    // Set access token, unless MLNSettings already read it in from Info.plist.
-    if (![MLNSettings apiKey]) {
+    // Set access token, unless MHSettings already read it in from Info.plist.
+    if (![MHSettings apiKey]) {
         NSAlert *alert = [[NSAlert alloc] init];
         alert.messageText = @"API key required";
         alert.informativeText = @"To load tiles and styles, enter your API key in Preferences.";
@@ -132,7 +132,7 @@ NSString * const MLNLastMapDebugMaskDefaultsKey = @"MLNLastMapDebugMask";
         [self showPreferences:nil];
     }
 
-    [self.offlinePacksArrayController bind:@"content" toObject:[MLNOfflineStorage sharedOfflineStorage] withKeyPath:@"packs" options:nil];
+    [self.offlinePacksArrayController bind:@"content" toObject:[MHOfflineStorage sharedOfflineStorage] withKeyPath:@"packs" options:nil];
 }
 
 - (void)applicationWillTerminate:(NSNotification *)notification {
@@ -141,14 +141,14 @@ NSString * const MLNLastMapDebugMaskDefaultsKey = @"MLNLastMapDebugMask";
     if (![[NSUserDefaults standardUserDefaults] boolForKey:@"NSQuitAlwaysKeepsWindows"]) {
         NSDocument *currentDocument = [NSDocumentController sharedDocumentController].currentDocument;
         if ([currentDocument isKindOfClass:[MapDocument class]]) {
-            MLNMapView *mapView = [(MapDocument *)currentDocument mapView];
+            MHMapView *mapView = [(MapDocument *)currentDocument mapView];
             NSMutableData *cameraData = [NSMutableData data];
             NSKeyedArchiver *coder = [[NSKeyedArchiver alloc] initForWritingWithMutableData:cameraData];
             [mapView.camera encodeWithCoder:coder];
             [coder finishEncoding];
-            [[NSUserDefaults standardUserDefaults] setObject:cameraData forKey:MLNLastMapCameraDefaultsKey];
-            [[NSUserDefaults standardUserDefaults] setObject:mapView.styleURL.absoluteString forKey:MLNLastMapStyleURLDefaultsKey];
-            [[NSUserDefaults standardUserDefaults] setInteger:mapView.debugMask forKey:MLNLastMapDebugMaskDefaultsKey];
+            [[NSUserDefaults standardUserDefaults] setObject:cameraData forKey:MHLastMapCameraDefaultsKey];
+            [[NSUserDefaults standardUserDefaults] setObject:mapView.styleURL.absoluteString forKey:MHLastMapStyleURLDefaultsKey];
+            [[NSUserDefaults standardUserDefaults] setInteger:mapView.debugMask forKey:MHLastMapDebugMaskDefaultsKey];
         }
     }
 
@@ -186,7 +186,7 @@ NSString * const MLNLastMapDebugMaskDefaultsKey = @"MLNLastMapDebugMask";
         }
     }    
 
-    MLNMapCamera *camera = [MLNMapCamera camera];
+    MHMapCamera *camera = [MHMapCamera camera];
     NSString *zoomLevelString = params[@"zoom"] ?: params[@"z"];
     self.pendingZoomLevel = zoomLevelString.length ? zoomLevelString.doubleValue : -1;
 
@@ -220,15 +220,15 @@ NSString * const MLNLastMapDebugMaskDefaultsKey = @"MLNLastMapDebugMask";
 - (IBAction)showOfflinePacksPanel:(id)sender {
     [self.offlinePacksPanel makeKeyAndOrderFront:sender];
 
-    for (MLNOfflinePack *pack in self.offlinePacksArrayController.arrangedObjects) {
+    for (MHOfflinePack *pack in self.offlinePacksArrayController.arrangedObjects) {
         [pack requestProgress];
     }
 }
 
 - (IBAction)delete:(id)sender {
-    for (MLNOfflinePack *pack in self.offlinePacksArrayController.selectedObjects) {
+    for (MHOfflinePack *pack in self.offlinePacksArrayController.selectedObjects) {
         [self unwatchOfflinePack:pack];
-        [[MLNOfflineStorage sharedOfflineStorage] removePack:pack withCompletionHandler:^(NSError * _Nullable error) {
+        [[MHOfflineStorage sharedOfflineStorage] removePack:pack withCompletionHandler:^(NSError * _Nullable error) {
             if (error) {
                 [[NSAlert alertWithError:error] runModal];
             }
@@ -237,12 +237,12 @@ NSString * const MLNLastMapDebugMaskDefaultsKey = @"MLNLastMapDebugMask";
 }
 
 - (IBAction)chooseOfflinePack:(id)sender {
-    for (MLNOfflinePack *pack in self.offlinePacksArrayController.selectedObjects) {
+    for (MHOfflinePack *pack in self.offlinePacksArrayController.selectedObjects) {
         switch (pack.state) {
-            case MLNOfflinePackStateComplete:
+            case MHOfflinePackStateComplete:
             {
-                if ([pack.region isKindOfClass:[MLNTilePyramidOfflineRegion class]]) {
-                    MLNTilePyramidOfflineRegion *region = (MLNTilePyramidOfflineRegion *)pack.region;
+                if ([pack.region isKindOfClass:[MHTilePyramidOfflineRegion class]]) {
+                    MHTilePyramidOfflineRegion *region = (MHTilePyramidOfflineRegion *)pack.region;
                     self.pendingVisibleCoordinateBounds = region.bounds;
                     self.pendingMinimumZoomLevel = region.minimumZoomLevel;
                     self.pendingMaximumZoomLevel = region.maximumZoomLevel;
@@ -251,12 +251,12 @@ NSString * const MLNLastMapDebugMaskDefaultsKey = @"MLNLastMapDebugMask";
                 break;
             }
 
-            case MLNOfflinePackStateInactive:
+            case MHOfflinePackStateInactive:
                 [self watchOfflinePack:pack];
                 [pack resume];
                 break;
 
-            case MLNOfflinePackStateActive:
+            case MHOfflinePackStateActive:
                 [pack suspend];
                 [self unwatchOfflinePack:pack];
                 break;
@@ -267,19 +267,19 @@ NSString * const MLNLastMapDebugMaskDefaultsKey = @"MLNLastMapDebugMask";
     }
 }
 
-- (void)watchOfflinePack:(MLNOfflinePack *)pack {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(offlinePackDidChangeProgress:) name:MLNOfflinePackProgressChangedNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(offlinePackDidReceiveError:) name:MLNOfflinePackErrorNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(offlinePackDidReceiveError:) name:MLNOfflinePackMaximumMapboxTilesReachedNotification object:nil];
+- (void)watchOfflinePack:(MHOfflinePack *)pack {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(offlinePackDidChangeProgress:) name:MHOfflinePackProgressChangedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(offlinePackDidReceiveError:) name:MHOfflinePackErrorNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(offlinePackDidReceiveError:) name:MHOfflinePackMaximumMapboxTilesReachedNotification object:nil];
 }
 
-- (void)unwatchOfflinePack:(MLNOfflinePack *)pack {
+- (void)unwatchOfflinePack:(MHOfflinePack *)pack {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:nil object:pack];
 }
 
 - (void)offlinePackDidChangeProgress:(NSNotification *)notification {
-    MLNOfflinePack *pack = notification.object;
-    if (pack.state == MLNOfflinePackStateComplete) {
+    MHOfflinePack *pack = notification.object;
+    if (pack.state == MHOfflinePackStateComplete) {
         [[NSSound soundNamed:@"Glass"] play];
     }
 }
@@ -311,7 +311,7 @@ NSString * const MLNLastMapDebugMaskDefaultsKey = @"MLNLastMapDebugMask";
 - (IBAction)print:(id)sender {
     NSDocument *currentDocument = [NSDocumentController sharedDocumentController].currentDocument;
     if ([currentDocument isKindOfClass:[MapDocument class]]) {
-        MLNMapView *mapView = [(MapDocument *)currentDocument mapView];
+        MHMapView *mapView = [(MapDocument *)currentDocument mapView];
         [mapView print:sender];
     }
 }

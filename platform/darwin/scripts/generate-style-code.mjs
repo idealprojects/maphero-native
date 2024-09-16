@@ -40,7 +40,7 @@ const args = (() => {
     return parser.parse_args();
 })();
 
-const prefix = 'MLN';
+const prefix = 'MH';
 const suffix = 'StyleLayer';
 
 let spec = _.merge(styleSpec, styleSpecOverrides);
@@ -170,7 +170,7 @@ global.arrayType = function (property) {
 
 global.testImplementation = function (property, layerType, isFunction) {
     let helperMsg = testHelperMessage(property, layerType, isFunction);
-    return `layer.${objCName(property)} = [MLNRuntimeStylingHelper ${helperMsg}];`;
+    return `layer.${objCName(property)} = [MHRuntimeStylingHelper ${helperMsg}];`;
 };
 
 global.objCTestValue = function (property, layerType, arraysAsStructs, indent) {
@@ -189,13 +189,13 @@ global.objCTestValue = function (property, layerType, arraysAsStructs, indent) {
         case 'resolvedImage':
             return layerType === 'string' ?
                 `@"${_.startCase(propertyName)}"` :
-                `@"MLN_FUNCTION('image', '${_.startCase(propertyName)}')"`;
+                `@"MH_FUNCTION('image', '${_.startCase(propertyName)}')"`;
         case 'string':
             return `@"'${_.startCase(propertyName)}'"`;
         case 'enum':
             return `@"'${_.last(_.keys(property.values))}'"`;
         case 'color':
-            return '@"%@", [MLNColor redColor]';
+            return '@"%@", [MHColor redColor]';
         case 'array':
             switch (arrayType(property)) {
                 case 'dasharray':
@@ -214,7 +214,7 @@ global.objCTestValue = function (property, layerType, arraysAsStructs, indent) {
                 case 'translate': {
                     if (arraysAsStructs) {
                         let iosValue = '[NSValue valueWithCGVector:CGVectorMake(1, 1)]'.indent(indent * 4);
-                        let macosValue = '[NSValue valueWithMLNVector:CGVectorMake(1, -1)]'.indent(indent * 4);
+                        let macosValue = '[NSValue valueWithMHVector:CGVectorMake(1, -1)]'.indent(indent * 4);
                         return `@"%@",\n#if TARGET_OS_IPHONE\n${iosValue}\n#else\n${macosValue}\n#endif\n${''.indent((indent - 1) * 4)}`;
                     }
                     return '@"{1, 1}"';
@@ -307,12 +307,12 @@ global.mbglExpressionTestValue = function (property, layerType) {
 
 global.testGetterImplementation = function (property, layerType, isFunction) {
     let helperMsg = testHelperMessage(property, layerType, isFunction);
-    let value = `[MLNRuntimeStylingHelper ${helperMsg}]`;
+    let value = `[MHRuntimeStylingHelper ${helperMsg}]`;
     if (property.type === 'enum') {
         if (isFunction) {
             return `XCTAssertEqualObjects(gLayer.${objCName(property)}, ${value});`;
         }
-        return `XCTAssert([gLayer.${objCName(property)} isKindOfClass:[MLNConstantStyleValue class]]);
+        return `XCTAssert([gLayer.${objCName(property)} isKindOfClass:[MHConstantStyleValue class]]);
     XCTAssertEqualObjects(gLayer.${objCName(property)}, ${value});`;
     }
     return `XCTAssertEqualObjects(gLayer.${objCName(property)}, ${value});`;
@@ -388,7 +388,7 @@ global.propertyDoc = function (propertyName, property, layerType, kind) {
             let layoutProperties = spec[`layout_${layerType}`] || [];
             let paintProperties = spec[`paint_${layerType}`] || [];
             if (symbol in layoutProperties || symbol in paintProperties) {
-                return '``MLN' + camelize(layerType) + 'StyleLayer/' + camelizeWithLeadingLowercase(symbol) + '``';
+                return '``MH' + camelize(layerType) + 'StyleLayer/' + camelizeWithLeadingLowercase(symbol) + '``';
             }
         }
         if ('values' in property && Object.keys(property.values).indexOf(symbol) !== -1) {
@@ -514,7 +514,7 @@ global.describeType = function (property) {
         case 'resolvedImage':
             return 'string';
         case 'enum':
-            return '`MLN' + camelize(property.name) + '`';
+            return '`MH' + camelize(property.name) + '`';
         case 'color':
             return '`UIColor`';
         case 'array':
@@ -525,11 +525,11 @@ global.describeType = function (property) {
                 case 'translate':
                     return '`CGVector`';
                 case 'position':
-                    return '``MLNSphericalPosition``';
+                    return '``MHSphericalPosition``';
                 case 'anchor':
-                    return '``MLNTextAnchor`` array';
+                    return '``MHTextAnchor`` array';
                 case 'mode':
-                    return '``MLNTextWritingMode`` array';
+                    return '``MHTextWritingMode`` array';
                 default:
                     return 'array';
             }
@@ -610,7 +610,7 @@ global.describeValue = function (value, property, layerType) {
                 case 'translate':
                     return 'an `NSValue` object containing a `CGVector` struct set to' + ` ${formatNumber(value[0])}${units} rightward and ${formatNumber(value[1])}${units} downward`;
                 case 'position':
-                    return 'an ``MLNSphericalPosition`` struct set to' + ` ${formatNumber(value[0])} radial, ${formatNumber(value[1])} azimuthal and ${formatNumber(value[2])} polar`;
+                    return 'an ``MHSphericalPosition`` struct set to' + ` ${formatNumber(value[0])} radial, ${formatNumber(value[1])} azimuthal and ${formatNumber(value[2])} polar`;
                 default:
                     return 'the array `' + value.join('`, `') + '`';
             }
@@ -652,7 +652,7 @@ global.propertyType = function (property) {
         case 'enum':
             return 'NSValue *';
         case 'color':
-            return 'MLNColor *';
+            return 'MHColor *';
         case 'array':
             switch (arrayType(property)) {
                 case 'dasharray':
@@ -698,7 +698,7 @@ global.valueTransformerArguments = function (property) {
         case 'string':
             return ['std::string', objCType];
         case 'enum':
-            return [mbglType(property), 'NSValue *', mbglType(property), `MLN${camelize(property.name)}`];
+            return [mbglType(property), 'NSValue *', mbglType(property), `MH${camelize(property.name)}`];
         case 'color':
             return ['mbgl::Color', objCType];
         case 'array':
@@ -715,9 +715,9 @@ global.valueTransformerArguments = function (property) {
                 case 'translate':
                     return ['std::array<float, 2>', objCType];
                 case 'anchor':
-                    return ['std::vector<mbgl::style::SymbolAnchorType>', objCType, 'mbgl::style::SymbolAnchorType', 'MLNTextAnchor'];
+                    return ['std::vector<mbgl::style::SymbolAnchorType>', objCType, 'mbgl::style::SymbolAnchorType', 'MHTextAnchor'];
                 case 'mode':
-                    return ['std::vector<mbgl::style::TextWritingModeType>', objCType, 'mbgl::style::TextWritingModeType', 'MLNTextWritingMode'];
+                    return ['std::vector<mbgl::style::TextWritingModeType>', objCType, 'mbgl::style::TextWritingModeType', 'MHTextWritingMode'];
                 default:
                     throw new Error(`unknown array type for ${property.name}`);
             }
@@ -807,19 +807,19 @@ const lightType = 'light';
 const root = path.dirname(path.dirname(path.dirname(import.meta.dirname)));
 const outLocation = args.out ? args.out : root;
 
-const layerH = readAndCompile('platform/darwin/src/MLNStyleLayer.h.ejs', root);
-const layerPrivateH = readAndCompile('platform/darwin/src/MLNStyleLayer_Private.h.ejs', root);
-const layerM = readAndCompile('platform/darwin/src/MLNStyleLayer.mm.ejs', root);
-const testLayers = readAndCompile('platform/darwin/test/MLNStyleLayerTests.mm.ejs', root);
+const layerH = readAndCompile('platform/darwin/src/MHStyleLayer.h.ejs', root);
+const layerPrivateH = readAndCompile('platform/darwin/src/MHStyleLayer_Private.h.ejs', root);
+const layerM = readAndCompile('platform/darwin/src/MHStyleLayer.mm.ejs', root);
+const testLayers = readAndCompile('platform/darwin/test/MHStyleLayerTests.mm.ejs', root);
 
-const lightH = readAndCompile('platform/darwin/src/MLNLight.h.ejs', root);
-const lightM = readAndCompile('platform/darwin/src/MLNLight.mm.ejs', root);
-const testLight = readAndCompile('platform/darwin/test/MLNLightTest.mm.ejs', root);
-writeIfModified(`platform/darwin/src/MLNLight.h`, duplicatePlatformDecls(
+const lightH = readAndCompile('platform/darwin/src/MHLight.h.ejs', root);
+const lightM = readAndCompile('platform/darwin/src/MHLight.mm.ejs', root);
+const testLight = readAndCompile('platform/darwin/test/MHLightTest.mm.ejs', root);
+writeIfModified(`platform/darwin/src/MHLight.h`, duplicatePlatformDecls(
     lightH({ properties: lightProperties, doc: lightDoc, type: lightType })), outLocation);
-writeIfModified(`platform/darwin/src/MLNLight.mm`,
+writeIfModified(`platform/darwin/src/MHLight.mm`,
     lightM({ properties: lightProperties, doc: lightDoc, type: lightType }), outLocation);
-writeIfModified(`platform/darwin/test/MLNLightTest.mm`,
+writeIfModified(`platform/darwin/test/MHLightTest.mm`,
     testLight({ properties: lightProperties, doc: lightDoc, type: lightType }), outLocation);
 
 const layers = _(spec.layer.type.values).map((value, layerType) => {
@@ -847,16 +847,16 @@ const layers = _(spec.layer.type.values).map((value, layerType) => {
 }).sortBy(['type']).value();
 
 function duplicatePlatformDecls(src) {
-    // Look for a documentation comment that contains “MLNColor” or “UIColor”
+    // Look for a documentation comment that contains “MHColor” or “UIColor”
     // and the subsequent function, method, or property declaration. Try not to
     // match greedily.
-    return src.replace(/(\/\*\*(?:\*[^\/]|[^*])*?\b(?:MLN|NS|UI)Color\b[\s\S]*?\*\/)(\s*.+?;)/g,
+    return src.replace(/(\/\*\*(?:\*[^\/]|[^*])*?\b(?:MH|NS|UI)Color\b[\s\S]*?\*\/)(\s*.+?;)/g,
                        (match, comment, decl) => {
-        let macosComment = comment.replace(/\b(?:MLN|UI)Color\b/g, 'NSColor')
+        let macosComment = comment.replace(/\b(?:MH|UI)Color\b/g, 'NSColor')
             // Use the correct indefinite article.
             .replace(/\ba(\s+`?NSColor)\b/gi, 'an$1');
-        let iosDecl = decl.replace(/\bMLNColor\b/g, 'UIColor');
-        let macosDecl = decl.replace(/\b(?:MLN|UI)Color\b/g, 'NSColor');
+        let iosDecl = decl.replace(/\bMHColor\b/g, 'UIColor');
+        let macosDecl = decl.replace(/\b(?:MH|UI)Color\b/g, 'NSColor');
         return `\
 #if TARGET_OS_IPHONE
 ${comment}${iosDecl}

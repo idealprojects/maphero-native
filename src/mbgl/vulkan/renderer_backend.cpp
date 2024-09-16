@@ -500,7 +500,7 @@ void RendererBackend::initDevice() {
 
     // TODO
     // - WideLines disabled on Android (20.77% device coverage https://vulkan.gpuinfo.org/listfeaturescore10.php)
-    // - Rework this to a dynamic toggle based on MLN_TRIANGULATE_FILL_OUTLINES/MLN_ENABLE_POLYLINE_DRAWABLES
+    // - Rework this to a dynamic toggle based on MH_TRIANGULATE_FILL_OUTLINES/MH_ENABLE_POLYLINE_DRAWABLES
 #if !defined(__ANDROID__) && !defined(__apple__)
     if (supportedDeviceFeatures.wideLines) {
         physicalDeviceFeatures.setWideLines(true);

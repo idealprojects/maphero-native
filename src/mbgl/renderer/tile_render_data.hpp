@@ -10,7 +10,7 @@
 namespace mbgl {
 
 namespace gfx {
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
 class Texture2D;
 using Texture2DPtr = std::shared_ptr<gfx::Texture2D>;
 #endif
@@ -24,7 +24,7 @@ class SourcePrepareParameters;
 
 class TileAtlasTextures {
 public:
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
     gfx::Texture2DPtr glyph;
     gfx::Texture2DPtr icon;
 #else
@@ -37,7 +37,7 @@ class TileRenderData {
 public:
     virtual ~TileRenderData();
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
     const gfx::Texture2DPtr& getGlyphAtlasTexture() const;
     const gfx::Texture2DPtr& getIconAtlasTexture() const;
 #else

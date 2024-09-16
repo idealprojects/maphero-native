@@ -1,4 +1,4 @@
-load("//bazel:flags.bzl", "CPP_FLAGS", "MAPLIBRE_FLAGS")
+load("//bazel:flags.bzl", "CPP_FLAGS", "MAPHERO_FLAGS")
 
 cc_library(
     name = "test_runner_common",
@@ -9,7 +9,7 @@ cc_library(
     hdrs = [
         "test_runner_common.hpp",
     ],
-    copts = CPP_FLAGS + MAPLIBRE_FLAGS,
+    copts = CPP_FLAGS + MAPHERO_FLAGS,
     includes = [
         ".",
     ],
@@ -28,7 +28,7 @@ cc_test(
             "*.hpp",
         ],
     ),
-    copts = CPP_FLAGS + MAPLIBRE_FLAGS,
+    copts = CPP_FLAGS + MAPHERO_FLAGS,
     data = [
         "//metrics:expression-test-files",
     ],

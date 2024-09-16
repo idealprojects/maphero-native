@@ -1,6 +1,6 @@
-if (MLN_USE_TRACY)
+if (MH_USE_TRACY)
     add_definitions(-DTRACY_ENABLE)
-    add_definitions(-DMLN_TRACY_ENABLE)
+    add_definitions(-DMH_TRACY_ENABLE)
 else()
     return()
 endif()

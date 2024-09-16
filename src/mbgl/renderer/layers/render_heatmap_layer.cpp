@@ -13,7 +13,7 @@
 #include <mbgl/util/math.hpp>
 #include <mbgl/util/intersection_tests.hpp>
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
 #include <mbgl/renderer/layers/heatmap_layer_tweaker.hpp>
 #include <mbgl/renderer/layers/heatmap_texture_layer_tweaker.hpp>
 #include <mbgl/renderer/layer_group.hpp>
@@ -53,7 +53,7 @@ void RenderHeatmapLayer::transition(const TransitionParameters& parameters) {
     updateColorRamp();
 }
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
 void RenderHeatmapLayer::layerChanged(const TransitionParameters& parameters,
                                       const Immutable<style::Layer::Impl>& impl,
                                       UniqueChangeRequestVec& changes) {
@@ -73,7 +73,7 @@ void RenderHeatmapLayer::evaluate(const PropertyEvaluationParameters& parameters
     properties->renderPasses = mbgl::underlying_type(passes);
     evaluatedProperties = std::move(properties);
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
     if (layerTweaker) {
         layerTweaker->updateProperties(evaluatedProperties);
     }
@@ -91,7 +91,7 @@ bool RenderHeatmapLayer::hasCrossfade() const {
     return false;
 }
 
-#if MLN_LEGACY_RENDERER
+#if MH_LEGACY_RENDERER
 void RenderHeatmapLayer::upload(gfx::UploadPass& uploadPass) {
     if (!colorRampTexture) {
         colorRampTexture = uploadPass.createTexture(*colorRamp, gfx::TextureChannelDataType::UnsignedByte);
@@ -206,7 +206,7 @@ void RenderHeatmapLayer::render(PaintParameters& parameters) {
             getID());
     }
 }
-#endif // MLN_LEGACY_RENDERER
+#endif // MH_LEGACY_RENDERER
 
 void RenderHeatmapLayer::updateColorRamp() {
     if (colorRamp) {
@@ -235,7 +235,7 @@ bool RenderHeatmapLayer::queryIntersectsFeature(const GeometryCoordinates& query
     return false;
 }
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
 namespace {
 void activateRenderTarget(const RenderTargetPtr& renderTarget_, bool activate, UniqueChangeRequestVec& changes) {
     if (renderTarget_) {
@@ -516,6 +516,6 @@ void RenderHeatmapLayer::update(gfx::ShaderRegistry& shaders,
         ++stats.drawablesAdded;
     }
 }
-#endif // MLN_DRAWABLE_RENDERER
+#endif // MH_DRAWABLE_RENDERER
 
 } // namespace mbgl

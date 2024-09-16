@@ -10,7 +10,7 @@
 #include <mbgl/util/size.hpp>
 #include <mbgl/util/image.hpp>
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
 #include <mbgl/gfx/texture2d.hpp>
 #endif
 
@@ -21,7 +21,7 @@
 namespace mbgl {
 namespace gfx {
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
 class Conext;
 class Texture2D;
 class VertexAttributeArray;
@@ -46,7 +46,7 @@ public:
     DebugGroup<UploadPass> createDebugGroup(const char* name) { return {*this, name}; }
     DebugGroup<UploadPass> createDebugGroup(std::string_view name) { return createDebugGroup(name.data()); }
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
     virtual Context& getContext() = 0;
     virtual const Context& getContext() const = 0;
 #endif
@@ -78,7 +78,7 @@ public:
         updateIndexBufferResource(buffer.getResource(), v.data(), v.bytes());
     }
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
     virtual gfx::AttributeBindingArray buildAttributeBindings(
         const std::size_t vertexCount,
         const gfx::AttributeDataType vertexType,

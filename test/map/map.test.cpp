@@ -1631,11 +1631,11 @@ TEST(Map, StencilOverflow) {
     auto result = test.frontend.render(test.map);
 
     // In drawable builds, no drawables are built because no bucket/tiledata is available.
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
     ASSERT_LE(0, result.stats.stencilUpdates);
 #else
     ASSERT_LT(0, result.stats.stencilClears);
-#endif // MLN_DRAWABLE_RENDERER
+#endif // MH_DRAWABLE_RENDERER
 
 #if !defined(NDEBUG)
     Log::Info(Event::General, result.stats.toString("\n"));

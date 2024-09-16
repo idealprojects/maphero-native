@@ -14,6 +14,6 @@ qt-cmake ../source/ \
   -DCMAKE_BUILD_TYPE="Release" \
   -DCMAKE_C_COMPILER_LAUNCHER="ccache" \
   -DCMAKE_CXX_COMPILER_LAUNCHER="ccache" \
-  -DMLN_WITH_QT=ON \
-  -DMLN_QT_IGNORE_ICU=OFF
+  -DMH_WITH_QT=ON \
+  -DMH_QT_IGNORE_ICU=OFF
 ninja

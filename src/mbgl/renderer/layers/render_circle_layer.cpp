@@ -15,7 +15,7 @@
 #include <mbgl/util/intersection_tests.hpp>
 #include <mbgl/util/containers.hpp>
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
 #include <mbgl/gfx/drawable_builder.hpp>
 #include <mbgl/renderer/layers/circle_layer_tweaker.hpp>
 #include <mbgl/renderer/layer_group.hpp>
@@ -30,7 +30,7 @@ using namespace style;
 
 namespace {
 
-#if MLN_LEGACY_RENDERER
+#if MH_LEGACY_RENDERER
 struct RenderableSegment {
     RenderableSegment(const Segment<CircleAttributes>& segment_,
                       const RenderTile& tile_,
@@ -88,11 +88,11 @@ void RenderCircleLayer::evaluate(const PropertyEvaluationParameters& parameters)
     properties->renderPasses = mbgl::underlying_type(passes);
     evaluatedProperties = std::move(properties);
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
     if (layerTweaker) {
         layerTweaker->updateProperties(evaluatedProperties);
     }
-#endif // MLN_DRAWABLE_RENDERER
+#endif // MH_DRAWABLE_RENDERER
 }
 
 bool RenderCircleLayer::hasTransition() const {
@@ -103,7 +103,7 @@ bool RenderCircleLayer::hasCrossfade() const {
     return false;
 }
 
-#if MLN_LEGACY_RENDERER
+#if MH_LEGACY_RENDERER
 void RenderCircleLayer::render(PaintParameters& parameters) {
     assert(renderTiles);
 
@@ -183,7 +183,7 @@ void RenderCircleLayer::render(PaintParameters& parameters) {
         }
     }
 }
-#endif // MLN_LEGACY_RENDERER
+#endif // MH_LEGACY_RENDERER
 
 GeometryCoordinate projectPoint(const GeometryCoordinate& p, const mat4& posMatrix, const Size& size) {
     vec4 pos = {{static_cast<double>(p.x), static_cast<double>(p.y), 0, 1}};
@@ -263,7 +263,7 @@ bool RenderCircleLayer::queryIntersectsFeature(const GeometryCoordinates& queryG
     return false;
 }
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
 namespace {
 
 constexpr auto CircleShaderGroupName = "CircleShader";
