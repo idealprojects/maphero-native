@@ -18,7 +18,7 @@ public:
 
     PremultipliedImage readStillImage() override;
 
-#if MLN_LEGACY_RENDERER
+#if MH_LEGACY_RENDERER
     gfx::Texture& getTexture() override;
 #else
     const gfx::Texture2DPtr& getTexture() override;

@@ -10,8 +10,8 @@ import androidx.annotation.Nullable;
  * The position is constructed out of a radial coordinate, an azimuthal angle and a polar angle.
  * where the radial coordinate indicates the distance from the center of the base of an object to its light, the
  * azimuthal angle indicates the position of the light relative to 0&#xB0; (0&#xB0; when
- * {@link org.maplibre.android.style.layers.Property.ANCHOR} is set to viewport corresponds to the top of the
- * viewport, or 0&#xB0; when {@link org.maplibre.android.style.layers.Property.ANCHOR} is set to map corresponds to due
+ * {@link org.maphero.android.style.layers.Property.ANCHOR} is set to viewport corresponds to the top of the
+ * viewport, or 0&#xB0; when {@link org.maphero.android.style.layers.Property.ANCHOR} is set to map corresponds to due
  * north, and degrees proceed clockwise), and polar indicates the height of the light
  * (from 0&#xB0;, directly above, to 180&#xB0;, directly below).
  */

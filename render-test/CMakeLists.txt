@@ -67,6 +67,6 @@ target_link_libraries(
 
 set_property(TARGET mbgl-render-test PROPERTY FOLDER MapLibre)
 
-if(MLN_WITH_OPENGL)
-    target_compile_definitions(mbgl-render-test PRIVATE "MLN_RENDER_BACKEND_OPENGL=1")
+if(MH_WITH_OPENGL)
+    target_compile_definitions(mbgl-render-test PRIVATE "MH_RENDER_BACKEND_OPENGL=1")
 endif()

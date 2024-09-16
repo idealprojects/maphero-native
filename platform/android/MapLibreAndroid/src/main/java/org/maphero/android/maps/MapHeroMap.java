@@ -2122,7 +2122,7 @@ public final class MapHeroMap {
    * any overload to activate the component,
    * then, enable it with {@link LocationComponent#setLocationComponentEnabled(boolean)}.
    * <p>
-   * You can customize the location icon and more with {@link org.maplibre.android.location.LocationComponentOptions}.
+   * You can customize the location icon and more with {@link org.maphero.android.location.LocationComponentOptions}.
    *
    * @return the Location Component
    */

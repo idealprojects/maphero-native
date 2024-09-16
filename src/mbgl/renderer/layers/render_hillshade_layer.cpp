@@ -13,7 +13,7 @@
 #include <mbgl/math/angles.hpp>
 #include <mbgl/util/geo.hpp>
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
 #include <mbgl/renderer/layers/hillshade_layer_tweaker.hpp>
 #include <mbgl/renderer/layers/hillshade_prepare_layer_tweaker.hpp>
 #include <mbgl/renderer/layer_group.hpp>
@@ -67,7 +67,7 @@ void RenderHillshadeLayer::transition(const TransitionParameters& parameters) {
     unevaluated = impl_cast(baseImpl).paint.transitioned(parameters, std::move(unevaluated));
 }
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
 void RenderHillshadeLayer::layerChanged(const TransitionParameters& parameters,
                                         const Immutable<style::Layer::Impl>& impl,
                                         UniqueChangeRequestVec& changes) {
@@ -87,7 +87,7 @@ void RenderHillshadeLayer::evaluate(const PropertyEvaluationParameters& paramete
                  : RenderPass::None;
     properties->renderPasses = mbgl::underlying_type(passes);
     evaluatedProperties = std::move(properties);
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
     if (layerTweaker) {
         layerTweaker->updateProperties(evaluatedProperties);
     }
@@ -109,12 +109,12 @@ void RenderHillshadeLayer::prepare(const LayerPrepareParameters& params) {
     renderTiles = params.source->getRenderTiles();
     maxzoom = params.source->getMaxZoom();
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
     updateRenderTileIDs();
-#endif // MLN_DRAWABLE_RENDERER
+#endif // MH_DRAWABLE_RENDERER
 }
 
-#if MLN_LEGACY_RENDERER
+#if MH_LEGACY_RENDERER
 void RenderHillshadeLayer::render(PaintParameters& parameters) {
     assert(renderTiles);
     if (parameters.pass != RenderPass::Translucent && parameters.pass != RenderPass::Pass3D) return;
@@ -258,9 +258,9 @@ void RenderHillshadeLayer::render(PaintParameters& parameters) {
         }
     }
 }
-#endif // MLN_LEGACY_RENDERER
+#endif // MH_LEGACY_RENDERER
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
 namespace {
 void activateRenderTarget(const RenderTargetPtr& renderTarget_, bool activate, UniqueChangeRequestVec& changes) {
     if (renderTarget_) {
@@ -538,6 +538,6 @@ void RenderHillshadeLayer::update(gfx::ShaderRegistry& shaders,
         }
     }
 }
-#endif // MLN_DRAWABLE_RENDERER
+#endif // MH_DRAWABLE_RENDERER
 
 } // namespace mbgl

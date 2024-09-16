@@ -3,7 +3,7 @@ load(
     "@build_bazel_rules_swift//swift:swift.bzl",
     "swift_library",
 )
-load("//bazel:flags.bzl", "CPP_FLAGS", "MAPLIBRE_FLAGS", "WARNING_FLAGS")
+load("//bazel:flags.bzl", "CPP_FLAGS", "MAPHERO_FLAGS", "WARNING_FLAGS")
 
 objc_library(
     name = "ios_tests_objc_srcs",
@@ -13,7 +13,7 @@ objc_library(
             "*.m",
         ],
         exclude = [
-            "MLNMapViewContentInsetTests.m",
+            "MHMapViewContentInsetTests.m",
         ],
     ),
     deps = [
@@ -30,7 +30,7 @@ objc_library(
             "*.h",
         ],
     ),
-    copts = CPP_FLAGS + MAPLIBRE_FLAGS + WARNING_FLAGS["ios"],
+    copts = CPP_FLAGS + MAPHERO_FLAGS + WARNING_FLAGS["ios"],
     deps = [
         "//platform:ios-sdk",
     ],
@@ -40,7 +40,7 @@ swift_library(
     name = "ios_tests_swift_srcs",
     testonly = True,
     srcs = glob(["*.swift"]) + [
-        "//platform/darwin:test/MLNSDKTestHelpers.swift",
+        "//platform/darwin:test/MHSDKTestHelpers.swift",
     ],
     deps = [
         "//platform:ios-sdk",

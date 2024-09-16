@@ -22,7 +22,7 @@
 #include <mbgl/util/math.hpp>
 #include <mbgl/util/std.hpp>
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
 #include <mbgl/gfx/drawable_atlases_tweaker.hpp>
 #include <mbgl/gfx/drawable_builder.hpp>
 #include <mbgl/renderer/layers/fill_layer_tweaker.hpp>
@@ -39,15 +39,15 @@ using namespace shaders;
 
 namespace {
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
 constexpr auto FillShaderName = "FillShader";
 constexpr auto FillOutlineShaderName = "FillOutlineShader";
 constexpr auto FillPatternShaderName = "FillPatternShader";
 constexpr auto FillOutlinePatternShaderName = "FillOutlinePatternShader";
-#if MLN_TRIANGULATE_FILL_OUTLINES
+#if MH_TRIANGULATE_FILL_OUTLINES
 constexpr auto FillOutlineTriangulatedShaderName = "FillOutlineTriangulatedShader";
 #endif
-#endif // MLN_DRAWABLE_RENDERER
+#endif // MH_DRAWABLE_RENDERER
 
 inline const FillLayer::Impl& impl_cast(const Immutable<style::Layer::Impl>& impl) {
     assert(impl->getTypeInfo() == FillLayer::Impl::staticTypeInfo());
@@ -90,7 +90,7 @@ void RenderFillLayer::evaluate(const PropertyEvaluationParameters& parameters) {
     properties->renderPasses = mbgl::underlying_type(passes);
     evaluatedProperties = std::move(properties);
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
     if (layerTweaker) {
         layerTweaker->updateProperties(evaluatedProperties);
     }
@@ -105,7 +105,7 @@ bool RenderFillLayer::hasCrossfade() const {
     return getCrossfade<FillLayerProperties>(evaluatedProperties).t != 1;
 }
 
-#if MLN_LEGACY_RENDERER
+#if MH_LEGACY_RENDERER
 void RenderFillLayer::render(PaintParameters& parameters) {
     assert(renderTiles);
 
@@ -273,7 +273,7 @@ void RenderFillLayer::render(PaintParameters& parameters) {
         }
     }
 }
-#endif // MLN_LEGACY_RENDERER
+#endif // MH_LEGACY_RENDERER
 
 bool RenderFillLayer::queryIntersectsFeature(const GeometryCoordinates& queryGeometry,
                                              const GeometryTileFeature& feature,
@@ -293,7 +293,7 @@ bool RenderFillLayer::queryIntersectsFeature(const GeometryCoordinates& queryGeo
                                                feature.getGeometries());
 }
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
 
 void RenderFillLayer::update(gfx::ShaderRegistry& shaders,
                              gfx::Context& context,
@@ -316,7 +316,7 @@ void RenderFillLayer::update(gfx::ShaderRegistry& shaders,
     }
     auto* fillTileLayerGroup = static_cast<TileLayerGroup*>(layerGroup.get());
 
-#if MLN_TRIANGULATE_FILL_OUTLINES
+#if MH_TRIANGULATE_FILL_OUTLINES
     if (!outlineTriangulatedShaderGroup) {
         outlineTriangulatedShaderGroup = shaders.getShaderGroup(std::string(FillOutlineTriangulatedShaderName));
     }
@@ -451,7 +451,7 @@ void RenderFillLayer::update(gfx::ShaderRegistry& shaders,
         // Outline does not default to fill in the pattern case
         const auto doOutline = evaluated.get<FillAntialias>() && (unevaluated.get<FillPattern>().isUndefined() ||
                                                                   unevaluated.get<FillOutlineColor>().isUndefined());
-#if MLN_TRIANGULATE_FILL_OUTLINES
+#if MH_TRIANGULATE_FILL_OUTLINES
         const bool dataDrivenOutline = !evaluated.get<FillOutlineColor>().isConstant() ||
                                        !evaluated.get<FillOpacity>().isConstant();
 #endif
@@ -464,7 +464,7 @@ void RenderFillLayer::update(gfx::ShaderRegistry& shaders,
             const auto fillShader = std::static_pointer_cast<gfx::ShaderProgramBase>(
                 fillShaderGroup->getOrCreateShader(context, propertiesAsUniforms));
 
-#if MLN_TRIANGULATE_FILL_OUTLINES
+#if MH_TRIANGULATE_FILL_OUTLINES
             const auto outlineTriangulatedShader = doOutline && !dataDrivenOutline ? [&]() -> auto {
                 static const StringIDSetsPair outlinePropertiesAsUniforms{
                     {"a_color", "a_opacity", "a_width"},
@@ -549,7 +549,7 @@ void RenderFillLayer::update(gfx::ShaderRegistry& shaders,
 
             if (fillBuilder && bucket.sharedTriangles->elements()) {
                 fillBuilder->setShader(fillShader);
-#if MLN_TRIANGULATE_FILL_OUTLINES
+#if MH_TRIANGULATE_FILL_OUTLINES
                 if (doOutline && dataDrivenOutline && outlineBuilder) {
                     fillBuilder->setVertexAttributes(vertexAttrs);
                     outlineBuilder->setVertexAttributes(std::move(vertexAttrs));
@@ -572,7 +572,7 @@ void RenderFillLayer::update(gfx::ShaderRegistry& shaders,
                 finish(*fillBuilder, FillVariant::Fill);
             }
 
-#if MLN_TRIANGULATE_FILL_OUTLINES
+#if MH_TRIANGULATE_FILL_OUTLINES
             if (doOutline && outlineBuilder) {
                 if (!dataDrivenOutline) {
                     outlineBuilder->setSubLayerIndex(unevaluated.get<FillOutlineColor>().isUndefined() ? 2 : 0);

@@ -22,7 +22,7 @@
 #include <mbgl/util/convert.hpp>
 #include <mbgl/util/math.hpp>
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
 #include <mbgl/gfx/drawable_atlases_tweaker.hpp>
 #include <mbgl/gfx/drawable_builder.hpp>
 #include <mbgl/gfx/symbol_drawable_data.hpp>
@@ -33,7 +33,7 @@
 #include <mbgl/shaders/shader_program_base.hpp>
 #include <mbgl/shaders/symbol_layer_ubo.hpp>
 #include <mbgl/renderer/layers/collision_layer_tweaker.hpp>
-#endif // MLN_DRAWABLE_RENDERER
+#endif // MH_DRAWABLE_RENDERER
 
 #include <cmath>
 #include <set>
@@ -44,7 +44,7 @@ using namespace style;
 using namespace shaders;
 
 namespace {
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
 
 constexpr std::string_view SymbolIconShaderName = "SymbolIconShader";
 constexpr std::string_view SymbolSDFIconShaderName = "SymbolSDFIconShader";
@@ -52,7 +52,7 @@ constexpr std::string_view SymbolTextAndIconShaderName = "SymbolTextAndIconShade
 constexpr std::string_view CollisionBoxShaderName = "CollisionBoxShader";
 constexpr std::string_view CollisionCircleShaderName = "CollisionCircleShader";
 
-#endif // MLN_DRAWABLE_RENDERER
+#endif // MH_DRAWABLE_RENDERER
 
 style::SymbolPropertyValues iconPropertyValues(const style::SymbolPaintProperties::PossiblyEvaluated& evaluated_,
                                                const style::SymbolLayoutProperties::PossiblyEvaluated& layout_) {
@@ -137,7 +137,7 @@ struct SegmentGroup {
     bool operator<(const SegmentGroup& other) const { return renderable < other.renderable; }
 };
 
-#if MLN_LEGACY_RENDERER
+#if MH_LEGACY_RENDERER
 
 template <typename DrawFn>
 void drawIcon(const RenderSymbolLayer::Programs& programs,
@@ -343,7 +343,7 @@ void drawText(const RenderSymbolLayer::Programs& programs,
     }
 }
 
-#endif // MLN_LEGACY_RENDERER
+#endif // MH_LEGACY_RENDERER
 
 inline const SymbolLayer::Impl& impl_cast(const Immutable<style::Layer::Impl>& impl) {
     assert(impl->getTypeInfo() == SymbolLayer::Impl::staticTypeInfo());
@@ -391,13 +391,13 @@ void RenderSymbolLayer::evaluate(const PropertyEvaluationParameters& parameters)
     properties->renderPasses = mbgl::underlying_type(passes);
     evaluatedProperties = std::move(properties);
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
     // The symbol tweaker supports updating properties.
     // When the style changes, it will be replaced in `RenderLayer::layerChanged`
     if (layerTweaker) {
         layerTweaker->updateProperties(evaluatedProperties);
     }
-#endif // MLN_DRAWABLE_RENDERER
+#endif // MH_DRAWABLE_RENDERER
 }
 
 bool RenderSymbolLayer::hasTransition() const {
@@ -408,7 +408,7 @@ bool RenderSymbolLayer::hasCrossfade() const {
     return false;
 }
 
-#if MLN_LEGACY_RENDERER
+#if MH_LEGACY_RENDERER
 
 void RenderSymbolLayer::render(PaintParameters& parameters) {
     assert(renderTiles);
@@ -658,7 +658,7 @@ void RenderSymbolLayer::render(PaintParameters& parameters) {
     }
 }
 
-#endif // MLN_LEGACY_RENDERER
+#endif // MH_LEGACY_RENDERER
 
 // static
 style::IconPaintProperties::PossiblyEvaluated RenderSymbolLayer::iconPaintProperties(
@@ -687,9 +687,9 @@ style::TextPaintProperties::PossiblyEvaluated RenderSymbolLayer::textPaintProper
 void RenderSymbolLayer::prepare(const LayerPrepareParameters& params) {
     renderTiles = params.source->getRenderTilesSortedByYPosition();
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
     updateRenderTileIDs();
-#endif // MLN_DRAWABLE_RENDERER
+#endif // MH_DRAWABLE_RENDERER
 
     addRenderPassesFromTiles();
 
@@ -722,7 +722,7 @@ void RenderSymbolLayer::prepare(const LayerPrepareParameters& params) {
     }
 }
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
 
 namespace {
 const SegmentVector<SymbolTextAttributes> emptySegmentVector;
@@ -1324,6 +1324,6 @@ void RenderSymbolLayer::update(gfx::ShaderRegistry& shaders,
     }
 }
 
-#endif // MLN_DRAWABLE_RENDERER
+#endif // MH_DRAWABLE_RENDERER
 
 } // namespace mbgl

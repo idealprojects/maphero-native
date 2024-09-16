@@ -18,11 +18,11 @@ public:
                   ///< of available backends (ie for array allocation).
     };
 
-#if MLN_RENDER_BACKEND_METAL
+#if MH_RENDER_BACKEND_METAL
     static constexpr Type DefaultType = Type::Metal;
-#elif MLN_RENDER_BACKEND_VULKAN
+#elif MH_RENDER_BACKEND_VULKAN
     static constexpr Type DefaultType = Type::Vulkan;
-#else // assume MLN_RENDER_BACKEND_OPENGL
+#else // assume MH_RENDER_BACKEND_OPENGL
     static constexpr Type DefaultType = Type::OpenGL;
 #endif
 
@@ -39,11 +39,11 @@ public:
 
     template <typename T, typename... Args>
     static std::unique_ptr<T> Create(Args... args) {
-#if MLN_RENDER_BACKEND_METAL
+#if MH_RENDER_BACKEND_METAL
         return Create<Type::Metal, T, Args...>(std::forward<Args>(args)...);
-#elif MLN_RENDER_BACKEND_VULKAN
+#elif MH_RENDER_BACKEND_VULKAN
         return Create<Type::Vulkan, T, Args...>(std::forward<Args>(args)...);
-#else // assume MLN_RENDER_BACKEND_OPENGL
+#else // assume MH_RENDER_BACKEND_OPENGL
         return Create<Type::OpenGL, T, Args...>(std::forward<Args>(args)...);
 #endif
     }

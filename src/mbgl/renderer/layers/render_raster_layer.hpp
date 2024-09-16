@@ -16,7 +16,7 @@ public:
     explicit RenderRasterLayer(Immutable<style::RasterLayer::Impl>);
     ~RenderRasterLayer() override;
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
     /// Generate any changes needed by the layer
     void update(gfx::ShaderRegistry&,
                 gfx::Context&,
@@ -27,7 +27,7 @@ public:
 #endif
 
 protected:
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
     /// @brief Called by the RenderOrchestrator during RenderTree construction.
     /// This event is run to indicate if the layer should render or not for the current frame.
     /// @param willRender Indicates if this layer should render or not
@@ -42,7 +42,7 @@ protected:
 
     /// Called when the style layer is removed
     void layerRemoved(UniqueChangeRequestVec&) override;
-#endif // MLN_DRAWABLE_RENDERER
+#endif // MH_DRAWABLE_RENDERER
 
 private:
     void transition(const TransitionParameters&) override;
@@ -51,7 +51,7 @@ private:
     bool hasCrossfade() const override;
     void prepare(const LayerPrepareParameters&) override;
 
-#if MLN_LEGACY_RENDERER
+#if MH_LEGACY_RENDERER
     void render(PaintParameters&) override;
 #endif
 
@@ -59,12 +59,12 @@ private:
     style::RasterPaintProperties::Unevaluated unevaluated;
     const ImageSourceRenderData* imageData = nullptr;
 
-#if MLN_LEGACY_RENDERER
+#if MH_LEGACY_RENDERER
     // Programs
     std::shared_ptr<RasterProgram> rasterProgram;
 #endif
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
     gfx::ShaderProgramBasePtr rasterShader;
     LayerGroupPtr imageLayerGroup;
 

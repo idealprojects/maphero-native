@@ -18,7 +18,7 @@ async function getFilePaths(baseDir, predicate) {
 
 // documentation files that will be updated and source files that contain examples
 const [documentationPaths, examplePaths] = await Promise.all([
-  getFilePaths("platform/ios/MapLibre.docc", path => path.endsWith(".md")),
+  getFilePaths("platform/ios/MapHero.docc", path => path.endsWith(".md")),
   getFilePaths("platform/ios/app-swift/Sources", path => path.endsWith(".swift"))
 ]);
 

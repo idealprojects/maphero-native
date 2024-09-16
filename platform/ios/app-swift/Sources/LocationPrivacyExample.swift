@@ -1,4 +1,4 @@
-import MapLibre
+import MapHero
 import SwiftUI
 import UIKit
 
@@ -15,7 +15,7 @@ class PrivacyExampleViewModel: NSObject, ObservableObject {
     @Published var showTemporaryLocationAuthorization = false
 }
 
-class PrivacyExampleCoordinator: NSObject, MLNMapViewDelegate {
+class PrivacyExampleCoordinator: NSObject, MHMapViewDelegate {
     @ObservedObject private var mapViewModel: PrivacyExampleViewModel
     private var pannedToUserLocation = false
 
@@ -24,7 +24,7 @@ class PrivacyExampleCoordinator: NSObject, MLNMapViewDelegate {
         super.init()
     }
 
-    @MainActor func mapView(_: MLNMapView, didChangeLocationManagerAuthorization manager: MLNLocationManager) {
+    @MainActor func mapView(_: MHMapView, didChangeLocationManagerAuthorization manager: MHLocationManager) {
         guard let accuracySetting = manager.accuracyAuthorization else {
             return
         }
@@ -40,13 +40,13 @@ class PrivacyExampleCoordinator: NSObject, MLNMapViewDelegate {
     }
 
     // when a location is available for the first time, we fly to it
-    func mapView(_ mapView: MLNMapView, didUpdate _: MLNUserLocation?) {
+    func mapView(_ mapView: MHMapView, didUpdate _: MHUserLocation?) {
         guard !pannedToUserLocation else { return }
         guard let userLocation = mapView.userLocation else {
             print("User location is currently not available.")
             return
         }
-        mapView.fly(to: MLNMapCamera(lookingAtCenter: userLocation.coordinate, altitude: 100_000, pitch: 0, heading: 0))
+        mapView.fly(to: MHMapCamera(lookingAtCenter: userLocation.coordinate, altitude: 100_000, pitch: 0, heading: 0))
         pannedToUserLocation = true
     }
 }
@@ -58,17 +58,17 @@ struct PrivacyExampleRepresentable: UIViewRepresentable {
         PrivacyExampleCoordinator(mapViewModel: mapViewModel)
     }
 
-    func makeUIView(context: Context) -> MLNMapView {
-        let mapView = MLNMapView()
+    func makeUIView(context: Context) -> MHMapView {
+        let mapView = MHMapView()
 
         mapView.delegate = context.coordinator
         mapView.showsUserLocation = true
         return mapView
     }
 
-    func updateUIView(_ mapView: MLNMapView, context _: Context) {
+    func updateUIView(_ mapView: MHMapView, context _: Context) {
         if mapViewModel.showTemporaryLocationAuthorization {
-            let purposeKey = "MLNAccuracyAuthorizationDescription"
+            let purposeKey = "MHAccuracyAuthorizationDescription"
             mapView.locationManager.requestTemporaryFullAccuracyAuthorization?(withPurposeKey: purposeKey)
             DispatchQueue.main.async {
                 mapViewModel.showTemporaryLocationAuthorization = false

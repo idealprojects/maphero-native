@@ -1,21 +1,21 @@
-import MapLibre
+import MapHero
 import SwiftUI
 import UIKit
 
 // #-example-code(BuildingLightExample)
-class BuildingLightExample: UIViewController, MLNMapViewDelegate {
-    var mapView: MLNMapView!
-    var light: MLNLight!
+class BuildingLightExample: UIViewController, MHMapViewDelegate {
+    var mapView: MHMapView!
+    var light: MHLight!
     var slider: UISlider!
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        mapView = MLNMapView(frame: view.bounds, styleURL: AMERICANA_STYLE)
+        mapView = MHMapView(frame: view.bounds, styleURL: AMERICANA_STYLE)
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         mapView.delegate = self
 
         // Center the map on the Flatiron Building in New York, NY.
-        mapView.camera = MLNMapCamera(lookingAtCenter: CLLocationCoordinate2D(latitude: 40.7411, longitude: -73.9897), altitude: 1200, pitch: 45, heading: 0)
+        mapView.camera = MHMapCamera(lookingAtCenter: CLLocationCoordinate2D(latitude: 40.7411, longitude: -73.9897), altitude: 1200, pitch: 45, heading: 0)
 
         view.addSubview(mapView)
 
@@ -41,19 +41,19 @@ class BuildingLightExample: UIViewController, MLNMapViewDelegate {
         ])
     }
 
-    func mapView(_: MLNMapView, didFinishLoading style: MLNStyle) {
-        // Add a MLNFillExtrusionStyleLayer.
+    func mapView(_: MHMapView, didFinishLoading style: MHStyle) {
+        // Add a MHFillExtrusionStyleLayer.
         addFillExtrusionLayer(style: style)
 
-        // Create an MLNLight object.
-        light = MLNLight()
+        // Create an MHLight object.
+        light = MHLight()
 
-        // Create an MLNSphericalPosition and set the radial, azimuthal, and polar values.
+        // Create an MHSphericalPosition and set the radial, azimuthal, and polar values.
         // Radial : Distance from the center of the base of an object to its light. Takes a CGFloat.
         // Azimuthal : Position of the light relative to its anchor. Takes a CLLocationDirection.
         // Polar : The height of the light. Takes a CLLocationDirection.
-        let position = MLNSphericalPositionMake(5, 180, 80)
-        light.position = NSExpression(forConstantValue: NSValue(mlnSphericalPosition: position))
+        let position = MHSphericalPositionMake(5, 180, 80)
+        light.position = NSExpression(forConstantValue: NSValue(mhSphericalPosition: position))
 
         // Set the light anchor to the map and add the light object to the map view's style. The light anchor can be the viewport (or rotates with the viewport) or the map (rotates with the map). To make the viewport the anchor, replace `map` with `viewport`.
         light.anchor = NSExpression(forConstantValue: "map")
@@ -62,18 +62,18 @@ class BuildingLightExample: UIViewController, MLNMapViewDelegate {
 
     @objc func shiftLight() {
         // Use the slider's value to change the light's polar value.
-        let position = MLNSphericalPositionMake(5, 180, CLLocationDirection(slider.value))
-        light.position = NSExpression(forConstantValue: NSValue(mlnSphericalPosition: position))
+        let position = MHSphericalPositionMake(5, 180, CLLocationDirection(slider.value))
+        light.position = NSExpression(forConstantValue: NSValue(mhSphericalPosition: position))
         mapView.style?.light = light
     }
 
-    func addFillExtrusionLayer(style: MLNStyle) {
-        // Access the OpenMapTiles source and use it to create a ``MLNFillExtrusionStyleLayer``. The source identifier is `openmaptiles`. Use the `sources` property on a style to verify source identifiers.
+    func addFillExtrusionLayer(style: MHStyle) {
+        // Access the OpenMapTiles source and use it to create a ``MHFillExtrusionStyleLayer``. The source identifier is `openmaptiles`. Use the `sources` property on a style to verify source identifiers.
         guard let source = style.source(withIdentifier: "openmaptiles") else {
             print("Could not find source openmaptiles")
             return
         }
-        let layer = MLNFillExtrusionStyleLayer(identifier: "extrusion-layer", source: source)
+        let layer = MHFillExtrusionStyleLayer(identifier: "extrusion-layer", source: source)
         layer.sourceLayerIdentifier = "building"
         layer.fillExtrusionBase = NSExpression(forKeyPath: "render_min_height")
         layer.fillExtrusionHeight = NSExpression(forKeyPath: "render_height")

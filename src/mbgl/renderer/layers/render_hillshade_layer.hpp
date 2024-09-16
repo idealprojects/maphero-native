@@ -9,17 +9,17 @@
 
 namespace mbgl {
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
 class HillshadeLayerTweaker;
 using HillshadeLayerTweakerPtr = std::shared_ptr<HillshadeLayerTweaker>;
-#endif // MLN_DRAWABLE_RENDERER
+#endif // MH_DRAWABLE_RENDERER
 
 class RenderHillshadeLayer : public RenderLayer {
 public:
     explicit RenderHillshadeLayer(Immutable<style::HillshadeLayer::Impl>);
     ~RenderHillshadeLayer() override;
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
     void markLayerRenderable(bool willRender, UniqueChangeRequestVec& changes) override;
 
     void layerRemoved(UniqueChangeRequestVec&) override;
@@ -39,22 +39,22 @@ private:
     bool hasTransition() const override;
     bool hasCrossfade() const override;
 
-#if MLN_LEGACY_RENDERER
+#if MH_LEGACY_RENDERER
     void render(PaintParameters&) override;
 #endif
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
     void updateLayerTweaker();
 
     void layerChanged(const TransitionParameters& parameters,
                       const Immutable<style::Layer::Impl>& impl,
                       UniqueChangeRequestVec& changes) override;
 
-#endif // MLN_DRAWABLE_RENDERER
+#endif // MH_DRAWABLE_RENDERER
 
     void prepare(const LayerPrepareParameters&) override;
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
     void addRenderTarget(const RenderTargetPtr&, UniqueChangeRequestVec&);
     void removeRenderTargets(UniqueChangeRequestVec&);
 #endif
@@ -66,13 +66,13 @@ private:
     std::array<float, 2> getLatRange(const UnwrappedTileID& id);
     std::array<float, 2> getLight(const PaintParameters& parameters);
 
-#if MLN_LEGACY_RENDERER
+#if MH_LEGACY_RENDERER
     // Programs
     std::shared_ptr<HillshadeProgram> hillshadeProgram;
     std::shared_ptr<HillshadePrepareProgram> hillshadePrepareProgram;
 #endif
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
     gfx::ShaderProgramBasePtr hillshadePrepareShader;
     gfx::ShaderProgramBasePtr hillshadeShader;
     std::vector<RenderTargetPtr> activatedRenderTargets;

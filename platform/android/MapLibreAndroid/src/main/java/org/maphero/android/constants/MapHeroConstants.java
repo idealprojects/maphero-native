@@ -75,7 +75,7 @@ public class MapHeroConstants {
   /**
    * Value by which the default rotation threshold will be increased when scaling
    *
-   * @deprecated unused, see {@link org.maplibre.android.maps.UiSettings#setDisableRotateWhenScaling(boolean)}
+   * @deprecated unused, see {@link org.maphero.android.maps.UiSettings#setDisableRotateWhenScaling(boolean)}
    */
   @Deprecated
   public static final float ROTATION_THRESHOLD_INCREASE_WHEN_SCALING = 25f;

@@ -2,7 +2,7 @@
 #pragma once
 #include <mbgl/shaders/shader_source.hpp>
 
-#if !MLN_RENDER_BACKEND_METAL
+#if !MH_RENDER_BACKEND_METAL
 #include <mbgl/shaders/gl/drawable_background.hpp>
 #include <mbgl/shaders/gl/drawable_background_pattern.hpp>
 #include <mbgl/shaders/gl/drawable_circle.hpp>

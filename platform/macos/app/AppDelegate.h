@@ -1,6 +1,6 @@
 #import <Mapbox.h>
 
-extern NSString *const MLNApiKeyDefaultsKey;
+extern NSString *const MHApiKeyDefaultsKey;
 
 @interface AppDelegate : NSObject <NSApplicationDelegate>
 
@@ -14,13 +14,13 @@ extern NSString *const MLNApiKeyDefaultsKey;
 // temporarily hold state for the next map window to be opened.
 
 @property (assign) double pendingZoomLevel;
-@property (copy) MLNMapCamera *pendingCamera;
-@property (assign) MLNCoordinateBounds pendingVisibleCoordinateBounds;
+@property (copy) MHMapCamera *pendingCamera;
+@property (assign) MHCoordinateBounds pendingVisibleCoordinateBounds;
 @property (assign) double pendingMinimumZoomLevel;
 @property (assign) double pendingMaximumZoomLevel;
 @property (copy) NSURL *pendingStyleURL;
-@property (assign) MLNMapDebugMaskOptions pendingDebugMask;
+@property (assign) MHMapDebugMaskOptions pendingDebugMask;
 
-- (void)watchOfflinePack:(MLNOfflinePack *)pack;
+- (void)watchOfflinePack:(MHOfflinePack *)pack;
 
 @end

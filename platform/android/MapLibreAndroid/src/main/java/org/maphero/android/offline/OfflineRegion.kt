@@ -12,7 +12,7 @@ import org.maphero.android.storage.FileSource
 
 /**
  * An offline region is the basic building block for offline mobile maps.
- * Use [org.maplibre.android.offline.OfflineManager.CreateOfflineRegionCallback]
+ * Use [org.maphero.android.offline.OfflineManager.CreateOfflineRegionCallback]
  * to create a new offline region.
  */
 class OfflineRegion @Keep private constructor(offlineRegionPtr: Long, fileSource: FileSource, idParam: Long, definition: OfflineRegionDefinition, metadata: ByteArray) {

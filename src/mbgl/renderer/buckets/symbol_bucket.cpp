@@ -63,7 +63,7 @@ SymbolBucket::SymbolBucket(Immutable<style::SymbolLayoutProperties::PossiblyEval
 SymbolBucket::~SymbolBucket() = default;
 
 void SymbolBucket::upload([[maybe_unused]] gfx::UploadPass& uploadPass) {
-#if MLN_LEGACY_RENDERER
+#if MH_LEGACY_RENDERER
     if (hasTextData()) {
         if (!staticUploaded) {
             text.indexBuffer = uploadPass.createIndexBuffer(
@@ -176,7 +176,7 @@ void SymbolBucket::upload([[maybe_unused]] gfx::UploadPass& uploadPass) {
     if (hasTextCollisionCircleData()) {
         updateCollisionCircle(*textCollisionCircle);
     }
-#endif // MLN_LEGACY_RENDERER
+#endif // MH_LEGACY_RENDERER
 
     uploaded = true;
     staticUploaded = true;
@@ -328,7 +328,7 @@ SymbolInstanceReferences SymbolBucket::getSymbols(const std::optional<SortKeyRan
             symbolInstances.begin() + static_cast<offset_t>(range->end)};
 }
 
-#if MLN_SYMBOL_GUARDS
+#if MH_SYMBOL_GUARDS
 bool SymbolBucket::check(std::source_location source) {
     if (text.vertices().elements() != text.dynamicVertices().elements() ||
         text.vertices().elements() != text.opacityVertices().elements() ||

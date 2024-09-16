@@ -1,10 +1,10 @@
 #import <Cocoa/Cocoa.h>
 
-@class MLNMapView;
+@class MHMapView;
 
 @interface MapDocument : NSDocument
 
-@property (weak) IBOutlet MLNMapView *mapView;
+@property (weak) IBOutlet MHMapView *mapView;
 
 - (IBAction)showStyle:(id)sender;
 - (IBAction)chooseCustomStyle:(id)sender;

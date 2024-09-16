@@ -8,20 +8,20 @@
 #include <mbgl/programs/fill_program.hpp>
 #include <mbgl/style/layers/fill_layer_properties.hpp>
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
 /**
     Control how the fill outlines are being generated:
-    MLN_TRIANGULATE_FILL_OUTLINES = 0 : Simple line primitives will be generated. Draw using gfx::Lines
-    MLN_TRIANGULATE_FILL_OUTLINES = 1 : Generate triangulated lines. Draw using gfx::Triangles and a Line shader.
+    MH_TRIANGULATE_FILL_OUTLINES = 0 : Simple line primitives will be generated. Draw using gfx::Lines
+    MH_TRIANGULATE_FILL_OUTLINES = 1 : Generate triangulated lines. Draw using gfx::Triangles and a Line shader.
  */
-#define MLN_TRIANGULATE_FILL_OUTLINES (MLN_RENDER_BACKEND_METAL)
+#define MH_TRIANGULATE_FILL_OUTLINES (MH_RENDER_BACKEND_METAL)
 
-#else // MLN_DRAWABLE_RENDERER
+#else // MH_DRAWABLE_RENDERER
 // Legacy Renderer is incompatible with triangulated lines
-#define MLN_TRIANGULATE_FILL_OUTLINES 0
-#endif // MLN_DRAWABLE_RENDERER
+#define MH_TRIANGULATE_FILL_OUTLINES 0
+#endif // MH_DRAWABLE_RENDERER
 
-#if MLN_TRIANGULATE_FILL_OUTLINES
+#if MH_TRIANGULATE_FILL_OUTLINES
 #include <mbgl/programs/line_program.hpp>
 #endif
 
@@ -57,7 +57,7 @@ public:
 
     void update(const FeatureStates&, const GeometryTileLayer&, const std::string&, const ImagePositions&) override;
 
-#if MLN_TRIANGULATE_FILL_OUTLINES
+#if MH_TRIANGULATE_FILL_OUTLINES
     using LineVertexVector = gfx::VertexVector<LineLayoutVertex>;
     const std::shared_ptr<LineVertexVector> sharedLineVertices = std::make_shared<LineVertexVector>();
     LineVertexVector& lineVertices = *sharedLineVertices;
@@ -67,7 +67,7 @@ public:
     LineIndexVector& lineIndexes = *sharedLineIndexes;
 
     SegmentVector<LineAttributes> lineSegments;
-#endif // MLN_TRIANGULATE_FILL_OUTLINES
+#endif // MH_TRIANGULATE_FILL_OUTLINES
 
     using BasicLineIndexVector = gfx::IndexVector<gfx::Lines>;
     const std::shared_ptr<BasicLineIndexVector> sharedBasicLineIndexes = std::make_shared<BasicLineIndexVector>();
@@ -85,11 +85,11 @@ public:
 
     SegmentVector<FillAttributes> triangleSegments;
 
-#if MLN_LEGACY_RENDERER
+#if MH_LEGACY_RENDERER
     std::optional<gfx::VertexBuffer<FillLayoutVertex>> vertexBuffer;
     std::optional<gfx::IndexBuffer> lineIndexBuffer;
     std::optional<gfx::IndexBuffer> triangleIndexBuffer;
-#endif // MLN_LEGACY_RENDERER
+#endif // MH_LEGACY_RENDERER
 
     std::map<std::string, FillProgram::Binders> paintPropertyBinders;
 };

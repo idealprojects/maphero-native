@@ -10,7 +10,7 @@
 #include <mbgl/util/instrumentation.hpp>
 #include <mbgl/util/math.hpp>
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
 #include <mbgl/gfx/cull_face_mode.hpp>
 #include <mbgl/gfx/drawable.hpp>
 #include <mbgl/gfx/drawable_builder.hpp>
@@ -29,10 +29,10 @@
 
 #include <unordered_set>
 
-#if MLN_RENDER_BACKEND_METAL || (MLN_RENDER_BACKEND_VULKAN && defined(__ANDROID__))
-#define MLN_ENABLE_POLYLINE_DRAWABLES 1
+#if MH_RENDER_BACKEND_METAL || (MH_RENDER_BACKEND_VULKAN && defined(__ANDROID__))
+#define MH_ENABLE_POLYLINE_DRAWABLES 1
 #else
-#define MLN_ENABLE_POLYLINE_DRAWABLES 0
+#define MH_ENABLE_POLYLINE_DRAWABLES 0
 #endif
 
 #endif
@@ -54,7 +54,7 @@ void TileSourceRenderItem::render(PaintParameters& parameters) const {
     }
 }
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
 void TileSourceRenderItem::updateDebugDrawables(DebugLayerGroupMap& debugLayerGroups,
                                                 PaintParameters& parameters) const {
     if (!(parameters.debugOptions &
@@ -88,7 +88,7 @@ void TileSourceRenderItem::updateDebugDrawables(DebugLayerGroupMap& debugLayerGr
         return builder;
     }();
 
-#if MLN_ENABLE_POLYLINE_DRAWABLES
+#if MH_ENABLE_POLYLINE_DRAWABLES
     // initialize polyline builder
     gfx::ShaderPtr polylineShader;
     const auto createPolylineShader = [&]() -> gfx::ShaderPtr {
@@ -192,7 +192,7 @@ void TileSourceRenderItem::updateDebugDrawables(DebugLayerGroupMap& debugLayerGr
         }
     };
 
-#if MLN_ENABLE_POLYLINE_DRAWABLES
+#if MH_ENABLE_POLYLINE_DRAWABLES
     // function to add polylines drawable
     const auto addPolylineDrawable = [&](TileLayerGroup* tileLayerGroup, const RenderTile& tile) {
         class PolylineDrawableTweaker : public gfx::DrawableTweaker {
@@ -371,7 +371,7 @@ void TileSourceRenderItem::updateDebugDrawables(DebugLayerGroupMap& debugLayerGr
                                     0,
                                     0};
             if (0 == updateDrawables(tileLayerGroup, tileID, debugUBO) && tile.getNeedsRendering()) {
-#if MLN_ENABLE_POLYLINE_DRAWABLES
+#if MH_ENABLE_POLYLINE_DRAWABLES
                 addPolylineDrawable(tileLayerGroup, tile);
 #else
                 addDrawable(tileLayerGroup,
@@ -409,8 +409,8 @@ std::unique_ptr<RenderItem> RenderTileSource::createRenderItem() {
 }
 
 void RenderTileSource::prepare(const SourcePrepareParameters& parameters) {
-    MLN_TRACE_FUNC();
-    MLN_ZONE_STR(baseImpl->id);
+    MH_TRACE_FUNC();
+    MH_ZONE_STR(baseImpl->id);
     bearing = static_cast<float>(parameters.transform.state.getBearing());
     filteredRenderTiles = nullptr;
     renderTilesSortedByY = nullptr;

@@ -1,16 +1,16 @@
 
-import MapLibre
+import MapHero
 import SwiftUI
 import UIKit
 
 // #-example-code(MultipleImagesExample)
-class MultipleImagesExample: UIViewController, MLNMapViewDelegate {
-    var mapView: MLNMapView!
+class MultipleImagesExample: UIViewController, MHMapViewDelegate {
+    var mapView: MHMapView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        mapView = MLNMapView(frame: view.bounds, styleURL: AMERICANA_STYLE)
+        mapView = MHMapView(frame: view.bounds, styleURL: AMERICANA_STYLE)
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         mapView.tintColor = .darkGray
 
@@ -23,8 +23,8 @@ class MultipleImagesExample: UIViewController, MLNMapViewDelegate {
     }
 
     // Wait until the style is loaded before modifying the map style.
-    func mapView(_: MLNMapView, didFinishLoading style: MLNStyle) {
-        let source = MLNVectorTileSource(identifier: "pois-nps", configurationURL: URL(string: "mbtiles://\(Bundle.main.bundlePath)/pois-nps.mbtiles")!)
+    func mapView(_: MHMapView, didFinishLoading style: MHStyle) {
+        let source = MHVectorTileSource(identifier: "pois-nps", configurationURL: URL(string: "mbtiles://\(Bundle.main.bundlePath)/pois-nps.mbtiles")!)
 
         style.addSource(source)
 
@@ -45,7 +45,7 @@ class MultipleImagesExample: UIViewController, MLNMapViewDelegate {
             }
         }
 
-        let imageLayer = MLNSymbolStyleLayer(identifier: "npc-poi-images", source: source)
+        let imageLayer = MHSymbolStyleLayer(identifier: "npc-poi-images", source: source)
         imageLayer.sourceLayerIdentifier = "pois"
         imageLayer.iconImageName = NSExpression(mglJSONObject: [
             "match", ["get", "POITYPE"],

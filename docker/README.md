@@ -6,7 +6,7 @@ These steps will allow you to compile code as described [platform/linux/README.m
 > Not all platform builds are currently supported. Docker builds are a work in progress.
 
 > [!IMPORTANT]  
-> You cannot build MapLibre native using both Docker and host methods at the same time. If you want to switch, you need to clean the repository first, e.g. by using this command:
+> You cannot build MapHero native using both Docker and host methods at the same time. If you want to switch, you need to clean the repository first, e.g. by using this command:
 >
 > ```bash
 > git clean -dxfi -e .idea -e .clwb -e .vscode

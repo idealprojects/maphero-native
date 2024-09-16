@@ -52,10 +52,10 @@ public:
 
     SegmentVector<LineAttributes> segments;
 
-#if MLN_LEGACY_RENDERER
+#if MH_LEGACY_RENDERER
     std::optional<gfx::VertexBuffer<LineLayoutVertex>> vertexBuffer;
     std::optional<gfx::IndexBuffer> indexBuffer;
-#endif // MLN_LEGACY_RENDERER
+#endif // MH_LEGACY_RENDERER
 
     std::map<std::string, LineProgram::Binders> paintPropertyBinders;
 

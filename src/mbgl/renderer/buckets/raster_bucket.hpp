@@ -49,10 +49,10 @@ public:
 
     SegmentVector<RasterAttributes> segments;
 
-#if MLN_LEGACY_RENDERER
+#if MH_LEGACY_RENDERER
     std::optional<gfx::VertexBuffer<RasterLayoutVertex>> vertexBuffer;
     std::optional<gfx::IndexBuffer> indexBuffer;
-#endif // MLN_LEGACY_RENDERER
+#endif // MH_LEGACY_RENDERER
 };
 
 } // namespace mbgl

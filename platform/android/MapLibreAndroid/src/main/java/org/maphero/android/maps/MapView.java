@@ -1739,7 +1739,7 @@ public class MapView extends FrameLayout implements NativeMapView.ViewCallback {
   }
 
   /**
-   * Sets the strict mode that will throw the {@link org.maplibre.android.MapStrictModeException}
+   * Sets the strict mode that will throw the {@link org.maphero.android.MapStrictModeException}
    * whenever the map would fail silently otherwise.
    *
    * @param strictModeEnabled true to enable the strict mode, false otherwise

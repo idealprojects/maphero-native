@@ -13,7 +13,7 @@
 #include <mbgl/style/layers/raster_layer_impl.hpp>
 #include <mbgl/util/logging.hpp>
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
 #include <mbgl/renderer/layers/raster_layer_tweaker.hpp>
 #include <mbgl/gfx/image_drawable_data.hpp>
 #include <mbgl/gfx/drawable_impl.hpp>
@@ -59,7 +59,7 @@ void RenderRasterLayer::evaluate(const PropertyEvaluationParameters& parameters)
     properties->renderPasses = mbgl::underlying_type(passes);
     evaluatedProperties = std::move(properties);
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
     if (layerTweaker) {
         layerTweaker->updateProperties(evaluatedProperties);
     }
@@ -74,7 +74,7 @@ bool RenderRasterLayer::hasCrossfade() const {
     return false;
 }
 
-#if MLN_LEGACY_RENDERER
+#if MH_LEGACY_RENDERER
 static float saturationFactor(float saturation) {
     if (saturation > 0) {
         return 1.f - 1.f / (1.001f - saturation);
@@ -107,12 +107,12 @@ void RenderRasterLayer::prepare(const LayerPrepareParameters& params) {
     // It is possible image data is not available until the source loads it.
     assert(renderTiles || imageData || !params.source->isEnabled());
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
     updateRenderTileIDs();
-#endif // MLN_DRAWABLE_RENDERER
+#endif // MH_DRAWABLE_RENDERER
 }
 
-#if MLN_LEGACY_RENDERER
+#if MH_LEGACY_RENDERER
 void RenderRasterLayer::render(PaintParameters& parameters) {
     if (parameters.pass != RenderPass::Translucent || (!renderTiles && !imageData)) {
         return;
@@ -228,9 +228,9 @@ void RenderRasterLayer::render(PaintParameters& parameters) {
     }
 }
 
-#endif // MLN_LEGACY_RENDERER
+#endif // MH_LEGACY_RENDERER
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
 void RenderRasterLayer::markLayerRenderable(bool willRender, UniqueChangeRequestVec& changes) {
     RenderLayer::markLayerRenderable(willRender, changes);
     if (imageLayerGroup) {
@@ -519,6 +519,6 @@ void RenderRasterLayer::update(gfx::ShaderRegistry& shaders,
         }
     }
 }
-#endif // MLN_DRAWABLE_RENDERER
+#endif // MH_DRAWABLE_RENDERER
 
 } // namespace mbgl

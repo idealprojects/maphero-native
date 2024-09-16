@@ -440,7 +440,7 @@ public class LocationComponentOptions implements Parcelable {
 
   /**
    * String image name, identical to one used in
-   * the first parameter of {@link org.maplibre.android.maps.Style.Builder#addImage(String, Bitmap)}, the
+   * the first parameter of {@link org.maphero.android.maps.Style.Builder#addImage(String, Bitmap)}, the
    * component, will use this image in place of the provided or default maplibre_foregroundDrawableStale.
    * <p>
    * A maki-icon name (example: "circle-15") may also be provided.  These are images that can be loaded
@@ -467,7 +467,7 @@ public class LocationComponentOptions implements Parcelable {
 
   /**
    * String image name, identical to one used in
-   * the first parameter of {@link org.maplibre.android.maps.Style.Builder#addImage(String, Bitmap)}, the
+   * the first parameter of {@link org.maphero.android.maps.Style.Builder#addImage(String, Bitmap)}, the
    * component, will used this image in place of the provided or default maplibre_foregroundDrawableStale.
    * <p>
    * A maki-icon name (example: "circle-15") may also be provided.  These are images that can be loaded
@@ -494,7 +494,7 @@ public class LocationComponentOptions implements Parcelable {
 
   /**
    * String image name, identical to one used in
-   * the first parameter of {@link org.maplibre.android.maps.Style.Builder#addImage(String, Bitmap)}, the
+   * the first parameter of {@link org.maphero.android.maps.Style.Builder#addImage(String, Bitmap)}, the
    * component, will used this image in place of the provided or default maplibre_gpsDrawable.
    * <p>
    * A maki-icon name (example: "circle-15") may also be provided.  These are images that can be loaded
@@ -521,7 +521,7 @@ public class LocationComponentOptions implements Parcelable {
 
   /**
    * String image name, identical to one used in
-   * the first parameter of {@link org.maplibre.android.maps.Style.Builder#addImage(String, Bitmap)}, the
+   * the first parameter of {@link org.maphero.android.maps.Style.Builder#addImage(String, Bitmap)}, the
    * component, will used this image in place of the provided or default maplibre_foregroundDrawable.
    * <p>
    * A maki-icon name (example: "circle-15") may also be provided.  These are images that can be loaded
@@ -548,7 +548,7 @@ public class LocationComponentOptions implements Parcelable {
 
   /**
    * String image name, identical to one used in
-   * the first parameter of {@link org.maplibre.android.maps.Style.Builder#addImage(String, Bitmap)}, the
+   * the first parameter of {@link org.maphero.android.maps.Style.Builder#addImage(String, Bitmap)}, the
    * component, will used this image in place of the provided or default maplibre_backgroundDrawable.
    * <p>
    * A maki-icon name (example: "circle-15") may also be provided.  These are images that can be loaded
@@ -575,7 +575,7 @@ public class LocationComponentOptions implements Parcelable {
 
   /**
    * String image name, identical to one used in
-   * the first parameter of {@link org.maplibre.android.maps.Style.Builder#addImage(String, Bitmap)}, the
+   * the first parameter of {@link org.maphero.android.maps.Style.Builder#addImage(String, Bitmap)}, the
    * component, will used this image in place of the provided or default maplibre_bearingDrawable.
    * <p>
    * A maki-icon name (example: "circle-15") may also be provided.  These are images that can be loaded
@@ -777,7 +777,7 @@ public class LocationComponentOptions implements Parcelable {
 
   /**
    * Gets the id of the layer that's referenced when placing the component on the map using
-   * {@link org.maplibre.android.maps.Style#addLayerAbove(Layer, String)}.
+   * {@link org.maphero.android.maps.Style#addLayerAbove(Layer, String)}.
    * <p>
    * The component is going to placed directly above this layer.
    *
@@ -789,7 +789,7 @@ public class LocationComponentOptions implements Parcelable {
 
   /**
    * Gets the id of the layer that's referenced when placing the component on the map using
-   * {@link org.maplibre.android.maps.Style#addLayerBelow(Layer, String)}.
+   * {@link org.maphero.android.maps.Style#addLayerBelow(Layer, String)}.
    * <p>
    * The component is going to placed directly below this layer.
    *
@@ -809,8 +809,8 @@ public class LocationComponentOptions implements Parcelable {
   }
 
   /**
-   * Enable or disable smooth animation of compass values for {@link org.maplibre.android.location.modes.CameraMode}
-   * and {@link org.maplibre.android.location.modes.RenderMode}.
+   * Enable or disable smooth animation of compass values for {@link org.maphero.android.location.modes.CameraMode}
+   * and {@link org.maphero.android.location.modes.RenderMode}.
    *
    * @return whether smooth compass animation is enabled
    */
@@ -1440,7 +1440,7 @@ public class LocationComponentOptions implements Parcelable {
 
     /**
      * Given a String image name, identical to one used in
-     * the first parameter of {@link org.maplibre.android.maps.Style.Builder#addImage(String, Bitmap)}, the
+     * the first parameter of {@link org.maphero.android.maps.Style.Builder#addImage(String, Bitmap)}, the
      * component, will used this image in place of the provided or default maplibre_backgroundDrawableStale.
      * <p>
      * A maki-icon name (example: "circle-15") may also be provided.  These are images that can be loaded
@@ -1471,7 +1471,7 @@ public class LocationComponentOptions implements Parcelable {
 
     /**
      * Given a String image name, identical to one used in
-     * the first parameter of {@link org.maplibre.android.maps.Style.Builder#addImage(String, Bitmap)}, the
+     * the first parameter of {@link org.maphero.android.maps.Style.Builder#addImage(String, Bitmap)}, the
      * component, will used this image in place of the provided or default maplibre_foregroundDrawableStale.
      * <p>
      * A maki-icon name (example: "circle-15") may also be provided.  These are images that can be loaded
@@ -1502,7 +1502,7 @@ public class LocationComponentOptions implements Parcelable {
 
     /**
      * Given a String image name, identical to one used in
-     * the first parameter of {@link org.maplibre.android.maps.Style.Builder#addImage(String, Bitmap)}, the
+     * the first parameter of {@link org.maphero.android.maps.Style.Builder#addImage(String, Bitmap)}, the
      * component, will used this image in place of the provided or default maplibre_gpsDrawable.
      * <p>
      * A maki-icon name (example: "circle-15") may also be provided.  These are images that can be loaded
@@ -1533,7 +1533,7 @@ public class LocationComponentOptions implements Parcelable {
 
     /**
      * Given a String image name, identical to one used in
-     * the first parameter of {@link org.maplibre.android.maps.Style.Builder#addImage(String, Bitmap)}, the
+     * the first parameter of {@link org.maphero.android.maps.Style.Builder#addImage(String, Bitmap)}, the
      * component, will used this image in place of the provided or default maplibre_foregroundDrawable.
      * <p>
      * A maki-icon name (example: "circle-15") may also be provided.  These are images that can be loaded
@@ -1564,7 +1564,7 @@ public class LocationComponentOptions implements Parcelable {
 
     /**
      * Given a String image name, identical to one used in
-     * the first parameter of {@link org.maplibre.android.maps.Style.Builder#addImage(String, Bitmap)}, the
+     * the first parameter of {@link org.maphero.android.maps.Style.Builder#addImage(String, Bitmap)}, the
      * component, will used this image in place of the provided or default maplibre_backgroundDrawable.
      * <p>
      * A maki-icon name (example: "circle-15") may also be provided.  These are images that can be loaded
@@ -1595,7 +1595,7 @@ public class LocationComponentOptions implements Parcelable {
 
     /**
      * Given a String image name, identical to one used in
-     * the first parameter of {@link org.maplibre.android.maps.Style.Builder#addImage(String, Bitmap)}, the
+     * the first parameter of {@link org.maphero.android.maps.Style.Builder#addImage(String, Bitmap)}, the
      * component, will used this image in place of the provided or default maplibre_bearingDrawable.
      * <p>
      * A maki-icon name (example: "circle-15") may also be provided.  These are images that can be loaded
@@ -1734,7 +1734,7 @@ public class LocationComponentOptions implements Parcelable {
      * @param padding The margins for the map in pixels (left, top, right, bottom).
      * @deprecated Use
      * {@link CameraPosition.Builder#padding(double, double, double, double)} or
-     * {@link org.maplibre.android.camera.CameraUpdateFactory#paddingTo(double, double, double, double)}
+     * {@link org.maphero.android.camera.CameraUpdateFactory#paddingTo(double, double, double, double)}
      * instead.
      */
     @NonNull
@@ -1841,7 +1841,7 @@ public class LocationComponentOptions implements Parcelable {
 
     /**
      * Sets the id of the layer that's referenced when placing the component on the map using
-     * {@link org.maplibre.android.maps.Style#addLayerAbove(Layer, String)}.
+     * {@link org.maphero.android.maps.Style#addLayerAbove(Layer, String)}.
      * <p>
      * The component is going to placed directly above this layer.
      *
@@ -1855,7 +1855,7 @@ public class LocationComponentOptions implements Parcelable {
 
     /**
      * Sets the id of the layer that's referenced when placing the component on the map using
-     * {@link org.maplibre.android.maps.Style#addLayerBelow(Layer, String)}.
+     * {@link org.maphero.android.maps.Style#addLayerBelow(Layer, String)}.
      * <p>
      * The component is going to placed directly below this layer.
      *
@@ -1880,8 +1880,8 @@ public class LocationComponentOptions implements Parcelable {
     }
 
     /**
-     * Enable or disable smooth animation of compass values for {@link org.maplibre.android.location.modes.CameraMode}
-     * and {@link org.maplibre.android.location.modes.RenderMode}.
+     * Enable or disable smooth animation of compass values for {@link org.maphero.android.location.modes.CameraMode}
+     * and {@link org.maphero.android.location.modes.RenderMode}.
      *
      * @return whether smooth compass animation is enabled
      */

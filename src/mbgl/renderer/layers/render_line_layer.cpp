@@ -21,7 +21,7 @@
 #include <mbgl/util/logging.hpp>
 #include <mbgl/util/math.hpp>
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
 #include <mbgl/gfx/drawable_atlases_tweaker.hpp>
 #include <mbgl/gfx/drawable_builder.hpp>
 #include <mbgl/gfx/line_drawable_data.hpp>
@@ -44,11 +44,11 @@ inline const LineLayer::Impl& impl_cast(const Immutable<style::Layer::Impl>& imp
     return static_cast<const LineLayer::Impl&>(*impl);
 }
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
 
 const auto posNormalAttribName = "a_pos_normal";
 
-#endif // MLN_DRAWABLE_RENDERER
+#endif // MH_DRAWABLE_RENDERER
 
 } // namespace
 
@@ -65,11 +65,11 @@ void RenderLineLayer::transition(const TransitionParameters& parameters) {
     unevaluated = impl_cast(baseImpl).paint.transitioned(parameters, std::move(unevaluated));
     updateColorRamp();
 
-#if MLN_RENDER_BACKEND_METAL
+#if MH_RENDER_BACKEND_METAL
     if (auto* tweaker = static_cast<LineLayerTweaker*>(layerTweaker.get())) {
         tweaker->updateGPUExpressions(unevaluated, parameters.now);
     }
-#endif // MLN_RENDER_BACKEND_METAL
+#endif // MH_RENDER_BACKEND_METAL
 }
 
 void RenderLineLayer::evaluate(const PropertyEvaluationParameters& parameters) {
@@ -87,12 +87,12 @@ void RenderLineLayer::evaluate(const PropertyEvaluationParameters& parameters) {
     properties->renderPasses = mbgl::underlying_type(passes);
     evaluatedProperties = std::move(properties);
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
     if (auto* tweaker = static_cast<LineLayerTweaker*>(layerTweaker.get())) {
         tweaker->updateProperties(evaluatedProperties);
-#if MLN_RENDER_BACKEND_METAL
+#if MH_RENDER_BACKEND_METAL
         tweaker->updateGPUExpressions(unevaluated, parameters.now);
-#endif // MLN_RENDER_BACKEND_METAL
+#endif // MH_RENDER_BACKEND_METAL
     }
 #endif
 }
@@ -123,7 +123,7 @@ void RenderLineLayer::prepare(const LayerPrepareParameters& params) {
     }
 }
 
-#if MLN_LEGACY_RENDERER
+#if MH_LEGACY_RENDERER
 void RenderLineLayer::upload(gfx::UploadPass& uploadPass) {
     if (!unevaluated.get<LineGradient>().getValue().isUndefined() && !colorRampTexture) {
         colorRampTexture = uploadPass.createTexture(*colorRamp);
@@ -249,7 +249,7 @@ void RenderLineLayer::render(PaintParameters& parameters) {
         }
     }
 }
-#endif // MLN_LEGACY_RENDERER
+#endif // MH_LEGACY_RENDERER
 
 namespace {
 
@@ -326,7 +326,7 @@ void RenderLineLayer::updateColorRamp() {
 
     colorRampTexture = std::nullopt;
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
     if (colorRampTexture2D) {
         colorRampTexture2D.reset();
 
@@ -354,7 +354,7 @@ float RenderLineLayer::getLineWidth(const GeometryTileFeature& feature,
     }
 }
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
 namespace {
 
 inline void setSegments(std::unique_ptr<gfx::DrawableBuilder>& builder, const LineBucket& bucket) {
@@ -386,9 +386,9 @@ void RenderLineLayer::update(gfx::ShaderRegistry& shaders,
 
     if (!layerTweaker) {
         auto tweaker = std::make_shared<LineLayerTweaker>(getID(), evaluatedProperties);
-#if MLN_RENDER_BACKEND_METAL
+#if MH_RENDER_BACKEND_METAL
         tweaker->updateGPUExpressions(unevaluated, parameters->timePoint);
-#endif // MLN_RENDER_BACKEND_METAL
+#endif // MH_RENDER_BACKEND_METAL
 
         layerTweaker = std::move(tweaker);
         layerGroup->addLayerTweaker(layerTweaker);

@@ -19,15 +19,15 @@
 #include <mbgl/util/logging.hpp>
 #include <mbgl/util/instrumentation.hpp>
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
 #include <mbgl/gfx/drawable_tweaker.hpp>
 #include <mbgl/renderer/layer_tweaker.hpp>
 #include <mbgl/renderer/render_target.hpp>
 
 #include <limits>
-#endif // MLN_DRAWABLE_RENDERER
+#endif // MH_DRAWABLE_RENDERER
 
-#if MLN_RENDER_BACKEND_METAL
+#if MH_RENDER_BACKEND_METAL
 #include <mbgl/mtl/renderer_backend.hpp>
 #include <Metal/MTLCaptureManager.hpp>
 #include <Metal/MTLCaptureScope.hpp>
@@ -36,12 +36,12 @@
 constexpr auto EnableMetalCapture = 0;
 constexpr auto CaptureFrameStart = 0; // frames are 0-based
 constexpr auto CaptureFrameCount = 1;
-#else // !MLN_RENDER_BACKEND_METAL
+#else // !MH_RENDER_BACKEND_METAL
 #include <mbgl/gl/defines.hpp>
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
 #include <mbgl/gl/drawable_gl.hpp>
-#endif // MLN_DRAWABLE_RENDERER
-#endif // !MLN_RENDER_BACKEND_METAL
+#endif // MH_DRAWABLE_RENDERER
+#endif // !MH_RENDER_BACKEND_METAL
 
 namespace mbgl {
 
@@ -92,11 +92,11 @@ void Renderer::Impl::setObserver(RendererObserver* observer_) {
 
 void Renderer::Impl::render(const RenderTree& renderTree,
                             [[maybe_unused]] const std::shared_ptr<UpdateParameters>& updateParameters) {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
     auto& context = backend.getContext();
     context.setObserver(this);
 
-#if MLN_RENDER_BACKEND_METAL
+#if MH_RENDER_BACKEND_METAL
     if constexpr (EnableMetalCapture) {
         const auto& mtlBackend = static_cast<mtl::RendererBackend&>(backend);
 
@@ -157,7 +157,7 @@ void Renderer::Impl::render(const RenderTree& renderTree,
             }
         }
     }
-#endif // MLN_RENDER_BACKEND_METAL
+#endif // MH_RENDER_BACKEND_METAL
 
     // Blocks execution until the renderable is available.
     backend.getDefaultRenderable().wait();
@@ -169,7 +169,7 @@ void Renderer::Impl::render(const RenderTree& renderTree,
         // Initialize legacy shader programs
         staticData->programs.registerWith(*staticData->shaders);
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
         // Initialize shaders for drawables
         const auto programParameters = ProgramParameters{pixelRatio, false};
         backend.initShaders(*staticData->shaders, programParameters);
@@ -206,7 +206,7 @@ void Renderer::Impl::render(const RenderTree& renderTree,
     parameters.opaquePassCutoff = renderTreeParameters.opaquePassCutOff;
     const auto& sourceRenderItems = renderTree.getSourceRenderItems();
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
     const auto& layerRenderItems = renderTree.getLayerRenderItemMap();
 #else
     const auto& layerRenderItems = renderTree.getLayerRenderItems();
@@ -233,7 +233,7 @@ void Renderer::Impl::render(const RenderTree& renderTree,
         renderTree.getPatternAtlas().upload(*uploadPass);
     }
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
     // - LAYER GROUP UPDATE ------------------------------------------------------------------------
     // Updates all layer groups and process changes
     if (staticData && staticData->shaders) {
@@ -309,7 +309,7 @@ void Renderer::Impl::render(const RenderTree& renderTree,
         }
     };
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
     const auto drawable3DPass = [&] {
         const auto debugGroup(parameters.encoder->createDebugGroup("drawables-3d"));
         assert(parameters.pass == RenderPass::Pass3D);
@@ -321,9 +321,9 @@ void Renderer::Impl::render(const RenderTree& renderTree,
             parameters.currentLayer = maxLayerIndex - layerGroup.getLayerIndex();
         });
     };
-#endif // MLN_DRAWABLE_RENDERER
+#endif // MH_DRAWABLE_RENDERER
 
-#if MLN_LEGACY_RENDERER
+#if MH_LEGACY_RENDERER
     const auto renderLayer3DPass = [&] {
         const auto debugGroup(parameters.encoder->createDebugGroup("3d"));
         int32_t i = static_cast<int32_t>(layerRenderItems.size()) - 1;
@@ -336,9 +336,9 @@ void Renderer::Impl::render(const RenderTree& renderTree,
             }
         }
     };
-#endif // MLN_LEGACY_RENDERER
+#endif // MH_LEGACY_RENDERER
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
     const auto drawableTargetsPass = [&] {
         // draw render targets
         orchestrator.visitRenderTargets(
@@ -364,7 +364,7 @@ void Renderer::Impl::render(const RenderTree& renderTree,
     };
 
     // Actually render the layers
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
     // Drawables
     const auto drawableOpaquePass = [&] {
         const auto debugGroup(parameters.renderPass->createDebugGroup("drawables-opaque"));
@@ -409,7 +409,7 @@ void Renderer::Impl::render(const RenderTree& renderTree,
     };
 #endif
 
-#if MLN_LEGACY_RENDERER
+#if MH_LEGACY_RENDERER
     // Render everything top-to-bottom by using reverse iterators. Render opaque objects first.
     const auto renderLayerOpaquePass = [&] {
         const auto debugGroup(parameters.renderPass->createDebugGroup("opaque"));
@@ -445,9 +445,9 @@ void Renderer::Impl::render(const RenderTree& renderTree,
             }
         }
     };
-#endif // MLN_LEGACY_RENDERER
+#endif // MH_LEGACY_RENDERER
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
     const auto drawableDebugOverlays = [&] {
         // Renders debug overlays.
         {
@@ -462,9 +462,9 @@ void Renderer::Impl::render(const RenderTree& renderTree,
             });
         }
     };
-#endif // MLN_DRAWABLE_RENDERER
+#endif // MH_DRAWABLE_RENDERER
 
-#if MLN_LEGACY_RENDERER
+#if MH_LEGACY_RENDERER
     const auto renderDebugOverlays = [&] {
         // Renders debug overlays.
         {
@@ -489,9 +489,9 @@ void Renderer::Impl::render(const RenderTree& renderTree,
         }
 #endif
     };
-#endif // MLN_LEGACY_RENDERER
+#endif // MH_LEGACY_RENDERER
 
-#if (MLN_DRAWABLE_RENDERER && !MLN_LEGACY_RENDERER)
+#if (MH_DRAWABLE_RENDERER && !MH_LEGACY_RENDERER)
     if (parameters.staticData.has3D) {
         common3DPass();
         drawable3DPass();
@@ -502,7 +502,7 @@ void Renderer::Impl::render(const RenderTree& renderTree,
     drawableOpaquePass();
     drawableTranslucentPass();
     drawableDebugOverlays();
-#elif (MLN_LEGACY_RENDERER && !MLN_DRAWABLE_RENDERER)
+#elif (MH_LEGACY_RENDERER && !MH_DRAWABLE_RENDERER)
     if (parameters.staticData.has3D) {
         common3DPass();
         renderLayer3DPass();
@@ -512,10 +512,10 @@ void Renderer::Impl::render(const RenderTree& renderTree,
     renderLayerTranslucentPass();
     renderDebugOverlays();
 #else
-    static_assert(0, "Must define one of (MLN_DRAWABLE_RENDERER, MLN_LEGACY_RENDERER)");
-#endif // MLN_LEGACY_RENDERER
+    static_assert(0, "Must define one of (MH_DRAWABLE_RENDERER, MH_LEGACY_RENDERER)");
+#endif // MH_LEGACY_RENDERER
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
     // Give the layers a chance to do cleanup
     orchestrator.visitLayerGroups([&](LayerGroupBase& layerGroup) { layerGroup.postRender(orchestrator, parameters); });
     context.unbindGlobalUniformBuffers(*parameters.renderPass);
@@ -532,7 +532,7 @@ void Renderer::Impl::render(const RenderTree& renderTree,
     parameters.encoder.reset();
     context.endFrame();
 
-#if MLN_RENDER_BACKEND_METAL
+#if MH_RENDER_BACKEND_METAL
     if constexpr (EnableMetalCapture) {
         if (commandCaptureScope) {
             commandCaptureScope->endScope();
@@ -543,7 +543,7 @@ void Renderer::Impl::render(const RenderTree& renderTree,
             }
         }
     }
-#endif // MLN_RENDER_BACKEND_METAL
+#endif // MH_RENDER_BACKEND_METAL
 
     const auto encodingTime = renderTree.getElapsedTime() - renderingTime;
 
@@ -562,7 +562,7 @@ void Renderer::Impl::render(const RenderTree& renderTree,
     }
 
     frameCount += 1;
-    MLN_END_FRAME();
+    MH_END_FRAME();
 }
 
 void Renderer::Impl::reduceMemoryUse() {

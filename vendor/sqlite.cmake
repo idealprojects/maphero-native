@@ -2,7 +2,7 @@ if(TARGET mbgl-vendor-sqlite)
     return()
 endif()
 
-if(MLN_WITH_QT)
+if(MH_WITH_QT)
     add_library(mbgl-vendor-sqlite OBJECT)
 else()
     add_library(mbgl-vendor-sqlite STATIC)
@@ -14,9 +14,9 @@ target_sources(
 )
 
 include(CheckSymbolExists)
-check_symbol_exists("strerror_r" "string.h" MLN_SQLITE3_HAVE_STRERROR_R)
+check_symbol_exists("strerror_r" "string.h" MH_SQLITE3_HAVE_STRERROR_R)
 
-if(MLN_SQLITE3_HAVE_STRERROR_R)
+if(MH_SQLITE3_HAVE_STRERROR_R)
     target_compile_definitions(
         mbgl-vendor-sqlite
         PRIVATE HAVE_STRERROR_R

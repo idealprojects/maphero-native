@@ -13,7 +13,7 @@ public:
           size(size_),
           type(type_) {
         assert(!size.isEmpty());
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
         texture = context.createTexture2D();
         texture->setSize(size);
         texture->setFormat(gfx::TexturePixelType::RGBA, type);
@@ -26,7 +26,7 @@ public:
 
     void bind() override {
         if (!framebuffer) {
-#if MLN_LEGACY_RENDERER
+#if MH_LEGACY_RENDERER
             assert(!texture);
             texture = context.createTexture(size, gfx::TexturePixelType::RGBA, type);
             framebuffer = context.createFramebuffer(*texture);
@@ -50,7 +50,7 @@ public:
         return context.readFramebuffer<PremultipliedImage>(size);
     }
 
-#if MLN_LEGACY_RENDERER
+#if MH_LEGACY_RENDERER
     gfx::Texture& getTexture() {
         assert(texture);
         return *texture;
@@ -65,7 +65,7 @@ public:
 private:
     gl::Context& context;
     const Size size;
-#if MLN_LEGACY_RENDERER
+#if MH_LEGACY_RENDERER
     std::optional<gfx::Texture> texture;
 #else
     gfx::Texture2DPtr texture;
@@ -90,7 +90,7 @@ PremultipliedImage OffscreenTexture::readStillImage() {
     return getResource<OffscreenTextureResource>().readStillImage();
 }
 
-#if MLN_LEGACY_RENDERER
+#if MH_LEGACY_RENDERER
 gfx::Texture& OffscreenTexture::getTexture() {
     return getResource<OffscreenTextureResource>().getTexture();
 }

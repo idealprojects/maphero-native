@@ -30,7 +30,7 @@ public:
     std::optional<gfx::Texture> dem;
     std::optional<gfx::Texture> texture;
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
     RenderTargetPtr renderTarget;
     bool renderTargetPrepared = false;
 #endif
@@ -52,10 +52,10 @@ public:
     gfx::IndexVector<gfx::Triangles> indices;
     SegmentVector<HillshadeAttributes> segments;
 
-#if MLN_LEGACY_RENDERER
+#if MH_LEGACY_RENDERER
     std::optional<gfx::VertexBuffer<HillshadeLayoutVertex>> vertexBuffer;
     std::optional<gfx::IndexBuffer> indexBuffer;
-#endif // MLN_LEGACY_RENDERER
+#endif // MH_LEGACY_RENDERER
 
 private:
     DEMData demdata;

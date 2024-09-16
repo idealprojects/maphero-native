@@ -20,7 +20,7 @@
 #include <mbgl/util/intersection_tests.hpp>
 #include <mbgl/util/math.hpp>
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
 #include <mbgl/gfx/drawable_atlases_tweaker.hpp>
 #include <mbgl/gfx/drawable_builder.hpp>
 #include <mbgl/renderer/layer_group.hpp>
@@ -28,7 +28,7 @@
 #include <mbgl/renderer/update_parameters.hpp>
 #include <mbgl/shaders/fill_extrusion_layer_ubo.hpp>
 #include <mbgl/shaders/shader_program_base.hpp>
-#endif // MLN_DRAWABLE_RENDERER
+#endif // MH_DRAWABLE_RENDERER
 
 namespace mbgl {
 
@@ -69,11 +69,11 @@ void RenderFillExtrusionLayer::evaluate(const PropertyEvaluationParameters& para
     properties->renderPasses = mbgl::underlying_type(passes);
     evaluatedProperties = std::move(properties);
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
     if (layerTweaker) {
         layerTweaker->updateProperties(evaluatedProperties);
     }
-#endif // MLN_DRAWABLE_RENDERER
+#endif // MH_DRAWABLE_RENDERER
 }
 
 bool RenderFillExtrusionLayer::hasTransition() const {
@@ -88,7 +88,7 @@ bool RenderFillExtrusionLayer::is3D() const {
     return true;
 }
 
-#if MLN_LEGACY_RENDERER
+#if MH_LEGACY_RENDERER
 void RenderFillExtrusionLayer::render(PaintParameters& parameters) {
     assert(renderTiles);
     if (parameters.pass != RenderPass::Translucent) {
@@ -245,7 +245,7 @@ void RenderFillExtrusionLayer::render(PaintParameters& parameters) {
         drawTiles(parameters.stencilModeFor3D(), parameters.colorModeForRenderPass(), "color");
     }
 }
-#endif // MLN_LEGACY_RENDERER
+#endif // MH_LEGACY_RENDERER
 
 bool RenderFillExtrusionLayer::queryIntersectsFeature(const GeometryCoordinates& queryGeometry,
                                                       const GeometryTileFeature& feature,
@@ -266,7 +266,7 @@ bool RenderFillExtrusionLayer::queryIntersectsFeature(const GeometryCoordinates&
                                                feature.getGeometries());
 }
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
 
 void RenderFillExtrusionLayer::update(gfx::ShaderRegistry& shaders,
                                       gfx::Context& context,
@@ -499,6 +499,6 @@ void RenderFillExtrusionLayer::update(gfx::ShaderRegistry& shaders,
     }
 }
 
-#endif // MLN_DRAWABLE_RENDERER
+#endif // MH_DRAWABLE_RENDERER
 
 } // namespace mbgl

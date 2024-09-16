@@ -18,40 +18,40 @@ The server can be downloaded from [Tracy release page](https://github.com/wolfpl
 
 #### Enabling instrumentation in MapLibre Native
 
-Instrumentation is enabled by turning `ON` the CMake option `MLN_USE_TRACY`.
+Instrumentation is enabled by turning `ON` the CMake option `MH_USE_TRACY`.
 Tracy computational overhead is very low but by default it keeps all instrumentation events that are not consumed by the server in system memory. This can have a negative effect on platforms with low memory. To prevent high memory usage, `TRACY_ON_DEMAND` macro should defined. This way instrumentation data is only stored when the server is connected to the application.
 
 #### Instrumentation in MapLibre
 
 The file `include/mbgl/util/instrumentation.hpp` defines the following instrumentation macros:
 
-##### `MLN_TRACE_ZONE(label)`
+##### `MH_TRACE_ZONE(label)`
 The macro records the timestamps at the start and end of the code scope. The parameter label is a user defined name for the zone. Example:
 
 ~~~
 // code is not instrumented
 {
-  MLN_TRACE_ZONE(EmptyZone) // Records from here until the end of the scope
+  MH_TRACE_ZONE(EmptyZone) // Records from here until the end of the scope
   // code here is instrumented
 }
 // other here not instrumented
 ~~~
 
-##### `MLN_TRACE_FUNC()`
+##### `MH_TRACE_FUNC()`
 The macro is meant to be placed at the start of a function and expands to:
 ~~~
-MLN_TRACE_ZONE(__FUNCTION__)
+MH_TRACE_ZONE(__FUNCTION__)
 ~~~
 
 ##### GPU instrumentation
 
 OpenGL is also supported in MapLibre native. Tracy support is currently missing for other APIs such as Metal and need to be added separately.
 
-##### `MLN_TRACE_GL_ZONE(label)`
-This macro is similar to `MLN_TRACE_ZONE` except that [OpenGL timestamp queries](https://www.khronos.org/opengl/wiki/Query_Object) are inserted in the GPU command buffer instead of recording CPU time.
+##### `MH_TRACE_GL_ZONE(label)`
+This macro is similar to `MH_TRACE_ZONE` except that [OpenGL timestamp queries](https://www.khronos.org/opengl/wiki/Query_Object) are inserted in the GPU command buffer instead of recording CPU time.
 
-##### `MLN_TRACE_FUNC_GL(label)`
-This macro is similar to `MLN_TRACE_FUNC` except that [OpenGL timestamp queries](https://www.khronos.org/opengl/wiki/Query_Object) are inserted in the GPU command buffer instead of recording CPU time.
+##### `MH_TRACE_FUNC_GL(label)`
+This macro is similar to `MH_TRACE_FUNC` except that [OpenGL timestamp queries](https://www.khronos.org/opengl/wiki/Query_Object) are inserted in the GPU command buffer instead of recording CPU time.
 
 ##### Other macros
 
@@ -59,25 +59,25 @@ The above macros can be added inside MapLibre code and also in the application c
 
 The following macros should only be used if there are changes to MapLibre internals:
 
-##### `MLN_END_FRAME()`
+##### `MH_END_FRAME()`
 Mark the end of a frame.
 
-##### `MLN_TRACE_GL_CONTEXT()`
+##### `MH_TRACE_GL_CONTEXT()`
 Placed after an OpenGL context is created.
 
-##### `MLN_TRACE_ALLOC_TEXTURE(id, size)` and `MLN_TRACE_FREE_TEXTURE(id)`
+##### `MH_TRACE_ALLOC_TEXTURE(id, size)` and `MH_TRACE_FREE_TEXTURE(id)`
 Record a read-only texture allocation and deallocation
 
-##### `MLN_TRACE_ALLOC_RT(id, size)` and `MLN_TRACE_FREE_RT(id)`
+##### `MH_TRACE_ALLOC_RT(id, size)` and `MH_TRACE_FREE_RT(id)`
 Record a render target texture allocation and deallocation
 
-##### `MLN_TRACE_ALLOC_VERTEX_BUFFER(id, size)` and `MLN_TRACE_FREE_VERTEX_BUFFER(id)`
+##### `MH_TRACE_ALLOC_VERTEX_BUFFER(id, size)` and `MH_TRACE_FREE_VERTEX_BUFFER(id)`
 Record a buffer allocation and deallocation that is intended to be used as a read-only vertex buffer
 
-##### `MLN_TRACE_ALLOC_INDEX_BUFFER(id, size)` and `MLN_TRACE_FREE_INDEX_BUFFER(id)`
+##### `MH_TRACE_ALLOC_INDEX_BUFFER(id, size)` and `MH_TRACE_FREE_INDEX_BUFFER(id)`
 Record a buffer allocation and deallocation that is intended to be used as a read-only index buffer
 
-##### `MLN_TRACE_ALLOC_CONST_BUFFER(id, size)` and `MLN_TRACE_FREE_CONST_BUFFER(id)`
+##### `MH_TRACE_ALLOC_CONST_BUFFER(id, size)` and `MH_TRACE_FREE_CONST_BUFFER(id)`
 Record a buffer allocation and deallocation that is intended to be used as a constant buffer
 
 
@@ -85,14 +85,14 @@ Record a buffer allocation and deallocation that is intended to be used as a con
 
 Download or build the Tracy profiler (server) and run it.
 
-Make sure you generate the MapLibre project with the option `MLN_USE_TRACY` enabled.
+Make sure you generate the MapLibre project with the option `MH_USE_TRACY` enabled.
 
 As an example, the glfw sample is used.
 
 With CMake, in MapLibre repository root do
 ~~~
 # generate project
-cmake -B build -GNinja -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_BUILD_TYPE=RelWithDebInfo -DMLN_WITH_CLANG_TIDY=OFF -DMLN_WITH_COVERAGE=OFF -DMLN_DRAWABLE_RENDERER=ON -DCMAKE_BUILD_WITH_INSTALL_RPATH=ON -DMLN_USE_TRACY=ON
+cmake -B build -GNinja -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_BUILD_TYPE=RelWithDebInfo -DMH_WITH_CLANG_TIDY=OFF -DMH_WITH_COVERAGE=OFF -DMH_DRAWABLE_RENDERER=ON -DCMAKE_BUILD_WITH_INSTALL_RPATH=ON -DMH_USE_TRACY=ON
 # build
 cmake --build build --target mbgl-glfw -j 8
 # run

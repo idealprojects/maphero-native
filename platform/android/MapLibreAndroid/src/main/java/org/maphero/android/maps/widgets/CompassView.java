@@ -22,7 +22,7 @@ import org.maphero.android.maps.MapHeroMapOptions;
  * <p>
  * You can change the behaviour of this View during initialisation with
  * {@link MapHeroMapOptions}, and xml attributes. While running you can
- * use {@link org.maplibre.android.maps.UiSettings}.
+ * use {@link org.maphero.android.maps.UiSettings}.
  * </p>
  */
 public final class CompassView extends ImageView implements Runnable {

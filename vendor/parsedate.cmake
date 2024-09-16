@@ -2,7 +2,7 @@ if(TARGET mbgl-vendor-parsedate)
     return()
 endif()
 
-if(MLN_WITH_QT)
+if(MH_WITH_QT)
     add_library(mbgl-vendor-parsedate OBJECT)
 else()
     add_library(mbgl-vendor-parsedate STATIC)

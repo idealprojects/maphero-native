@@ -15,15 +15,15 @@ FOUNDATION_EXTERN NSString *const MBXReuseQueueStatsEnabled;
 
 @interface MBXState : NSObject <NSSecureCoding>
 
-@property (nonatomic, nullable) MLNMapCamera *camera;
+@property (nonatomic, nullable) MHMapCamera *camera;
 @property (nonatomic) BOOL showsUserLocation;
-@property (nonatomic) MLNUserTrackingMode userTrackingMode;
+@property (nonatomic) MHUserTrackingMode userTrackingMode;
 @property (nonatomic) BOOL showsUserHeadingIndicator;
 @property (nonatomic) BOOL showsMapScale;
 @property (nonatomic) BOOL showsZoomLevelOrnament;
 @property (nonatomic) BOOL showsTimeFrameGraph;
 @property (nonatomic) BOOL framerateMeasurementEnabled;
-@property (nonatomic) MLNMapDebugMaskOptions debugMask;
+@property (nonatomic) MHMapDebugMaskOptions debugMask;
 @property (nonatomic) BOOL reuseQueueStatsEnabled;
 
 @property (nonatomic, readonly) NSString *debugDescription;

@@ -16,10 +16,10 @@ class FillPatternProgram;
 class FillOutlineProgram;
 class FillOutlinePatternProgram;
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
 class FillLayerTweaker;
 using FillLayerTweakerPtr = std::shared_ptr<FillLayerTweaker>;
-#endif // MLN_DRAWABLE_RENDERER
+#endif // MH_DRAWABLE_RENDERER
 
 class RenderFillLayer final : public RenderLayer {
 public:
@@ -36,7 +36,7 @@ public:
     explicit RenderFillLayer(Immutable<style::FillLayer::Impl>);
     ~RenderFillLayer() override;
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
     /// Generate any changes needed by the layer
     void update(gfx::ShaderRegistry&,
                 gfx::Context&,
@@ -52,7 +52,7 @@ private:
     bool hasTransition() const override;
     bool hasCrossfade() const override;
 
-#if MLN_LEGACY_RENDERER
+#if MH_LEGACY_RENDERER
     void render(PaintParameters&) override;
 #endif
 
@@ -67,7 +67,7 @@ private:
     // Paint properties
     style::FillPaintProperties::Unevaluated unevaluated;
 
-#if MLN_LEGACY_RENDERER
+#if MH_LEGACY_RENDERER
     // Programs
     std::shared_ptr<FillProgram> fillProgram;
     std::shared_ptr<FillPatternProgram> fillPatternProgram;
@@ -75,17 +75,17 @@ private:
     std::shared_ptr<FillOutlinePatternProgram> fillOutlinePatternProgram;
 #endif
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
     gfx::ShaderGroupPtr fillShaderGroup;
     gfx::ShaderGroupPtr outlineShaderGroup;
     gfx::ShaderGroupPtr patternShaderGroup;
     gfx::ShaderGroupPtr outlinePatternShaderGroup;
 
-#if MLN_TRIANGULATE_FILL_OUTLINES
+#if MH_TRIANGULATE_FILL_OUTLINES
     gfx::ShaderGroupPtr outlineTriangulatedShaderGroup;
-#endif // MLN_TRIANGULATE_FILL_OUTLINES
+#endif // MH_TRIANGULATE_FILL_OUTLINES
 
-#endif // MLN_DRAWABLE_RENDERER
+#endif // MH_DRAWABLE_RENDERER
 };
 
 } // namespace mbgl

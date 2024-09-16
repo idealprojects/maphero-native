@@ -48,13 +48,13 @@ To compile the Node.js bindings and install module dependencies, from the reposi
 #### MacOS
 
 ```bash
-cmake . -B build -G Ninja -DMLN_WITH_NODE=ON -DCMAKE_CXX_COMPILER_LAUNCHER=ccache -DCMAKE_BUILD_TYPE=Debug -DMLN_WITH_COVERAGE=ON
+cmake . -B build -G Ninja -DMH_WITH_NODE=ON -DCMAKE_CXX_COMPILER_LAUNCHER=ccache -DCMAKE_BUILD_TYPE=Debug -DMH_WITH_COVERAGE=ON
 ```
 
 #### Linux
 
 ```bash
-cmake . -B build -G Ninja -DMLN_WITH_NODE=ON -DCMAKE_CXX_COMPILER_LAUNCHER=ccache -DCMAKE_C_COMPILER=gcc-10 -DCMAKE_CXX_COMPILER=g++-10
+cmake . -B build -G Ninja -DMH_WITH_NODE=ON -DCMAKE_CXX_COMPILER_LAUNCHER=ccache -DCMAKE_C_COMPILER=gcc-10 -DCMAKE_CXX_COMPILER=g++-10
 ```
 
 ### Building

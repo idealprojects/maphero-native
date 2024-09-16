@@ -35,10 +35,10 @@
 #import <netdb.h>
 
 
-NSString *const kMLNReachabilityChangedNotification = @"kMLNReachabilityChangedNotification";
+NSString *const kMHReachabilityChangedNotification = @"kMHReachabilityChangedNotification";
 
 
-@interface MLNReachability ()
+@interface MHReachability ()
 
 @property (nonatomic, assign) SCNetworkReachabilityRef  reachabilityRef;
 @property (nonatomic, strong) dispatch_queue_t          reachabilitySerialQueue;
@@ -73,7 +73,7 @@ static void TMReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkRea
 {
 #pragma unused (target)
 
-    MLNReachability *reachability = ((__bridge MLNReachability*)info);
+    MHReachability *reachability = ((__bridge MHReachability*)info);
 
     // We probably don't need an autoreleasepool here, as GCD docs state each queue has its own autorelease pool,
     // but what the heck eh?
@@ -84,13 +84,13 @@ static void TMReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkRea
 }
 
 
-@implementation MLNReachability
+@implementation MHReachability
 
 // MARK: - Class Constructor Methods
 
 +(instancetype)reachabilityWithHostName:(NSString*)hostname
 {
-    return [MLNReachability reachabilityWithHostname:hostname];
+    return [MHReachability reachabilityWithHostname:hostname];
 }
 
 +(instancetype)reachabilityWithHostname:(NSString*)hostname
@@ -456,7 +456,7 @@ static void TMReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkRea
 
     // this makes sure the change notification happens on the MAIN THREAD
     dispatch_async(dispatch_get_main_queue(), ^{
-        [[NSNotificationCenter defaultCenter] postNotificationName:kMLNReachabilityChangedNotification
+        [[NSNotificationCenter defaultCenter] postNotificationName:kMHReachabilityChangedNotification
                                                             object:self];
     });
 }

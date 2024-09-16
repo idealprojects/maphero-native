@@ -3,87 +3,87 @@ load(
     "@build_bazel_rules_swift//swift:swift.bzl",
     "swift_library",
 )
-load("//bazel:flags.bzl", "CPP_FLAGS", "MAPLIBRE_FLAGS", "WARNING_FLAGS")
+load("//bazel:flags.bzl", "CPP_FLAGS", "MAPHERO_FLAGS", "WARNING_FLAGS")
 load(
     "bazel/files.bzl",
-    "MLN_DARWIN_OBJCPP_HEADERS",
-    "MLN_DARWIN_OBJC_HEADERS",
-    "MLN_DARWIN_PRIVATE_HEADERS",
-    "MLN_DARWIN_PUBLIC_OBJCPP_CUSTOM_DRAWABLE_SOURCE",
-    "MLN_DARWIN_PUBLIC_OBJCPP_SOURCE",
-    "MLN_DARWIN_PUBLIC_OBJC_SOURCE",
-    "MLN_GENERATED_DARWIN_STYLE_HEADERS",
-    "MLN_GENERATED_DARWIN_STYLE_PUBLIC_HEADERS",
-    "MLN_GENERATED_DARWIN_STYLE_SOURCE",
-    "MLN_GENERATED_DARWIN_TEST_CODE",
+    "MH_DARWIN_OBJCPP_HEADERS",
+    "MH_DARWIN_OBJC_HEADERS",
+    "MH_DARWIN_PRIVATE_HEADERS",
+    "MH_DARWIN_PUBLIC_OBJCPP_CUSTOM_DRAWABLE_SOURCE",
+    "MH_DARWIN_PUBLIC_OBJCPP_SOURCE",
+    "MH_DARWIN_PUBLIC_OBJC_SOURCE",
+    "MH_GENERATED_DARWIN_STYLE_HEADERS",
+    "MH_GENERATED_DARWIN_STYLE_PUBLIC_HEADERS",
+    "MH_GENERATED_DARWIN_STYLE_SOURCE",
+    "MH_GENERATED_DARWIN_TEST_CODE",
 )
 
 filegroup(
     name = "darwin_private_hdrs",
-    srcs = MLN_DARWIN_PRIVATE_HEADERS,
+    srcs = MH_DARWIN_PRIVATE_HEADERS,
     visibility = ["//visibility:public"],
 )
 
 filegroup(
     name = "darwin_objc_hdrs",
-    srcs = MLN_DARWIN_OBJC_HEADERS,
+    srcs = MH_DARWIN_OBJC_HEADERS,
     visibility = ["//visibility:public"],
 )
 
 filegroup(
     name = "darwin_objcpp_hdrs",
-    srcs = MLN_DARWIN_OBJCPP_HEADERS,
+    srcs = MH_DARWIN_OBJCPP_HEADERS,
     visibility = ["//visibility:public"],
 )
 
 filegroup(
     name = "darwin_objcpp_srcs",
-    srcs = MLN_DARWIN_PUBLIC_OBJCPP_SOURCE,
+    srcs = MH_DARWIN_PUBLIC_OBJCPP_SOURCE,
     visibility = ["//visibility:public"],
 )
 
 filegroup(
     name = "darwin_objcpp_custom_drawable_srcs",
-    srcs = MLN_DARWIN_PUBLIC_OBJCPP_CUSTOM_DRAWABLE_SOURCE,
+    srcs = MH_DARWIN_PUBLIC_OBJCPP_CUSTOM_DRAWABLE_SOURCE,
     visibility = ["//visibility:public"],
 )
 
 filegroup(
     name = "darwin_objc_srcs",
-    srcs = MLN_DARWIN_PUBLIC_OBJC_SOURCE,
+    srcs = MH_DARWIN_PUBLIC_OBJC_SOURCE,
     visibility = ["//visibility:public"],
 )
 
 filegroup(
     name = "generated_style_srcs",
-    srcs = MLN_GENERATED_DARWIN_STYLE_SOURCE,
+    srcs = MH_GENERATED_DARWIN_STYLE_SOURCE,
     visibility = ["//visibility:public"],
 )
 
 filegroup(
     name = "generated_style_hdrs",
-    srcs = MLN_GENERATED_DARWIN_STYLE_HEADERS,
+    srcs = MH_GENERATED_DARWIN_STYLE_HEADERS,
     visibility = ["//visibility:public"],
 )
 
 filegroup(
     name = "generated_style_public_hdrs",
-    srcs = MLN_GENERATED_DARWIN_STYLE_PUBLIC_HEADERS,
+    srcs = MH_GENERATED_DARWIN_STYLE_PUBLIC_HEADERS,
     visibility = ["//visibility:public"],
 )
 
 filegroup(
     name = "generated_test_srcs",
-    srcs = MLN_GENERATED_DARWIN_TEST_CODE,
+    srcs = MH_GENERATED_DARWIN_TEST_CODE,
     visibility = ["//visibility:public"],
 )
 
 filegroup(
     name = "test_ejs_templates",
     srcs = [
-        "test/MLNDocumentationGuideTests.swift",
-        "test/MLNLightTest.mm.ejs",
-        "test/MLNStyleLayerTests.mm.ejs",
+        "test/MHDocumentationGuideTests.swift",
+        "test/MHLightTest.mm.ejs",
+        "test/MHStyleLayerTests.mm.ejs",
     ],
     visibility = ["//visibility:public"],
 )
@@ -91,11 +91,11 @@ filegroup(
 filegroup(
     name = "generator_data",
     srcs = [
-        "src/MLNLight.h.ejs",
-        "src/MLNLight.mm.ejs",
-        "src/MLNStyleLayer.h.ejs",
-        "src/MLNStyleLayer.mm.ejs",
-        "src/MLNStyleLayer_Private.h.ejs",
+        "src/MHLight.h.ejs",
+        "src/MHLight.mm.ejs",
+        "src/MHStyleLayer.h.ejs",
+        "src/MHStyleLayer.mm.ejs",
+        "src/MHStyleLayer_Private.h.ejs",
     ],
 )
 
@@ -105,8 +105,8 @@ js_run_binary(
         ":generator_data",
         ":test_ejs_templates",
     ],
-    outs = MLN_GENERATED_DARWIN_STYLE_SOURCE +
-           MLN_GENERATED_DARWIN_STYLE_HEADERS + MLN_GENERATED_DARWIN_TEST_CODE,
+    outs = MH_GENERATED_DARWIN_STYLE_SOURCE +
+           MH_GENERATED_DARWIN_STYLE_HEADERS + MH_GENERATED_DARWIN_TEST_CODE,
     tool = ":generate-style-code-script",
     visibility = ["//visibility:public"],
 )
@@ -114,7 +114,7 @@ js_run_binary(
 objc_library(
     name = "test_utility",
     srcs = [
-        "test/MLNTestUtility.h",
+        "test/MHTestUtility.h",
     ],
     includes = ["test"],
     visibility = [
@@ -130,7 +130,7 @@ objc_library(
             "test/*.h",
         ],
     ),
-    copts = MAPLIBRE_FLAGS + WARNING_FLAGS["ios"],
+    copts = MAPHERO_FLAGS + WARNING_FLAGS["ios"],
     data = glob(
         ["test/Media.xcassets/**"],
     ),
@@ -154,10 +154,10 @@ objc_library(
             "test/*.mm",
         ],
         exclude = [
-            "test/MLNOfflineStorageTests.mm",
+            "test/MHOfflineStorageTests.mm",
         ],
     ),
-    copts = CPP_FLAGS + MAPLIBRE_FLAGS + WARNING_FLAGS["ios"] + ["-Wno-deprecated-declarations"],
+    copts = CPP_FLAGS + MAPHERO_FLAGS + WARNING_FLAGS["ios"] + ["-Wno-deprecated-declarations"],
     visibility = [
         "//platform/ios/test:__pkg__",
     ],
@@ -205,9 +205,9 @@ objc_library(
     hdrs = [
         "include/mbgl/interface/native_apple_interface.h",
         "include/mbgl/storage/reachability.h",
-        "include/mbgl/util/image+MLNAdditions.hpp",
+        "include/mbgl/util/image+MHAdditions.hpp",
     ],
-    copts = WARNING_FLAGS["ios"] + MAPLIBRE_FLAGS + [
+    copts = WARNING_FLAGS["ios"] + MAPHERO_FLAGS + [
         "-fmodules",
     ],
     defines = [
@@ -244,9 +244,9 @@ objc_library(
     hdrs = [
         "include/mbgl/interface/native_apple_interface.h",
         "include/mbgl/storage/reachability.h",
-        "include/mbgl/util/image+MLNAdditions.hpp",
+        "include/mbgl/util/image+MHAdditions.hpp",
     ],
-    copts = CPP_FLAGS + MAPLIBRE_FLAGS + [
+    copts = CPP_FLAGS + MAPHERO_FLAGS + [
         "-fcxx-modules",
         "-fmodules",
         "-Wno-vla-extension",
@@ -278,7 +278,7 @@ objc_library(
         "//:metal_renderer": [],
         "//conditions:default": ["src/gl_functions.cpp"],
     }),
-    copts = CPP_FLAGS + MAPLIBRE_FLAGS,
+    copts = CPP_FLAGS + MAPHERO_FLAGS,
     defines = [
         "GLES_SILENCE_DEPRECATION=1",
         "GL_SILENCE_DEPRECATION=1",
@@ -298,18 +298,18 @@ objc_library(
 exports_files(
     [
         "test/amsterdam.geojson",
-        "test/MLNSDKTestHelpers.swift",
+        "test/MHSDKTestHelpers.swift",
         "app/CustomStyleLayerExample.h",
         "app/CustomStyleLayerExample.m",
         "app/ExampleCustomDrawableStyleLayer.h",
         "app/ExampleCustomDrawableStyleLayer.mm",
-        "include/mbgl/util/image+MLNAdditions.hpp",
-    ] + MLN_DARWIN_PUBLIC_OBJC_SOURCE +
-    MLN_DARWIN_PUBLIC_OBJCPP_SOURCE +
-    MLN_DARWIN_PUBLIC_OBJCPP_CUSTOM_DRAWABLE_SOURCE +
-    MLN_DARWIN_PRIVATE_HEADERS +
-    MLN_DARWIN_OBJC_HEADERS +
-    MLN_DARWIN_OBJCPP_HEADERS,
+        "include/mbgl/util/image+MHAdditions.hpp",
+    ] + MH_DARWIN_PUBLIC_OBJC_SOURCE +
+    MH_DARWIN_PUBLIC_OBJCPP_SOURCE +
+    MH_DARWIN_PUBLIC_OBJCPP_CUSTOM_DRAWABLE_SOURCE +
+    MH_DARWIN_PRIVATE_HEADERS +
+    MH_DARWIN_OBJC_HEADERS +
+    MH_DARWIN_OBJCPP_HEADERS,
 )
 
 js_binary(

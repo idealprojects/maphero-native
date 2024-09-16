@@ -3,14 +3,14 @@
 #import "AppDelegate.h"
 // #import "CustomStyleLayerExample.h"
 #import "DroppedPinAnnotation.h"
-#import "MLNMapsnapshotter.h"
+#import "MHMapsnapshotter.h"
 
-#import "MLNStyle+MBXAdditions.h"
-#import "MLNVectorTileSource_Private.h"
+#import "MHStyle+MBXAdditions.h"
+#import "MHVectorTileSource_Private.h"
 
 #import <Mapbox.h>
 
-static NSString * const MLNDroppedPinAnnotationImageIdentifier = @"dropped";
+static NSString * const MHDroppedPinAnnotationImageIdentifier = @"dropped";
 
 static const CLLocationCoordinate2D WorldTourDestinations[] = {
     { .latitude = 38.8999418, .longitude = -77.033996 },
@@ -20,26 +20,26 @@ static const CLLocationCoordinate2D WorldTourDestinations[] = {
     { .latitude = 53.8948782, .longitude = 27.5558476 },
 };
 
-NSArray<id <MLNAnnotation>> *MBXFlattenedShapes(NSArray<id <MLNAnnotation>> *shapes) {
+NSArray<id <MHAnnotation>> *MBXFlattenedShapes(NSArray<id <MHAnnotation>> *shapes) {
     NSMutableArray *flattenedShapes = [NSMutableArray arrayWithCapacity:shapes.count];
-    for (id <MLNAnnotation> shape in shapes) {
+    for (id <MHAnnotation> shape in shapes) {
         NSArray *subshapes;
-        if ([shape isKindOfClass:[MLNMultiPolyline class]]) {
-            subshapes = [(MLNMultiPolyline *)shape polylines];
-        } else if ([shape isKindOfClass:[MLNMultiPolygon class]]) {
-            subshapes = [(MLNMultiPolygon *)shape polygons];
-        } else if ([shape isKindOfClass:[MLNPointCollection class]]) {
-            NSUInteger pointCount = [(MLNPointCollection *)shape pointCount];
-            CLLocationCoordinate2D *coordinates = [(MLNPointCollection *)shape coordinates];
+        if ([shape isKindOfClass:[MHMultiPolyline class]]) {
+            subshapes = [(MHMultiPolyline *)shape polylines];
+        } else if ([shape isKindOfClass:[MHMultiPolygon class]]) {
+            subshapes = [(MHMultiPolygon *)shape polygons];
+        } else if ([shape isKindOfClass:[MHPointCollection class]]) {
+            NSUInteger pointCount = [(MHPointCollection *)shape pointCount];
+            CLLocationCoordinate2D *coordinates = [(MHPointCollection *)shape coordinates];
             NSMutableArray *pointAnnotations = [NSMutableArray arrayWithCapacity:pointCount];
             for (NSUInteger i = 0; i < pointCount; i++) {
-                MLNPointAnnotation *pointAnnotation = [[MLNPointAnnotation alloc] init];
+                MHPointAnnotation *pointAnnotation = [[MHPointAnnotation alloc] init];
                 pointAnnotation.coordinate = coordinates[i];
                 [pointAnnotations addObject:pointAnnotation];
             }
             subshapes = pointAnnotations;
-        } else if ([shape isKindOfClass:[MLNShapeCollection class]]) {
-            subshapes = MBXFlattenedShapes([(MLNShapeCollection *)shape shapes]);
+        } else if ([shape isKindOfClass:[MHShapeCollection class]]) {
+            subshapes = MBXFlattenedShapes([(MHShapeCollection *)shape shapes]);
         }
 
         if (subshapes) {
@@ -51,13 +51,13 @@ NSArray<id <MLNAnnotation>> *MBXFlattenedShapes(NSArray<id <MLNAnnotation>> *sha
     return flattenedShapes;
 }
 
-@interface MLNVectorTileSource (MBXAdditions)
+@interface MHVectorTileSource (MBXAdditions)
 
 @property (nonatomic, readonly, getter=isMapboxTerrain) BOOL mapboxTerrain;
 
 @end
 
-@implementation MLNVectorTileSource (MBXAdditions)
+@implementation MHVectorTileSource (MBXAdditions)
 
 - (BOOL)isMapboxTerrain {
     NSURL *url = self.configurationURL;
@@ -70,7 +70,7 @@ NSArray<id <MLNAnnotation>> *MBXFlattenedShapes(NSArray<id <MLNAnnotation>> *sha
 
 @end
 
-@interface MapDocument () <NSWindowDelegate, NSSharingServicePickerDelegate, NSMenuDelegate, NSSplitViewDelegate, MLNMapViewDelegate, MLNMapSnapshotterDelegate, MLNComputedShapeSourceDataSource>
+@interface MapDocument () <NSWindowDelegate, NSSharingServicePickerDelegate, NSMenuDelegate, NSSplitViewDelegate, MHMapViewDelegate, MHMapSnapshotterDelegate, MHComputedShapeSourceDataSource>
 
 @property (weak) IBOutlet NSArrayController *styleLayersArrayController;
 @property (weak) IBOutlet NSTableView *styleLayersTableView;
@@ -102,7 +102,7 @@ NSArray<id <MLNAnnotation>> *MBXFlattenedShapes(NSArray<id <MLNAnnotation>> *sha
     BOOL _isShowingPolygonAndPolylineAnnotations;
     BOOL _isShowingAnimatedAnnotation;
 
-    MLNMapSnapshotter *_snapshotter;
+    MHMapSnapshotter *_snapshotter;
 }
 
 // MARK: Lifecycle
@@ -146,9 +146,9 @@ NSArray<id <MLNAnnotation>> *MBXFlattenedShapes(NSArray<id <MLNAnnotation>> *sha
 
 - (void)userDefaultsDidChange:(NSNotification *)notification {
     NSUserDefaults *userDefaults = notification.object;
-    NSString *apiKey = [userDefaults stringForKey:MLNApiKeyDefaultsKey];
-    if (![apiKey isEqualToString:[MLNSettings apiKey]]) {
-        [MLNSettings setApiKey:apiKey];
+    NSString *apiKey = [userDefaults stringForKey:MHApiKeyDefaultsKey];
+    if (![apiKey isEqualToString:[MHSettings apiKey]]) {
+        [MHSettings setApiKey:apiKey];
         [self reload:self];
     }
 }
@@ -175,10 +175,10 @@ NSArray<id <MLNAnnotation>> *MBXFlattenedShapes(NSArray<id <MLNAnnotation>> *sha
 
 - (NSURL *)shareURL {
     NSArray *components = self.mapView.styleURL.pathComponents;
-    MLNMapCamera *camera = self.mapView.camera;
+    MHMapCamera *camera = self.mapView.camera;
     return [NSURL URLWithString:
             [NSString stringWithFormat:@"https://api.mapbox.com/styles/v1/%@/%@.html?access_token=%@#%.2f/%.5f/%.5f/%.f/%.f",
-             components[1], components[2], [MLNSettings apiKey],
+             components[1], components[2], [MHSettings apiKey],
              self.mapView.zoomLevel, camera.centerCoordinate.latitude, camera.centerCoordinate.longitude,
              camera.heading, camera.pitch]];
 }
@@ -209,16 +209,16 @@ NSArray<id <MLNAnnotation>> *MBXFlattenedShapes(NSArray<id <MLNAnnotation>> *sha
  [simplestyle-spec](https://github.com/mapbox/simplestyle-spec/tree/master/1.1.0/).
  */
 - (void)importFromURL:(NSURL *)url {
-    MLNStyle *style = self.mapView.style;
+    MHStyle *style = self.mapView.style;
     if (!style) {
         return;
     }
     
-    MLNShapeSource *source = [[MLNShapeSource alloc] initWithIdentifier:[NSUUID UUID].UUIDString URL:url options:nil];
+    MHShapeSource *source = [[MHShapeSource alloc] initWithIdentifier:[NSUUID UUID].UUIDString URL:url options:nil];
     [self.mapView.style addSource:source];
     
     NSString *pointIdentifier = [NSString stringWithFormat:@"%@ marker", source.identifier];
-    MLNSymbolStyleLayer *pointLayer = [[MLNSymbolStyleLayer alloc] initWithIdentifier:pointIdentifier source:source];
+    MHSymbolStyleLayer *pointLayer = [[MHSymbolStyleLayer alloc] initWithIdentifier:pointIdentifier source:source];
     pointLayer.iconImageName =
         [NSExpression expressionWithFormat:@"mgl_join({%K, '-', CAST(TERNARY(%K = 'small', 11, 15), 'NSString')})",
          @"marker-symbol", @"marker-size"];
@@ -229,14 +229,14 @@ NSArray<id <MLNAnnotation>> *MBXFlattenedShapes(NSArray<id <MLNAnnotation>> *sha
     [style addLayer:pointLayer];
     
     NSString *fillIdentifier = [NSString stringWithFormat:@"%@ fill", source.identifier];
-    MLNFillStyleLayer *fillLayer = [[MLNFillStyleLayer alloc] initWithIdentifier:fillIdentifier source:source];
+    MHFillStyleLayer *fillLayer = [[MHFillStyleLayer alloc] initWithIdentifier:fillIdentifier source:source];
     fillLayer.predicate = [NSPredicate predicateWithFormat:@"fill != nil OR %K != nil", @"fill-opacity"];
     fillLayer.fillColor = [NSExpression expressionWithFormat:@"CAST(mgl_coalesce({fill, '#555555'}), 'NSColor')"];
     fillLayer.fillOpacity = [NSExpression expressionWithFormat:@"mgl_coalesce({%K, 0.5})", @"fill-opacity"];
     [style addLayer:fillLayer];
     
     NSString *lineIdentifier = [NSString stringWithFormat:@"%@ stroke", source.identifier];
-    MLNLineStyleLayer *lineLayer = [[MLNLineStyleLayer alloc] initWithIdentifier:lineIdentifier source:source];
+    MHLineStyleLayer *lineLayer = [[MHLineStyleLayer alloc] initWithIdentifier:lineIdentifier source:source];
     lineLayer.lineColor = [NSExpression expressionWithFormat:@"CAST(mgl_coalesce({stroke, '#555555'}), 'NSColor')"];
     lineLayer.lineOpacity = [NSExpression expressionWithFormat:@"mgl_coalesce({%K, 1.0})", @"stroke-opacity"];
     lineLayer.lineWidth = [NSExpression expressionWithFormat:@"mgl_coalesce({%K, 2})", @"stroke-width"];
@@ -246,16 +246,16 @@ NSArray<id <MLNAnnotation>> *MBXFlattenedShapes(NSArray<id <MLNAnnotation>> *sha
 }
 
 - (IBAction)takeSnapshot:(id)sender {
-    MLNMapCamera *camera = self.mapView.camera;
+    MHMapCamera *camera = self.mapView.camera;
     
-    MLNMapSnapshotOptions *options = [[MLNMapSnapshotOptions alloc] initWithStyleURL:self.mapView.styleURL camera:camera size:self.mapView.bounds.size];
+    MHMapSnapshotOptions *options = [[MHMapSnapshotOptions alloc] initWithStyleURL:self.mapView.styleURL camera:camera size:self.mapView.bounds.size];
     options.zoomLevel = self.mapView.zoomLevel;
     
     // Create and start the snapshotter
     __weak __typeof__(self) weakSelf = self;
-    _snapshotter = [[MLNMapSnapshotter alloc] initWithOptions:options];
+    _snapshotter = [[MHMapSnapshotter alloc] initWithOptions:options];
     _snapshotter.delegate = self;
-    [_snapshotter startWithCompletionHandler:^(MLNMapSnapshot *snapshot, NSError *error) {
+    [_snapshotter startWithCompletionHandler:^(MHMapSnapshot *snapshot, NSError *error) {
         __typeof__(self) strongSelf = weakSelf;
         if (!strongSelf) {
             return;
@@ -320,7 +320,7 @@ NSArray<id <MLNAnnotation>> *MBXFlattenedShapes(NSArray<id <MLNAnnotation>> *sha
     } else if ([sender isKindOfClass:[NSPopUpButton class]]) {
         tag = [sender selectedTag];
     }
-    NSURL *styleURL = [[[MLNStyle predefinedStyles] objectAtIndex:tag - 1] url];
+    NSURL *styleURL = [[[MHStyle predefinedStyles] objectAtIndex:tag - 1] url];
 
     [self.undoManager removeAllActionsWithTarget:self];
     self.mapView.styleURL = styleURL;
@@ -393,7 +393,7 @@ NSArray<id <MLNAnnotation>> *MBXFlattenedShapes(NSArray<id <MLNAnnotation>> *sha
 }
 
 - (void)toggleStyleLayersAtArrangedObjectIndexes:(NSIndexSet *)indices {
-    NSArray<MLNStyleLayer *> *layers = [self.mapView.style.reversedLayers objectsAtIndexes:indices];
+    NSArray<MHStyleLayer *> *layers = [self.mapView.style.reversedLayers objectsAtIndexes:indices];
     BOOL isVisible = layers.firstObject.visible;
     [self.undoManager registerUndoWithTarget:self handler:^(MapDocument * _Nonnull target) {
         [target toggleStyleLayersAtArrangedObjectIndexes:indices];
@@ -412,7 +412,7 @@ NSArray<id <MLNAnnotation>> *MBXFlattenedShapes(NSArray<id <MLNAnnotation>> *sha
         [self.undoManager setActionName:actionName];
     }
 
-    for (MLNStyleLayer *layer in layers) {
+    for (MHStyleLayer *layer in layers) {
         layer.visible = !isVisible;
     }
 
@@ -429,7 +429,7 @@ NSArray<id <MLNAnnotation>> *MBXFlattenedShapes(NSArray<id <MLNAnnotation>> *sha
     [self deleteStyleLayersAtArrangedObjectIndexes:indices];
 }
 
-- (void)insertStyleLayers:(NSArray<MLNStyleLayer *> *)layers atArrangedObjectIndexes:(NSIndexSet *)indices {
+- (void)insertStyleLayers:(NSArray<MHStyleLayer *> *)layers atArrangedObjectIndexes:(NSIndexSet *)indices {
     [self.undoManager registerUndoWithTarget:self handler:^(id  _Nonnull target) {
         [self deleteStyleLayersAtArrangedObjectIndexes:indices];
     }];
@@ -449,7 +449,7 @@ NSArray<id <MLNAnnotation>> *MBXFlattenedShapes(NSArray<id <MLNAnnotation>> *sha
 }
 
 - (void)deleteStyleLayersAtArrangedObjectIndexes:(NSIndexSet *)indices {
-    NSArray<MLNStyleLayer *> *layers = [self.mapView.style.reversedLayers objectsAtIndexes:indices];
+    NSArray<MHStyleLayer *> *layers = [self.mapView.style.reversedLayers objectsAtIndexes:indices];
     [self.undoManager registerUndoWithTarget:self handler:^(id  _Nonnull target) {
         [self insertStyleLayers:layers atArrangedObjectIndexes:indices];
     }];
@@ -496,9 +496,9 @@ NSArray<id <MLNAnnotation>> *MBXFlattenedShapes(NSArray<id <MLNAnnotation>> *sha
         appDelegate.pendingZoomLevel = -1;
         appDelegate.pendingCamera = nil;
     }
-    if (!MLNCoordinateBoundsIsEmpty(appDelegate.pendingVisibleCoordinateBounds)) {
+    if (!MHCoordinateBoundsIsEmpty(appDelegate.pendingVisibleCoordinateBounds)) {
         self.mapView.visibleCoordinateBounds = appDelegate.pendingVisibleCoordinateBounds;
-        appDelegate.pendingVisibleCoordinateBounds = (MLNCoordinateBounds){ { 0, 0 }, { 0, 0 } };
+        appDelegate.pendingVisibleCoordinateBounds = (MHCoordinateBounds){ { 0, 0 }, { 0, 0 } };
     }
     if (appDelegate.pendingDebugMask) {
         self.mapView.debugMask = appDelegate.pendingDebugMask;
@@ -514,7 +514,7 @@ NSArray<id <MLNAnnotation>> *MBXFlattenedShapes(NSArray<id <MLNAnnotation>> *sha
 
     // Temporarily set the display name to the default center coordinate instead
     // of “Untitled” until the binding kicks in.
-    NSValue *coordinateValue = [NSValue valueWithMLNCoordinate:self.mapView.centerCoordinate];
+    NSValue *coordinateValue = [NSValue valueWithMHCoordinate:self.mapView.centerCoordinate];
     NSString *coordinateString = [[NSValueTransformer valueTransformerForName:@"LocationCoordinate2DTransformer"]
                         transformedValue:coordinateValue];
 
@@ -525,38 +525,38 @@ NSArray<id <MLNAnnotation>> *MBXFlattenedShapes(NSArray<id <MLNAnnotation>> *sha
 // MARK: Debug methods
 
 - (IBAction)toggleTileBoundaries:(id)sender {
-    self.mapView.debugMask ^= MLNMapDebugTileBoundariesMask;
+    self.mapView.debugMask ^= MHMapDebugTileBoundariesMask;
 }
 
 - (IBAction)toggleTileInfo:(id)sender {
-    self.mapView.debugMask ^= MLNMapDebugTileInfoMask;
+    self.mapView.debugMask ^= MHMapDebugTileInfoMask;
 }
 
 - (IBAction)toggleTileTimestamps:(id)sender {
-    self.mapView.debugMask ^= MLNMapDebugTimestampsMask;
+    self.mapView.debugMask ^= MHMapDebugTimestampsMask;
 }
 
 - (IBAction)toggleCollisionBoxes:(id)sender {
-    self.mapView.debugMask ^= MLNMapDebugCollisionBoxesMask;
+    self.mapView.debugMask ^= MHMapDebugCollisionBoxesMask;
 }
 
 - (IBAction)toggleOverdrawVisualization:(id)sender {
-    self.mapView.debugMask ^= MLNMapDebugOverdrawVisualizationMask;
+    self.mapView.debugMask ^= MHMapDebugOverdrawVisualizationMask;
 }
 
 - (IBAction)showColorBuffer:(id)sender {
-    self.mapView.debugMask &= ~MLNMapDebugStencilBufferMask;
-    self.mapView.debugMask &= ~MLNMapDebugDepthBufferMask;
+    self.mapView.debugMask &= ~MHMapDebugStencilBufferMask;
+    self.mapView.debugMask &= ~MHMapDebugDepthBufferMask;
 }
 
 - (IBAction)showStencilBuffer:(id)sender {
-    self.mapView.debugMask &= ~MLNMapDebugDepthBufferMask;
-    self.mapView.debugMask |= MLNMapDebugStencilBufferMask;
+    self.mapView.debugMask &= ~MHMapDebugDepthBufferMask;
+    self.mapView.debugMask |= MHMapDebugStencilBufferMask;
 }
 
 - (IBAction)showDepthBuffer:(id)sender {
-    self.mapView.debugMask &= ~MLNMapDebugStencilBufferMask;
-    self.mapView.debugMask |= MLNMapDebugDepthBufferMask;
+    self.mapView.debugMask &= ~MHMapDebugStencilBufferMask;
+    self.mapView.debugMask |= MHMapDebugDepthBufferMask;
 }
 
 - (IBAction)toggleShowsToolTipsOnDroppedPins:(id)sender {
@@ -617,7 +617,7 @@ NSArray<id <MLNAnnotation>> *MBXFlattenedShapes(NSArray<id <MLNAnnotation>> *sha
     NSUInteger numberOfAnnotations = sizeof(WorldTourDestinations) / sizeof(WorldTourDestinations[0]);
     NSMutableArray *annotations = [NSMutableArray arrayWithCapacity:numberOfAnnotations];
     for (NSUInteger i = 0; i < numberOfAnnotations; i++) {
-        MLNPointAnnotation *annotation = [[MLNPointAnnotation alloc] init];
+        MHPointAnnotation *annotation = [[MHPointAnnotation alloc] init];
         annotation.coordinate = WorldTourDestinations[i];
         [annotations addObject:annotation];
     }
@@ -625,15 +625,15 @@ NSArray<id <MLNAnnotation>> *MBXFlattenedShapes(NSArray<id <MLNAnnotation>> *sha
     [self continueWorldTourWithRemainingAnnotations:annotations];
 }
 
-- (void)continueWorldTourWithRemainingAnnotations:(NSMutableArray<MLNPointAnnotation *> *)annotations {
-    MLNPointAnnotation *nextAnnotation = annotations.firstObject;
+- (void)continueWorldTourWithRemainingAnnotations:(NSMutableArray<MHPointAnnotation *> *)annotations {
+    MHPointAnnotation *nextAnnotation = annotations.firstObject;
     if (!nextAnnotation || !_isTouringWorld) {
         _isTouringWorld = NO;
         return;
     }
 
     [annotations removeObjectAtIndex:0];
-    MLNMapCamera *camera = [MLNMapCamera cameraLookingAtCenterCoordinate:nextAnnotation.coordinate
+    MHMapCamera *camera = [MHMapCamera cameraLookingAtCenterCoordinate:nextAnnotation.coordinate
                                                           acrossDistance:0
                                                                    pitch:arc4random_uniform(60)
                                                                  heading:arc4random_uniform(360)];
@@ -667,7 +667,7 @@ NSArray<id <MLNAnnotation>> *MBXFlattenedShapes(NSArray<id <MLNAnnotation>> *sha
         CLLocationCoordinate2DMake(46, -122),
         CLLocationCoordinate2DMake(46, -121)
     };
-    MLNPolygon *triangle = [MLNPolygon polygonWithCoordinates:triangleCoordinates count:3];
+    MHPolygon *triangle = [MHPolygon polygonWithCoordinates:triangleCoordinates count:3];
     [self.mapView addAnnotation:triangle];
 
     // West coast line
@@ -677,7 +677,7 @@ NSArray<id <MLNAnnotation>> *MBXFlattenedShapes(NSArray<id <MLNAnnotation>> *sha
         CLLocationCoordinate2DMake(37.7790, -122.4177),
         CLLocationCoordinate2DMake(34.0532, -118.2349)
     };
-    MLNPolyline *line = [MLNPolyline polylineWithCoordinates:lineCoordinates count:4];
+    MHPolyline *line = [MHPolyline polylineWithCoordinates:lineCoordinates count:4];
     [self.mapView addAnnotation:line];
 }
 
@@ -695,10 +695,10 @@ NSArray<id <MLNAnnotation>> *MBXFlattenedShapes(NSArray<id <MLNAnnotation>> *sha
 }
 
 
-- (id<MLNAnnotation>)randomOffscreenPointAnnotation {
+- (id<MHAnnotation>)randomOffscreenPointAnnotation {
 
     NSPredicate *pointAnnotationPredicate = [NSPredicate predicateWithBlock:^BOOL(id  _Nullable evaluatedObject, NSDictionary<NSString *,id> * _Nullable bindings) {
-        return [evaluatedObject isKindOfClass:[MLNPointAnnotation class]];
+        return [evaluatedObject isKindOfClass:[MHPointAnnotation class]];
     }];
 
     NSArray *annotations = [self.mapView.annotations filteredArrayUsingPredicate:pointAnnotationPredicate];
@@ -729,7 +729,7 @@ NSArray<id <MLNAnnotation>> *MBXFlattenedShapes(NSArray<id <MLNAnnotation>> *sha
 }
 
 - (IBAction)selectOffscreenPointAnnotation:(id)sender {
-    id<MLNAnnotation> annotation = [self randomOffscreenPointAnnotation];
+    id<MHAnnotation> annotation = [self randomOffscreenPointAnnotation];
     if (annotation) {
         [self.mapView selectAnnotation:annotation];
 
@@ -749,13 +749,13 @@ NSArray<id <MLNAnnotation>> *MBXFlattenedShapes(NSArray<id <MLNAnnotation>> *sha
 
 - (IBAction) addAnimatedImageSource:(id)sender {
 
-    MLNImage *image = [[NSBundle bundleForClass:[self class]] imageForResource:@"southeast_0"];
+    MHImage *image = [[NSBundle bundleForClass:[self class]] imageForResource:@"southeast_0"];
 
-    MLNCoordinateBounds bounds = { {22.551103322318994, -90.24006072802854}, {36.928147474567794, -75.1441643681673} };
-    MLNImageSource *imageSource = [[MLNImageSource alloc] initWithIdentifier:@"animated-radar-source" coordinateQuad:MLNCoordinateQuadFromCoordinateBounds(bounds) image:image];
+    MHCoordinateBounds bounds = { {22.551103322318994, -90.24006072802854}, {36.928147474567794, -75.1441643681673} };
+    MHImageSource *imageSource = [[MHImageSource alloc] initWithIdentifier:@"animated-radar-source" coordinateQuad:MHCoordinateQuadFromCoordinateBounds(bounds) image:image];
     [self.mapView.style addSource:imageSource];
 
-    MLNRasterStyleLayer * imageLayer = [[MLNRasterStyleLayer alloc] initWithIdentifier:@"animated-radar-layer" source:imageSource];
+    MHRasterStyleLayer * imageLayer = [[MHRasterStyleLayer alloc] initWithIdentifier:@"animated-radar-layer" source:imageSource];
     [self.mapView.style addLayer:imageLayer];
     
     [NSTimer scheduledTimerWithTimeInterval:1.0
@@ -768,9 +768,9 @@ NSArray<id <MLNAnnotation>> *MBXFlattenedShapes(NSArray<id <MLNAnnotation>> *sha
 
 - (void)updateAnimatedImageSource:(NSTimer *)timer {
     static int radarSuffix = 0;
-    MLNImageSource *imageSource = (MLNImageSource *)timer.userInfo;
+    MHImageSource *imageSource = (MHImageSource *)timer.userInfo;
     
-    MLNImage *image = [[NSBundle bundleForClass:[self class]] imageForResource:[NSString stringWithFormat:@"southeast_%d", radarSuffix++]];
+    MHImage *image = [[NSBundle bundleForClass:[self class]] imageForResource:[NSString stringWithFormat:@"southeast_%d", radarSuffix++]];
     [imageSource setValue:image forKey:@"image"];
 
     if(radarSuffix > 3) {
@@ -788,7 +788,7 @@ NSArray<id <MLNAnnotation>> *MBXFlattenedShapes(NSArray<id <MLNAnnotation>> *sha
 //     }
 
 //     CustomStyleLayerExample *layer = [[CustomStyleLayerExample alloc] initWithIdentifier:@"mbx-custom"];
-//     MLNStyleLayer *houseNumberLayer = [self.mapView.style layerWithIdentifier:@"housenum-label"];
+//     MHStyleLayer *houseNumberLayer = [self.mapView.style layerWithIdentifier:@"housenum-label"];
 //     if (houseNumberLayer) {
 //         [self.mapView.style insertLayer:layer belowLayer:houseNumberLayer];
 //     } else {
@@ -805,7 +805,7 @@ NSArray<id <MLNAnnotation>> *MBXFlattenedShapes(NSArray<id <MLNAnnotation>> *sha
 //         [self.undoManager setActionName:@"Delete Lime Green Layer"];
 //     }
 
-//     MLNStyleLayer *layer = [self.mapView.style layerWithIdentifier:@"mbx-custom"];
+//     MHStyleLayer *layer = [self.mapView.style layerWithIdentifier:@"mbx-custom"];
 //     [self.mapView.style removeLayer:layer];
 // }
 
@@ -819,19 +819,19 @@ NSArray<id <MLNAnnotation>> *MBXFlattenedShapes(NSArray<id <MLNAnnotation>> *sha
     }
 
     NSDictionary *sourceOptions = @{
-        MLNShapeSourceOptionMaximumZoomLevel:@14,
-        MLNShapeSourceOptionWrapsCoordinates: @YES,
-        MLNShapeSourceOptionClipsCoordinates: @YES,
+        MHShapeSourceOptionMaximumZoomLevel:@14,
+        MHShapeSourceOptionWrapsCoordinates: @YES,
+        MHShapeSourceOptionClipsCoordinates: @YES,
     };
-    MLNComputedShapeSource *source = [[MLNComputedShapeSource alloc] initWithIdentifier:@"graticule"
+    MHComputedShapeSource *source = [[MHComputedShapeSource alloc] initWithIdentifier:@"graticule"
                                                                                 options:sourceOptions];
 
     source.dataSource = self;
     [self.mapView.style addSource:source];
-    MLNLineStyleLayer *lineLayer = [[MLNLineStyleLayer alloc] initWithIdentifier:@"graticule.lines"
+    MHLineStyleLayer *lineLayer = [[MHLineStyleLayer alloc] initWithIdentifier:@"graticule.lines"
                                                                           source:source];
     [self.mapView.style addLayer:lineLayer];
-    MLNSymbolStyleLayer *labelLayer = [[MLNSymbolStyleLayer alloc] initWithIdentifier:@"graticule.labels"
+    MHSymbolStyleLayer *labelLayer = [[MHSymbolStyleLayer alloc] initWithIdentifier:@"graticule.labels"
                                                                                source:source];
     labelLayer.text = [NSExpression expressionWithFormat:@"value"];
     [self.mapView.style addLayer:labelLayer];
@@ -846,25 +846,25 @@ NSArray<id <MLNAnnotation>> *MBXFlattenedShapes(NSArray<id <MLNAnnotation>> *sha
         [self.undoManager setActionName:@"Delete Graticule"];
     }
 
-    MLNStyleLayer *layer = [self.mapView.style layerWithIdentifier:@"graticule.lines"];
+    MHStyleLayer *layer = [self.mapView.style layerWithIdentifier:@"graticule.lines"];
     [self.mapView.style removeLayer:layer];
 
     layer = [self.mapView.style layerWithIdentifier:@"graticule.labels"];
     [self.mapView.style removeLayer:layer];
 
-    MLNSource *source = [self.mapView.style sourceWithIdentifier:@"graticule"];
+    MHSource *source = [self.mapView.style sourceWithIdentifier:@"graticule"];
     [self.mapView.style removeSource:source];
 }
 
 - (IBAction)enhanceTerrain:(id)sender {
     // Works only with Mapbox tileserver
-    if (![[MLNSettings tileServerOptions].uriSchemeAlias isEqualToString:@"mapbox"])
+    if (![[MHSettings tileServerOptions].uriSchemeAlias isEqualToString:@"mapbox"])
         return;
     
     // Find all the identifiers of Mapbox Terrain sources used in the style.
     NSMutableSet *terrainSourceIdentifiers = [NSMutableSet set];
-    for (MLNVectorTileSource *source in self.mapView.style.sources) {
-        if (![source isKindOfClass:[MLNVectorTileSource class]]) {
+    for (MHVectorTileSource *source in self.mapView.style.sources) {
+        if (![source isKindOfClass:[MHVectorTileSource class]]) {
             continue;
         }
         
@@ -876,9 +876,9 @@ NSArray<id <MLNAnnotation>> *MBXFlattenedShapes(NSArray<id <MLNAnnotation>> *sha
     // Find and remove all the style layers using those sources.
     NSUInteger hillshadeIndex = NSNotFound;
     NSEnumerator *layerEnumerator = self.mapView.style.layers.objectEnumerator;
-    MLNVectorStyleLayer *layer;
+    MHVectorStyleLayer *layer;
     for (NSUInteger i = 0; (layer = layerEnumerator.nextObject); i++) {
-        if (![layer isKindOfClass:[MLNVectorStyleLayer class]]) {
+        if (![layer isKindOfClass:[MHVectorStyleLayer class]]) {
             continue;
         }
         
@@ -895,11 +895,11 @@ NSArray<id <MLNAnnotation>> *MBXFlattenedShapes(NSArray<id <MLNAnnotation>> *sha
     
     // Add terrain-RGB source.
     NSURL *terrainRGBURL = [NSURL URLWithString:@"maptiler://sources/terrain-rgb"];
-    MLNRasterDEMSource *terrainRGBSource = [[MLNRasterDEMSource alloc] initWithIdentifier:@"terrain" configurationURL:terrainRGBURL];
+    MHRasterDEMSource *terrainRGBSource = [[MHRasterDEMSource alloc] initWithIdentifier:@"terrain" configurationURL:terrainRGBURL];
     [self.mapView.style addSource:terrainRGBSource];
     
     // Insert a hillshade layer where the Mapbox Terrain–based layers were.
-    MLNHillshadeStyleLayer *hillshadeLayer = [[MLNHillshadeStyleLayer alloc] initWithIdentifier:@"hillshade" source:terrainRGBSource];
+    MHHillshadeStyleLayer *hillshadeLayer = [[MHHillshadeStyleLayer alloc] initWithIdentifier:@"hillshade" source:terrainRGBSource];
     [self.mapView.style insertLayer:hillshadeLayer atIndex:hillshadeIndex];
 }
 
@@ -907,7 +907,7 @@ NSArray<id <MLNAnnotation>> *MBXFlattenedShapes(NSArray<id <MLNAnnotation>> *sha
 
 - (IBAction)addOfflinePack:(id)sender {
     self.offlinePackNameField.stringValue = @"";
-    self.offlinePackNameField.placeholderString = MLNStringFromCoordinateBounds(self.mapView.visibleCoordinateBounds);
+    self.offlinePackNameField.placeholderString = MHStringFromCoordinateBounds(self.mapView.visibleCoordinateBounds);
     self.minimumOfflinePackZoomLevelField.doubleValue = floor(self.mapView.zoomLevel);
     self.maximumOfflinePackZoomLevelField.doubleValue = ceil(self.mapView.maximumZoomLevel);
     self.minimumOfflinePackZoomLevelFormatter.minimum = @(floor(self.mapView.minimumZoomLevel));
@@ -915,7 +915,7 @@ NSArray<id <MLNAnnotation>> *MBXFlattenedShapes(NSArray<id <MLNAnnotation>> *sha
     self.minimumOfflinePackZoomLevelFormatter.maximum = @(ceil(self.mapView.maximumZoomLevel));
     self.maximumOfflinePackZoomLevelFormatter.maximum = @(ceil(self.mapView.maximumZoomLevel));
     
-    id ideographicFontFamilyName = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"MLNIdeographicFontFamilyName"];
+    id ideographicFontFamilyName = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"MHIdeographicFontFamilyName"];
     self.includesIdeographicGlyphsBox.state = ([ideographicFontFamilyName isKindOfClass:[NSNumber class]] && ![ideographicFontFamilyName boolValue]) ? NSOffState : NSOnState;
     [self.addOfflinePackWindow makeFirstResponder:self.offlinePackNameField];
     
@@ -926,8 +926,8 @@ NSArray<id <MLNAnnotation>> *MBXFlattenedShapes(NSArray<id <MLNAnnotation>> *sha
             return;
         }
         
-        id <MLNOfflineRegion> region =
-            [[MLNTilePyramidOfflineRegion alloc] initWithStyleURL:strongSelf.mapView.styleURL
+        id <MHOfflineRegion> region =
+            [[MHTilePyramidOfflineRegion alloc] initWithStyleURL:strongSelf.mapView.styleURL
                                                            bounds:strongSelf.mapView.visibleCoordinateBounds
                                                     fromZoomLevel:strongSelf.minimumOfflinePackZoomLevelField.integerValue
                                                       toZoomLevel:strongSelf.maximumOfflinePackZoomLevelField.integerValue];
@@ -937,7 +937,7 @@ NSArray<id <MLNAnnotation>> *MBXFlattenedShapes(NSArray<id <MLNAnnotation>> *sha
             name = strongSelf.offlinePackNameField.placeholderString;
         }
         NSData *context = [[NSValueTransformer valueTransformerForName:@"OfflinePackNameValueTransformer"] reverseTransformedValue:name];
-        [[MLNOfflineStorage sharedOfflineStorage] addPackForRegion:region withContext:context completionHandler:^(MLNOfflinePack * _Nullable pack, NSError * _Nullable error) {
+        [[MHOfflineStorage sharedOfflineStorage] addPackForRegion:region withContext:context completionHandler:^(MHOfflinePack * _Nullable pack, NSError * _Nullable error) {
             if (error) {
                 [[NSAlert alertWithError:error] runModal];
             } else {
@@ -967,13 +967,13 @@ NSArray<id <MLNAnnotation>> *MBXFlattenedShapes(NSArray<id <MLNAnnotation>> *sha
 
 - (IBAction)manipulateStyle:(id)sender {
     // Works only with Mapbox tileserver
-    if (![[MLNSettings tileServerOptions].uriSchemeAlias isEqualToString:@"mapbox"])
+    if (![[MHSettings tileServerOptions].uriSchemeAlias isEqualToString:@"mapbox"])
         return;
 
-    MLNTransition transition = { .duration = 5, .delay = 1 };
+    MHTransition transition = { .duration = 5, .delay = 1 };
     self.mapView.style.transition = transition;
 
-    MLNStyleLayer *waterLayer = [self.mapView.style layerWithIdentifier:@"water"];
+    MHStyleLayer *waterLayer = [self.mapView.style layerWithIdentifier:@"water"];
     NSExpression *colorExpression = [NSExpression expressionWithFormat:@"mgl_interpolate:withCurveType:parameters:stops:($zoomLevel, 'linear', nil, %@)", @{
         @0.0: [NSColor redColor],
         @10.0: [NSColor yellowColor],
@@ -988,21 +988,21 @@ NSArray<id <MLNAnnotation>> *MBXFlattenedShapes(NSArray<id <MLNAnnotation>> *sha
 
     NSString *filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"amsterdam" ofType:@"geojson"];
     NSURL *geoJSONURL = [NSURL fileURLWithPath:filePath];
-    MLNShapeSource *source = [[MLNShapeSource alloc] initWithIdentifier:@"ams" URL:geoJSONURL options:nil];
+    MHShapeSource *source = [[MHShapeSource alloc] initWithIdentifier:@"ams" URL:geoJSONURL options:nil];
     [self.mapView.style addSource:source];
 
-    MLNCircleStyleLayer *circleLayer = [[MLNCircleStyleLayer alloc] initWithIdentifier:@"test" source:source];
+    MHCircleStyleLayer *circleLayer = [[MHCircleStyleLayer alloc] initWithIdentifier:@"test" source:source];
     circleLayer.circleColor = [NSExpression expressionForConstantValue:[NSColor greenColor]];
     circleLayer.circleRadius = [NSExpression expressionForConstantValue:@40];
 //    fillLayer.predicate = [NSPredicate predicateWithFormat:@"%K == %@", @"type", @"park"];
     [self.mapView.style addLayer:circleLayer];
 
-    MLNSource *streetsSource = [self.mapView.style sourceWithIdentifier:@"composite"];
+    MHSource *streetsSource = [self.mapView.style sourceWithIdentifier:@"composite"];
     if (streetsSource) {
         NSImage *image = [NSImage imageNamed:NSImageNameIChatTheaterTemplate];
         [self.mapView.style setImage:image forName:NSImageNameIChatTheaterTemplate];
         
-        MLNSymbolStyleLayer *theaterLayer = [[MLNSymbolStyleLayer alloc] initWithIdentifier:@"theaters" source:streetsSource];
+        MHSymbolStyleLayer *theaterLayer = [[MHSymbolStyleLayer alloc] initWithIdentifier:@"theaters" source:streetsSource];
         theaterLayer.sourceLayerIdentifier = @"poi_label";
         theaterLayer.predicate = [NSPredicate predicateWithFormat:@"maki == 'theatre'"];
         theaterLayer.iconImageName = [NSExpression expressionForConstantValue:NSImageNameIChatTheaterTemplate];
@@ -1017,7 +1017,7 @@ NSArray<id <MLNAnnotation>> *MBXFlattenedShapes(NSArray<id <MLNAnnotation>> *sha
         NSImage *ohio = [NSImage imageNamed:@"ohio"];
         [self.mapView.style setImage:ohio forName:@"ohio"];
         
-        MLNSymbolStyleLayer *ohioLayer = [[MLNSymbolStyleLayer alloc] initWithIdentifier:@"ohio" source:streetsSource];
+        MHSymbolStyleLayer *ohioLayer = [[MHSymbolStyleLayer alloc] initWithIdentifier:@"ohio" source:streetsSource];
         ohioLayer.sourceLayerIdentifier = @"road";
         ohioLayer.predicate = [NSPredicate predicateWithFormat:@"shield = 'circle-white' and iso_3166_2 = 'US-OH'"];
         ohioLayer.symbolPlacement = [NSExpression expressionForConstantValue:@"line"];
@@ -1033,17 +1033,17 @@ NSArray<id <MLNAnnotation>> *MBXFlattenedShapes(NSArray<id <MLNAnnotation>> *sha
     }
 
     NSURL *imageURL = [NSURL URLWithString:@"https://maplibre.org/maplibre-gl-js-docs/assets/radar.gif"];
-    MLNCoordinateQuad quad = { {46.437, -80.425},
+    MHCoordinateQuad quad = { {46.437, -80.425},
       {37.936, -80.425},
       {37.936, -71.516},
       {46.437, -71.516} };
-    MLNImageSource *imageSource = [[MLNImageSource alloc] initWithIdentifier:@"radar-source" coordinateQuad:quad URL:imageURL];
+    MHImageSource *imageSource = [[MHImageSource alloc] initWithIdentifier:@"radar-source" coordinateQuad:quad URL:imageURL];
     [self.mapView.style addSource:imageSource];
 
-    MLNRasterStyleLayer * imageLayer = [[MLNRasterStyleLayer alloc] initWithIdentifier:@"radar-layer" source:imageSource];
+    MHRasterStyleLayer * imageLayer = [[MHRasterStyleLayer alloc] initWithIdentifier:@"radar-layer" source:imageSource];
     [self.mapView.style addLayer:imageLayer];
     
-    MLNCircleStyleLayer *ucLayer = [[MLNCircleStyleLayer alloc] initWithIdentifier:@"uc" source:streetsSource];
+    MHCircleStyleLayer *ucLayer = [[MHCircleStyleLayer alloc] initWithIdentifier:@"uc" source:streetsSource];
     ucLayer.sourceLayerIdentifier = @"poi_label";
     ucLayer.predicate = [NSPredicate predicateWithFormat:@"$geometryType = 'Point'"];
     CLLocationCoordinate2D ucCoordinates[] = {
@@ -1053,7 +1053,7 @@ NSArray<id <MLNAnnotation>> *MBXFlattenedShapes(NSArray<id <MLNAnnotation>> *sha
         { .latitude = 39.1360, .longitude = -84.5212 },
         { .latitude = 39.1279, .longitude = -84.5209 },
     };
-    MLNPolygon *uc = [MLNPolygon polygonWithCoordinates:ucCoordinates count:sizeof(ucCoordinates) / sizeof(ucCoordinates[0])];
+    MHPolygon *uc = [MHPolygon polygonWithCoordinates:ucCoordinates count:sizeof(ucCoordinates) / sizeof(ucCoordinates[0])];
     ucLayer.circleOpacity = [NSExpression expressionWithFormat:@"TERNARY(SELF IN %@, 1, 0)", uc];
     ucLayer.circleRadius = [NSExpression expressionForConstantValue:@5];
     ucLayer.circleColor = [NSExpression expressionForConstantValue:NSColor.redColor];
@@ -1074,7 +1074,7 @@ NSArray<id <MLNAnnotation>> *MBXFlattenedShapes(NSArray<id <MLNAnnotation>> *sha
     NSArray *features = [self.mapView visibleFeaturesAtPoint:point];
     NSString *title;
     NSString *description;
-    for (id <MLNFeature> feature in features) {
+    for (id <MHFeature> feature in features) {
         if (!title) {
             title = [feature attributeForKey:@"title"] ?: [feature attributeForKey:@"name_en"] ?: [feature attributeForKey:@"name"];
             
@@ -1128,7 +1128,7 @@ NSArray<id <MLNAnnotation>> *MBXFlattenedShapes(NSArray<id <MLNAnnotation>> *sha
 - (BOOL)validateMenuItem:(NSMenuItem *)menuItem {
     if (menuItem.action == @selector(showStyle:)) {
         NSURL *styleURL = self.mapView.styleURL;
-        NSArray<MLNDefaultStyle*>* predefinedStyles = [MLNStyle predefinedStyles];
+        NSArray<MHDefaultStyle*>* predefinedStyles = [MHStyle predefinedStyles];
         NSCellStateValue state;
         if (menuItem.tag >= 1 && menuItem.tag <= (unsigned)[predefinedStyles count]) {
             NSURL* refStyleURL = [predefinedStyles objectAtIndex:menuItem.tag - 1].url;
@@ -1179,7 +1179,7 @@ NSArray<id <MLNAnnotation>> *MBXFlattenedShapes(NSArray<id <MLNAnnotation>> *sha
         menuItem.state = menuItem.tag == _isLocalizingLabels ? NSOnState: NSOffState;
         if (menuItem.tag) {
             NSLocale *locale = [NSLocale localeWithLocaleIdentifier:[NSBundle mainBundle].developmentLocalization];
-            NSString *preferredLanguage = [MLNVectorTileSource preferredMapboxStreetsLanguage] ?: @"en";
+            NSString *preferredLanguage = [MHVectorTileSource preferredMapboxStreetsLanguage] ?: @"en";
             menuItem.title = [locale displayNameForKey:NSLocaleIdentifier value:preferredLanguage];
         }
         return YES;
@@ -1188,12 +1188,12 @@ NSArray<id <MLNAnnotation>> *MBXFlattenedShapes(NSArray<id <MLNAnnotation>> *sha
         return YES;
     }
     if (menuItem.action == @selector(dropPin:)) {
-        id <MLNAnnotation> annotationUnderCursor = [self.mapView annotationAtPoint:_mouseLocationForMapViewContextMenu];
+        id <MHAnnotation> annotationUnderCursor = [self.mapView annotationAtPoint:_mouseLocationForMapViewContextMenu];
         menuItem.hidden = annotationUnderCursor != nil;
         return YES;
     }
     if (menuItem.action == @selector(removePin:)) {
-        id <MLNAnnotation> annotationUnderCursor = [self.mapView annotationAtPoint:_mouseLocationForMapViewContextMenu];
+        id <MHAnnotation> annotationUnderCursor = [self.mapView annotationAtPoint:_mouseLocationForMapViewContextMenu];
         menuItem.hidden = annotationUnderCursor == nil;
         return YES;
     }
@@ -1201,42 +1201,42 @@ NSArray<id <MLNAnnotation>> *MBXFlattenedShapes(NSArray<id <MLNAnnotation>> *sha
         return YES;
     }
     if (menuItem.action == @selector(toggleTileBoundaries:)) {
-        BOOL isShown = self.mapView.debugMask & MLNMapDebugTileBoundariesMask;
+        BOOL isShown = self.mapView.debugMask & MHMapDebugTileBoundariesMask;
         menuItem.title = isShown ? @"Hide Tile Boundaries" : @"Show Tile Boundaries";
         return YES;
     }
     if (menuItem.action == @selector(toggleTileInfo:)) {
-        BOOL isShown = self.mapView.debugMask & MLNMapDebugTileInfoMask;
+        BOOL isShown = self.mapView.debugMask & MHMapDebugTileInfoMask;
         menuItem.title = isShown ? @"Hide Tile Info" : @"Show Tile Info";
         return YES;
     }
     if (menuItem.action == @selector(toggleTileTimestamps:)) {
-        BOOL isShown = self.mapView.debugMask & MLNMapDebugTimestampsMask;
+        BOOL isShown = self.mapView.debugMask & MHMapDebugTimestampsMask;
         menuItem.title = isShown ? @"Hide Tile Timestamps" : @"Show Tile Timestamps";
         return YES;
     }
     if (menuItem.action == @selector(toggleCollisionBoxes:)) {
-        BOOL isShown = self.mapView.debugMask & MLNMapDebugCollisionBoxesMask;
+        BOOL isShown = self.mapView.debugMask & MHMapDebugCollisionBoxesMask;
         menuItem.title = isShown ? @"Hide Collision Boxes" : @"Show Collision Boxes";
         return YES;
     }
     if (menuItem.action == @selector(toggleOverdrawVisualization:)) {
-        BOOL isShown = self.mapView.debugMask & MLNMapDebugOverdrawVisualizationMask;
+        BOOL isShown = self.mapView.debugMask & MHMapDebugOverdrawVisualizationMask;
         menuItem.title = isShown ? @"Hide Overdraw Visualization" : @"Show Overdraw Visualization";
         return YES;
     }
     if (menuItem.action == @selector(showColorBuffer:)) {
-        BOOL enabled = self.mapView.debugMask & (MLNMapDebugStencilBufferMask | MLNMapDebugDepthBufferMask);
+        BOOL enabled = self.mapView.debugMask & (MHMapDebugStencilBufferMask | MHMapDebugDepthBufferMask);
         menuItem.state = enabled ? NSOffState : NSOnState;
         return YES;
     }
     if (menuItem.action == @selector(showStencilBuffer:)) {
-        BOOL enabled = self.mapView.debugMask & MLNMapDebugStencilBufferMask;
+        BOOL enabled = self.mapView.debugMask & MHMapDebugStencilBufferMask;
         menuItem.state = enabled ? NSOnState : NSOffState;
         return YES;
     }
     if (menuItem.action == @selector(showDepthBuffer:)) {
-        BOOL enabled = self.mapView.debugMask & MLNMapDebugDepthBufferMask;
+        BOOL enabled = self.mapView.debugMask & MHMapDebugDepthBufferMask;
         menuItem.state = enabled ? NSOnState : NSOffState;
         return YES;
     }
@@ -1299,7 +1299,7 @@ NSArray<id <MLNAnnotation>> *MBXFlattenedShapes(NSArray<id <MLNAnnotation>> *sha
 - (NSUInteger)indexOfStyleInToolbarItem {
 
     NSMutableArray* styleURLs = [[NSMutableArray alloc] init];
-    for (MLNDefaultStyle* defaultStyle in [MLNStyle predefinedStyles]) {
+    for (MHDefaultStyle* defaultStyle in [MHStyle predefinedStyles]) {
         [styleURLs addObject:defaultStyle.url];
     }
     return [styleURLs indexOfObject:self.mapView.styleURL];
@@ -1313,7 +1313,7 @@ NSArray<id <MLNAnnotation>> *MBXFlattenedShapes(NSArray<id <MLNAnnotation>> *sha
     SEL action = toolbarItem.action;
     if (action == @selector(showShareMenu:)) {
       [(NSButton *)toolbarItem.view sendActionOn:NSEventMaskLeftMouseDown];
-        if (![MLNSettings apiKey]) {
+        if (![MHSettings apiKey]) {
             return NO;
         }
         NSURL *styleURL = self.mapView.styleURL;
@@ -1379,28 +1379,28 @@ NSArray<id <MLNAnnotation>> *MBXFlattenedShapes(NSArray<id <MLNAnnotation>> *sha
     return YES;
 }
 
-// MARK: MLNMapViewDelegate methods
+// MARK: MHMapViewDelegate methods
 
-- (void)mapView:(MLNMapView *)mapView didFinishLoadingStyle:(MLNStyle *)style {
+- (void)mapView:(MHMapView *)mapView didFinishLoadingStyle:(MHStyle *)style {
     [self updateLabels];
 }
 
-- (BOOL)mapView:(MLNMapView *)mapView annotationCanShowCallout:(id <MLNAnnotation>)annotation {
+- (BOOL)mapView:(MHMapView *)mapView annotationCanShowCallout:(id <MHAnnotation>)annotation {
     return YES;
 }
 
-- (MLNAnnotationImage *)mapView:(MLNMapView *)mapView imageForAnnotation:(id <MLNAnnotation>)annotation {
-    MLNAnnotationImage *annotationImage = [self.mapView dequeueReusableAnnotationImageWithIdentifier:MLNDroppedPinAnnotationImageIdentifier];
+- (MHAnnotationImage *)mapView:(MHMapView *)mapView imageForAnnotation:(id <MHAnnotation>)annotation {
+    MHAnnotationImage *annotationImage = [self.mapView dequeueReusableAnnotationImageWithIdentifier:MHDroppedPinAnnotationImageIdentifier];
     if (!annotationImage) {
-        NSString *imagePath = [[NSBundle bundleForClass:[MLNMapView class]]
+        NSString *imagePath = [[NSBundle bundleForClass:[MHMapView class]]
                                pathForResource:@"default_marker" ofType:@"pdf"];
         NSImage *image = [[NSImage alloc] initWithContentsOfFile:imagePath];
         NSRect alignmentRect = image.alignmentRect;
         alignmentRect.origin.y = NSMidY(alignmentRect);
         alignmentRect.size.height /= 2;
         image.alignmentRect = alignmentRect;
-        annotationImage = [MLNAnnotationImage annotationImageWithImage:image
-                                                       reuseIdentifier:MLNDroppedPinAnnotationImageIdentifier];
+        annotationImage = [MHAnnotationImage annotationImageWithImage:image
+                                                       reuseIdentifier:MHDroppedPinAnnotationImageIdentifier];
     }
     if (_randomizesCursorsOnDroppedPins) {
         NSArray *cursors = @[
@@ -1421,47 +1421,47 @@ NSArray<id <MLNAnnotation>> *MBXFlattenedShapes(NSArray<id <MLNAnnotation>> *sha
     return annotationImage;
 }
 
-- (void)mapView:(MLNMapView *)mapView didSelectAnnotation:(id <MLNAnnotation>)annotation {
+- (void)mapView:(MHMapView *)mapView didSelectAnnotation:(id <MHAnnotation>)annotation {
     if ([annotation isKindOfClass:[DroppedPinAnnotation class]]) {
         DroppedPinAnnotation *droppedPin = (DroppedPinAnnotation *)annotation;
         [droppedPin resume];
     }
 }
 
-- (void)mapView:(MLNMapView *)mapView didDeselectAnnotation:(id <MLNAnnotation>)annotation {
+- (void)mapView:(MHMapView *)mapView didDeselectAnnotation:(id <MHAnnotation>)annotation {
     if ([annotation isKindOfClass:[DroppedPinAnnotation class]]) {
         DroppedPinAnnotation *droppedPin = (DroppedPinAnnotation *)annotation;
         [droppedPin pause];
     }
 }
 
-- (CGFloat)mapView:(MLNMapView *)mapView alphaForShapeAnnotation:(MLNShape *)annotation {
+- (CGFloat)mapView:(MHMapView *)mapView alphaForShapeAnnotation:(MHShape *)annotation {
     return 0.8;
 }
 
-// MARK: MLNMapSnapshotterDelegate methods
+// MARK: MHMapSnapshotterDelegate methods
 
-- (void)mapSnapshotter:(MLNMapSnapshotter *)snapshotter didFinishLoadingStyle:(MLNStyle *)style {
+- (void)mapSnapshotter:(MHMapSnapshotter *)snapshotter didFinishLoadingStyle:(MHStyle *)style {
     [style localizeLabelsIntoLocale:_isLocalizingLabels ? nil : [NSLocale localeWithLocaleIdentifier:@"mul"]];
     
     // Layers hidden in the sidebar should be hidden in the snapshot too.
     NSMutableArray<NSString *> *hiddenLayerIdentifiers = [NSMutableArray array];
-    for (MLNStyleLayer *layer in self.mapView.style.layers) {
+    for (MHStyleLayer *layer in self.mapView.style.layers) {
         if (!layer.visible) {
             [hiddenLayerIdentifiers addObject:layer.identifier];
         }
     }
     
     NSSet <NSString *> *hiddenLayerIdentifierSet = [NSSet setWithArray:hiddenLayerIdentifiers];
-    for (MLNStyleLayer *layer in style.layers) {
+    for (MHStyleLayer *layer in style.layers) {
         if ([hiddenLayerIdentifierSet containsObject:layer.identifier]) {
             layer.visible = NO;
         }
     }
 }
 
-// MARK: - MLNComputedShapeSourceDataSource
-- (NSArray<id <MLNFeature>>*)featuresInCoordinateBounds:(MLNCoordinateBounds)bounds zoomLevel:(NSUInteger)zoom {
+// MARK: - MHComputedShapeSourceDataSource
+- (NSArray<id <MHFeature>>*)featuresInCoordinateBounds:(MHCoordinateBounds)bounds zoomLevel:(NSUInteger)zoom {
     double gridSpacing;
     if(zoom >= 13) {
         gridSpacing = 0.01;
@@ -1485,13 +1485,13 @@ NSArray<id <MLNAnnotation>> *MBXFlattenedShapes(NSArray<id <MLNAnnotation>> *sha
         gridSpacing = 20;
     }
 
-    NSMutableArray <id <MLNFeature>> * features = [NSMutableArray array];
+    NSMutableArray <id <MHFeature>> * features = [NSMutableArray array];
     CLLocationCoordinate2D coords[2];
 
     for (double y = ceil(bounds.ne.latitude / gridSpacing) * gridSpacing; y >= floor(bounds.sw.latitude / gridSpacing) * gridSpacing; y -= gridSpacing) {
         coords[0] = CLLocationCoordinate2DMake(y, bounds.sw.longitude);
         coords[1] = CLLocationCoordinate2DMake(y, bounds.ne.longitude);
-        MLNPolylineFeature *feature = [MLNPolylineFeature polylineWithCoordinates:coords count:2];
+        MHPolylineFeature *feature = [MHPolylineFeature polylineWithCoordinates:coords count:2];
         feature.attributes = @{@"value": @(y)};
         [features addObject:feature];
     }
@@ -1499,7 +1499,7 @@ NSArray<id <MLNAnnotation>> *MBXFlattenedShapes(NSArray<id <MLNAnnotation>> *sha
     for (double x = floor(bounds.sw.longitude / gridSpacing) * gridSpacing; x <= ceil(bounds.ne.longitude / gridSpacing) * gridSpacing; x += gridSpacing) {
         coords[0] = CLLocationCoordinate2DMake(bounds.sw.latitude, x);
         coords[1] = CLLocationCoordinate2DMake(bounds.ne.latitude, x);
-        MLNPolylineFeature *feature = [MLNPolylineFeature polylineWithCoordinates:coords count:2];
+        MHPolylineFeature *feature = [MHPolylineFeature polylineWithCoordinates:coords count:2];
         feature.attributes = @{@"value": @(x)};
         [features addObject:feature];
     }

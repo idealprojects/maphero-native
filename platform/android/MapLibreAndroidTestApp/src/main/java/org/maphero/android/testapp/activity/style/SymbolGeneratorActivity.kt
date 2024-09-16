@@ -150,7 +150,7 @@ class SymbolGeneratorActivity : AppCompatActivity(), OnMapReadyCallback {
      * Utility class to generate Bitmaps for Symbol.
      *
      *
-     * Bitmaps can be added to the map with [org.maplibre.android.maps.Style.addImage]
+     * Bitmaps can be added to the map with [org.maphero.android.maps.Style.addImage]
      *
      */
     private object SymbolGenerator {

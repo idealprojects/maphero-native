@@ -1,13 +1,13 @@
 {
-  "Id": "maplibre-gl-native",
-  "Name": "MapLibre Native",
+  "Id": "maphero-native",
+  "Name": "MapHero",
   "QDocModule": "qtlocation",
-  "QtUsage": "Used in the MapLibre Native backend of Qt Location.",
+  "QtUsage": "Used in the MapHero Native backend of Qt Location.",
 
-  "Description": "MapLibre Native is a community led fork derived from mapbox-gl-native.",
-  "Homepage": "https://github.com/maplibre/maplibre-native",
+  "Description": "MapHero Native is a community led fork derived from mapbox-gl-native.",
+  "Homepage": "https://github.dev/idealprojects/maphero-native",
   "LicenseId": "BSD-2-Clause",
   "License": "BSD 2-Clause License",
   "LicenseFile": "LICENSE.md",
-  "Copyright": "Copyright (c) 2021 MapLibre contributors Copyright (c) 2018-2021 MapTiler.com Copyright (c) 2014-2020 Mapbox"
+  "Copyright": "Copyright (c) 2021 MapHero contributors Copyright (c) 2018-2021 MapTiler.com Copyright (c) 2014-2020 Mapbox"
 }

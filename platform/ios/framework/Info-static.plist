@@ -14,7 +14,7 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>15256</string>
-	<key>MLNCommitHash</key>
+	<key>MHCommitHash</key>
 	<string>$(CURRENT_COMMIT_HASH)</string>
 	<key>NSPrincipalClass</key>
 	<string></string>

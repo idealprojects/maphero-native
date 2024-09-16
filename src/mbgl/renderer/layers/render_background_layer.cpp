@@ -15,7 +15,7 @@
 #include <mbgl/util/convert.hpp>
 #include <mbgl/util/logging.hpp>
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
 #include <mbgl/renderer/layers/background_layer_tweaker.hpp>
 #include <mbgl/gfx/drawable_builder.hpp>
 #include <mbgl/renderer/change_request.hpp>
@@ -69,7 +69,7 @@ void RenderBackgroundLayer::evaluate(const PropertyEvaluationParameters& paramet
 
     evaluatedProperties = std::move(properties);
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
     if (layerTweaker) {
         layerTweaker->updateProperties(evaluatedProperties);
     }
@@ -84,7 +84,7 @@ bool RenderBackgroundLayer::hasCrossfade() const {
     return getCrossfade<BackgroundLayerProperties>(evaluatedProperties).t != 1;
 }
 
-#if MLN_LEGACY_RENDERER
+#if MH_LEGACY_RENDERER
 void RenderBackgroundLayer::render(PaintParameters& parameters) {
     // Note that for bottommost layers without a pattern, the background color
     // is drawn with glClear rather than this method.
@@ -178,7 +178,7 @@ void RenderBackgroundLayer::render(PaintParameters& parameters) {
         }
     }
 }
-#endif // MLN_LEGACY_RENDERER
+#endif // MH_LEGACY_RENDERER
 
 std::optional<Color> RenderBackgroundLayer::getSolidBackground() const {
     const auto& evaluated = getEvaluated<BackgroundLayerProperties>(evaluatedProperties);
@@ -209,7 +209,7 @@ void RenderBackgroundLayer::prepare(const LayerPrepareParameters& params) {
     }
 }
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
 static constexpr std::string_view BackgroundPlainShaderName = "BackgroundShader";
 static constexpr std::string_view BackgroundPatternShaderName = "BackgroundPatternShader";
 

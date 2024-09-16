@@ -72,7 +72,7 @@ target_sources(
         ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/layermanager/layer_manager.cpp
 )
 
-if(MLN_WITH_OPENGL)
+if(MH_WITH_OPENGL)
     target_sources(
         mbgl-core
         PRIVATE
@@ -82,7 +82,7 @@ if(MLN_WITH_OPENGL)
     )
 endif()
 
-if(MLN_WITH_VULKAN)
+if(MH_WITH_VULKAN)
     target_sources(
         mbgl-core
         PRIVATE
