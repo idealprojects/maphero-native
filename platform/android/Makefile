@@ -307,6 +307,6 @@ clean:
 	-rm -rf ./MapLibreAndroid/build \
 	        ./MapLibreAndroid/.externalNativeBuild \
 	        ./MapLibreAndroidTestApp/build \
-	        ./MapLibreAndroidTestApp/src/androidTest/java/org/maplibre/android/testapp/activity/gen \
+	        ./MapLibreAndroidTestApp/src/androidTest/java/org/maphero/android/testapp/activity/gen \
 	        ./MapLibreAndroid/src/main/assets \
 		    ./MapLibreAndroidTestApp/src/main/assets/integration

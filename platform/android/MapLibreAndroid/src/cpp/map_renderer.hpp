@@ -40,7 +40,7 @@ public:
  */
 class MapRenderer : public Scheduler {
 public:
-    static constexpr auto Name() { return "org/maplibre/android/maps/renderer/MapRenderer"; };
+    static constexpr auto Name() { return "org/maphero/android/maps/renderer/MapRenderer"; };
 
     static void registerNative(jni::JNIEnv&);
 

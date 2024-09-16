@@ -8,7 +8,7 @@ namespace android {
 
 class OfflineRegionError {
 public:
-    static constexpr auto Name() { return "org/maplibre/android/offline/OfflineRegionError"; };
+    static constexpr auto Name() { return "org/maphero/android/offline/OfflineRegionError"; };
 
     static jni::Local<jni::Object<OfflineRegionError>> New(jni::JNIEnv&, mbgl::Response::Error);
 

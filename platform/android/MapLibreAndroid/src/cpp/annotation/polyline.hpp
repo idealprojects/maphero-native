@@ -9,7 +9,7 @@ namespace android {
 
 class Polyline : private MultiPoint {
 public:
-    static constexpr auto Name() { return "org/maplibre/android/annotations/Polyline"; };
+    static constexpr auto Name() { return "org/maphero/android/annotations/Polyline"; };
 
     static mbgl::LineAnnotation toAnnotation(jni::JNIEnv&, const jni::Object<Polyline>&);
 

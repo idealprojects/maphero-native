@@ -9,7 +9,7 @@ namespace android {
 
 class ConnectivityListener : private mbgl::util::noncopyable {
 public:
-    static constexpr auto Name() { return "org/maplibre/android/net/NativeConnectivityListener"; };
+    static constexpr auto Name() { return "org/maphero/android/net/NativeConnectivityListener"; };
 
     static void registerNative(jni::JNIEnv&);
 

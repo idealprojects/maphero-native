@@ -10,7 +10,7 @@ namespace android {
 
 class Image : private mbgl::util::noncopyable {
 public:
-    static constexpr auto Name() { return "org/maplibre/android/maps/Image"; };
+    static constexpr auto Name() { return "org/maphero/android/maps/Image"; };
 
     static mbgl::style::Image getImage(jni::JNIEnv&, const jni::Object<Image>&);
 

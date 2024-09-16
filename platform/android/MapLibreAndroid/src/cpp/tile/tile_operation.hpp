@@ -9,7 +9,7 @@ namespace android {
 
 class TileOperation {
 public:
-    static constexpr auto Name() { return "org/maplibre/android/tile/TileOperation"; };
+    static constexpr auto Name() { return "org/maphero/android/tile/TileOperation"; };
 
     static jni::Local<jni::Object<TileOperation>> Create(jni::JNIEnv&, mbgl::TileOperation);
 
