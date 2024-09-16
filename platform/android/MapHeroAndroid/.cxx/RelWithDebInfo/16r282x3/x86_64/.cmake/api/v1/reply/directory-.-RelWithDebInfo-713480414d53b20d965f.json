@@ -1,0 +1,45 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"install"
+		],
+		"files" : 
+		[
+			"CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 246,
+				"parent" : 0
+			}
+		]
+	},
+	"installers" : 
+	[
+		{
+			"backtrace" : 1,
+			"component" : "Unspecified",
+			"destination" : "lib",
+			"paths" : 
+			[
+				"/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/platform/android/MapHeroAndroid/build/intermediates/cxx/RelWithDebInfo/16r282x3/obj/x86_64/libmaplibre.so"
+			],
+			"targetId" : "maplibre::@6890427a1f51a3e7e1df",
+			"targetIndex" : 36,
+			"type" : "target"
+		}
+	],
+	"paths" : 
+	{
+		"build" : ".",
+		"source" : "."
+	}
+}

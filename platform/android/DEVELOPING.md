@@ -1,6 +1,6 @@
-# Developing - MapLibre Native for Android
+# Developing - MapHero Native for Android
 
-These instructions are for developers interested in making code-level contributions to MapLibre Native for Android.
+These instructions are for developers interested in making code-level contributions to MapHero Native for Android.
 
 ## Getting the source
 
@@ -23,11 +23,11 @@ Open the `platform/android` directory to get started.
 
 _The test application (used for development purposes) uses MapTiler vector tiles, which require a MapTiler account and API key._
 
-With the first Gradle invocation, Gradle will take the value of the `MH_API_KEY` environment variable and save it to `MapLibreAndroidTestApp/src/main/res/values/developer-config.xml`. If the environment variable wasn't set, you can edit `developer-config.xml` manually and add your API key to the `api_key` resource.  
+With the first Gradle invocation, Gradle will take the value of the `MH_API_KEY` environment variable and save it to `MapHeroAndroidTestApp/src/main/res/values/developer-config.xml`. If the environment variable wasn't set, you can edit `developer-config.xml` manually and add your API key to the `api_key` resource.  
 
 ## Running the TestApp
 
-Run the configuration for the `MapLibreAndroidTestApp` module and select a device or emulator to deploy on.
+Run the configuration for the `MapHeroAndroidTestApp` module and select a device or emulator to deploy on.
 
 <p align="left">
   <img src="https://github.com/maplibre/maplibre-native/assets/649392/5494925e-8cbb-4d5d-8033-8a2f141ede3c" alt="Android TestApp menu" width="15%">   <img src="https://github.com/maplibre/maplibre-native/assets/649392/f169db51-615d-4fca-b297-ac6197bec674" alt="Android TestApp showing Demotiles" width="15%">

@@ -1,0 +1,10 @@
+/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/CMakeLists.txt
+/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/benchmark/CMakeLists.txt
+/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/platform/android/MapHeroAndroid/src/cpp/CMakeLists.txt
+/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/render-test/CMakeLists.txt
+/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/test/CMakeLists.txt
+/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/vendor/mapbox-base/CMakeLists.txt
+/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/vendor/mapbox-base/deps/CMakeLists.txt
+/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/vendor/mapbox-base/extras/CMakeLists.txt
+/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/vendor/mapbox-base/include/CMakeLists.txt
+/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/vendor/unordered_dense/CMakeLists.txt

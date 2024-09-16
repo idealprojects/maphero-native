@@ -1,0 +1,150 @@
+{
+	"archive" : {},
+	"artifacts" : 
+	[
+		{
+			"path" : "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/platform/android/x86/libmbgl-vendor-sqlite.a"
+		}
+	],
+	"backtrace" : 5,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_library",
+			"include",
+			"target_compile_definitions",
+			"target_sources"
+		],
+		"files" : 
+		[
+			"/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/vendor/sqlite.cmake",
+			"/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/platform/android/android.cmake",
+			"/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 2
+			},
+			{
+				"command" : 1,
+				"file" : 2,
+				"line" : 1554,
+				"parent" : 0
+			},
+			{
+				"file" : 1,
+				"parent" : 1
+			},
+			{
+				"command" : 1,
+				"file" : 1,
+				"line" : 11,
+				"parent" : 2
+			},
+			{
+				"file" : 0,
+				"parent" : 3
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 8,
+				"parent" : 4
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 20,
+				"parent" : 4
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 27,
+				"parent" : 4
+			},
+			{
+				"command" : 3,
+				"file" : 0,
+				"line" : 11,
+				"parent" : 4
+			}
+		]
+	},
+	"compileGroups" : 
+	[
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : "-g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mstackrealign -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security -Qunused-arguments -fno-limit-debug-info  -fPIC -fvisibility=hidden"
+				},
+				{
+					"fragment" : "-std=c11"
+				}
+			],
+			"defines" : 
+			[
+				{
+					"backtrace" : 6,
+					"define" : "HAVE_STRERROR_R"
+				},
+				{
+					"backtrace" : 7,
+					"define" : "SQLITE_OMIT_LOAD_EXTENSION"
+				},
+				{
+					"backtrace" : 7,
+					"define" : "SQLITE_THREADSAFE"
+				}
+			],
+			"language" : "C",
+			"languageStandard" : 
+			{
+				"backtraces" : 
+				[
+					5
+				],
+				"standard" : "11"
+			},
+			"sourceIndexes" : 
+			[
+				0
+			],
+			"sysroot" : 
+			{
+				"path" : "/Users/khalidtaha/Library/Android/sdk/ndk/27.0.12077973/toolchains/llvm/prebuilt/darwin-x86_64/sysroot"
+			}
+		}
+	],
+	"id" : "mbgl-vendor-sqlite::@99ccea00644b24fbabc2",
+	"name" : "mbgl-vendor-sqlite",
+	"nameOnDisk" : "libmbgl-vendor-sqlite.a",
+	"paths" : 
+	{
+		"build" : "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/platform/android/x86",
+		"source" : "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native"
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "Source Files",
+			"sourceIndexes" : 
+			[
+				0
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 8,
+			"compileGroupIndex" : 0,
+			"path" : "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/vendor/sqlite/src/sqlite3.c",
+			"sourceGroupIndex" : 0
+		}
+	],
+	"type" : "STATIC_LIBRARY"
+}

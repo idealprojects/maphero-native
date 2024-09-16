@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/platform/android/x86/vendor/mapbox-base/include",
+		"source" : "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/vendor/mapbox-base/include"
+	}
+}

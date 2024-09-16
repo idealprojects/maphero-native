@@ -1,0 +1,6 @@
+# ninja log v5
+0	2410	1726495071855592154	../../../../../x86_64/CMakeFiles/example-custom-layer.dir/platform/android/src/example_custom_layer.cpp.o	b80e509203a96ea4
+2415	2489	1726495071959463506	/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/platform/android/MapHeroAndroidTestApp/build/intermediates/cxx/RelWithDebInfo/36s5o536/obj/x86_64/libexample-custom-layer.so	5c99058f26ddb617
+0	27	0	clean	e2bebd157400b98d
+0	25	0	clean	e2bebd157400b98d
+0	25	0	clean	e2bebd157400b98d

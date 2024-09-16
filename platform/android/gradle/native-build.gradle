@@ -21,7 +21,7 @@ ext.nativeBuild = { nativeTargets ->
         if (abi != 'none') {
             externalNativeBuild {
                 cmake {
-                    path "../MapLibreAndroid/src/cpp/CMakeLists.txt"
+                    path "../MapHeroAndroid/src/cpp/CMakeLists.txt"
                     version androidSdkVersions.cmakeVersion
                 }
             }

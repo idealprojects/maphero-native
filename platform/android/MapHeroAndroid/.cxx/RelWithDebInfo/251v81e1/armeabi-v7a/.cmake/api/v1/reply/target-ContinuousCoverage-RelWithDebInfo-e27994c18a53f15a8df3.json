@@ -1,0 +1,93 @@
+{
+	"backtrace" : 5,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_custom_target",
+			"include"
+		],
+		"files" : 
+		[
+			"/Users/khalidtaha/Library/Android/sdk/cmake/3.22.1/share/cmake-3.22/Modules/CTestTargets.cmake",
+			"/Users/khalidtaha/Library/Android/sdk/cmake/3.22.1/share/cmake-3.22/Modules/CTest.cmake",
+			"/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 2
+			},
+			{
+				"command" : 1,
+				"file" : 2,
+				"line" : 51,
+				"parent" : 0
+			},
+			{
+				"file" : 1,
+				"parent" : 1
+			},
+			{
+				"command" : 1,
+				"file" : 1,
+				"line" : 264,
+				"parent" : 2
+			},
+			{
+				"file" : 0,
+				"parent" : 3
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 75,
+				"parent" : 4
+			}
+		]
+	},
+	"folder" : 
+	{
+		"name" : "CTestDashboardTargets"
+	},
+	"id" : "ContinuousCoverage::@6d2a36a9ecc220af5d5f",
+	"name" : "ContinuousCoverage",
+	"paths" : 
+	{
+		"build" : "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/platform/android/armeabi-v7a",
+		"source" : "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native"
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "",
+			"sourceIndexes" : 
+			[
+				0
+			]
+		},
+		{
+			"name" : "CMake Rules",
+			"sourceIndexes" : 
+			[
+				1
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 5,
+			"isGenerated" : true,
+			"path" : "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/platform/android/armeabi-v7a/CMakeFiles/ContinuousCoverage",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/platform/android/armeabi-v7a/CMakeFiles/ContinuousCoverage.rule",
+			"sourceGroupIndex" : 1
+		}
+	],
+	"type" : "UTILITY"
+}

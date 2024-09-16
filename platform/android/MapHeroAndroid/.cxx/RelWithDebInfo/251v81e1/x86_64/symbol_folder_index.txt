@@ -1,0 +1,1 @@
+/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/platform/android/MapHeroAndroid/build/intermediates/cxx/RelWithDebInfo/251v81e1/obj/x86_64

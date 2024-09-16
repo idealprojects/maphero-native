@@ -1,0 +1,265 @@
+{
+  "buildFiles": [
+    "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/CMakeLists.txt",
+    "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/benchmark/CMakeLists.txt",
+    "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/platform/android/MapHeroAndroid/src/cpp/CMakeLists.txt",
+    "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/render-test/CMakeLists.txt",
+    "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/test/CMakeLists.txt",
+    "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/vendor/mapbox-base/CMakeLists.txt",
+    "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/vendor/mapbox-base/deps/CMakeLists.txt",
+    "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/vendor/mapbox-base/extras/CMakeLists.txt",
+    "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/vendor/mapbox-base/include/CMakeLists.txt",
+    "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/vendor/unordered_dense/CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "/Users/khalidtaha/Library/Android/sdk/cmake/3.22.1/bin/ninja",
+      "-C",
+      "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/platform/android/MapHeroAndroidTestApp/.cxx/RelWithDebInfo/ke1n2a16/x86",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "/Users/khalidtaha/Library/Android/sdk/cmake/3.22.1/bin/ninja",
+    "-C",
+    "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/platform/android/MapHeroAndroidTestApp/.cxx/RelWithDebInfo/ke1n2a16/x86",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {
+    "ContinuousMemCheck::@99ccea00644b24fbabc2": {
+      "artifactName": "ContinuousMemCheck",
+      "abi": "x86",
+      "runtimeFiles": []
+    },
+    "ExperimentalTest::@99ccea00644b24fbabc2": {
+      "artifactName": "ExperimentalTest",
+      "abi": "x86",
+      "runtimeFiles": []
+    },
+    "NightlyTest::@99ccea00644b24fbabc2": {
+      "artifactName": "NightlyTest",
+      "abi": "x86",
+      "runtimeFiles": []
+    },
+    "ContinuousBuild::@99ccea00644b24fbabc2": {
+      "artifactName": "ContinuousBuild",
+      "abi": "x86",
+      "runtimeFiles": []
+    },
+    "NightlyMemoryCheck::@99ccea00644b24fbabc2": {
+      "artifactName": "NightlyMemoryCheck",
+      "abi": "x86",
+      "runtimeFiles": []
+    },
+    "ExperimentalBuild::@99ccea00644b24fbabc2": {
+      "artifactName": "ExperimentalBuild",
+      "abi": "x86",
+      "runtimeFiles": []
+    },
+    "ExperimentalStart::@99ccea00644b24fbabc2": {
+      "artifactName": "ExperimentalStart",
+      "abi": "x86",
+      "runtimeFiles": []
+    },
+    "NightlyCoverage::@99ccea00644b24fbabc2": {
+      "artifactName": "NightlyCoverage",
+      "abi": "x86",
+      "runtimeFiles": []
+    },
+    "ContinuousUpdate::@99ccea00644b24fbabc2": {
+      "artifactName": "ContinuousUpdate",
+      "abi": "x86",
+      "runtimeFiles": []
+    },
+    "ContinuousTest::@99ccea00644b24fbabc2": {
+      "artifactName": "ContinuousTest",
+      "abi": "x86",
+      "runtimeFiles": []
+    },
+    "mbgl-core-license::@99ccea00644b24fbabc2": {
+      "artifactName": "mbgl-core-license",
+      "abi": "x86",
+      "runtimeFiles": []
+    },
+    "NightlyMemCheck::@99ccea00644b24fbabc2": {
+      "artifactName": "NightlyMemCheck",
+      "abi": "x86",
+      "runtimeFiles": []
+    },
+    "mbgl-test-runner::@99ccea00644b24fbabc2": {
+      "artifactName": "mbgl-test-runner",
+      "abi": "x86",
+      "output": "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/platform/android/MapHeroAndroidTestApp/build/intermediates/cxx/RelWithDebInfo/ke1n2a16/obj/x86/libmbgl-test-runner.so",
+      "runtimeFiles": []
+    },
+    "Experimental::@99ccea00644b24fbabc2": {
+      "artifactName": "Experimental",
+      "abi": "x86",
+      "runtimeFiles": []
+    },
+    "ExperimentalMemCheck::@99ccea00644b24fbabc2": {
+      "artifactName": "ExperimentalMemCheck",
+      "abi": "x86",
+      "runtimeFiles": []
+    },
+    "NightlySubmit::@99ccea00644b24fbabc2": {
+      "artifactName": "NightlySubmit",
+      "abi": "x86",
+      "runtimeFiles": []
+    },
+    "mbgl-vendor-icu::@99ccea00644b24fbabc2": {
+      "artifactName": "mbgl-vendor-icu",
+      "abi": "x86",
+      "output": "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/platform/android/x86/libmbgl-vendor-icu.a",
+      "runtimeFiles": []
+    },
+    "mbgl-render-test-runner::@99ccea00644b24fbabc2": {
+      "artifactName": "mbgl-render-test-runner",
+      "abi": "x86",
+      "output": "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/platform/android/MapHeroAndroidTestApp/build/intermediates/cxx/RelWithDebInfo/ke1n2a16/obj/x86/libmbgl-render-test-runner.so",
+      "runtimeFiles": []
+    },
+    "mbgl-vendor-benchmark::@832f3167c2a1891fa4a4": {
+      "artifactName": "mbgl-vendor-benchmark",
+      "abi": "x86",
+      "output": "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/platform/android/x86/benchmark/libmbgl-vendor-benchmark.a",
+      "runtimeFiles": []
+    },
+    "mbgl-vendor-googletest::@20ef3fe9915ea429aa42": {
+      "artifactName": "mbgl-vendor-googletest",
+      "abi": "x86",
+      "output": "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/platform/android/x86/test/libmbgl-vendor-googletest.a",
+      "runtimeFiles": []
+    },
+    "Continuous::@99ccea00644b24fbabc2": {
+      "artifactName": "Continuous",
+      "abi": "x86",
+      "runtimeFiles": []
+    },
+    "NightlyConfigure::@99ccea00644b24fbabc2": {
+      "artifactName": "NightlyConfigure",
+      "abi": "x86",
+      "runtimeFiles": []
+    },
+    "NightlyStart::@99ccea00644b24fbabc2": {
+      "artifactName": "NightlyStart",
+      "abi": "x86",
+      "runtimeFiles": []
+    },
+    "ExperimentalSubmit::@99ccea00644b24fbabc2": {
+      "artifactName": "ExperimentalSubmit",
+      "abi": "x86",
+      "runtimeFiles": []
+    },
+    "mbgl-core::@99ccea00644b24fbabc2": {
+      "artifactName": "mbgl-core",
+      "abi": "x86",
+      "output": "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/platform/android/x86/libmbgl-core.a",
+      "runtimeFiles": []
+    },
+    "Nightly::@99ccea00644b24fbabc2": {
+      "artifactName": "Nightly",
+      "abi": "x86",
+      "runtimeFiles": []
+    },
+    "mbgl-vendor-csscolorparser::@99ccea00644b24fbabc2": {
+      "artifactName": "mbgl-vendor-csscolorparser",
+      "abi": "x86",
+      "output": "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/platform/android/x86/libmbgl-vendor-csscolorparser.a",
+      "runtimeFiles": []
+    },
+    "ExperimentalUpdate::@99ccea00644b24fbabc2": {
+      "artifactName": "ExperimentalUpdate",
+      "abi": "x86",
+      "runtimeFiles": []
+    },
+    "mbgl-test::@20ef3fe9915ea429aa42": {
+      "artifactName": "mbgl-test",
+      "abi": "x86",
+      "output": "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/platform/android/x86/test/libmbgl-test.a",
+      "runtimeFiles": []
+    },
+    "mbgl-benchmark-runner::@99ccea00644b24fbabc2": {
+      "artifactName": "mbgl-benchmark-runner",
+      "abi": "x86",
+      "output": "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/platform/android/MapHeroAndroidTestApp/build/intermediates/cxx/RelWithDebInfo/ke1n2a16/obj/x86/libmbgl-benchmark-runner.so",
+      "runtimeFiles": []
+    },
+    "mbgl-vendor-parsedate::@99ccea00644b24fbabc2": {
+      "artifactName": "mbgl-vendor-parsedate",
+      "abi": "x86",
+      "output": "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/platform/android/x86/libmbgl-vendor-parsedate.a",
+      "runtimeFiles": []
+    },
+    "ContinuousSubmit::@99ccea00644b24fbabc2": {
+      "artifactName": "ContinuousSubmit",
+      "abi": "x86",
+      "runtimeFiles": []
+    },
+    "NightlyBuild::@99ccea00644b24fbabc2": {
+      "artifactName": "NightlyBuild",
+      "abi": "x86",
+      "runtimeFiles": []
+    },
+    "ContinuousCoverage::@99ccea00644b24fbabc2": {
+      "artifactName": "ContinuousCoverage",
+      "abi": "x86",
+      "runtimeFiles": []
+    },
+    "NightlyUpdate::@99ccea00644b24fbabc2": {
+      "artifactName": "NightlyUpdate",
+      "abi": "x86",
+      "runtimeFiles": []
+    },
+    "ContinuousConfigure::@99ccea00644b24fbabc2": {
+      "artifactName": "ContinuousConfigure",
+      "abi": "x86",
+      "runtimeFiles": []
+    },
+    "ContinuousStart::@99ccea00644b24fbabc2": {
+      "artifactName": "ContinuousStart",
+      "abi": "x86",
+      "runtimeFiles": []
+    },
+    "mbgl-benchmark::@832f3167c2a1891fa4a4": {
+      "artifactName": "mbgl-benchmark",
+      "abi": "x86",
+      "output": "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/platform/android/x86/benchmark/libmbgl-benchmark.a",
+      "runtimeFiles": []
+    },
+    "mbgl-vendor-sqlite::@99ccea00644b24fbabc2": {
+      "artifactName": "mbgl-vendor-sqlite",
+      "abi": "x86",
+      "output": "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/platform/android/x86/libmbgl-vendor-sqlite.a",
+      "runtimeFiles": []
+    },
+    "ExperimentalCoverage::@99ccea00644b24fbabc2": {
+      "artifactName": "ExperimentalCoverage",
+      "abi": "x86",
+      "runtimeFiles": []
+    },
+    "mbgl-render-test::@16566f71d3baa18da25e": {
+      "artifactName": "mbgl-render-test",
+      "abi": "x86",
+      "output": "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/platform/android/x86/render-test/libmbgl-render-test.a",
+      "runtimeFiles": []
+    },
+    "ExperimentalConfigure::@99ccea00644b24fbabc2": {
+      "artifactName": "ExperimentalConfigure",
+      "abi": "x86",
+      "runtimeFiles": []
+    },
+    "maplibre::@6890427a1f51a3e7e1df": {
+      "artifactName": "maplibre",
+      "abi": "x86",
+      "output": "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/platform/android/MapHeroAndroidTestApp/build/intermediates/cxx/RelWithDebInfo/ke1n2a16/obj/x86/libmaplibre.so",
+      "runtimeFiles": []
+    },
+    "example-custom-layer::@99ccea00644b24fbabc2": {
+      "artifactName": "example-custom-layer",
+      "abi": "x86",
+      "output": "/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/platform/android/MapHeroAndroidTestApp/build/intermediates/cxx/RelWithDebInfo/ke1n2a16/obj/x86/libexample-custom-layer.so",
+      "runtimeFiles": []
+    }
+  }
+}

@@ -5,13 +5,11 @@ import json
 
 path = os.getcwd()
 with open(path + "/LICENSE.md", 'w') as licenseFile:
-    licenseFile.write("""MapLibre Native Android
+    licenseFile.write("""MapHero Native Android
 
 BSD 2-Clause License
 
-Copyright (c) 2021 MapLibre contributors
-
-Copyright (c) 2014-2020 Mapbox
+Copyright (c) 2024 MapHero contributors
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are
@@ -37,7 +35,7 @@ NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 """)
     licenseFile.write("\n\n===========================================================================\n\n")
-    with open(path + "/MapLibreAndroid/build/reports/licenses/licenseDrawableReleaseReport.json", 'r') as dataFile:
+    with open(path + "/MapHeroAndroid/build/reports/licenses/licenseDrawableReleaseReport.json", 'r') as dataFile:
         data = json.load(dataFile)
 
         gradleLicensePlugin ="""
@@ -63,7 +61,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                 licenseName = license["license"]
                 licenseUrl = license["license_url"]
 
-            licenseFile.write("MapLibre Native Android uses portions of %s.  \n" % projectName +
+            licenseFile.write("MapHero Native Android uses portions of %s.  \n" % projectName +
                               ("URL: [%s](%s)  \n" % (projectUrl, projectUrl) if projectUrl is not None else "") +
                               "License: [%s](%s)" % (licenseName, licenseUrl) +
                               "\n\n===========================================================================\n\n")

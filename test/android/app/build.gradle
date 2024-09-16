@@ -8,7 +8,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = 'org.maplibre.cpp_test_runner'
+        applicationId = 'org.maphero.cpp_test_runner'
         minSdkVersion 28
         targetSdkVersion 33
         compileSdk 34

@@ -1,0 +1,201 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- these are public -->
+    <declare-styleable name="maphero_MapView" >
+
+        <!--DEPRECATED use maphero_apiBaseUri instead -->
+        <attr name="maphero_apiBaseUrl" format="string"/>
+
+        <!--Configuration-->
+        <attr name="maphero_apiBaseUri" format="string"/>
+        <attr name="maphero_localIdeographEnabled" format="boolean"/>
+        <attr name="maphero_localIdeographFontFamily" format="string"/>
+        <attr name="maphero_localIdeographFontFamilies" format="reference"/>
+        <attr name="maphero_cross_source_collisions" format="boolean"/>
+
+        <!--Camera-->
+        <attr name="maphero_cameraTargetLat" format="float"/>
+        <attr name="maphero_cameraTargetLng" format="float"/>
+        <attr name="maphero_cameraZoom" format="float"/>
+        <attr name="maphero_cameraBearing" format="float"/>
+        <attr name="maphero_cameraTilt" format="float"/>
+
+        <!--Zoom-->
+        <attr name="maphero_cameraZoomMax" format="float"/>
+        <attr name="maphero_cameraZoomMin" format="float"/>
+
+        <!--Pitch-->
+        <attr name="maphero_cameraPitchMax" format="float"/>
+        <attr name="maphero_cameraPitchMin" format="float"/>
+
+        <!--Gestures-->
+        <attr name="maphero_uiZoomGestures" format="boolean"/>
+        <attr name="maphero_uiScrollGestures" format="boolean"/>
+        <attr name="maphero_uiHorizontalScrollGestures" format="boolean"/>
+        <attr name="maphero_uiRotateGestures" format="boolean"/>
+        <attr name="maphero_uiTiltGestures" format="boolean"/>
+        <attr name="maphero_uiDoubleTapGestures" format="boolean"/>
+        <attr name="maphero_uiQuickZoomGestures" format="boolean"/>
+
+        <!--Compass-->
+        <attr name="maphero_uiCompass" format="boolean"/>
+        <attr name="maphero_uiCompassGravity">
+            <flag name="top" value="0x30"/>
+            <flag name="bottom" value="0x50"/>
+            <flag name="left" value="0x03"/>
+            <flag name="right" value="0x05"/>
+            <flag name="center_vertical" value="0x10"/>
+            <flag name="fill_vertical" value="0x70"/>
+            <flag name="center_horizontal" value="0x01"/>
+            <flag name="fill_horizontal" value="0x07"/>
+            <flag name="center" value="0x11"/>
+            <flag name="fill" value="0x77"/>
+            <flag name="clip_vertical" value="0x80"/>
+            <flag name="clip_horizontal" value="0x08"/>
+            <flag name="start" value="0x00800003"/>
+            <flag name="end" value="0x00800005"/>
+        </attr>
+        <attr name="maphero_uiCompassMarginLeft" format="dimension"/>
+        <attr name="maphero_uiCompassMarginTop" format="dimension"/>
+        <attr name="maphero_uiCompassMarginRight" format="dimension"/>
+        <attr name="maphero_uiCompassMarginBottom" format="dimension"/>
+        <attr name="maphero_uiCompassFadeFacingNorth" format="boolean"/>
+        <attr name="maphero_uiCompassDrawable" format="reference"/>
+
+        <!--Logo-->
+        <attr name="maphero_uiLogo" format="boolean"/>
+        <attr name="maphero_uiLogoGravity">
+            <flag name="top" value="0x30"/>
+            <flag name="bottom" value="0x50"/>
+            <flag name="left" value="0x03"/>
+            <flag name="right" value="0x05"/>
+            <flag name="center_vertical" value="0x10"/>
+            <flag name="fill_vertical" value="0x70"/>
+            <flag name="center_horizontal" value="0x01"/>
+            <flag name="fill_horizontal" value="0x07"/>
+            <flag name="center" value="0x11"/>
+            <flag name="fill" value="0x77"/>
+            <flag name="clip_vertical" value="0x80"/>
+            <flag name="clip_horizontal" value="0x08"/>
+            <flag name="start" value="0x00800003"/>
+            <flag name="end" value="0x00800005"/>
+        </attr>
+        <attr name="maphero_uiLogoMarginLeft" format="dimension"/>
+        <attr name="maphero_uiLogoMarginTop" format="dimension"/>
+        <attr name="maphero_uiLogoMarginRight" format="dimension"/>
+        <attr name="maphero_uiLogoMarginBottom" format="dimension"/>
+
+        <!--Attribution-->
+        <attr name="maphero_uiAttribution" format="boolean"/>
+        <attr name="maphero_uiAttributionGravity">
+            <flag name="top" value="0x30"/>
+            <flag name="bottom" value="0x50"/>
+            <flag name="left" value="0x03"/>
+            <flag name="right" value="0x05"/>
+            <flag name="center_vertical" value="0x10"/>
+            <flag name="fill_vertical" value="0x70"/>
+            <flag name="center_horizontal" value="0x01"/>
+            <flag name="fill_horizontal" value="0x07"/>
+            <flag name="center" value="0x11"/>
+            <flag name="fill" value="0x77"/>
+            <flag name="clip_vertical" value="0x80"/>
+            <flag name="clip_horizontal" value="0x08"/>
+            <flag name="start" value="0x00800003"/>
+            <flag name="end" value="0x00800005"/>
+        </attr>
+        <attr name="maphero_uiAttributionMarginLeft" format="dimension"/>
+        <attr name="maphero_uiAttributionMarginTop" format="dimension"/>
+        <attr name="maphero_uiAttributionMarginRight" format="dimension"/>
+        <attr name="maphero_uiAttributionMarginBottom" format="dimension"/>
+        <attr name="maphero_uiAttributionTintColor" format="color"/>
+
+        <!-- Use TextureView-->
+        <attr name="maphero_renderTextureMode" format="boolean"/>
+        <attr name="maphero_renderTextureTranslucentSurface" format="boolean"/>
+        <attr name="maphero_foregroundLoadColor" format="color"/>
+
+        <attr name="maphero_enableTilePrefetch" format="boolean"/>
+        <attr name="maphero_prefetchZoomDelta" format="integer"/>
+        <attr name="maphero_enableZMediaOverlay" format="boolean"/>
+        <attr name="maphero_pixelRatio" format="float"/>
+
+    </declare-styleable>
+
+    <declare-styleable name="maphero_BubbleLayout">
+        <attr name="maphero_bl_arrowWidth" format="dimension|reference"/>
+        <attr name="maphero_bl_cornersRadius" format="dimension|reference"/>
+        <attr name="maphero_bl_arrowHeight" format="dimension|reference"/>
+        <attr name="maphero_bl_arrowPosition" format="dimension|reference"/>
+        <attr name="maphero_bl_bubbleColor" format="color|reference"/>
+        <attr name="maphero_bl_strokeWidth" format="dimension|reference"/>
+        <attr name="maphero_bl_strokeColor" format="color|reference"/>
+
+        <attr name="maphero_bl_arrowDirection" format="enum">
+            <enum name="left" value="0"/>
+            <enum name="right" value="1"/>
+            <enum name="top" value="2"/>
+            <enum name="bottom" value="3"/>
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="maphero_LocationComponent">
+        <attr name="maphero_foregroundDrawable" format="reference"/>
+        <attr name="maphero_foregroundTintColor" format="color"/>
+        <attr name="maphero_backgroundDrawable" format="reference"/>
+        <attr name="maphero_backgroundTintColor" format="color"/>
+        <attr name="maphero_bearingDrawable" format="reference"/>
+        <attr name="maphero_bearingTintColor" format="color"/>
+        <attr name="maphero_gpsDrawable" format="reference"/>
+
+        <attr name="maphero_foregroundDrawableStale" format="reference"/>
+        <attr name="maphero_foregroundStaleTintColor" format="color"/>
+        <attr name="maphero_backgroundDrawableStale" format="reference"/>
+        <attr name="maphero_backgroundStaleTintColor" format="color"/>
+
+        <attr name="maphero_accuracyAlpha" format="float"/>
+        <attr name="maphero_accuracyColor" format="color"/>
+
+        <attr name="maphero_elevation" format="dimension"/>
+
+        <!-- Stale state -->
+        <attr name="maphero_enableStaleState" format="boolean"/>
+        <attr name="maphero_staleStateTimeout" format="integer" min="0"/>
+
+        <!-- Location icon padding -->
+        <attr name="maphero_iconPaddingLeft" format="integer"/>
+        <attr name="maphero_iconPaddingTop" format="integer"/>
+        <attr name="maphero_iconPaddingRight" format="integer"/>
+        <attr name="maphero_iconPaddingBottom" format="integer"/>
+
+        <!-- Map layer configuration -->
+        <attr name="maphero_layer_above" format="string"/>
+        <attr name="maphero_layer_below" format="string"/>
+
+        <!-- Icon scale based on map zoom levels -->
+        <attr name="maphero_maxZoomIconScale" format="float"/>
+        <attr name="maphero_minZoomIconScale" format="float"/>
+
+        <!-- Camera tracking settings -->
+        <attr name="maphero_trackingGesturesManagement" format="boolean"/>
+        <attr name="maphero_trackingInitialMoveThreshold" format="dimension"/>
+        <attr name="maphero_trackingMultiFingerMoveThreshold" format="dimension"/>
+
+        <!-- Animation duration multiplier -->
+        <attr name="maphero_trackingAnimationDurationMultiplier" format="float" />
+
+        <!-- Compass animation -->
+        <attr name="maphero_compassAnimationEnabled" format="boolean" />
+
+        <!-- Accuracy animation-->
+        <attr name="maphero_accuracyAnimationEnabled" format="boolean" />
+
+        <!-- Pulsing circle -->
+        <attr name="maphero_pulsingLocationCircleEnabled" format="boolean" />
+        <attr name="maphero_pulsingLocationCircleFadeEnabled" format="boolean" />
+        <attr name="maphero_pulsingLocationCircleColor" format="color" />
+        <attr name="maphero_pulsingLocationCircleDuration" format="float" />
+        <attr name="maphero_pulsingLocationCircleRadius" format="float" />
+        <attr name="maphero_pulsingLocationCircleAlpha" format="float" />
+        <attr name="maphero_pulsingLocationCircleInterpolator" format="string" />
+
+    </declare-styleable>
+</resources>
