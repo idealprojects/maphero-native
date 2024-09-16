@@ -172,7 +172,7 @@ void FillExtrusionBucket::addFeature(const GeometryTileFeature& feature,
 }
 
 void FillExtrusionBucket::upload([[maybe_unused]] gfx::UploadPass& uploadPass) {
-#if MLN_LEGACY_RENDERER
+#if MH_LEGACY_RENDERER
     if (!uploaded) {
         vertexBuffer = uploadPass.createVertexBuffer(std::move(vertices));
         indexBuffer = uploadPass.createIndexBuffer(std::move(triangles));
@@ -181,7 +181,7 @@ void FillExtrusionBucket::upload([[maybe_unused]] gfx::UploadPass& uploadPass) {
     for (auto& pair : paintPropertyBinders) {
         pair.second.upload(uploadPass);
     }
-#endif // MLN_LEGACY_RENDERER
+#endif // MH_LEGACY_RENDERER
 
     uploaded = true;
 }

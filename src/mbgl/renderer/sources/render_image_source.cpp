@@ -25,7 +25,7 @@ void ImageSourceRenderData::upload(gfx::UploadPass& uploadPass) const {
         bucket->upload(uploadPass);
     }
 
-#if MLN_LEGACY_RENDERER
+#if MH_LEGACY_RENDERER
     if (!debugTexture) {
         std::array<uint8_t, 4> data{{0, 0, 0, 0}};
         static const PremultipliedImage emptyImage{Size(1, 1), data.data(), data.size()};
@@ -90,7 +90,7 @@ std::unique_ptr<RenderItem> RenderImageSource::createRenderItem() {
 }
 
 void RenderImageSource::prepare(const SourcePrepareParameters& parameters) {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
     assert(!renderData);
     if (!isLoaded()) {
         renderData = std::make_unique<ImageSourceRenderData>(bucket, std::vector<mat4>{}, baseImpl->id);
@@ -103,7 +103,7 @@ void RenderImageSource::prepare(const SourcePrepareParameters& parameters) {
         mat4& matrix = matrices[i];
         matrix::identity(matrix);
         transformParams.state.matrixFor(matrix, tileIds[i]);
-#if MLN_LEGACY_RENDERER
+#if MH_LEGACY_RENDERER
         matrix::multiply(matrix, transformParams.alignedProjMatrix, matrix);
 #endif
     }

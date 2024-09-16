@@ -1010,7 +1010,7 @@ void NativeMapView::addLayer(JNIEnv& env, jlong nativeLayerPtr, const jni::Strin
             before ? std::optional<std::string>(jni::Make<std::string>(env, before)) : std::optional<std::string>());
     } catch (const std::runtime_error& error) {
         jni::ThrowNew(
-            env, jni::FindClass(env, "org/maplibre/android/style/layers/CannotAddLayerException"), error.what());
+            env, jni::FindClass(env, "org/maphero/android/style/layers/CannotAddLayerException"), error.what());
     }
 }
 
@@ -1036,7 +1036,7 @@ void NativeMapView::addLayerAbove(JNIEnv& env, jlong nativeLayerPtr, const jni::
     if (index + 1 > layers.size()) {
         // Not found
         jni::ThrowNew(env,
-                      jni::FindClass(env, "org/maplibre/android/style/layers/CannotAddLayerException"),
+                      jni::FindClass(env, "org/maphero/android/style/layers/CannotAddLayerException"),
                       std::string("Could not find layer: ").append(siblingId).c_str());
         return;
     } else if (index + 1 < layers.size()) {
@@ -1049,7 +1049,7 @@ void NativeMapView::addLayerAbove(JNIEnv& env, jlong nativeLayerPtr, const jni::
         layer->addToStyle(map->getStyle(), before);
     } catch (const std::runtime_error& error) {
         jni::ThrowNew(
-            env, jni::FindClass(env, "org/maplibre/android/style/layers/CannotAddLayerException"), error.what());
+            env, jni::FindClass(env, "org/maphero/android/style/layers/CannotAddLayerException"), error.what());
     }
 }
 
@@ -1064,7 +1064,7 @@ void NativeMapView::addLayerAt(JNIEnv& env, jlong nativeLayerPtr, jni::jint inde
     if (index > numLayers || index < 0) {
         Log::Error(Event::JNI, "Index out of range: " + std::to_string(index));
         jni::ThrowNew(env,
-                      jni::FindClass(env, "org/maplibre/android/style/layers/CannotAddLayerException"),
+                      jni::FindClass(env, "org/maphero/android/style/layers/CannotAddLayerException"),
                       std::string("Invalid index").c_str());
         return;
     }
@@ -1074,7 +1074,7 @@ void NativeMapView::addLayerAt(JNIEnv& env, jlong nativeLayerPtr, jni::jint inde
         layer->addToStyle(map->getStyle(), layers.at(index)->getID());
     } catch (const std::runtime_error& error) {
         jni::ThrowNew(
-            env, jni::FindClass(env, "org/maplibre/android/style/layers/CannotAddLayerException"), error.what());
+            env, jni::FindClass(env, "org/maphero/android/style/layers/CannotAddLayerException"), error.what());
     }
 }
 
@@ -1150,7 +1150,7 @@ void NativeMapView::addSource(JNIEnv& env, const jni::Object<Source>& obj, jlong
         source->addToMap(env, obj, *map, *rendererFrontend);
     } catch (const std::runtime_error& error) {
         jni::ThrowNew(
-            env, jni::FindClass(env, "org/maplibre/android/style/sources/CannotAddSourceException"), error.what());
+            env, jni::FindClass(env, "org/maphero/android/style/sources/CannotAddSourceException"), error.what());
     }
 }
 

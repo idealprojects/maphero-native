@@ -1,15 +1,15 @@
-import MapLibre
+import MapHero
 import SwiftUI
 import UIKit
 
 // #-example-code(SimpleMap)
 struct SimpleMap: UIViewRepresentable {
-    func makeUIView(context _: Context) -> MLNMapView {
-        let mapView = MLNMapView()
+    func makeUIView(context _: Context) -> MHMapView {
+        let mapView = MHMapView()
         return mapView
     }
 
-    func updateUIView(_: MLNMapView, context _: Context) {}
+    func updateUIView(_: MHMapView, context _: Context) {}
 }
 
 // #-end-example-code

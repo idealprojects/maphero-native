@@ -13,7 +13,7 @@ namespace android {
 
 class TileServerOptions : private mbgl::util::noncopyable {
 public:
-    static constexpr auto Name() { return "org/maplibre/android/util/TileServerOptions"; };
+    static constexpr auto Name() { return "org/maphero/android/util/TileServerOptions"; };
 
     static jni::Local<jni::Object<TileServerOptions>> New(jni::JNIEnv&, const mbgl::TileServerOptions&);
 
@@ -23,7 +23,7 @@ public:
                                                                           const jni::Class<TileServerOptions>&);
     static jni::Local<jni::Object<TileServerOptions>> MapTilerConfiguration(jni::JNIEnv&,
                                                                             const jni::Class<TileServerOptions>&);
-    static jni::Local<jni::Object<TileServerOptions>> MapLibreConfiguration(jni::JNIEnv&,
+    static jni::Local<jni::Object<TileServerOptions>> MapHeroConfiguration(jni::JNIEnv&,
                                                                             const jni::Class<TileServerOptions>&);
 
     static mbgl::TileServerOptions getTileServerOptions(jni::JNIEnv&, const jni::Object<TileServerOptions>&);

@@ -1,8 +1,8 @@
 find_package(OpenGL REQUIRED)
 
 if(WIN32)
-    if(MLN_WITH_OSMESA)
-        message(WARNING "mbgl-glfw does not work with -DMLN_WITH_OSMESA=ON. If you want to build this target, don't use this option.")
+    if(MH_WITH_OSMESA)
+        message(WARNING "mbgl-glfw does not work with -DMH_WITH_OSMESA=ON. If you want to build this target, don't use this option.")
         return()
     endif()
 
@@ -29,25 +29,25 @@ set_property(
     PROPERTY COMPILE_DEFINITIONS MAPBOX_PUCK_ASSETS_PATH=\"${PROJECT_SOURCE_DIR}/platform/glfw/assets/\"
 )
 
-if(MLN_WITH_OPENGL)
+if(MH_WITH_OPENGL)
     target_sources(
         mbgl-glfw
         PRIVATE ${PROJECT_SOURCE_DIR}/platform/glfw/glfw_gl_backend.cpp
     )
     target_compile_definitions(
         mbgl-glfw
-        PRIVATE MLN_RENDER_BACKEND_OPENGL=1
+        PRIVATE MH_RENDER_BACKEND_OPENGL=1
     )
 endif()
 
-if(MLN_WITH_EGL)
+if(MH_WITH_EGL)
     target_compile_definitions(
         mbgl-glfw
         PRIVATE MBGL_WITH_EGL=1
     )
 endif()
 
-if(MLN_WITH_VULKAN)
+if(MH_WITH_VULKAN)
     target_sources(
         mbgl-glfw
         PRIVATE ${PROJECT_SOURCE_DIR}/platform/glfw/glfw_vulkan_backend.cpp
@@ -55,11 +55,11 @@ if(MLN_WITH_VULKAN)
     
     target_compile_definitions(
         mbgl-glfw
-        PRIVATE MLN_RENDER_BACKEND_VULKAN=1
+        PRIVATE MH_RENDER_BACKEND_VULKAN=1
     )
 endif()
 
-if(MLN_WITH_METAL)
+if(MH_WITH_METAL)
     target_sources(
         mbgl-glfw
         PRIVATE
@@ -70,7 +70,7 @@ if(MLN_WITH_METAL)
     )
     target_compile_definitions(
         mbgl-glfw
-        PRIVATE MLN_RENDER_BACKEND_METAL=1
+        PRIVATE MH_RENDER_BACKEND_METAL=1
     )
     target_link_libraries(
         mbgl-glfw
@@ -126,7 +126,7 @@ target_link_libraries(
         Mapbox::Base::cheap-ruler-cpp
 )
 
-if(NOT WIN32 AND MLN_WITH_OPENGL)
+if(NOT WIN32 AND MH_WITH_OPENGL)
     target_link_libraries(
         mbgl-glfw
         PRIVATE OpenGL::GL

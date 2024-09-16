@@ -6,7 +6,7 @@
 #include <mbgl/style/layer_impl.hpp>
 #include <mbgl/tile/geometry_tile_data.hpp>
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
 #include <mbgl/util/identity.hpp>
 #endif
 
@@ -71,11 +71,11 @@ public:
     virtual void updateVertices(
         const Placement&, bool /*updateOpacities*/, const TransformState&, const RenderTile&, std::set<uint32_t>&) {}
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
     const util::SimpleIdentity& getID() const { return bucketID; }
 #endif
 
-#if MLN_SYMBOL_GUARDS
+#if MH_SYMBOL_GUARDS
     virtual bool check(std::source_location) { return true; }
 #else
     bool check(std::string_view = {}) { return true; }
@@ -88,7 +88,7 @@ protected:
     Bucket() = default;
     std::atomic<bool> uploaded{false};
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
     util::SimpleIdentity bucketID;
 #endif
 

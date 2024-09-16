@@ -207,7 +207,7 @@ TEST(ShaderRegistry, NamedReplace) {
 }
 
 // Test replacing an actual program instance with a similar instance
-#if MLN_LEGACY_RENDERER
+#if MH_LEGACY_RENDERER
 TEST(ShaderRegistry, GLSLReplacement_NoOp) {
 #else
 TEST(ShaderRegistry, DISABLED_GLSLReplacement_NoOp) {
@@ -237,7 +237,7 @@ TEST(ShaderRegistry, DISABLED_GLSLReplacement_NoOp) {
 
 // Test replacing an actual program with a similar instance using a different
 // fragment shader
-#if MLN_LEGACY_RENDERER
+#if MH_LEGACY_RENDERER
 TEST(ShaderRegistry, GLSLReplacement1) {
 #else
 TEST(ShaderRegistry, DISABLED_GLSLReplacement1) {
@@ -275,7 +275,7 @@ void main() {
 
 // Test replacing an actual program with a similar instance using a different
 // fragment shader
-#if MLN_LEGACY_RENDERER
+#if MH_LEGACY_RENDERER
 TEST(ShaderRegistry, GLSLReplacement2) {
 #else
 TEST(ShaderRegistry, DISABLED_GLSLReplacement2) {

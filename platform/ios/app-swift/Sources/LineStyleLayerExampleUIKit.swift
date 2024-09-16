@@ -1,15 +1,15 @@
-import MapLibre
+import MapHero
 import SwiftUI
 import UIKit
 
 // #-example-code(LineStyleLayerExample)
-class LineStyleLayerExample: UIViewController, MLNMapViewDelegate {
-    var mapView: MLNMapView!
+class LineStyleLayerExample: UIViewController, MHMapViewDelegate {
+    var mapView: MHMapView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        mapView = MLNMapView(frame: view.bounds, styleURL: VERSATILES_COLORFUL_STYLE)
+        mapView = MHMapView(frame: view.bounds, styleURL: VERSATILES_COLORFUL_STYLE)
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 
         mapView.setCenter(
@@ -23,7 +23,7 @@ class LineStyleLayerExample: UIViewController, MLNMapViewDelegate {
     }
 
     // Wait until the map is loaded before adding to the map.
-    func mapView(_: MLNMapView, didFinishLoading _: MLNStyle) {
+    func mapView(_: MHMapView, didFinishLoading _: MHStyle) {
         loadGeoJson()
     }
 
@@ -45,21 +45,21 @@ class LineStyleLayerExample: UIViewController, MLNMapViewDelegate {
     }
 
     func drawPolyline(geoJson: Data) {
-        // Add our GeoJSON data to the map as an MLNGeoJSONSource.
-        // We can then reference this data from an MLNStyleLayer.
+        // Add our GeoJSON data to the map as an MHGeoJSONSource.
+        // We can then reference this data from an MHStyleLayer.
 
-        // MLNMapView.style is optional, so you must guard against it not being set.
+        // MHMapView.style is optional, so you must guard against it not being set.
         guard let style = mapView.style else { return }
 
-        guard let shapeFromGeoJSON = try? MLNShape(data: geoJson, encoding: String.Encoding.utf8.rawValue) else {
-            fatalError("Could not generate MLNShape")
+        guard let shapeFromGeoJSON = try? MHShape(data: geoJson, encoding: String.Encoding.utf8.rawValue) else {
+            fatalError("Could not generate MHShape")
         }
 
-        let source = MLNShapeSource(identifier: "polyline", shape: shapeFromGeoJSON, options: nil)
+        let source = MHShapeSource(identifier: "polyline", shape: shapeFromGeoJSON, options: nil)
         style.addSource(source)
 
         // Create new layer for the line.
-        let layer = MLNLineStyleLayer(identifier: "polyline", source: source)
+        let layer = MHLineStyleLayer(identifier: "polyline", source: source)
 
         // Set the line join and cap to a rounded end.
         layer.lineJoin = NSExpression(forConstantValue: "round")
@@ -69,10 +69,10 @@ class LineStyleLayerExample: UIViewController, MLNMapViewDelegate {
         layer.lineColor = NSExpression(forConstantValue: UIColor(red: 59 / 255, green: 178 / 255, blue: 208 / 255, alpha: 1))
 
         // Use `NSExpression` to smoothly adjust the line width from 2pt to 20pt between zoom levels 14 and 18. The `interpolationBase` parameter allows the values to interpolate along an exponential curve.
-        layer.lineWidth = NSExpression(forMLNInterpolating: NSExpression.zoomLevelVariable, curveType: MLNExpressionInterpolationMode.linear, parameters: nil, stops: NSExpression(forConstantValue: [14: 2, 18: 20]))
+        layer.lineWidth = NSExpression(forMHInterpolating: NSExpression.zoomLevelVariable, curveType: MHExpressionInterpolationMode.linear, parameters: nil, stops: NSExpression(forConstantValue: [14: 2, 18: 20]))
 
         // We can also add a second layer that will draw a stroke around the original line.
-        let casingLayer = MLNLineStyleLayer(identifier: "polyline-case", source: source)
+        let casingLayer = MHLineStyleLayer(identifier: "polyline-case", source: source)
         // Copy these attributes from the main line layer.
         casingLayer.lineJoin = layer.lineJoin
         casingLayer.lineCap = layer.lineCap
@@ -81,10 +81,10 @@ class LineStyleLayerExample: UIViewController, MLNMapViewDelegate {
         // Stroke color slightly darker than the line color.
         casingLayer.lineColor = NSExpression(forConstantValue: UIColor(red: 41 / 255, green: 145 / 255, blue: 171 / 255, alpha: 1))
         // Use `NSExpression` to gradually increase the stroke width between zoom levels 14 and 18.
-        casingLayer.lineWidth = NSExpression(forMLNInterpolating: NSExpression.zoomLevelVariable, curveType: MLNExpressionInterpolationMode.linear, parameters: nil, stops: NSExpression(forConstantValue: [14: 1, 18: 4]))
+        casingLayer.lineWidth = NSExpression(forMHInterpolating: NSExpression.zoomLevelVariable, curveType: MHExpressionInterpolationMode.linear, parameters: nil, stops: NSExpression(forConstantValue: [14: 1, 18: 4]))
 
         // Just for fun, let’s add another copy of the line with a dash pattern.
-        let dashedLayer = MLNLineStyleLayer(identifier: "polyline-dash", source: source)
+        let dashedLayer = MHLineStyleLayer(identifier: "polyline-dash", source: source)
         dashedLayer.lineJoin = layer.lineJoin
         dashedLayer.lineCap = layer.lineCap
         dashedLayer.lineColor = NSExpression(forConstantValue: UIColor.white)

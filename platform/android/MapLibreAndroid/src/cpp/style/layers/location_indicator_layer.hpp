@@ -14,7 +14,7 @@ namespace android {
 class LocationIndicatorLayer : public Layer {
 public:
     using SuperTag = Layer;
-    static constexpr auto Name() { return "org/maplibre/android/location/LocationIndicatorLayer"; };
+    static constexpr auto Name() { return "org/maphero/android/location/LocationIndicatorLayer"; };
 
     LocationIndicatorLayer(jni::JNIEnv&, jni::String&);
 

@@ -9,7 +9,7 @@
 -keep class com.google.gson.JsonObject { *; }
 -keep class com.google.gson.JsonPrimitive { *; }
 -dontnote com.google.gson.**
--keep enum org.maplibre.android.tile.TileOperation
+-keep enum org.maphero.android.tile.TileOperation
 -keepclassmembers class * extends java.lang.Enum {
     <fields>;
     public static **[] values();
@@ -17,11 +17,11 @@
 }
 
 # dontnote for keeps the entry point x but not the descriptor class y
--dontnote org.maplibre.android.maps.MapHeroMap$OnFpsChangedListener
--dontnote org.maplibre.android.style.layers.PropertyValue
--dontnote org.maplibre.android.maps.MapHeroMap
--dontnote org.maplibre.android.maps.MapHeroMapOptions
--dontnote org.maplibre.android.log.LoggerDefinition
+-dontnote org.maphero.android.maps.MapHeroMap$OnFpsChangedListener
+-dontnote org.maphero.android.style.layers.PropertyValue
+-dontnote org.maphero.android.maps.MapHeroMap
+-dontnote org.maphero.android.maps.MapHeroMapOptions
+-dontnote org.maphero.android.log.LoggerDefinition
 
 # config for mapbox-sdk-geojson:3.0.1
 -keep class org.maplibre.geojson.** { *; }

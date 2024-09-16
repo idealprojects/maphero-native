@@ -1,4 +1,4 @@
-#if !MLN_RENDER_BACKEND_METAL
+#if !MH_RENDER_BACKEND_METAL
 
 /* OPENGL Custom Layer example implementation */
 #import "CustomStyleLayerExample.h"
@@ -12,7 +12,7 @@
     GLuint _aPos;
 }
 
-- (void)didMoveToMapView:(MLNMapView *)mapView {
+- (void)didMoveToMapView:(MHMapView *)mapView {
     static const GLchar *vertexShaderSource = "#version 300 es\nlayout (location = 0) in vec2 a_pos; void main() { gl_Position = vec4(a_pos, 1, 1); }";
     static const GLchar *fragmentShaderSource = "#version 300 es\nout highp vec4 fragColor; void main() { fragColor = vec4(0, 0.5, 0, 0.5); }";
 
@@ -35,7 +35,7 @@
     glBufferData(GL_ARRAY_BUFFER, 6 * sizeof(GLfloat), triangle, GL_STATIC_DRAW);
 }
 
-- (void)drawInMapView:(MLNMapView *)mapView withContext:(MLNStyleLayerDrawingContext)context {
+- (void)drawInMapView:(MHMapView *)mapView withContext:(MHStyleLayerDrawingContext)context {
     glUseProgram(_program);
     glBindBuffer(GL_ARRAY_BUFFER, _buffer);
     glEnableVertexAttribArray(_aPos);
@@ -45,7 +45,7 @@
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 3);
 }
 
-- (void)willMoveFromMapView:(MLNMapView *)mapView {
+- (void)willMoveFromMapView:(MHMapView *)mapView {
     if (!_program) {
         return;
     }
@@ -60,7 +60,7 @@
 
 @end
 
-#else // MLN_RENDER_BACKEND_METAL:
+#else // MH_RENDER_BACKEND_METAL:
 
 /* Metal Custom Layer example implementation */
 #import "CustomStyleLayerExample.h"
@@ -71,8 +71,8 @@
     id<MTLDepthStencilState> _depthStencilStateWithoutStencil;
 }
 
-- (void)didMoveToMapView:(MLNMapView *)mapView {
-    MLNBackendResource resource = [mapView backendResource];
+- (void)didMoveToMapView:(MHMapView *)mapView {
+    MHBackendResource resource = [mapView backendResource];
     
     NSString *shaderSource = @
 "    #include <metal_stdlib>\n"
@@ -135,12 +135,12 @@
 
 }
 
-- (void)drawInMapView:(MLNMapView *)mapView withContext:(MLNStyleLayerDrawingContext)context {
+- (void)drawInMapView:(MHMapView *)mapView withContext:(MHStyleLayerDrawingContext)context {
     // Use the supplied render command encoder to encode commands
     id<MTLRenderCommandEncoder> renderEncoder = self.renderEncoder;
     if(renderEncoder != nil)
     {
-        MLNBackendResource resource = [mapView backendResource];
+        MHBackendResource resource = [mapView backendResource];
         
         vector_uint2 _viewportSize;
         _viewportSize.x = resource.mtkView.drawableSize.width;
@@ -179,7 +179,7 @@
     }
 }
 
-- (void)willMoveFromMapView:(MLNMapView *)mapView {
+- (void)willMoveFromMapView:(MHMapView *)mapView {
     // Clean up
 }
 

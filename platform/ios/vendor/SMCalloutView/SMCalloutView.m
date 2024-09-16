@@ -28,27 +28,27 @@
 #define TOP_ANCHOR_MARGIN 13 // all the above measurements assume a bottom anchor! if we're pointing "up" we'll need to add this top margin to everything.
 #define COMFORTABLE_MARGIN 10 // when we try to reposition content to be visible, we'll consider this margin around your target rect
 
-NSTimeInterval const kMLNSMCalloutViewRepositionDelayForUIScrollView = 1.0/3.0;
+NSTimeInterval const kMHSMCalloutViewRepositionDelayForUIScrollView = 1.0/3.0;
 
-@interface MLNSMCalloutView ()
+@interface MHSMCalloutView ()
 @property (nonatomic, strong) UIButton *containerView; // for masking and interaction
 @property (nonatomic, strong) UILabel *titleLabel, *subtitleLabel;
-@property (nonatomic, assign) MLNSMCalloutArrowDirection currentArrowDirection;
+@property (nonatomic, assign) MHSMCalloutArrowDirection currentArrowDirection;
 @property (nonatomic, assign) BOOL popupCancelled;
 @end
 
-@implementation MLNSMCalloutView
+@implementation MHSMCalloutView
 
-+ (MLNSMCalloutView *)platformCalloutView {
-    // MLN: Mapbox does not need or include the custom flavor, so this is modified to just use SMCalloutView.
-    return [MLNSMCalloutView new];
++ (MHSMCalloutView *)platformCalloutView {
+    // MH: Mapbox does not need or include the custom flavor, so this is modified to just use SMCalloutView.
+    return [MHSMCalloutView new];
 }
 
 - (id)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
-        self.permittedArrowDirection = MLNSMCalloutArrowDirectionDown;
-        self.presentAnimation = MLNSMCalloutAnimationBounce;
-        self.dismissAnimation = MLNSMCalloutAnimationFade;
+        self.permittedArrowDirection = MHSMCalloutArrowDirectionDown;
+        self.presentAnimation = MHSMCalloutAnimationBounce;
+        self.dismissAnimation = MHSMCalloutAnimationFade;
         self.backgroundColor = [UIColor clearColor];
         self.containerView = [UIButton new];
         self.containerView.isAccessibilityElement = NO;
@@ -66,7 +66,7 @@ NSTimeInterval const kMLNSMCalloutViewRepositionDelayForUIScrollView = 1.0/3.0;
     UIView *hitView = [super hitTest:point withEvent:event];
 
     // If we tapped on our container (i.e. the UIButton), then ask the background
-    // view if the point is "inside". MLNSMCalloutMaskedBackgroundView provides a
+    // view if the point is "inside". MHSMCalloutMaskedBackgroundView provides a
     // custom implementation that checks against the main callout and the down arrow.
     // This avoids taps in "blank" space being detected
 
@@ -134,13 +134,13 @@ NSTimeInterval const kMLNSMCalloutViewRepositionDelayForUIScrollView = 1.0/3.0;
     }
 }
 
-- (MLNSMCalloutBackgroundView *)backgroundView {
+- (MHSMCalloutBackgroundView *)backgroundView {
     // create our default background on first access only if it's nil, since you might have set your own background anyway.
     return _backgroundView ? _backgroundView : (_backgroundView = [self defaultBackgroundView]);
 }
 
-- (MLNSMCalloutBackgroundView *)defaultBackgroundView {
-    return [MLNSMCalloutMaskedBackgroundView new];
+- (MHSMCalloutBackgroundView *)defaultBackgroundView {
+    return [MHSMCalloutMaskedBackgroundView new];
 }
 
 - (void)rebuildSubviews {
@@ -289,7 +289,7 @@ NSTimeInterval const kMLNSMCalloutViewRepositionDelayForUIScrollView = 1.0/3.0;
         .left   = -defaultMargin - horizontalMargin
     };
 
-    if (self.permittedArrowDirection == MLNSMCalloutArrowDirectionUp)
+    if (self.permittedArrowDirection == MHSMCalloutArrowDirectionUp)
         insets.bottom -= (defaultMargin + size.height);
     else
         insets.top -= (defaultMargin + size.height);
@@ -347,23 +347,23 @@ NSTimeInterval const kMLNSMCalloutViewRepositionDelayForUIScrollView = 1.0/3.0;
     CGFloat bottomSpace = CGRectGetMaxY(constrainedRect) - CGRectGetMaxY(rect);
     
     // we prefer to point our arrow down.
-    MLNSMCalloutArrowDirection bestDirection = MLNSMCalloutArrowDirectionDown;
+    MHSMCalloutArrowDirection bestDirection = MHSMCalloutArrowDirectionDown;
     
     // we'll point it up though if that's the only option you gave us.
-    if (self.permittedArrowDirection == MLNSMCalloutArrowDirectionUp)
-        bestDirection = MLNSMCalloutArrowDirectionUp;
+    if (self.permittedArrowDirection == MHSMCalloutArrowDirectionUp)
+        bestDirection = MHSMCalloutArrowDirectionUp;
     
     // or, if we don't have enough space on the top and have more space on the bottom, and you
     // gave us a choice, then pointing up is the better option.
-    if (self.permittedArrowDirection == MLNSMCalloutArrowDirectionAny && topSpace < self.calloutHeight && bottomSpace > topSpace)
-        bestDirection = MLNSMCalloutArrowDirectionUp;
+    if (self.permittedArrowDirection == MHSMCalloutArrowDirectionAny && topSpace < self.calloutHeight && bottomSpace > topSpace)
+        bestDirection = MHSMCalloutArrowDirectionUp;
     
     self.currentArrowDirection = bestDirection;
     
     // we want to point directly at the horizontal center of the given rect. calculate our "anchor point" in terms of our
     // target view's coordinate system. make sure to offset the anchor point as requested if necessary.
     CGFloat anchorX = self.calloutOffset.x + CGRectGetMidX(rect);
-    CGFloat anchorY = self.calloutOffset.y + (bestDirection == MLNSMCalloutArrowDirectionDown ? CGRectGetMinY(rect) : CGRectGetMaxY(rect));
+    CGFloat anchorY = self.calloutOffset.y + (bestDirection == MHSMCalloutArrowDirectionDown ? CGRectGetMinY(rect) : CGRectGetMaxY(rect));
     
     // we prefer to sit centered directly above our anchor
     CGFloat calloutX = roundf(anchorX - self.frameWidth / 2);
@@ -392,7 +392,7 @@ NSTimeInterval const kMLNSMCalloutViewRepositionDelayForUIScrollView = 1.0/3.0;
     
     CGPoint calloutOrigin = {
         .x = calloutX + adjustX,
-        .y = bestDirection == MLNSMCalloutArrowDirectionDown ? (anchorY - self.calloutHeight) : anchorY
+        .y = bestDirection == MHSMCalloutArrowDirectionDown ? (anchorY - self.calloutHeight) : anchorY
     };
     
     self.frameOrigin = calloutOrigin;
@@ -517,12 +517,12 @@ NSTimeInterval const kMLNSMCalloutViewRepositionDelayForUIScrollView = 1.0/3.0;
     }
 }
 
-- (CAAnimation *)animationWithType:(MLNSMCalloutAnimation)type presenting:(BOOL)presenting {
+- (CAAnimation *)animationWithType:(MHSMCalloutAnimation)type presenting:(BOOL)presenting {
     CAAnimation *animation = nil;
     
     switch (type)
     {
-        case MLNSMCalloutAnimationBounce:
+        case MHSMCalloutAnimationBounce:
         {
             CABasicAnimation *fade = [CABasicAnimation animationWithKeyPath:@"opacity"];
             fade.duration = 0.23;
@@ -544,7 +544,7 @@ NSTimeInterval const kMLNSMCalloutViewRepositionDelayForUIScrollView = 1.0/3.0;
             break;
         }
             
-        case MLNSMCalloutAnimationFade:
+        case MHSMCalloutAnimationFade:
         {
             CABasicAnimation *fade = [CABasicAnimation animationWithKeyPath:@"opacity"];
             fade.duration = 1.0/3.0;
@@ -554,7 +554,7 @@ NSTimeInterval const kMLNSMCalloutViewRepositionDelayForUIScrollView = 1.0/3.0;
             break;
         }
             
-        case MLNSMCalloutAnimationStretch:
+        case MHSMCalloutAnimationStretch:
         {
             CABasicAnimation *stretch = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
             stretch.duration = 0.1;
@@ -580,7 +580,7 @@ NSTimeInterval const kMLNSMCalloutViewRepositionDelayForUIScrollView = 1.0/3.0;
     self.backgroundView.frame = self.bounds;
     
     // if we're pointing up, we'll need to push almost everything down a bit
-    CGFloat dy = self.currentArrowDirection == MLNSMCalloutArrowDirectionUp ? TOP_ANCHOR_MARGIN : 0;
+    CGFloat dy = self.currentArrowDirection == MHSMCalloutArrowDirectionUp ? TOP_ANCHOR_MARGIN : 0;
     
     self.titleViewOrDefault.frameX = self.innerContentMarginLeft;
     self.titleViewOrDefault.frameY = (self.subtitleView || self.subtitle.length ? TITLE_SUB_TOP : TITLE_TOP) + dy;
@@ -643,7 +643,7 @@ NSTimeInterval const kMLNSMCalloutViewRepositionDelayForUIScrollView = 1.0/3.0;
 @end
 
 // import this known "private API" from SMCalloutBackgroundView
-@interface MLNSMCalloutBackgroundView (EmbeddedImages)
+@interface MHSMCalloutBackgroundView (EmbeddedImages)
 + (UIImage *)embeddedImageNamed:(NSString *)name;
 @end
 
@@ -651,14 +651,14 @@ NSTimeInterval const kMLNSMCalloutViewRepositionDelayForUIScrollView = 1.0/3.0;
 // Callout Background View.
 //
 
-@interface MLNSMCalloutMaskedBackgroundView ()
+@interface MHSMCalloutMaskedBackgroundView ()
 @property (nonatomic, strong) UIView *containerView, *containerBorderView, *arrowView;
 @property (nonatomic, strong) UIImageView *arrowImageView, *arrowHighlightedImageView, *arrowBorderView;
 @end
 
 static UIImage *blackArrowImage = nil, *whiteArrowImage = nil, *grayArrowImage = nil;
 
-@implementation MLNSMCalloutMaskedBackgroundView
+@implementation MHSMCalloutMaskedBackgroundView
 
 - (id)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
@@ -679,7 +679,7 @@ static UIImage *blackArrowImage = nil, *whiteArrowImage = nil, *grayArrowImage =
         self.containerBorderView.layer.cornerRadius = 8.5;
         
         if (!blackArrowImage) {
-            blackArrowImage = [MLNSMCalloutBackgroundView embeddedImageNamed:@"CalloutArrow"];
+            blackArrowImage = [MHSMCalloutBackgroundView embeddedImageNamed:@"CalloutArrow"];
             whiteArrowImage = [self image:blackArrowImage withColor:[UIColor whiteColor]];
             grayArrowImage = [self image:blackArrowImage withColor:[UIColor colorWithWhite:0.85 alpha:1]];
         }
@@ -791,7 +791,7 @@ static UIImage *blackArrowImage = nil, *whiteArrowImage = nil, *grayArrowImage =
 
 @end
 
-@implementation MLNSMCalloutBackgroundView
+@implementation MHSMCalloutBackgroundView
 
 + (NSData *)dataWithBase64EncodedString:(NSString *)string {
     //

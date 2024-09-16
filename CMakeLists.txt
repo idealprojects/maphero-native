@@ -1,23 +1,23 @@
 cmake_minimum_required(VERSION 3.19 FATAL_ERROR)
 
-option(MLN_WITH_CORE_ONLY "Build only the core bits, no platform code" OFF)
-option(MLN_WITH_CLANG_TIDY "Build with clang-tidy checks enabled" OFF)
-option(MLN_WITH_COVERAGE "Enable code coverage collection" OFF)
-option(MLN_WITH_QT "Build MapLibre Native Qt bindings" OFF)
-option(MLN_WITH_NODE "Build MapLibre Native Node.js bindings" OFF)
-option(MLN_WITH_SANITIZER "Use [address|thread|undefined] here" OFF)
-option(MLN_WITH_RTTI "Compile with runtime type information" OFF)
-option(MLN_WITH_OPENGL "Build with OpenGL renderer" ON)
-option(MLN_WITH_EGL "Build with EGL renderer" OFF)
-option(MLN_WITH_VULKAN "Build with Vulkan renderer" OFF)
-option(MLN_WITH_OSMESA "Build with OSMesa (Software) renderer" OFF)
-option(MLN_WITH_WERROR "Make all compilation warnings errors" ON)
-option(MLN_LEGACY_RENDERER "Include the legacy rendering pathway" ON)
-option(MLN_DRAWABLE_RENDERER "Include the drawable rendering pathway" OFF)
-option(MLN_USE_UNORDERED_DENSE "Use ankerl dense containers for performance" ON)
-option(MLN_USE_TRACY "Enable Tracy instrumentation" OFF)
+option(MH_WITH_CORE_ONLY "Build only the core bits, no platform code" OFF)
+option(MH_WITH_CLANG_TIDY "Build with clang-tidy checks enabled" OFF)
+option(MH_WITH_COVERAGE "Enable code coverage collection" OFF)
+option(MH_WITH_QT "Build MapHero Native Qt bindings" OFF)
+option(MH_WITH_NODE "Build MapHero Native Node.js bindings" OFF)
+option(MH_WITH_SANITIZER "Use [address|thread|undefined] here" OFF)
+option(MH_WITH_RTTI "Compile with runtime type information" OFF)
+option(MH_WITH_OPENGL "Build with OpenGL renderer" ON)
+option(MH_WITH_EGL "Build with EGL renderer" OFF)
+option(MH_WITH_VULKAN "Build with Vulkan renderer" OFF)
+option(MH_WITH_OSMESA "Build with OSMesa (Software) renderer" OFF)
+option(MH_WITH_WERROR "Make all compilation warnings errors" ON)
+option(MH_LEGACY_RENDERER "Include the legacy rendering pathway" ON)
+option(MH_DRAWABLE_RENDERER "Include the drawable rendering pathway" OFF)
+option(MH_USE_UNORDERED_DENSE "Use ankerl dense containers for performance" ON)
+option(MH_USE_TRACY "Enable Tracy instrumentation" OFF)
 
-if (MLN_WITH_CLANG_TIDY)
+if (MH_WITH_CLANG_TIDY)
     find_program(CLANG_TIDY_COMMAND NAMES clang-tidy)
     if(NOT CLANG_TIDY_COMMAND)
         message(FATAL_ERROR "ENABLE_CLANG_TIDY is ON but clang-tidy is not found!")
@@ -30,18 +30,18 @@ if (MLN_WITH_CLANG_TIDY)
     set(CLANG_TIDY_COMMAND "${CLANG_TIDY_COMMAND};--extra-arg=-Wno-unknown-warning-option;--extra-arg=-Wno-pragmas")
 endif()
 
-if (MLN_WITH_QT AND NOT CMAKE_OSX_DEPLOYMENT_TARGET)
+if (MH_WITH_QT AND NOT CMAKE_OSX_DEPLOYMENT_TARGET)
     set(CMAKE_OSX_DEPLOYMENT_TARGET 13.0)
 endif()
 
-if(WIN32 AND NOT MLN_WITH_QT AND NOT CMAKE_SYSTEM_NAME STREQUAL Android)
+if(WIN32 AND NOT MH_WITH_QT AND NOT CMAKE_SYSTEM_NAME STREQUAL Android)
     set(CMAKE_TOOLCHAIN_FILE ${CMAKE_CURRENT_LIST_DIR}/platform/windows/custom-toolchain.cmake)
 endif()
 
 project("Mapbox GL Native" LANGUAGES CXX C)
 
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
-set_property(GLOBAL PROPERTY PREDEFINED_TARGETS_FOLDER MapLibre)
+set_property(GLOBAL PROPERTY PREDEFINED_TARGETS_FOLDER MapHero)
 
 set(
     MEMORYCHECK_COMMAND_OPTIONS
@@ -60,35 +60,35 @@ add_library(
 
 set(UBSAN_BLACKLIST ${PROJECT_SOURCE_DIR}/scripts/ubsan.blacklist)
 
-if (MLN_DRAWABLE_RENDERER)
-    set(MLN_LEGACY_RENDERER OFF)
+if (MH_DRAWABLE_RENDERER)
+    set(MH_LEGACY_RENDERER OFF)
 endif()
 
 target_compile_options(
     mbgl-compiler-options
     INTERFACE
-        $<$<BOOL:${MLN_WITH_COVERAGE}>:--coverage>
-        $<$<BOOL:${MLN_WITH_SANITIZER}>:-DSANITIZE>
-        $<$<BOOL:${MLN_WITH_SANITIZER}>:-fno-omit-frame-pointer>
-        $<$<BOOL:${MLN_WITH_SANITIZER}>:-fno-optimize-sibling-calls>
-        $<$<STREQUAL:${MLN_WITH_SANITIZER},address>:-fsanitize=address>
-        $<$<STREQUAL:${MLN_WITH_SANITIZER},thread>:-fsanitize=thread>
-        $<$<STREQUAL:${MLN_WITH_SANITIZER},undefined>:-fsanitize=implicit-conversion,
+        $<$<BOOL:${MH_WITH_COVERAGE}>:--coverage>
+        $<$<BOOL:${MH_WITH_SANITIZER}>:-DSANITIZE>
+        $<$<BOOL:${MH_WITH_SANITIZER}>:-fno-omit-frame-pointer>
+        $<$<BOOL:${MH_WITH_SANITIZER}>:-fno-optimize-sibling-calls>
+        $<$<STREQUAL:${MH_WITH_SANITIZER},address>:-fsanitize=address>
+        $<$<STREQUAL:${MH_WITH_SANITIZER},thread>:-fsanitize=thread>
+        $<$<STREQUAL:${MH_WITH_SANITIZER},undefined>:-fsanitize=implicit-conversion,
         -fsanitize-blacklist=${UBSAN_BLACKLIST}>
-        $<$<STREQUAL:${MLN_WITH_SANITIZER},undefined>:-fsanitize=undefined,
+        $<$<STREQUAL:${MH_WITH_SANITIZER},undefined>:-fsanitize=undefined,
         -fsanitize-blacklist=${UBSAN_BLACKLIST}>
-        $<$<STREQUAL:${MLN_WITH_SANITIZER},undefined>:-fsanitize=unsigned-integer-overflow,
+        $<$<STREQUAL:${MH_WITH_SANITIZER},undefined>:-fsanitize=unsigned-integer-overflow,
         -fsanitize-blacklist=${UBSAN_BLACKLIST}>
-        $<$<STREQUAL:${MLN_WITH_SANITIZER},undefined>:-fsanitize=nullability,
+        $<$<STREQUAL:${MH_WITH_SANITIZER},undefined>:-fsanitize=nullability,
         -fsanitize-blacklist=${UBSAN_BLACKLIST}>
-        $<$<STREQUAL:${MLN_WITH_SANITIZER},undefined>:-fsanitize=float-divide-by-zero,
+        $<$<STREQUAL:${MH_WITH_SANITIZER},undefined>:-fsanitize=float-divide-by-zero,
         -fsanitize-blacklist=${UBSAN_BLACKLIST}>
         $<$<PLATFORM_ID:iOS>:-fembed-bitcode>
-        $<$<AND:$<COMPILE_LANGUAGE:CXX>,$<NOT:$<OR:$<BOOL:${MLN_WITH_RTTI}>,$<CXX_COMPILER_ID:MSVC>>>>:-fno-rtti>
+        $<$<AND:$<COMPILE_LANGUAGE:CXX>,$<NOT:$<OR:$<BOOL:${MH_WITH_RTTI}>,$<CXX_COMPILER_ID:MSVC>>>>:-fno-rtti>
         $<$<AND:$<COMPILE_LANGUAGE:CXX>,$<NOT:$<PLATFORM_ID:Windows>>>:-Wall>
         $<$<AND:$<COMPILE_LANGUAGE:CXX>,$<NOT:$<PLATFORM_ID:Windows>>>:-Wshadow>
         $<$<AND:$<COMPILE_LANGUAGE:CXX>,$<NOT:$<PLATFORM_ID:Windows>>>:-Wextra>
-        $<$<AND:$<COMPILE_LANGUAGE:CXX>,$<NOT:$<PLATFORM_ID:Windows>>,$<BOOL:${MLN_WITH_WERROR}>>:-Werror>
+        $<$<AND:$<COMPILE_LANGUAGE:CXX>,$<NOT:$<PLATFORM_ID:Windows>>,$<BOOL:${MH_WITH_WERROR}>>:-Werror>
         $<$<AND:$<COMPILE_LANGUAGE:CXX>,$<PLATFORM_ID:Android>>:-Wno-error=tautological-constant-compare>
         $<$<CXX_COMPILER_ID:GNU>:-Wno-error=maybe-uninitialized>
         $<$<CXX_COMPILER_ID:GNU>:-Wno-error=return-type>
@@ -96,9 +96,9 @@ target_compile_options(
         $<$<CXX_COMPILER_ID:GNU>:-Wno-error=pragmas>
         $<$<CXX_COMPILER_ID:GNU>:-Wno-psabi>
         $<$<CXX_COMPILER_ID:AppleClang>:-Wno-unknown-warning-option>
-        $<$<AND:$<CXX_COMPILER_ID:AppleClang>,$<NOT:$<BOOL:${MLN_WITH_QT}>>>:-Wno-error=deprecated-declarations>
-        $<$<AND:$<CXX_COMPILER_ID:AppleClang>,$<NOT:$<BOOL:${MLN_WITH_QT}>>>:-Wno-error=unused-parameter>
-        $<$<AND:$<CXX_COMPILER_ID:AppleClang>,$<NOT:$<BOOL:${MLN_WITH_QT}>>>:-Wno-error=unused-property-ivar>
+        $<$<AND:$<CXX_COMPILER_ID:AppleClang>,$<NOT:$<BOOL:${MH_WITH_QT}>>>:-Wno-error=deprecated-declarations>
+        $<$<AND:$<CXX_COMPILER_ID:AppleClang>,$<NOT:$<BOOL:${MH_WITH_QT}>>>:-Wno-error=unused-parameter>
+        $<$<AND:$<CXX_COMPILER_ID:AppleClang>,$<NOT:$<BOOL:${MH_WITH_QT}>>>:-Wno-error=unused-property-ivar>
         $<$<CXX_COMPILER_ID:MSVC>:/utf-8>
         $<$<CXX_COMPILER_ID:MSVC>:/WX>      # all warnings as errors
         $<$<CXX_COMPILER_ID:MSVC>:/EHsc>    # exceptions
@@ -112,10 +112,10 @@ target_compile_options(
 target_link_libraries(
     mbgl-compiler-options
     INTERFACE
-        $<$<BOOL:${MLN_WITH_COVERAGE}>:--coverage>
-        $<$<STREQUAL:${MLN_WITH_SANITIZER},address>:-fsanitize=address>
-        $<$<STREQUAL:${MLN_WITH_SANITIZER},thread>:-fsanitize=thread>
-        $<$<STREQUAL:${MLN_WITH_SANITIZER},undefined>:-fsanitize=undefined>
+        $<$<BOOL:${MH_WITH_COVERAGE}>:--coverage>
+        $<$<STREQUAL:${MH_WITH_SANITIZER},address>:-fsanitize=address>
+        $<$<STREQUAL:${MH_WITH_SANITIZER},thread>:-fsanitize=thread>
+        $<$<STREQUAL:${MH_WITH_SANITIZER},undefined>:-fsanitize=undefined>
 )
 
 cmake_policy(SET CMP0063 NEW)
@@ -136,13 +136,13 @@ set(CMAKE_INTERPROCEDURAL_OPTIMIZATION_MINSIZEREL ON)
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 set(CMAKE_VISIBILITY_INLINES_HIDDEN 1)
 
-if(MLN_WITH_QT)
+if(MH_WITH_QT)
     add_library(mbgl-core OBJECT)
 else()
     add_library(mbgl-core STATIC)
 endif()
 
-if(MLN_DRAWABLE_RENDERER)
+if(MH_DRAWABLE_RENDERER)
     list(APPEND INCLUDE_FILES
         ${PROJECT_SOURCE_DIR}/include/mbgl/gfx/context.hpp
         ${PROJECT_SOURCE_DIR}/include/mbgl/gfx/drawable.hpp
@@ -215,7 +215,7 @@ if(MLN_DRAWABLE_RENDERER)
     target_compile_definitions(
         mbgl-core
         PUBLIC
-            "MLN_DRAWABLE_RENDERER=$<BOOL:${MLN_DRAWABLE_RENDERER}>"
+            "MH_DRAWABLE_RENDERER=$<BOOL:${MH_DRAWABLE_RENDERER}>"
     )
 endif()
 
@@ -1004,15 +1004,15 @@ list(APPEND SRC_FILES
     ${PROJECT_SOURCE_DIR}/src/mbgl/util/work_request.cpp
 )
 
-if(MLN_WITH_OPENGL)
+if(MH_WITH_OPENGL)
     message(STATUS "Configuring GL-Native with OpenGL renderer backend")
     target_compile_definitions(
         mbgl-core
-        PRIVATE MLN_RENDER_BACKEND_OPENGL=1
+        PRIVATE MH_RENDER_BACKEND_OPENGL=1
         PUBLIC
-            "MLN_LEGACY_RENDERER=$<BOOL:${MLN_LEGACY_RENDERER}>"
-            "MLN_DRAWABLE_RENDERER=$<BOOL:${MLN_DRAWABLE_RENDERER}>"
-            "MLN_USE_UNORDERED_DENSE=$<BOOL:${MLN_USE_UNORDERED_DENSE}>"
+            "MH_LEGACY_RENDERER=$<BOOL:${MH_LEGACY_RENDERER}>"
+            "MH_DRAWABLE_RENDERER=$<BOOL:${MH_DRAWABLE_RENDERER}>"
+            "MH_USE_UNORDERED_DENSE=$<BOOL:${MH_USE_UNORDERED_DENSE}>"
     )
     list(APPEND 
         INCLUDE_FILES
@@ -1128,7 +1128,7 @@ if(MLN_WITH_OPENGL)
             ${PROJECT_SOURCE_DIR}/src/mbgl/platform/gl_functions.cpp
     )
 
-    if(MLN_DRAWABLE_RENDERER)
+    if(MH_DRAWABLE_RENDERER)
         list(APPEND INCLUDE_FILES
             ${PROJECT_SOURCE_DIR}/include/mbgl/shaders/background_layer_ubo.hpp
             ${PROJECT_SOURCE_DIR}/include/mbgl/shaders/circle_layer_ubo.hpp
@@ -1175,13 +1175,13 @@ if(MLN_WITH_OPENGL)
     endif()
 endif()
 
-if(MLN_WITH_METAL)
+if(MH_WITH_METAL)
     message(STATUS "Configuring Metal renderer backend")
     target_compile_definitions(
         mbgl-core
-        PRIVATE MLN_RENDER_BACKEND_METAL=1
+        PRIVATE MH_RENDER_BACKEND_METAL=1
         PUBLIC
-            "MLN_USE_UNORDERED_DENSE=$<BOOL:${MLN_USE_UNORDERED_DENSE}>"
+            "MH_USE_UNORDERED_DENSE=$<BOOL:${MH_USE_UNORDERED_DENSE}>"
     )
     list(APPEND 
         INCLUDE_FILES
@@ -1279,13 +1279,13 @@ if(MLN_WITH_METAL)
     
 endif()
 
-if(MLN_WITH_VULKAN)
+if(MH_WITH_VULKAN)
     message(STATUS "Configuring Vulkan renderer backend")
 
     target_compile_definitions(
         mbgl-core
         PRIVATE
-            MLN_RENDER_BACKEND_VULKAN=1
+            MH_RENDER_BACKEND_VULKAN=1
     )
 
     list(APPEND 
@@ -1360,7 +1360,7 @@ if(MLN_WITH_VULKAN)
     )
 endif()
 
-if(MLN_DRAWABLE_RENDERER)
+if(MH_DRAWABLE_RENDERER)
     list(APPEND 
     SRC_FILES
         ${PROJECT_SOURCE_DIR}/src/mbgl/style/layers/custom_drawable_layer.cpp
@@ -1378,7 +1378,7 @@ target_sources(
     ${SRC_FILES}
 )
 
-if (MLN_WITH_CLANG_TIDY)
+if (MH_WITH_CLANG_TIDY)
     set_target_properties(mbgl-core PROPERTIES CXX_CLANG_TIDY "${CLANG_TIDY_COMMAND}")
 endif()
 
@@ -1410,18 +1410,18 @@ if(EXISTS ${PROJECT_SOURCE_DIR}/.git/HEAD)
             --short=8
             HEAD
         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
-        OUTPUT_VARIABLE MLN_VERSION_REV
+        OUTPUT_VARIABLE MH_VERSION_REV
         OUTPUT_STRIP_TRAILING_WHITESPACE
     )
 else()
-    set(MLN_VERSION_REV 00000000)
+    set(MH_VERSION_REV 00000000)
 endif()
 
 set_source_files_properties(
     ${PROJECT_SOURCE_DIR}/src/mbgl/util/version.cpp
     PROPERTIES
     COMPILE_DEFINITIONS
-    MBGL_VERSION_REV="${MLN_VERSION_REV}"
+    MBGL_VERSION_REV="${MH_VERSION_REV}"
 )
 
 target_include_directories(
@@ -1468,7 +1468,7 @@ target_link_libraries(
         mbgl-vendor-unique_resource
         mbgl-vendor-vector-tile
         mbgl-vendor-wagyu
-        $<$<BOOL:${MLN_WITH_METAL}>:mbgl-vendor-metal-cpp>
+        $<$<BOOL:${MH_WITH_METAL}>:mbgl-vendor-metal-cpp>
     PUBLIC
         Mapbox::Base
         Mapbox::Base::Extras::expected-lite
@@ -1476,7 +1476,7 @@ target_link_libraries(
         Mapbox::Base::geojson.hpp
         Mapbox::Base::geometry.hpp
         Mapbox::Base::variant
-        $<$<BOOL:${MLN_USE_TRACY}>:TracyClient>
+        $<$<BOOL:${MH_USE_TRACY}>:TracyClient>
         unordered_dense
 )
 
@@ -1513,7 +1513,7 @@ export(TARGETS
     FILE MapboxCoreTargets.cmake
 )
 
-if(MLN_WITH_VULKAN)
+if(MH_WITH_VULKAN)
     include(${PROJECT_SOURCE_DIR}/vendor/vulkan.cmake)
 
     target_link_libraries(
@@ -1530,25 +1530,25 @@ endif()
 set_target_properties(
     mbgl-core
     PROPERTIES
-        INTERFACE_MAPBOX_NAME "Mapbox GL Native"
-        INTERFACE_MAPBOX_URL "https://github.com/maplibre/maplibre-native"
+        INTERFACE_MAPBOX_NAME "MapHero Native"
+        INTERFACE_MAPBOX_URL "https://github.dev/idealprojects/maphero-native"
         INTERFACE_MAPBOX_AUTHOR "Mapbox"
         INTERFACE_MAPBOX_LICENSE ${PROJECT_SOURCE_DIR}/LICENSE.md
 )
 
-set_property(TARGET mbgl-core PROPERTY FOLDER MapLibre)
+set_property(TARGET mbgl-core PROPERTY FOLDER MapHero)
 
 add_library(
     Mapbox::Map ALIAS mbgl-core
 )
 
-if(MLN_WITH_CORE_ONLY)
+if(MH_WITH_CORE_ONLY)
     return()
 endif()
 
 include(${PROJECT_SOURCE_DIR}/scripts/license.cmake)
 
-if(MLN_WITH_QT)
+if(MH_WITH_QT)
     include(${PROJECT_SOURCE_DIR}/platform/qt/qt.cmake)
 elseif(CMAKE_SYSTEM_NAME STREQUAL Android)
     include(${PROJECT_SOURCE_DIR}/platform/android/android.cmake)

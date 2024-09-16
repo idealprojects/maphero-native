@@ -12,7 +12,7 @@
 #include <mbgl/util/instrumentation.hpp>
 #include <mbgl/util/logging.hpp>
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
 #include <mbgl/gl/vertex_attribute_gl.hpp>
 #include <mbgl/gl/texture2d.hpp>
 #endif
@@ -76,7 +76,7 @@ std::unique_ptr<gfx::TextureResource> UploadPass::createTextureResource(const Si
                                                                         const void* data,
                                                                         gfx::TexturePixelType format,
                                                                         gfx::TextureChannelDataType type) {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     auto obj = commandEncoder.context.createUniqueTexture(size, format, type);
     auto resource = std::make_unique<gl::TextureResource>(std::move(obj));
@@ -97,7 +97,7 @@ void UploadPass::updateTextureResource(gfx::TextureResource& resource,
                                        const void* data,
                                        gfx::TexturePixelType format,
                                        gfx::TextureChannelDataType type) {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     updateTextureResourceSub(resource, 0, 0, size, data, format, type);
 }
@@ -109,7 +109,7 @@ void UploadPass::updateTextureResourceSub(gfx::TextureResource& resource,
                                           const void* data,
                                           gfx::TexturePixelType format,
                                           gfx::TextureChannelDataType type) {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     auto& ctx = commandEncoder.context;
     assert(ctx.getTexturePool().isUsed(static_cast<gl::TextureResource&>(resource).texture));
@@ -140,7 +140,7 @@ struct VertexBufferGL : public gfx::VertexBufferBase {
     std::unique_ptr<gfx::VertexBufferResource> resource;
 };
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
 namespace {
 const std::unique_ptr<gfx::VertexBufferResource> noBuffer;
 }
@@ -195,7 +195,7 @@ gfx::AttributeBindingArray UploadPass::buildAttributeBindings(
     const gfx::BufferUsageType usage,
     const std::chrono::duration<double> lastUpdate,
     /*out*/ std::vector<std::unique_ptr<gfx::VertexBufferResource>>& outBuffers) {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
     AttributeBindingArray bindings;
     bindings.resize(defaults.allocatedSize());
 
@@ -222,7 +222,7 @@ gfx::AttributeBindingArray UploadPass::buildAttributeBindings(
 
     // For each attribute in the program, with the corresponding default and optional override...
     const auto resolveAttr = [&](const size_t id, auto& defaultAttr, auto& overrideAttr) -> void {
-        MLN_TRACE_ZONE(binding);
+        MH_TRACE_ZONE(binding);
         auto& effectiveAttr = overrideAttr ? *overrideAttr : defaultAttr;
         const auto& defaultGL = static_cast<const VertexAttributeGL&>(defaultAttr);
         const auto stride = defaultAttr.getStride();
@@ -323,7 +323,7 @@ void UploadPass::popDebugGroup() {
     commandEncoder.popDebugGroup();
 }
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
 gfx::Context& UploadPass::getContext() {
     return commandEncoder.context;
 }

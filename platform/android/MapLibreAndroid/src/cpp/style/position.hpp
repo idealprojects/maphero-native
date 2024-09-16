@@ -9,7 +9,7 @@ namespace android {
 
 class Position : private mbgl::util::noncopyable {
 public:
-    static constexpr auto Name() { return "org/maplibre/android/style/light/Position"; };
+    static constexpr auto Name() { return "org/maphero/android/style/light/Position"; };
 
     static jni::Local<jni::Object<Position>> fromPosition(jni::JNIEnv&, jfloat, jfloat, jfloat);
 

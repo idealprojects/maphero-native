@@ -1,5 +1,5 @@
 #pragma once
-#if MLN_USE_UNORDERED_DENSE
+#if MH_USE_UNORDERED_DENSE
 #include <ankerl/unordered_dense.h>
 #else
 #include <unordered_map>
@@ -7,7 +7,7 @@
 #endif
 
 namespace mbgl {
-#if MLN_USE_UNORDERED_DENSE
+#if MH_USE_UNORDERED_DENSE
 template <typename Key, typename Value, typename Hash = std::hash<Key>>
 using unordered_map = ankerl::unordered_dense::map<Key, Value, Hash>;
 

@@ -11,19 +11,19 @@
 
 namespace mbgl {
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
 class HeatmapLayerTweaker;
 class HeatmapTextureLayerTweaker;
 using HeatmapLayerTweakerPtr = std::shared_ptr<HeatmapLayerTweaker>;
 using HeatmapTextureLayerTweakerPtr = std::shared_ptr<HeatmapTextureLayerTweaker>;
-#endif // MLN_DRAWABLE_RENDERER
+#endif // MH_DRAWABLE_RENDERER
 
 class RenderHeatmapLayer final : public RenderLayer {
 public:
     explicit RenderHeatmapLayer(Immutable<style::HeatmapLayer::Impl>);
     ~RenderHeatmapLayer() override;
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
     void markLayerRenderable(bool willRender, UniqueChangeRequestVec& changes) override;
 
     /// Generate any changes needed by the layer
@@ -41,7 +41,7 @@ private:
     bool hasTransition() const override;
     bool hasCrossfade() const override;
 
-#if MLN_LEGACY_RENDERER
+#if MH_LEGACY_RENDERER
     void upload(gfx::UploadPass&) override;
     void render(PaintParameters&) override;
 #endif
@@ -55,7 +55,7 @@ private:
                                 const FeatureState&) const override;
     void updateColorRamp();
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
     void layerChanged(const TransitionParameters& parameters,
                       const Immutable<style::Layer::Impl>& impl,
                       UniqueChangeRequestVec& changes) override;
@@ -76,13 +76,13 @@ private:
     std::optional<gfx::Texture> colorRampTexture;
     SegmentVector<HeatmapTextureAttributes> segments;
 
-#if MLN_LEGACY_RENDERER
+#if MH_LEGACY_RENDERER
     // Programs
     std::shared_ptr<HeatmapProgram> heatmapProgram;
     std::shared_ptr<HeatmapTextureProgram> heatmapTextureProgram;
 #endif
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
     gfx::ShaderGroupPtr heatmapShaderGroup;
     gfx::ShaderProgramBasePtr heatmapTextureShader;
     RenderTargetPtr renderTarget;

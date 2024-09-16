@@ -100,7 +100,7 @@ int main(int argc, char* argv[]) {
     }
 
     // Set access token if present
-    const char* apikeyEnv = getenv("MLN_API_KEY");
+    const char* apikeyEnv = getenv("MH_API_KEY");
     const std::string apikey = apikeyValue ? args::get(apikeyValue) : (apikeyEnv ? apikeyEnv : std::string());
 
     auto mapTilerConfiguration = mbgl::TileServerOptions::MapTilerConfiguration();
@@ -206,7 +206,7 @@ int main(int argc, char* argv[]) {
 
     // Load style
     if (style.empty()) {
-        const char* url = getenv("MLN_STYLE_URL");
+        const char* url = getenv("MH_STYLE_URL");
         if (url == nullptr) {
             mbgl::util::DefaultStyle newStyle = orderedStyles[0];
             style = newStyle.getUrl();

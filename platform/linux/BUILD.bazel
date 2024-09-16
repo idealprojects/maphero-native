@@ -1,4 +1,4 @@
-load("//bazel:flags.bzl", "CPP_FLAGS", "MAPLIBRE_FLAGS")
+load("//bazel:flags.bzl", "CPP_FLAGS", "MAPHERO_FLAGS")
 
 ICU_FLAGS = [
     "-licuuc ",
@@ -12,7 +12,7 @@ cc_library(
         "src/gl_functions.cpp",
         "src/headless_backend_glx.cpp",
     ],
-    copts = CPP_FLAGS + MAPLIBRE_FLAGS,
+    copts = CPP_FLAGS + MAPHERO_FLAGS,
     linkopts = [
         "-lGL",
         "-lglfw",

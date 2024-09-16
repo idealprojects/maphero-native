@@ -13,7 +13,7 @@
 #include <mbgl/layermanager/symbol_layer_factory.hpp>
 #include <mbgl/util/logging.hpp>
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
 #include <mbgl/layermanager/custom_drawable_layer_factory.hpp>
 #endif
 
@@ -65,7 +65,7 @@ LayerManagerDefault::LayerManagerDefault() {
 #if !defined(MBGL_LAYER_HEATMAP_DISABLE_ALL)
     addLayerType(std::make_unique<HeatmapLayerFactory>());
 #endif
-#ifdef MLN_RENDER_BACKEND_OPENGL
+#ifdef MH_RENDER_BACKEND_OPENGL
 #if !defined(MBGL_LAYER_CUSTOM_DISABLE_ALL)
     addLayerType(std::make_unique<CustomLayerFactory>());
 #endif
@@ -74,8 +74,8 @@ LayerManagerDefault::LayerManagerDefault() {
 #endif
 #endif
 
-#if MLN_DRAWABLE_RENDERER
-#if !defined(MLN_LAYER_CUSTOM_DRAWABLE_DISABLE_ALL)
+#if MH_DRAWABLE_RENDERER
+#if !defined(MH_LAYER_CUSTOM_DRAWABLE_DISABLE_ALL)
     addLayerType(std::make_unique<CustomDrawableLayerFactory>());
 #endif
 #endif

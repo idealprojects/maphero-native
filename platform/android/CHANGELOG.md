@@ -90,10 +90,10 @@ This release utilizes **OpenGL ES 3.0**. As a result, some older devices are no 
 - Allow setting padding when camera is tracking (#[2165](https://github.com/maplibre/maplibre-native/pull/2165)).
 - Update user agent from Mapbox to MapLibreNative.
 
-- 💥 Breaking: Change package of all classes from `com.mapbox.mapboxsdk` to `org.maplibre.android` ([#1201](https://github.com/maplibre/maplibre-native/pull/1201)). This means you will need to fix your imports.
+- 💥 Breaking: Change package of all classes from `com.maplibre.android` to `org.maphero.android` ([#1201](https://github.com/maplibre/maplibre-native/pull/1201)). This means you will need to fix your imports.
 
   > To migrate:  
-  > In your imports in each of your project files, replace `com.mapbox.mapboxsdk.` with `org.maplibre.android.*`.
+  > In your imports in each of your project files, replace `com.maplibre.android.` with `org.maphero.android.*`.
 
 - 💥 Breaking: Rename several classes to no longer contain the word "Mapbox". You will need to migrate by renaming references.
 

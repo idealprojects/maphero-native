@@ -1,4 +1,4 @@
-MLN_PUBLIC_GENERATED_STYLE_HEADERS = [
+MH_PUBLIC_GENERATED_STYLE_HEADERS = [
     "include/mbgl/style/layers/circle_layer.hpp",
     "include/mbgl/style/layers/fill_layer.hpp",
     "include/mbgl/style/layers/line_layer.hpp",
@@ -12,7 +12,7 @@ MLN_PUBLIC_GENERATED_STYLE_HEADERS = [
     "include/mbgl/style/light.hpp",
 ]
 
-MLN_PRIVATE_GENERATED_STYLE_HEADERS = [
+MH_PRIVATE_GENERATED_STYLE_HEADERS = [
     "src/mbgl/style/layers/fill_layer_properties.hpp",
     "src/mbgl/style/layers/line_layer_properties.hpp",
     "src/mbgl/style/layers/symbol_layer_properties.hpp",
@@ -25,7 +25,7 @@ MLN_PRIVATE_GENERATED_STYLE_HEADERS = [
     "src/mbgl/style/layers/location_indicator_layer_properties.hpp",
 ]
 
-MLN_GENERATED_STYLE_SOURCE = [
+MH_GENERATED_STYLE_SOURCE = [
     "src/mbgl/style/layers/fill_layer_properties.cpp",
     "src/mbgl/style/layers/fill_layer.cpp",
     "src/mbgl/style/layers/line_layer_properties.cpp",
@@ -49,12 +49,12 @@ MLN_GENERATED_STYLE_SOURCE = [
     "src/mbgl/style/light.cpp",
 ]
 
-MLN_GENERATED_SHADER_HEADERS = [
+MH_GENERATED_SHADER_HEADERS = [
     "include/mbgl/shaders/shader_source.hpp",
     "include/mbgl/shaders/shader_manifest.hpp",
 ]
 
-MLN_GENERATED_OPENGL_SHADER_HEADERS = [
+MH_GENERATED_OPENGL_SHADER_HEADERS = [
     "include/mbgl/shaders/gl/background.hpp",
     "include/mbgl/shaders/gl/background_pattern.hpp",
     "include/mbgl/shaders/gl/circle.hpp",
@@ -111,7 +111,7 @@ MLN_GENERATED_OPENGL_SHADER_HEADERS = [
     "include/mbgl/shaders/gl/symbol_text_and_icon.hpp",
 ]
 
-MLN_CORE_SOURCE = [
+MH_CORE_SOURCE = [
     "src/mbgl/actor/mailbox.cpp",
     "src/mbgl/actor/scheduler.cpp",
     "src/mbgl/algorithm/update_renderables.hpp",
@@ -646,7 +646,7 @@ MLN_CORE_SOURCE = [
     "src/mbgl/util/work_request.cpp",
 ]
 
-MLN_CORE_HEADERS = [
+MH_CORE_HEADERS = [
     "include/mbgl/gfx/context.hpp",
     "include/mbgl/gfx/context_observer.hpp",
     "include/mbgl/actor/actor.hpp",
@@ -861,7 +861,7 @@ MLN_CORE_HEADERS = [
     "include/mbgl/util/work_task_impl.hpp",
 ]
 
-MLN_OPENGL_SOURCE = [
+MH_OPENGL_SOURCE = [
     "src/mbgl/gl/attribute.cpp",
     "src/mbgl/gl/attribute.hpp",
     "src/mbgl/gl/command_encoder.cpp",
@@ -916,14 +916,14 @@ MLN_OPENGL_SOURCE = [
     "src/mbgl/renderer/layers/render_location_indicator_layer.hpp",
 ]
 
-MLN_OPENGL_HEADERS = [
+MH_OPENGL_HEADERS = [
     "include/mbgl/gl/renderable_resource.hpp",
     "include/mbgl/gl/renderer_backend.hpp",
     "include/mbgl/layermanager/location_indicator_layer_factory.hpp",
     "include/mbgl/platform/gl_functions.hpp",
 ]
 
-MLN_DRAWABLES_SOURCE = [
+MH_DRAWABLES_SOURCE = [
     "src/mbgl/gfx/drawable.cpp",
     "src/mbgl/gfx/drawable_builder.cpp",
     "src/mbgl/gfx/drawable_builder_impl.hpp",
@@ -977,7 +977,7 @@ MLN_DRAWABLES_SOURCE = [
     "src/mbgl/renderer/layers/render_custom_drawable_layer.hpp",
 ]
 
-MLN_DRAWABLES_HEADERS = [
+MH_DRAWABLES_HEADERS = [
     "include/mbgl/gfx/drawable.hpp",
     "include/mbgl/gfx/drawable_data.hpp",
     "include/mbgl/gfx/drawable_impl.hpp",
@@ -1017,7 +1017,7 @@ MLN_DRAWABLES_HEADERS = [
     "include/mbgl/layermanager/custom_drawable_layer_factory.hpp",
 ]
 
-MLN_DRAWABLES_GL_SOURCE = [
+MH_DRAWABLES_GL_SOURCE = [
     "src/mbgl/gl/buffer_allocator.cpp",
     "src/mbgl/gl/drawable_gl.cpp",
     "src/mbgl/gl/drawable_gl_builder.cpp",
@@ -1031,7 +1031,7 @@ MLN_DRAWABLES_GL_SOURCE = [
     "src/mbgl/shaders/gl/shader_program_gl.cpp",
 ]
 
-MLN_DRAWABLES_GL_HEADERS = [
+MH_DRAWABLES_GL_HEADERS = [
     "include/mbgl/gl/buffer_allocator.hpp",
     "include/mbgl/gl/drawable_gl.hpp",
     "include/mbgl/gl/drawable_gl_builder.hpp",
@@ -1045,7 +1045,7 @@ MLN_DRAWABLES_GL_HEADERS = [
     "include/mbgl/shaders/gl/shader_group_gl.hpp",
 ]
 
-MLN_DRAWABLES_MTL_SOURCE = [
+MH_DRAWABLES_MTL_SOURCE = [
     "src/mbgl/mtl/buffer_resource.cpp",
     "src/mbgl/mtl/command_encoder.cpp",
     "src/mbgl/mtl/context.cpp",
@@ -1089,7 +1089,7 @@ MLN_DRAWABLES_MTL_SOURCE = [
     "src/mbgl/style/layers/mtl/custom_layer_render_parameters.cpp",
 ]
 
-MLN_DRAWABLES_MTL_HEADERS = [
+MH_DRAWABLES_MTL_HEADERS = [
     "include/mbgl/mtl/buffer_resource.hpp",
     "include/mbgl/mtl/command_encoder.hpp",
     "include/mbgl/mtl/context.hpp",

@@ -15,16 +15,16 @@
 #include <mbgl/util/logging.hpp>
 #include <mbgl/util/math.hpp>
 
-#if MLN_RENDER_BACKEND_METAL
+#if MH_RENDER_BACKEND_METAL
 #include <mbgl/shaders/mtl/line.hpp>
-#endif // MLN_RENDER_BACKEND_METAL
+#endif // MH_RENDER_BACKEND_METAL
 
 namespace mbgl {
 
 using namespace style;
 using namespace shaders;
 
-#if MLN_RENDER_BACKEND_METAL && !defined(NDEBUG)
+#if MH_RENDER_BACKEND_METAL && !defined(NDEBUG)
 constexpr bool diff(float actual, float expected, float e = 1.0e-6) {
     return actual != expected && (expected == 0 || std::fabs((actual - expected) / expected) > e);
 }
@@ -32,9 +32,9 @@ constexpr bool diff(Color actual, Color expected, float e = 1.0e-6) {
     return diff(actual.r, expected.r, e) || diff(actual.g, expected.g, e) || diff(actual.b, expected.b, e) ||
            diff(actual.a, expected.a, e);
 }
-#endif // MLN_RENDER_BACKEND_METAL
+#endif // MH_RENDER_BACKEND_METAL
 
-#if MLN_RENDER_BACKEND_METAL && !defined(NDEBUG)
+#if MH_RENDER_BACKEND_METAL && !defined(NDEBUG)
 template <typename Result>
 std::optional<Result> LineLayerTweaker::gpuEvaluate(
     [[maybe_unused]] const LinePaintProperties::PossiblyEvaluated& evaluated,
@@ -48,19 +48,19 @@ std::optional<Result> LineLayerTweaker::gpuEvaluate(
     }
     return {};
 }
-#endif // MLN_RENDER_BACKEND_METAL
+#endif // MH_RENDER_BACKEND_METAL
 
 template <typename Property>
 auto LineLayerTweaker::evaluate([[maybe_unused]] const PaintParameters& parameters) const {
     const auto& evaluated = static_cast<const LineLayerProperties&>(*evaluatedProperties).evaluated;
 
-#if MLN_RENDER_BACKEND_METAL && !defined(NDEBUG)
+#if MH_RENDER_BACKEND_METAL && !defined(NDEBUG)
     constexpr auto index = propertyIndex<Property>();
     if (auto gpuValue = gpuEvaluate<typename Property::Type>(evaluated, parameters, index)) {
         assert(!diff(*gpuValue, evaluated.get<Property>().constantOr(Property::defaultValue())));
         return *gpuValue;
     }
-#endif // MLN_RENDER_BACKEND_METAL
+#endif // MH_RENDER_BACKEND_METAL
 
     return evaluated.get<Property>().constantOr(Property::defaultValue());
 }
@@ -75,7 +75,7 @@ void LineLayerTweaker::execute(LayerGroupBase& layerGroup, const PaintParameters
     const auto zoom = static_cast<float>(parameters.state.getZoom());
     const auto intZoom = parameters.state.getIntegerZoom();
 
-#if MLN_RENDER_BACKEND_METAL
+#if MH_RENDER_BACKEND_METAL
     const auto getExpressionBuffer = [&]() {
         const bool enableEval = gfx::Backend::getEnableGPUExpressionEval();
         if (!expressionUniformBuffer || (gpuExpressionsUpdated && enableEval)) {
@@ -93,10 +93,10 @@ void LineLayerTweaker::execute(LayerGroupBase& layerGroup, const PaintParameters
         }
         return expressionUniformBuffer;
     };
-#endif // MLN_RENDER_BACKEND_METAL
+#endif // MH_RENDER_BACKEND_METAL
 
     if (!evaluatedPropsUniformBuffer || propertiesUpdated) {
-#if MLN_RENDER_BACKEND_METAL
+#if MH_RENDER_BACKEND_METAL
         expressionMask =
             !gfx::Backend::getEnableGPUExpressionEval()
                 ? LineExpressionMask::None
@@ -142,7 +142,7 @@ void LineLayerTweaker::execute(LayerGroupBase& layerGroup, const PaintParameters
                                              /*floorwidth =*/evaluate<LineFloorWidth>(parameters),
                                              LineExpressionMask::None,
                                              0};
-#endif // MLN_RENDER_BACKEND_METAL
+#endif // MH_RENDER_BACKEND_METAL
 
         context.emplaceOrUpdateUniformBuffer(evaluatedPropsUniformBuffer, &propsUBO);
         propertiesUpdated = false;
@@ -151,10 +151,10 @@ void LineLayerTweaker::execute(LayerGroupBase& layerGroup, const PaintParameters
 
     layerUniforms.set(idLineEvaluatedPropsUBO, evaluatedPropsUniformBuffer);
 
-#if MLN_RENDER_BACKEND_METAL
+#if MH_RENDER_BACKEND_METAL
     // GPU Expressions
     layerUniforms.set(idLineExpressionUBO, getExpressionBuffer());
-#endif // MLN_RENDER_BACKEND_METAL
+#endif // MH_RENDER_BACKEND_METAL
 
     visitLayerGroupDrawables(layerGroup, [&](gfx::Drawable& drawable) {
         const auto shader = drawable.getShader();
@@ -320,7 +320,7 @@ void LineLayerTweaker::execute(LayerGroupBase& layerGroup, const PaintParameters
     });
 }
 
-#if MLN_RENDER_BACKEND_METAL
+#if MH_RENDER_BACKEND_METAL
 void LineLayerTweaker::updateGPUExpressions(const Unevaluated& unevaluated, TimePoint now) {
     if (gfx::Backend::getEnableGPUExpressionEval()) {
         if (unevaluated.updateGPUExpressions(gpuExpressions, now)) {
@@ -332,6 +332,6 @@ void LineLayerTweaker::updateGPUExpressions(const Unevaluated& unevaluated, Time
     }
 }
 
-#endif // MLN_RENDER_BACKEND_METAL
+#endif // MH_RENDER_BACKEND_METAL
 
 } // namespace mbgl

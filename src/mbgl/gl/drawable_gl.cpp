@@ -23,7 +23,7 @@ DrawableGL::~DrawableGL() {
 }
 
 void DrawableGL::draw(PaintParameters& parameters) const {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     if (isCustom) {
         return;
@@ -150,11 +150,11 @@ void DrawableGL::upload(gfx::UploadPass& uploadPass) {
         return;
     }
 
-    MLN_TRACE_FUNC();
-#ifdef MLN_TRACY_ENABLE
+    MH_TRACE_FUNC();
+#ifdef MH_TRACY_ENABLE
     {
         auto str = name + "/" + (tileID ? util::toString(*tileID) : std::string());
-        MLN_ZONE_STR(str);
+        MH_ZONE_STR(str);
     }
 #endif
 
@@ -167,7 +167,7 @@ void DrawableGL::upload(gfx::UploadPass& uploadPass) {
         impl->indexes->updateModified();
     }
     if (impl->indexes && (!impl->indexes->getBuffer() || impl->indexes->isModifiedAfter(attributeUpdateTime))) {
-        MLN_TRACE_ZONE(build indexes);
+        MH_TRACE_ZONE(build indexes);
         auto indexBufferResource{
             uploadPass.createIndexBufferResource(impl->indexes->data(), impl->indexes->bytes(), usage)};
         auto indexBuffer = std::make_unique<gfx::IndexBuffer>(impl->indexes->elements(),
@@ -179,7 +179,7 @@ void DrawableGL::upload(gfx::UploadPass& uploadPass) {
     // Build the vertex attributes and bindings, if necessary
     if (impl->attributeBindings.empty() ||
         (vertexAttributes && vertexAttributes->isModifiedAfter(attributeUpdateTime))) {
-        MLN_TRACE_ZONE(build attributes);
+        MH_TRACE_ZONE(build attributes);
 
         // Apply drawable values to shader defaults
         const auto& defaults = shader->getVertexAttributes();
@@ -204,7 +204,7 @@ void DrawableGL::upload(gfx::UploadPass& uploadPass) {
 
     // Bind a VAO for each group of vertexes described by a segment
     for (const auto& seg : impl->segments) {
-        MLN_TRACE_ZONE(segment);
+        MH_TRACE_ZONE(segment);
         auto& glSeg = static_cast<DrawSegmentGL&>(*seg);
         const auto& mlSeg = glSeg.getSegment();
 
@@ -254,7 +254,7 @@ gfx::StencilMode DrawableGL::makeStencilMode(PaintParameters& parameters) const 
 }
 
 void DrawableGL::uploadTextures() const {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
     for (const auto& texture : textures) {
         if (texture) {
             texture->upload();

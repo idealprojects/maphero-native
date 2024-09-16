@@ -35,7 +35,7 @@ bool TestRunner::startTest(const std::string& manifestBasePath) {
 
     bool status = false;
     try {
-#if MLN_RENDER_BACKEND_METAL
+#if MH_RENDER_BACKEND_METAL
         status = runTestWithManifest(manifestBasePath + "/ios-metal-render-test-runner-style.json");
         status = runTestWithManifest(manifestBasePath + "/ios-metal-render-test-runner-metrics.json") && status;
 #else

@@ -28,7 +28,7 @@
 #include <mapbox/eternal.hpp>
 #include <mbgl/renderer/image_manager.hpp>
 
-#if MLN_RENDER_BACKEND_OPENGL
+#if MH_RENDER_BACKEND_OPENGL
 
 #include <mbgl/platform/gl_functions.hpp>
 #include <mbgl/gl/context.hpp>
@@ -86,7 +86,7 @@ struct LocationIndicatorRenderParameters {
     std::string puckHatImagePath;
 };
 
-#if MLN_RENDER_BACKEND_OPENGL
+#if MH_RENDER_BACKEND_OPENGL
 class RenderLocationIndicatorImpl {
 protected:
     struct vec2 {
@@ -876,7 +876,7 @@ void RenderLocationIndicatorLayer::prepare(const LayerPrepareParameters& p) {
     renderImpl->updatePuckGeometry(renderImpl->parameters);
 }
 
-#if MLN_RENDER_BACKEND_OPENGL
+#if MH_RENDER_BACKEND_OPENGL
 void RenderLocationIndicatorLayer::render(PaintParameters& paintParameters) {
     auto& glContext = static_cast<gl::Context&>(paintParameters.context);
 

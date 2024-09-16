@@ -1,5 +1,5 @@
 #pragma once
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
 #include <mbgl/renderer/layer_group.hpp>
 #endif
 #include <mbgl/actor/scheduler.hpp>
@@ -24,7 +24,7 @@
 #include <vector>
 
 namespace mbgl {
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
 class ChangeRequest;
 #endif
 class RendererObserver;
@@ -42,7 +42,7 @@ class RenderTree;
 
 namespace gfx {
 class ShaderRegistry;
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
 class Drawable;
 using DrawablePtr = std::shared_ptr<Drawable>;
 #endif
@@ -102,7 +102,7 @@ public:
 
     void update(const std::shared_ptr<UpdateParameters>&);
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
     bool addLayerGroup(LayerGroupBasePtr);
     bool removeLayerGroup(const LayerGroupBasePtr&);
     size_t numLayerGroups() const noexcept;
@@ -181,7 +181,7 @@ private:
     void onStyleImageMissing(const std::string&, const std::function<void()>&) override;
     void onRemoveUnusedStyleImages(const std::vector<std::string>&) override;
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
     /// Move changes into the pending set, clearing the provided collection
     void addChanges(UniqueChangeRequestVec&);
 #endif
@@ -220,7 +220,7 @@ private:
 
     TaggedScheduler threadPool;
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
     std::vector<std::unique_ptr<ChangeRequest>> pendingChanges;
 
     using LayerGroupMap = std::multimap<int32_t, LayerGroupBasePtr>;

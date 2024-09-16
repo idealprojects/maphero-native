@@ -1,51 +1,51 @@
-MLN_MACOS_PUBLIC_OBJCPP_SOURCE = [
-    "src/MLNAttributionButton.mm",
-    "src/MLNMapView+IBAdditions.mm",
-    "src/MLNMapView+Impl.mm",
-    "src/MLNMapView.mm",
-    "src/NSColor+MLNAdditions.mm",
-    "src/NSImage+MLNAdditions.mm",
+MH_MACOS_PUBLIC_OBJCPP_SOURCE = [
+    "src/MHAttributionButton.mm",
+    "src/MHMapView+IBAdditions.mm",
+    "src/MHMapView+Impl.mm",
+    "src/MHMapView.mm",
+    "src/NSColor+MHAdditions.mm",
+    "src/NSImage+MHAdditions.mm",
 ]
 
-MLN_MACOS_PUBLIC_OBJCPP_OPENGL_SOURCE = [
-    "src/MLNMapView+OpenGL.mm",
-    "src/MLNOpenGLLayer.mm",
+MH_MACOS_PUBLIC_OBJCPP_OPENGL_SOURCE = [
+    "src/MHMapView+OpenGL.mm",
+    "src/MHOpenGLLayer.mm",
 ]
 
-MLN_MACOS_PUBLIC_METAL_HEADERS = [
-    "src/MLNMapView+Metal.h",
+MH_MACOS_PUBLIC_METAL_HEADERS = [
+    "src/MHMapView+Metal.h",
 ]
 
-MLN_MACOS_PUBLIC_OBJCPP_METAL_SOURCE = [
-    "src/MLNMapView+Metal.mm",
+MH_MACOS_PUBLIC_OBJCPP_METAL_SOURCE = [
+    "src/MHMapView+Metal.mm",
 ]
 
-MLN_MACOS_PUBLIC_OPENGL_HEADERS = [
-    "src/MLNOpenGLLayer.h",
-    "src/MLNMapView+OpenGL.h",
+MH_MACOS_PUBLIC_OPENGL_HEADERS = [
+    "src/MHOpenGLLayer.h",
+    "src/MHMapView+OpenGL.h",
 ]
 
-MLN_MACOS_PUBLIC_OBJC_SOURCE = [
-    "src/MLNAnnotationImage.m",
-    "src/MLNCompassCell.m",
-    "src/NSProcessInfo+MLNAdditions.m",
+MH_MACOS_PUBLIC_OBJC_SOURCE = [
+    "src/MHAnnotationImage.m",
+    "src/MHCompassCell.m",
+    "src/NSProcessInfo+MHAdditions.m",
 ]
 
-MLN_MACOS_PUBLIC_HEADERS = [
-    "src/MLNAnnotationImage.h",
-    "src/NSImage+MLNAdditions.h",
-    "src/NSColor+MLNAdditions.h",
-    "src/NSProcessInfo+MLNAdditions.h",
-    "src/MLNCompassCell.h",
-    "src/MLNAttributionButton.h",
-    "src/MLNMapView+Impl.h",
-    "src/MLNMapView+IBAdditions.h",
-    "src/MLNMapViewDelegate.h",
-    "src/MLNMapView.h",
+MH_MACOS_PUBLIC_HEADERS = [
+    "src/MHAnnotationImage.h",
+    "src/NSImage+MHAdditions.h",
+    "src/NSColor+MHAdditions.h",
+    "src/NSProcessInfo+MHAdditions.h",
+    "src/MHCompassCell.h",
+    "src/MHAttributionButton.h",
+    "src/MHMapView+Impl.h",
+    "src/MHMapView+IBAdditions.h",
+    "src/MHMapViewDelegate.h",
+    "src/MHMapView.h",
     "src/Mapbox.h",
 ]
 
-MLN_MACOS_PRIVATE_HEADERS = [
-    "src/MLNAnnotationImage_Private.h",
-    "src/MLNMapView_Private.h",
+MH_MACOS_PRIVATE_HEADERS = [
+    "src/MHAnnotationImage_Private.h",
+    "src/MHMapView_Private.h",
 ]

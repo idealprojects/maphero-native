@@ -876,7 +876,7 @@
                 android:value=".activity.FeatureOverviewActivity" />
         </activity> <!-- Events -->
         <activity
-            android:name="org.maplibre.android.testapp.activity.events.ObserverActivity"
+            android:name="org.maphero.android.testapp.activity.events.ObserverActivity"
             android:description="@string/description_observer_activity"
             android:exported="true"
             android:label="@string/activity_observer_activity" >

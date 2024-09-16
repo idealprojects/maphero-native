@@ -416,21 +416,21 @@ global.supportsPropertyFunction = function (property) {
 // Template processing //
 
 // Java + JNI Light (Peer model)
-const lightJava = ejs.compile(fs.readFileSync(absPath('MapLibreAndroid/src/main/java/org/maplibre/android/style/light/light.java.ejs'), 'utf8'), {strict: true});
-const lightJavaUnitTests = ejs.compile(fs.readFileSync(absPath('MapLibreAndroidTestApp/src/androidTest/java/org/maplibre/android/testapp/style/light.junit.ejs'), 'utf8'), {strict: true});
-writeIfModified(absPath(`MapLibreAndroid/src/main/java/org/maplibre/android/style/light/Light.java`), lightJava({properties: lightProperties}));
-writeIfModified(absPath(`MapLibreAndroidTestApp/src/androidTest/java/org/maplibre/android/testapp/style/LightTest.java`), lightJavaUnitTests({properties: lightProperties}));
+const lightJava = ejs.compile(fs.readFileSync(absPath('MapLibreAndroid/src/main/java/org/maphero/android/style/light/light.java.ejs'), 'utf8'), {strict: true});
+const lightJavaUnitTests = ejs.compile(fs.readFileSync(absPath('MapLibreAndroidTestApp/src/androidTest/java/org/maphero/android/testapp/style/light.junit.ejs'), 'utf8'), {strict: true});
+writeIfModified(absPath(`MapLibreAndroid/src/main/java/org/maphero/android/style/light/Light.java`), lightJava({properties: lightProperties}));
+writeIfModified(absPath(`MapLibreAndroidTestApp/src/androidTest/java/org/maphero/android/testapp/style/LightTest.java`), lightJavaUnitTests({properties: lightProperties}));
 
 // Java
-const layerJava = ejs.compile(fs.readFileSync(absPath('MapLibreAndroid/src/main/java/org/maplibre/android/style/layers/layer.java.ejs'), 'utf8'), {strict: true});
-const layerJavaUnitTests = ejs.compile(fs.readFileSync(absPath('MapLibreAndroidTestApp/src/androidTest/java/org/maplibre/android/testapp/style/layer.junit.ejs'), 'utf8'), {strict: true});
+const layerJava = ejs.compile(fs.readFileSync(absPath('MapLibreAndroid/src/main/java/org/maphero/android/style/layers/layer.java.ejs'), 'utf8'), {strict: true});
+const layerJavaUnitTests = ejs.compile(fs.readFileSync(absPath('MapLibreAndroidTestApp/src/androidTest/java/org/maphero/android/testapp/style/layer.junit.ejs'), 'utf8'), {strict: true});
 
 for (const layer of layers) {
-  var srcDir = 'MapLibreAndroid/src/main/java/org/maplibre/android/style/layers/'
-  var testDir = 'MapLibreAndroidTestApp/src/androidTest/java/org/maplibre/android/testapp/style/'
+  var srcDir = 'MapLibreAndroid/src/main/java/org/maphero/android/style/layers/'
+  var testDir = 'MapLibreAndroidTestApp/src/androidTest/java/org/maphero/android/testapp/style/'
   if (layer.type === 'location-indicator') {
-    srcDir = 'MapLibreAndroid/src/main/java/org/maplibre/android/location/'
-    testDir = 'MapLibreAndroidTestApp/src/androidTest/java/org/maplibre/android/location/'
+    srcDir = 'MapLibreAndroid/src/main/java/org/maphero/android/location/'
+    testDir = 'MapLibreAndroidTestApp/src/androidTest/java/org/maphero/android/location/'
   }
 
   writeIfModified(absPath(srcDir + `${camelize(layer.type)}Layer.java`), layerJava(layer));
@@ -449,23 +449,23 @@ for (const layer of layers) {
 }
 
 // Java PropertyFactory
-const propertyFactoryTemplate = ejs.compile(fs.readFileSync(absPath('MapLibreAndroid/src/main/java/org/maplibre/android/style/layers/property_factory.java.ejs'), 'utf8'), {strict: true});
+const propertyFactoryTemplate = ejs.compile(fs.readFileSync(absPath('MapLibreAndroid/src/main/java/org/maphero/android/style/layers/property_factory.java.ejs'), 'utf8'), {strict: true});
 
-const propertyFactorySrcDir = absPath('MapLibreAndroid/src/main/java/org/maplibre/android/style/layers/PropertyFactory.java')
+const propertyFactorySrcDir = absPath('MapLibreAndroid/src/main/java/org/maphero/android/style/layers/PropertyFactory.java')
 writeIfModified(
     propertyFactorySrcDir,
     propertyFactoryTemplate({layoutProperties: layoutProperties, paintProperties: paintProperties, locationIndicator: false})
 );
 
-const locationPropertyFactorySrcDir = absPath('MapLibreAndroid/src/main/java/org/maplibre/android/location/LocationPropertyFactory.java')
+const locationPropertyFactorySrcDir = absPath('MapLibreAndroid/src/main/java/org/maphero/android/location/LocationPropertyFactory.java')
 writeIfModified(
     locationPropertyFactorySrcDir,
     propertyFactoryTemplate({layoutProperties: locationLayoutProperties, paintProperties: locationPaintProperties, locationIndicator: true})
 );
 
 // Java Property
-const enumPropertyJavaTemplate = ejs.compile(fs.readFileSync(absPath('MapLibreAndroid/src/main/java/org/maplibre/android/style/layers/property.java.ejs'), 'utf8'), {strict: true});
+const enumPropertyJavaTemplate = ejs.compile(fs.readFileSync(absPath('MapLibreAndroid/src/main/java/org/maphero/android/style/layers/property.java.ejs'), 'utf8'), {strict: true});
 writeIfModified(
-    absPath(`MapLibreAndroid/src/main/java/org/maplibre/android/style/layers/Property.java`),
+    absPath(`MapLibreAndroid/src/main/java/org/maphero/android/style/layers/Property.java`),
     enumPropertyJavaTemplate({properties: enumProperties})
 );

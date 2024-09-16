@@ -9,7 +9,7 @@ namespace android {
 
 class Polygon : private MultiPoint {
 public:
-    static constexpr auto Name() { return "org/maplibre/android/annotations/Polygon"; };
+    static constexpr auto Name() { return "org/maphero/android/annotations/Polygon"; };
 
     static mbgl::FillAnnotation toAnnotation(jni::JNIEnv&, const jni::Object<Polygon>&);
 

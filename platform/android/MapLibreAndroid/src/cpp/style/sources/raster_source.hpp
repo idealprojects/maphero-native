@@ -10,7 +10,7 @@ namespace android {
 class RasterSource : public Source {
 public:
     using SuperTag = Source;
-    static constexpr auto Name() { return "org/maplibre/android/style/sources/RasterSource"; };
+    static constexpr auto Name() { return "org/maphero/android/style/sources/RasterSource"; };
 
     static void registerNative(jni::JNIEnv&);
 

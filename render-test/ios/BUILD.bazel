@@ -1,6 +1,6 @@
 load("@build_bazel_rules_apple//apple:ios.bzl", "ios_unit_test")
 load("@build_bazel_rules_apple//apple:resources.bzl", "apple_resource_bundle")
-load("//bazel:flags.bzl", "CPP_FLAGS", "MAPLIBRE_FLAGS")
+load("//bazel:flags.bzl", "CPP_FLAGS", "MAPHERO_FLAGS")
 
 apple_resource_bundle(
     name = "TestData",
@@ -30,7 +30,7 @@ objc_library(
         "iosTestRunner.mm",
         "ios_test_runner.cpp",
     ],
-    copts = CPP_FLAGS + MAPLIBRE_FLAGS,
+    copts = CPP_FLAGS + MAPHERO_FLAGS,
     data = [
         "TestData",
     ],

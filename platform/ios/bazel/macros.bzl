@@ -12,10 +12,10 @@ def info_plist(name, base_info_plist, out, **kwargs):
         ],
         cmd = ("""
         cp $(location {}) $@
-        plutil -replace MLNCommitHash -string $$(cat $(location //:git_hash)) $@
+        plutil -replace MHCommitHash -string $$(cat $(location //:git_hash)) $@
         
         token=\"""" + API_KEY + """\"
-        plutil -replace MLNApiKey -string $$token $@
+        plutil -replace MHApiKey -string $$token $@
     """).format(base_info_plist),
         **kwargs
     )

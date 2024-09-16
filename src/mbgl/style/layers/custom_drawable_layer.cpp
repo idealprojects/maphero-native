@@ -177,12 +177,12 @@ public:
             /*color         */ options.color,
             /*w2            */ options.width,
             /*offset        */ options.offset,
-            /*edge          */ 0.0f, // TODO: MLN does not provide a value. Analyze impact.
+            /*edge          */ 0.0f, // TODO: MH does not provide a value. Analyze impact.
             /*texRepeat     */ 0.0f, // N/A
             /*texOffset     */ {},   // N/A
             /*miterLimit    */ options.geometry.miterLimit,
             /*join          */ static_cast<int32_t>(options.geometry.joinType),
-            /*cap           */ static_cast<int32_t>(options.geometry.beginCap), // TODO: MLN option for endCap to be
+            /*cap           */ static_cast<int32_t>(options.geometry.beginCap), // TODO: MH option for endCap to be
                                                                                 // implemented in the shader!
             /*hasExp        */ false,                                           // N/A
             /*interClipLimit*/ 0.0f                                             // N/A

@@ -1,17 +1,17 @@
 import Foundation
-import MapLibre
+import MapHero
 import SwiftUI
 
 // #-example-code(ManageOfflineRegionsExample)
-class ManageOfflineRegionsExample: UIViewController, MLNMapViewDelegate {
+class ManageOfflineRegionsExample: UIViewController, MHMapViewDelegate {
     let jsonDecoder = JSONDecoder()
 
     struct UserData: Codable {
         var name: String
     }
 
-    lazy var mapView: MLNMapView = {
-        let mapView = MLNMapView(frame: CGRect.zero, styleURL: AMERICANA_STYLE)
+    lazy var mapView: MHMapView = {
+        let mapView = MHMapView(frame: CGRect.zero, styleURL: AMERICANA_STYLE)
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         mapView.tintColor = .gray
         mapView.delegate = self
@@ -53,7 +53,7 @@ class ManageOfflineRegionsExample: UIViewController, MLNMapViewDelegate {
     func setupOfflinePackHandler() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(offlinePackProgressDidChange),
-                                               name: NSNotification.Name.MLNOfflinePackProgressChanged,
+                                               name: NSNotification.Name.MHOfflinePackProgressChanged,
                                                object: nil)
     }
 
@@ -79,12 +79,12 @@ class ManageOfflineRegionsExample: UIViewController, MLNMapViewDelegate {
        that exist before the example is re-loaded.
      */
     override func viewWillAppear(_: Bool) {
-        MLNOfflineStorage.shared.resetDatabase { error in
+        MHOfflineStorage.shared.resetDatabase { error in
             if let error {
                 // Handle the error here if packs can't be removed.
                 print(error)
             } else {
-                MLNOfflineStorage.shared.reloadPacks()
+                MHOfflineStorage.shared.reloadPacks()
             }
         }
     }
@@ -98,7 +98,7 @@ class ManageOfflineRegionsExample: UIViewController, MLNMapViewDelegate {
          in an offline map. Note: Because tile count grows exponentially as zoom level
          increases, you should be conservative with your `toZoomLevel` setting.
          */
-        let region = MLNTilePyramidOfflineRegion(styleURL: mapView.styleURL,
+        let region = MHTilePyramidOfflineRegion(styleURL: mapView.styleURL,
                                                  bounds: mapView.visibleCoordinateBounds,
                                                  fromZoomLevel: mapView.zoomLevel,
                                                  toZoomLevel: mapView.zoomLevel + 2)
@@ -112,7 +112,7 @@ class ManageOfflineRegionsExample: UIViewController, MLNMapViewDelegate {
         }
 
         // Create and register an offline pack with the shared offline storage object.
-        MLNOfflineStorage.shared.addPack(for: region, withContext: context) { pack, error in
+        MHOfflineStorage.shared.addPack(for: region, withContext: context) { pack, error in
             guard error == nil else {
                 // Handle the error if the offline pack couldn’t be created.
                 print("Error: \(error?.localizedDescription ?? "unknown error")")
@@ -124,14 +124,14 @@ class ManageOfflineRegionsExample: UIViewController, MLNMapViewDelegate {
         }
     }
 
-    // MARK: - MLNOfflinePack notification handlers
+    // MARK: - MHOfflinePack notification handlers
 
     @objc func offlinePackProgressDidChange(notification: NSNotification) {
         /**
          Get the offline pack this notification is referring to,
          along with its associated metadata.
          */
-        if let pack = notification.object as? MLNOfflinePack,
+        if let pack = notification.object as? MHOfflinePack,
            let userInfo = try? jsonDecoder.decode(UserData.self, from: pack.context)
         {
             // At this point, the offline pack has finished downloading.
@@ -147,7 +147,7 @@ class ManageOfflineRegionsExample: UIViewController, MLNMapViewDelegate {
                     - Resource count: \(pack.progress.countOfResourcesCompleted)")
                 """)
 
-                NotificationCenter.default.removeObserver(self, name: NSNotification.Name.MLNOfflinePackProgressChanged,
+                NotificationCenter.default.removeObserver(self, name: NSNotification.Name.MHOfflinePackProgressChanged,
                                                           object: nil)
             }
         }
@@ -156,7 +156,7 @@ class ManageOfflineRegionsExample: UIViewController, MLNMapViewDelegate {
     }
 }
 
-private extension MLNOfflinePackProgress {
+private extension MHOfflinePackProgress {
     var percentCompleted: Float {
         guard countOfResourcesExpected != 0 else {
             return 0
@@ -175,7 +175,7 @@ private extension MLNOfflinePackProgress {
 extension ManageOfflineRegionsExample: UITableViewDelegate, UITableViewDataSource {
     // Create the table view which will display the downloaded regions.
     func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
-        if let packs = MLNOfflineStorage.shared.packs {
+        if let packs = MHOfflineStorage.shared.packs {
             return packs.count
         } else {
             return 0
@@ -190,7 +190,7 @@ extension ManageOfflineRegionsExample: UITableViewDelegate, UITableViewDataSourc
         label.font = UIFont.preferredFont(forTextStyle: .headline)
         label.textAlignment = .center
 
-        if MLNOfflineStorage.shared.packs != nil {
+        if MHOfflineStorage.shared.packs != nil {
             label.text = "Offline maps"
         } else {
             label.text = "No offline maps"
@@ -206,7 +206,7 @@ extension ManageOfflineRegionsExample: UITableViewDelegate, UITableViewDataSourc
     func tableView(_: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
 
-        if let packs = MLNOfflineStorage.shared.packs {
+        if let packs = MHOfflineStorage.shared.packs {
             let pack = packs[indexPath.row]
 
             cell.textLabel?.text = "Region \(indexPath.row + 1): size: \(pack.progress.formattedCountOfBytesCompleted)"
@@ -217,9 +217,9 @@ extension ManageOfflineRegionsExample: UITableViewDelegate, UITableViewDataSourc
     }
 
     func tableView(_: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let packs = MLNOfflineStorage.shared.packs else { return }
+        guard let packs = MHOfflineStorage.shared.packs else { return }
 
-        if let selectedRegion = packs[indexPath.row].region as? MLNTilePyramidOfflineRegion {
+        if let selectedRegion = packs[indexPath.row].region as? MHTilePyramidOfflineRegion {
             mapView.setVisibleCoordinateBounds(selectedRegion.bounds, animated: true)
         }
     }

@@ -73,7 +73,7 @@ bool Mailbox::isOpen() const {
 }
 
 void Mailbox::push(std::unique_ptr<Message> message) {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
     auto idleState = State::Idle;
     while (!state.compare_exchange_strong(idleState, State::Processing)) {
         if (state == State::Abandoned) {
@@ -88,7 +88,7 @@ void Mailbox::push(std::unique_ptr<Message> message) {
     }};
 
     {
-        MLN_TRACE_ZONE(push lock);
+        MH_TRACE_ZONE(push lock);
         std::lock_guard<std::mutex> pushingLock(pushingMutex);
 
         if (closed) {
@@ -98,14 +98,14 @@ void Mailbox::push(std::unique_ptr<Message> message) {
 
         bool wasEmpty = false;
         {
-            MLN_TRACE_ZONE(queue lock);
+            MH_TRACE_ZONE(queue lock);
             std::lock_guard<std::mutex> queueLock(queueMutex);
             wasEmpty = queue.empty();
             queue.push(std::move(message));
         }
 
         if (wasEmpty) {
-            MLN_TRACE_ZONE(schedule);
+            MH_TRACE_ZONE(schedule);
             scheduleToRecieve(schedulerTag);
         }
     }

@@ -1,8 +1,8 @@
 #import "MBXBenchViewController.h"
 #import "MBXBenchAppDelegate.h"
-#import "MLNMapView_Private.h"
-#import "MLNOfflineStorage_Private.h"
-#import "MLNSettings_Private.h"
+#import "MHMapView_Private.h"
+#import "MHOfflineStorage_Private.h"
+#import "MHSettings_Private.h"
 
 #include "locations.hpp"
 
@@ -59,7 +59,7 @@ protected:
     if (self == [MBXBenchViewController class])
     {
         [[NSUserDefaults standardUserDefaults] registerDefaults:@{
-            @"MBXUserTrackingMode": @(MLNUserTrackingModeNone),
+            @"MBXUserTrackingMode": @(MHUserTrackingModeNone),
             @"MBXShowsUserLocation": @NO,
             @"MBXDebug": @NO,
         }];
@@ -115,14 +115,14 @@ protected:
               .withViewportMode(mbgl::ViewportMode::Default)
               .withCrossSourceCollisions(true);
     
-    mbgl::TileServerOptions* tileServerOptions = [[MLNSettings sharedSettings] tileServerOptionsInternal];
+    mbgl::TileServerOptions* tileServerOptions = [[MHSettings sharedSettings] tileServerOptionsInternal];
     mbgl::ResourceOptions resourceOptions;
-    resourceOptions.withCachePath(MLNOfflineStorage.sharedOfflineStorage.databasePath.UTF8String)
+    resourceOptions.withCachePath(MHOfflineStorage.sharedOfflineStorage.databasePath.UTF8String)
                    .withAssetPath([NSBundle mainBundle].resourceURL.path.UTF8String)
                    .withTileServerOptions(*tileServerOptions);
     mbgl::ClientOptions clientOptions;
     
-    auto apiKey = [[MLNSettings sharedSettings] apiKey];
+    auto apiKey = [[MHSettings sharedSettings] apiKey];
     if (apiKey) {
         resourceOptions.withApiKey([apiKey UTF8String]);
     }

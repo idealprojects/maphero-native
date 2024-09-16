@@ -1,7 +1,7 @@
 #include <mbgl/renderer/pattern_atlas.hpp>
 #include <mbgl/gfx/upload_pass.hpp>
 #include <mbgl/gfx/context.hpp>
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
 #include <mbgl/gfx/texture2d.hpp>
 #endif
 
@@ -90,7 +90,7 @@ Size PatternAtlas::getPixelSize() const {
 }
 
 void PatternAtlas::upload([[maybe_unused]] gfx::UploadPass& uploadPass) {
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
     if (!atlasTexture2D) {
         atlasTexture2D = uploadPass.getContext().createTexture2D();
         if (atlasTexture2D) {
@@ -109,7 +109,7 @@ void PatternAtlas::upload([[maybe_unused]] gfx::UploadPass& uploadPass) {
     dirty = false;
 }
 
-#if MLN_LEGACY_RENDERER
+#if MH_LEGACY_RENDERER
 // @note: Deprecated
 gfx::TextureBinding PatternAtlas::textureBinding() const {
     assert(atlasTexture);
@@ -118,7 +118,7 @@ gfx::TextureBinding PatternAtlas::textureBinding() const {
 }
 #endif
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
 const std::shared_ptr<gfx::Texture2D>& PatternAtlas::texture() const {
     return atlasTexture2D;
 }

@@ -87,7 +87,7 @@ public:
     Impl(const ResourceOptions& resourceOptions_, const ClientOptions& clientOptions_)
         : resourceOptions(resourceOptions_.clone()), clientOptions(clientOptions_.clone()) {
         @autoreleasepool {
-            NSURLSessionConfiguration *sessionConfig = MLNNativeNetworkManager.sharedManager.sessionConfiguration;
+            NSURLSessionConfiguration *sessionConfig = MHNativeNetworkManager.sharedManager.sessionConfiguration;
             session = [NSURLSession sessionWithConfiguration:sessionConfig];
 
             if (sessionConfig.HTTPAdditionalHeaders[@"User-Agent"] == nil) {
@@ -215,7 +215,7 @@ HTTPFileSource::HTTPFileSource(const ResourceOptions& resourceOptions, const Cli
 
 HTTPFileSource::~HTTPFileSource() = default;
 
-MLN_APPLE_EXPORT
+MH_APPLE_EXPORT
 BOOL isValidMapboxEndpoint(NSURL *url) {
     return ([url.host isEqualToString:@"mapbox.com"] ||
             [url.host hasSuffix:@".mapbox.com"] ||
@@ -223,7 +223,7 @@ BOOL isValidMapboxEndpoint(NSURL *url) {
             [url.host hasSuffix:@".mapbox.cn"]);
 }
 
-MLN_APPLE_EXPORT
+MH_APPLE_EXPORT
 NSURL *resourceURL(const Resource& resource) {
     
     NSURL *url = [NSURL URLWithString:@(resource.url.c_str())];
@@ -254,7 +254,7 @@ std::unique_ptr<AsyncRequest> HTTPFileSource::request(const Resource& resource, 
 
     @autoreleasepool {
         NSURL *url = resourceURL(resource);
-        [MLNNativeNetworkManager.sharedManager debugLog:@"Requesting URI: %@", url.relativePath];
+        [MHNativeNetworkManager.sharedManager debugLog:@"Requesting URI: %@", url.relativePath];
 
         NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url];
         if (resource.priorEtag) {
@@ -270,14 +270,14 @@ std::unique_ptr<AsyncRequest> HTTPFileSource::request(const Resource& resource, 
         const bool isTile = resource.kind == mbgl::Resource::Kind::Tile;
 
         if (isTile) {
-            [MLNNativeNetworkManager.sharedManager startDownloadEvent:url.relativePath type:@"tile"];
+            [MHNativeNetworkManager.sharedManager startDownloadEvent:url.relativePath type:@"tile"];
         }
 
         __block NSURLSession *session;
 
         // Use the delegate's session if there is one, otherwise use the one that
         // was created when this class was constructed.
-        MLNNativeNetworkManager *networkManager = MLNNativeNetworkManager.sharedManager;
+        MHNativeNetworkManager *networkManager = MHNativeNetworkManager.sharedManager;
         if ([networkManager.delegate respondsToSelector:@selector(sessionForNetworkManager:)]) {
             session = [networkManager.delegate sessionForNetworkManager:networkManager];
         }
@@ -294,15 +294,15 @@ std::unique_ptr<AsyncRequest> HTTPFileSource::request(const Resource& resource, 
                 session = nil;
             
                 if (error && [error code] == NSURLErrorCancelled) {
-                    [MLNNativeNetworkManager.sharedManager cancelDownloadEventForResponse:res];
+                    [MHNativeNetworkManager.sharedManager cancelDownloadEventForResponse:res];
                     return;
                 }
-                [MLNNativeNetworkManager.sharedManager stopDownloadEventForResponse:res];
+                [MHNativeNetworkManager.sharedManager stopDownloadEventForResponse:res];
                 Response response;
                 using Error = Response::Error;
 
                 if (error) {
-                    [MLNNativeNetworkManager.sharedManager errorLog:@"Requesting: %@ failed with error: %@", req.URL, error.debugDescription];
+                    [MHNativeNetworkManager.sharedManager errorLog:@"Requesting: %@ failed with error: %@", req.URL, error.debugDescription];
                     
                     if (data) {
                         response.data =
@@ -335,7 +335,7 @@ std::unique_ptr<AsyncRequest> HTTPFileSource::request(const Resource& resource, 
                     }
                 } else if ([res isKindOfClass:[NSHTTPURLResponse class]]) {
                     const long responseCode = [(NSHTTPURLResponse *)res statusCode];
-                    [MLNNativeNetworkManager.sharedManager debugLog:@"Requesting %@ returned responseCode: %lu", res.URL.relativePath, responseCode];
+                    [MHNativeNetworkManager.sharedManager debugLog:@"Requesting %@ returned responseCode: %lu", res.URL.relativePath, responseCode];
 
                     NSDictionary *headers = [(NSHTTPURLResponse *)res allHeaderFields];
                     NSString *cache_control = [headers objectForKey:@"Cache-Control"];

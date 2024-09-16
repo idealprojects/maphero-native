@@ -10,7 +10,7 @@
 #include <mbgl/util/mat4.hpp>
 #include <mbgl/util/run_loop.hpp>
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
 
 #include <mbgl/style/layers/custom_drawable_layer.hpp>
 #include <mbgl/util/constants.hpp>
@@ -314,4 +314,4 @@ TEST(CustomDrawableLayer, SymbolIcon) {
     test::checkImage("test/fixtures/custom_drawable_layer/symbol_icon", frontend.render(map).image, 0.000657, 0.1);
 }
 
-#endif // MLN_DRAWABLE_RENDERER
+#endif // MH_DRAWABLE_RENDERER

@@ -5,7 +5,7 @@
 
 #include <optional>
 
-#if MLN_DRAWABLE_RENDERER
+#if MH_DRAWABLE_RENDERER
 
 namespace mbgl {
 namespace style {

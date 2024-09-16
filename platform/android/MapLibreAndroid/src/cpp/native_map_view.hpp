@@ -41,7 +41,7 @@ class MapRenderer;
 
 class NativeMapView : public MapObserver {
 public:
-    static constexpr auto Name() { return "org/maplibre/android/maps/NativeMapView"; };
+    static constexpr auto Name() { return "org/maphero/android/maps/NativeMapView"; };
 
     static void registerNative(jni::JNIEnv&);
 

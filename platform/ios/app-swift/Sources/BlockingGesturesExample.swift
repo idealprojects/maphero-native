@@ -1,4 +1,4 @@
-import MapLibre
+import MapHero
 import SwiftUI
 import UIKit
 
@@ -7,14 +7,14 @@ import UIKit
 private let center = CLLocationCoordinate2D(latitude: 39.748947, longitude: -104.995882)
 
 // Colorado’s bounds
-private let colorado = MLNCoordinateBounds(
+private let colorado = MHCoordinateBounds(
     sw: CLLocationCoordinate2D(latitude: 36.986207, longitude: -109.049896),
     ne: CLLocationCoordinate2D(latitude: 40.989329, longitude: -102.062592)
 )
 
 struct BlockingGesturesExample: UIViewRepresentable {
-    class Coordinator: NSObject, MLNMapViewDelegate {
-        func mapView(_ mapView: MLNMapView, shouldChangeFrom _: MLNMapCamera, to newCamera: MLNMapCamera) -> Bool {
+    class Coordinator: NSObject, MHMapViewDelegate {
+        func mapView(_ mapView: MHMapView, shouldChangeFrom _: MHMapCamera, to newCamera: MHMapCamera) -> Bool {
             // Get the current camera to restore it after.
             let currentCamera = mapView.camera
 
@@ -29,22 +29,22 @@ struct BlockingGesturesExample: UIViewRepresentable {
             mapView.camera = currentCamera
 
             // Test if the newCameraCenter and newVisibleCoordinates are inside self.colorado.
-            let inside = MLNCoordinateInCoordinateBounds(newCameraCenter, colorado)
-            let intersects = MLNCoordinateInCoordinateBounds(newVisibleCoordinates.ne, colorado) && MLNCoordinateInCoordinateBounds(newVisibleCoordinates.sw, colorado)
+            let inside = MHCoordinateInCoordinateBounds(newCameraCenter, colorado)
+            let intersects = MHCoordinateInCoordinateBounds(newVisibleCoordinates.ne, colorado) && MHCoordinateInCoordinateBounds(newVisibleCoordinates.sw, colorado)
 
             return inside && intersects
         }
     }
 
-    func makeUIView(context: Context) -> MLNMapView {
-        let mapView = MLNMapView(frame: .zero, styleURL: VERSATILES_COLORFUL_STYLE)
+    func makeUIView(context: Context) -> MHMapView {
+        let mapView = MHMapView(frame: .zero, styleURL: VERSATILES_COLORFUL_STYLE)
         mapView.setCenter(center, zoomLevel: 10, direction: 0, animated: false)
         mapView.delegate = context.coordinator
 
         return mapView
     }
 
-    func updateUIView(_: MLNMapView, context _: Context) {}
+    func updateUIView(_: MHMapView, context _: Context) {}
 
     func makeCoordinator() -> Coordinator {
         Coordinator()

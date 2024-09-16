@@ -2,7 +2,7 @@
 
 #import "MBXCustomLocationViewController.h"
 
-@interface MBXCustomLocationManager : NSObject<MLNLocationManager>
+@interface MBXCustomLocationManager : NSObject<MHLocationManager>
 @end
 
 @interface MBXCustomLocationManager()
@@ -144,7 +144,7 @@
 
 @interface MBXCustomLocationViewController ()
 
-@property (strong, nonatomic) MLNMapView *mapView;
+@property (strong, nonatomic) MHMapView *mapView;
 
 @end
 
@@ -153,7 +153,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.mapView = [[MLNMapView alloc] initWithFrame:self.view.bounds];
+    self.mapView = [[MHMapView alloc] initWithFrame:self.view.bounds];
     
     self.mapView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     MBXCustomLocationManager *mbxLocationManager = [[MBXCustomLocationManager alloc] init];

@@ -1,6 +1,6 @@
 #import "Mapbox.h"
 
-@interface ExampleCustomDrawableStyleLayer : MLNCustomDrawableStyleLayer
+@interface ExampleCustomDrawableStyleLayer : MHCustomDrawableStyleLayer
 
 - (instancetype)initWithIdentifier:(NSString *)identifier;
 

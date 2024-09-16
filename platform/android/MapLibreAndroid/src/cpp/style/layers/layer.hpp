@@ -15,7 +15,7 @@ namespace android {
 
 class Layer {
 public:
-    static constexpr auto Name() { return "org/maplibre/android/style/layers/Layer"; };
+    static constexpr auto Name() { return "org/maphero/android/style/layers/Layer"; };
 
     static void registerNative(jni::JNIEnv&);
 

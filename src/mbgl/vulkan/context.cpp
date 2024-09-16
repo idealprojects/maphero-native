@@ -27,8 +27,8 @@
 #include <algorithm>
 #include <cstring>
 
-#ifndef MLN_VULKAN_DESCRIPTOR_POOL_SIZE
-#define MLN_VULKAN_DESCRIPTOR_POOL_SIZE 10000
+#ifndef MH_VULKAN_DESCRIPTOR_POOL_SIZE
+#define MH_VULKAN_DESCRIPTOR_POOL_SIZE 10000
 #endif
 
 namespace mbgl {
@@ -78,12 +78,12 @@ void Context::initFrameResources() {
 
     // descriptor pool info
     const std::vector<vk::DescriptorPoolSize> poolSizes = {
-        {vk::DescriptorType::eUniformBuffer, MLN_VULKAN_DESCRIPTOR_POOL_SIZE},
-        {vk::DescriptorType::eCombinedImageSampler, MLN_VULKAN_DESCRIPTOR_POOL_SIZE},
+        {vk::DescriptorType::eUniformBuffer, MH_VULKAN_DESCRIPTOR_POOL_SIZE},
+        {vk::DescriptorType::eCombinedImageSampler, MH_VULKAN_DESCRIPTOR_POOL_SIZE},
     };
 
     const auto descriptorPoolInfo = vk::DescriptorPoolCreateInfo().setPoolSizes(poolSizes).setMaxSets(
-        MLN_VULKAN_DESCRIPTOR_POOL_SIZE);
+        MH_VULKAN_DESCRIPTOR_POOL_SIZE);
 
     frameResources.reserve(frameCount);
 

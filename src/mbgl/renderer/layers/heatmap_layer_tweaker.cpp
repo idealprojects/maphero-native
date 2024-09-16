@@ -11,7 +11,7 @@
 #include <mbgl/style/layers/heatmap_layer_properties.hpp>
 #include <mbgl/util/convert.hpp>
 
-#if MLN_RENDER_BACKEND_METAL
+#if MH_RENDER_BACKEND_METAL
 #include <mbgl/shaders/mtl/heatmap.hpp>
 #endif
 

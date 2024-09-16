@@ -1,11 +1,11 @@
-load("//bazel:flags.bzl", "CPP_FLAGS", "MAPLIBRE_FLAGS")
+load("//bazel:flags.bzl", "CPP_FLAGS", "MAPHERO_FLAGS")
 
 cc_library(
     name = "default-collator",
     srcs = [
         "src/mbgl/i18n/collator.cpp",
     ],
-    copts = CPP_FLAGS + MAPLIBRE_FLAGS,
+    copts = CPP_FLAGS + MAPHERO_FLAGS,
     deps = [
         "//:mbgl-core",
         "//vendor:nunicode",
@@ -28,7 +28,7 @@ cc_library(
 cc_library(
     name = "utf_conversion",
     srcs = ["src/mbgl/util/utf.cpp"],
-    copts = CPP_FLAGS + MAPLIBRE_FLAGS + [
+    copts = CPP_FLAGS + MAPHERO_FLAGS + [
         "-Wno-deprecated-declarations",
     ],
     deps = [
@@ -107,7 +107,7 @@ cc_library(
         "//:metal_renderer": ["include/mbgl/mtl/headless_backend.hpp"],
         "//conditions:default": ["include/mbgl/gl/headless_backend.hpp"],
     }),
-    copts = CPP_FLAGS + MAPLIBRE_FLAGS,
+    copts = CPP_FLAGS + MAPHERO_FLAGS,
     includes = [
         "include",
     ],

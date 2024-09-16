@@ -33,7 +33,7 @@ const mbgl::TaggedScheduler& GLFWRendererFrontend::getThreadPool() const {
 }
 
 void GLFWRendererFrontend::render() {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     assert(renderer);
 
@@ -42,7 +42,7 @@ void GLFWRendererFrontend::render() {
     mbgl::gfx::BackendScope guard{glfwView.getRendererBackend(), mbgl::gfx::BackendScope::ScopeType::Implicit};
 
     // onStyleImageMissing might be called during a render. The user implemented
-    // method could trigger a call to MLNRenderFrontend#update which overwrites
+    // method could trigger a call to MHRenderFrontend#update which overwrites
     // `updateParameters`. Copy the shared pointer here so that the parameters
     // aren't destroyed while `render(...)` is still using them.
     auto updateParameters_ = updateParameters;
