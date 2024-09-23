@@ -2,7 +2,7 @@
 
 Learn how to work with gesture recognizers
 
-MapLibre Native iOS provides a set of built-in gesture recognizers. You can customize or supplement these gestures according to your use case. You see what gesture recognizers are on your ``MHMapView`` by accessing the `gestureRecognizers` property on your map.
+MapHero Native IOS provides a set of built-in gesture recognizers. You can customize or supplement these gestures according to your use case. You see what gesture recognizers are on your ``MHMapView`` by accessing the `gestureRecognizers` property on your map.
 
 ## Configuring user interaction
 

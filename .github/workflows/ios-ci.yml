@@ -74,6 +74,10 @@ jobs:
 
       - name: Build iOS App
         run: |
+          bazel build //platform/darwin:generated_style_public_hdrs
+
+      - name: Build iOS App
+        run: |
           bazel build //platform/ios:App
 
       - name: Build MapHeroApp Swift
