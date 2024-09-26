@@ -19,6 +19,7 @@
 /platform/windows/vendor/mesa3d/
 *.code-workspace
 build.sh
+build2.sh
 
 .DS_Store
 .cache

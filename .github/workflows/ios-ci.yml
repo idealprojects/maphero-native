@@ -72,90 +72,130 @@ jobs:
       - name: Check disk space after cleaning Bazel cache
         run: df -h
 
-      - name: Build iOS App
-        run: |
-          bazel build //platform/darwin:generated_style_public_hdrs
+      # - name: Build objc-headers
+      #   run: |
+      #     bazel build //platform:objc-headers --sandbox_debug --verbose_failures
 
-      - name: Build iOS App
-        run: |
-          bazel build //platform/ios:App
+      # - name: Build platform:macos objc
+      #   run: |
+      #     bazel build //platform:macos-objc --sandbox_debug --verbose_failures
 
-      - name: Build MapHeroApp Swift
-        run: |
-          bazel build //platform/ios/app-swift:MapHeroApp
+      # - name: Build platform:macos-objcpp
+      #   run: |
+      #     bazel build //platform:macos-objcpp --sandbox_debug --verbose_failures
 
-      - name: Build MapHero dynamic framework with optimization
-        run: |
-          bazel build --compilation_mode=opt --features=dead_strip,thin_lto --objc_enable_binary_stripping \
-           --apple_generate_dsym --output_groups=+dsyms --//:renderer=metal //platform/ios:MapHero.dynamic \
-           --embed_label="maphero_ios_${{ env.VERSION }}"
+      # - name: Build objcpp
+      #   run: |
+      #     bazel build //platform:objcpp-sdk --sandbox_debug --verbose_failures
 
-      - name: List files in directory
+      # - name: Build app_custom_drawable_layer_objcpp_srcs
+      #   run: |
+      #     bazel build //platform:app_custom_drawable_layer_objcpp_srcs --sandbox_debug --verbose_failures
+
+      - name: Build ios-sdk
         run: |
-          cd bazel-bin/platform/ios
-          ls -al
+          bazel build //platform:ios-sdk --sandbox_debug --verbose_failures
+
+      - name: Build ios-sdk-dynamic
+        run: |
+          bazel build //platform:ios-sdk-dynamic --sandbox_debug --verbose_failures
+
+      - name: Build iosapp
+        run: |
+          bazel build //platform:iosapp --sandbox_debug --verbose_failures
+
+      # - name: Build ios-benchapp
+      #   run: |
+      #     bazel build //platform:ios-benchapp --sandbox_debug --verbose_failures
+
+      # - name: Build check-public-symbols
+      #   run: |
+      #     bazel build //platform:check-public-symbols --sandbox_debug --verbose_failures
+
+      # - name: Build iOS App
+      #   run: |
+      #     bazel build //platform/darwin:generated_style_public_hdrs
+
+      # - name: Build iOS App
+      #   run: |
+      #     bazel build //platform/ios:App
+
+      # - name: Build MapHeroApp Swift
+      #   run: |
+      #     bazel build //platform/ios/app-swift:MapHeroApp
+
+      # - name: Build MapHero dynamic framework with optimization
+      #   run: |
+      #     bazel build --compilation_mode=opt --features=dead_strip,thin_lto --objc_enable_binary_stripping \
+      #      --apple_generate_dsym --output_groups=+dsyms --//:renderer=metal //platform/ios:MapHero.dynamic \
+      #      --embed_label="maphero_ios_${{ env.VERSION }}"
+
+      # - name: List files in directory
+      #   run: |
+      #     cd bazel-bin/platform/ios
+      #     ls -al
 
 
-      # Step to compute checksum for XCFramework
-      - name: Compute Checksum for XCFramework
-        run: |
-          cd bazel-bin/platform/ios
+      # # Step to compute checksum for XCFramework
+      # - name: Compute Checksum for XCFramework
+      #   run: |
+      #     cd bazel-bin/platform/ios
           
-          # Define the zipped XCFramework file
-          XCFRAMEWORK_ZIP="MapHero.dynamic.xcframework.zip"
+      #     # Define the zipped XCFramework file
+      #     XCFRAMEWORK_ZIP="MapHero.dynamic.xcframework.zip"
           
-          # Compute checksum of the existing zip file
-          CHECKSUM=$(swift package compute-checksum "$XCFRAMEWORK_ZIP")
+      #     # Compute checksum of the existing zip file
+      #     CHECKSUM=$(swift package compute-checksum "$XCFRAMEWORK_ZIP")
 
-          # Output checksum for debugging
-          echo "Checksum: $CHECKSUM"
+      #     # Output checksum for debugging
+      #     echo "Checksum: $CHECKSUM"
 
-          # Set the checksum in GitHub environment variable
-          echo "XCFRAMEWORK_CHECKSUM=$CHECKSUM" >> $GITHUB_ENV
+      #     # Set the checksum in GitHub environment variable
+      #     echo "XCFRAMEWORK_CHECKSUM=$CHECKSUM" >> $GITHUB_ENV
 
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ env.VERSION }}
-          release_name: ${{ env.NAME }} ${{ env.VERSION }}
-          body: "Release for ${{ env.NAME }} version ${{ env.VERSION }}"
-          draft: false
-          prerelease: false
+      # - name: Create Release
+      #   id: create_release
+      #   uses: actions/create-release@v1
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   with:
+      #     tag_name: ${{ env.VERSION }}
+      #     release_name: ${{ env.NAME }} ${{ env.VERSION }}
+      #     body: "Release for ${{ env.NAME }} version ${{ env.VERSION }}"
+      #     draft: false
+      #     prerelease: false
 
-      - name: Upload Build Artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: maphero-build
-          path: bazel-bin/platform/ios/
+      # - name: Upload Build Artifacts
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: maphero-build
+      #     path: bazel-bin/platform/ios/
 
-      - name: Zip dSYM Files
-        run: |
-          cd bazel-bin/platform/ios
-          zip -r MapHero-${{ env.VERSION }}-dSYM.zip MapHero.dynamic_dsyms/*.dSYM
+      # - name: Zip dSYM Files
+      #   run: |
+      #     cd bazel-bin/platform/ios
+      #     zip -r MapHero-${{ env.VERSION }}-dSYM.zip MapHero.dynamic_dsyms/*.dSYM
 
-      - name: See all bazel-bin/platform/ios files 
-        run: |
-          ls -al bazel-bin/platform/ios/
+      # - name: See all bazel-bin/platform/ios files 
+      #   run: |
+      #     ls -al bazel-bin/platform/ios/
 
-      - name: Upload dSYM Files
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: bazel-bin/platform/ios/MapHero-${{ env.VERSION }}-dSYM.zip
-          asset_name: MapHero-${{ env.VERSION }}-dSYM.zip
-          asset_content_type: application/zip
+      # - name: Upload dSYM Files
+      #   uses: actions/upload-release-asset@v1
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   with:
+      #     upload_url: ${{ steps.create_release.outputs.upload_url }}
+      #     asset_path: bazel-bin/platform/ios/MapHero-${{ env.VERSION }}-dSYM.zip
+      #     asset_name: MapHero-${{ env.VERSION }}-dSYM.zip
+      #     asset_content_type: application/zip
 
-      - name: Upload MapHero iOS Build to Release
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: bazel-bin/platform/ios/MapHero.dynamic.xcframework.zip
-          asset_name: MapHero_ios_device.framework.zip
-          asset_content_type: application/zip
+      # - name: Upload MapHero iOS Build to Release
+      #   uses: actions/upload-release-asset@v1
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   with:
+      #     upload_url: ${{ steps.create_release.outputs.upload_url }}
+      #     asset_path: bazel-bin/platform/ios/MapHero.dynamic.xcframework.zip
+      #     asset_name: MapHero_ios_device.framework.zip
+      #     asset_content_type: application/zip
