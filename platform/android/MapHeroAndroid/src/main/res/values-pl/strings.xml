@@ -4,7 +4,7 @@
     <string name="maphero_attributionsIconContentDescription">Atrybucja. Aktywuj, żeby pokazać więcej informacji.</string>
     <string name="maphero_myLocationViewContentDescription">Widok lokalizacji. Pokazuje twoją pozycję na mapie.</string>
     <string name="maphero_mapActionDescription">Pokazuje mapę stworzoną za pomocą biblioteki MapLibre. Przesuń mapę za pomocą przeciągnięcia dwoma palcami. Przybliż za pomocą uszczypnięcia dwoma palcami. </string>
-    <string name="maphero_attributionsDialogTitle">MapLibre Maps SDK dla Androida</string>
+    <string name="maphero_attributionsDialogTitle">MapHero Maps SDK dla Androida</string>
     <string name="maphero_attributionErrorNoBrowser">Nie potrafię otworzyć strony, brak przeglądarki internetowej zainstalowanej na urządzeniu.</string>
     <string name="maphero_offline_error_region_definition_invalid">Wymagany region nie mieści się w granicach świata: %s</string>
     </resources>

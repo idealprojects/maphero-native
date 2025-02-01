@@ -4,7 +4,7 @@
     <string name="maphero_attributionsIconContentDescription">Иконка функции. Активирай, за да покажеш диалог функции.</string>
     <string name="maphero_myLocationViewContentDescription">Изглед локация. Това показва местоположението ти на картата.</string>
     <string name="maphero_mapActionDescription">Показва карта създадена с MapLibre. Скролни с два пръста. Мащабирай с два пръста.</string>
-    <string name="maphero_attributionsDialogTitle">MapLibre Android SDK</string>
+    <string name="maphero_attributionsDialogTitle">MapHero SDK</string>
     <string name="maphero_offline_error_region_definition_invalid">Предоставените OfflineRegionDefinition не пасват в границите на света: %s</string>
 
     </resources>
