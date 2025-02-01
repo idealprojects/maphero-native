@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 
  To group multiple related points together in one shape, use an
  ``MHPointCollection`` or ``MHPointCollection`` object. To access
- a point’s attributes, use an ``MHPointFeatureClusterFeature`` object.
+ a point’s attributes, use an ``MHPointFeature`` object.
 
  A point shape is known as a
  <a href="https://tools.ietf.org/html/rfc7946#section-3.1.2">Point</a> geometry

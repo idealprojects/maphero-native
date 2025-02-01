@@ -395,7 +395,7 @@ code {
 <li>Enable LTO (<a href="https://github.com/maplibre/maplibre-native/pull/2504">#2504</a>).</li>
 <li>Enable vertex instance drawing on simulator (<a href="https://github.com/maplibre/maplibre-native/pull/2518">#2518</a>).</li>
 <li>Change default <code>MHMapSnapshotter</code> logo to the MapLibre logo (<a href="https://github.com/maplibre/maplibre-native/pull/2541">#2541</a>). Note that showing the MapLibre logo is never required. You can configure whether to show the logo with the (now public) <code>showsLogo</code> property of <code>MHMapSnapshotterOptions</code>. Check with your tile provider if you need to show a logo.</li>
-<li>Add <a href="https://developer.apple.com/documentation/bundleresources/privacy_manifest_files">Privacy Manifest</a>. MapLibre Native iOS has no built-in tracking, but it does use some system APIs for functional purposes that are marked by Apple as privacy sensitive (<a href="https://github.com/maplibre/maplibre-native/pull/2480">#2480</a>).</li>
+<li>Add <a href="https://developer.apple.com/documentation/bundleresources/privacy_manifest_files">Privacy Manifest</a>. MapHero Native IOS has no built-in tracking, but it does use some system APIs for functional purposes that are marked by Apple as privacy sensitive (<a href="https://github.com/maplibre/maplibre-native/pull/2480">#2480</a>).</li>
 <li>Fixed attribution link in action sheets (<a href="https://github.com/maplibre/maplibre-native/pull/2587">#2587</a>).</li>
 <li>Update included third-party licenses (<a href="https://github.com/maplibre/maplibre-native/pull/2491">#2491</a>).</li>
 </ul>
@@ -937,7 +937,7 @@ Change all your <code>MGL</code> prefixes to <code>MLN</code>. If you are using 
 <ul>
 <li>Added an <code>MHStyle.performsPlacementTransitions</code> property to control how long it takes for colliding labels to fade out. (<a href="https://github.com/mapbox/mapbox-gl-native/pull/13565">#13565</a>)</li>
 <li>Fixed a crash when casting large numbers in <code>NSExpression</code>. (<a href="https://github.com/mapbox/mapbox-gl-native/pull/13580">#13580</a>)</li>
-<li>Added the <code>-[MHShapeSource leavesOfCluster:offset:limit:]</code>, <code>-[MHShapeSource childrenOfCluster:]</code>, <code>-[MHShapeSource zoomLevelForExpandingCluster:]</code> methods for inspecting a cluster in an <code>MHShapeSource</code>s created with the <code>MHShapeSourceOptionClustered</code> option. Feature querying now returns clusters represented by <code>MHPointFeatureClusterFeatureCluster</code> objects (that conform to the <code>MHCluster</code> protocol). (<a href="https://github.com/mapbox/mapbox-gl-native/pull/12952">#12952</a></li>
+<li>Added the <code>-[MHShapeSource leavesOfCluster:offset:limit:]</code>, <code>-[MHShapeSource childrenOfCluster:]</code>, <code>-[MHShapeSource zoomLevelForExpandingCluster:]</code> methods for inspecting a cluster in an <code>MHShapeSource</code>s created with the <code>MHShapeSourceOptionClustered</code> option. Feature querying now returns clusters represented by <code>MHPointFeatureCluster</code> objects (that conform to the <code>MHCluster</code> protocol). (<a href="https://github.com/mapbox/mapbox-gl-native/pull/12952">#12952</a></li>
 </ul>
 <h3 id="annotations">Annotations</h3>
 <ul>

@@ -102,10 +102,10 @@
 - (void)testGeoJSONDeserialization {
     NSData *data = [@"{\"type\": \"Feature\", \"geometry\": {\"type\": \"Point\", \"coordinates\": [0, 0]}, \"properties\": {}}" dataUsingEncoding:NSUTF8StringEncoding];
     NSError *error;
-    MHPointFeatureClusterFeature *feature = (MHPointFeatureClusterFeature *)[MHShape shapeWithData:data encoding:NSUTF8StringEncoding error:&error];
+    MHPointFeature *feature = (MHPointFeature *)[MHShape shapeWithData:data encoding:NSUTF8StringEncoding error:&error];
     XCTAssertNil(error, @"Valid GeoJSON data should produce no error on deserialization.");
     XCTAssertNotNil(feature, @"Valid GeoJSON data should produce an object on deserialization.");
-    XCTAssertTrue([feature isKindOfClass:[MHPointFeatureClusterFeature class]], @"Valid GeoJSON point feature data should produce an MHPointFeatureClusterFeature.");
+    XCTAssertTrue([feature isKindOfClass:[MHPointFeature class]], @"Valid GeoJSON point feature data should produce an MHPointFeature.");
     XCTAssertEqual(feature.attributes.count, 0UL);
     XCTAssertEqual(feature.coordinate.latitude, 0);
     XCTAssertEqual(feature.coordinate.longitude, 0);
@@ -118,12 +118,12 @@
 }
 
 - (void)testGeoJSONSerialization {
-    MHPointFeatureClusterFeature *feature = [[MHPointFeatureClusterFeature alloc] init];
+    MHPointFeature *feature = [[MHPointFeature alloc] init];
     feature.identifier = @504;
     feature.coordinate = CLLocationCoordinate2DMake(29.95, -90.066667);
 
     NSData *data = [feature geoJSONDataUsingEncoding:NSUTF8StringEncoding];
-    XCTAssertNotNil(data, @"MHPointFeatureClusterFeature should serialize as an UTF-8 string data object.");
+    XCTAssertNotNil(data, @"MHPointFeature should serialize as an UTF-8 string data object.");
     NSError *error;
     NSDictionary *serializedGeoJSON = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
     XCTAssertNil(error, @"Serialized GeoJSON data should be deserializable JSON.");
@@ -141,7 +141,7 @@
         },
         @"properties": @{},
     };
-    XCTAssertEqualObjects(serializedGeoJSON, geoJSON, @"MHPointFeatureClusterFeature should serialize as a GeoJSON point feature.");
+    XCTAssertEqualObjects(serializedGeoJSON, geoJSON, @"MHPointFeature should serialize as a GeoJSON point feature.");
 }
 
 - (void)testMHCoordinateBoundsToMHCoordinateQuad {

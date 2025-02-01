@@ -1,4 +1,4 @@
-# ``MapLibre``
+# ``MapHero``
 
 @Metadata {
     @Available(iOS, introduced: "12.0")
@@ -12,7 +12,7 @@ Powerful, free and open-source mapping toolkit with full control over data sourc
 
 ## Overview
 
-[MapLibre Native](https://github.com/maplibre/maplibre-native) is a map rendering toolkit with support for iOS. It can be used as an alternative to MapKit. You have full control over the data sources used for rendering the map, as well as the styling. You can even participate in the development as MapLibre Native is free and open-source project.
+[MapHero Native](https://github.com/maplibre/maplibre-native) is a map rendering toolkit with support for iOS. It can be used as an alternative to MapKit. You have full control over the data sources used for rendering the map, as well as the styling. You can even participate in the development as MapLibre Native is free and open-source project.
 > Note: For information on creating and modifying map styles, see the [MapLibre Style Spec documentation](https://maplibre.org/maplibre-style-spec/).
 
 ## Topics
@@ -129,5 +129,5 @@ Powerful, free and open-source mapping toolkit with full control over data sourc
 
 - ``MHAnnotationImage``
 - ``MHAnnotationView``
-- ``MHPointFeatureClusterFeature``
-- ``MHPointFeatureClusterFeatureCluster``
+- ``MHPointFeature``
+- ``MHPointFeatureCluster``

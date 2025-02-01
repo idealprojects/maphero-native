@@ -62,10 +62,10 @@ MH_DEFINE_FEATURE_ATTRIBUTES_GETTER();
 
 @end
 
-@interface MHPointFeatureClusterFeature ()
+@interface MHPointFeature ()
 @end
 
-@implementation MHPointFeatureClusterFeature
+@implementation MHPointFeature
 
 @synthesize identifier;
 @synthesize attributes = _attributes;
@@ -99,7 +99,7 @@ MH_DEFINE_FEATURE_ATTRIBUTES_GETTER();
 
 @end
 
-@implementation MHPointFeatureClusterFeatureCluster
+@implementation MHPointFeatureCluster
 
 - (NSUInteger)clusterIdentifier {
     NSNumber *clusterNumber = MH_OBJC_DYNAMIC_CAST([self attributeForKey:MHClusterIdentifierKey], NSNumber);
@@ -365,7 +365,7 @@ public:
     }
 
     MHShape * operator()(const mbgl::Point<T> &geometry) const {
-        Class shapeClass = is_in_feature ? [MHPointFeatureClusterFeature class] : [MHPointAnnotation class];
+        Class shapeClass = is_in_feature ? [MHPointFeature class] : [MHPointAnnotation class];
         
         // If we're dealing with a cluster, we should change the class type.
         // This could be generic and build the subclass at runtime if it turns
@@ -376,7 +376,7 @@ public:
                 auto clusterValue = clusterIt->second;
                 if (clusterValue.template is<bool>()) {
                     if (clusterValue.template get<bool>()) {
-                        shapeClass = [MHPointFeatureClusterFeatureCluster class];
+                        shapeClass = [MHPointFeatureCluster class];
                     }
                 }
             }

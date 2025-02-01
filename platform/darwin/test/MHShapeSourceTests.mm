@@ -49,8 +49,8 @@
         MHShapeSourceOptionClustered: @YES,
     };
 
-    MHShapeSource *source = [[MHShapeSource alloc] initWithIdentifier:@"id" shape:[[MHPointFeatureClusterFeature alloc] init] options:options];
-    XCTAssertTrue([source.shape isKindOfClass:[MHPointFeatureClusterFeature class]]);
+    MHShapeSource *source = [[MHShapeSource alloc] initWithIdentifier:@"id" shape:[[MHPointFeature alloc] init] options:options];
+    XCTAssertTrue([source.shape isKindOfClass:[MHPointFeature class]]);
 
     MHShapeCollectionFeature *feature = [MHShapeCollectionFeature shapeCollectionWithShapes:@[]];
     source = [[MHShapeSource alloc] initWithIdentifier:@"id" shape:feature options:options];
@@ -94,8 +94,8 @@
     XCTAssertNotNil(shape);
     MHShapeSource *source = [[MHShapeSource alloc] initWithIdentifier:@"geojson" shape:shape options:nil];
     XCTAssertNotNil(source.shape);
-    XCTAssert([source.shape isKindOfClass:[MHPointFeatureClusterFeature class]]);
-    MHPointFeatureClusterFeature *feature = (MHPointFeatureClusterFeature *)source.shape;
+    XCTAssert([source.shape isKindOfClass:[MHPointFeature class]]);
+    MHPointFeature *feature = (MHPointFeature *)source.shape;
     XCTAssert([feature.attributes.allKeys containsObject:@"color"]);
 }
 
@@ -222,13 +222,13 @@
 }
 
 - (void)testMHShapeSourceWithPointFeature {
-    MHPointFeatureClusterFeature *pointFeature = [MHPointFeatureClusterFeature new];
+    MHPointFeature *pointFeature = [MHPointFeature new];
     pointFeature.coordinate = CLLocationCoordinate2DMake(0.2, 100.2);
 
     MHShapeSource *source = [[MHShapeSource alloc] initWithIdentifier:@"souce-id" shape:pointFeature options:nil];
 
     XCTAssertNotNil(source.shape);
-    XCTAssertTrue([source.shape isMemberOfClass:[MHPointFeatureClusterFeature class]]);
+    XCTAssertTrue([source.shape isMemberOfClass:[MHPointFeature class]]);
 }
 
 - (void)testMHShapeSourceWithPointCollectionFeature {
@@ -273,7 +273,7 @@
 
     MHPointCollectionFeature *pointCollectionFeature = [MHPointCollectionFeature pointCollectionWithCoordinates:coordinates count:5];
 
-    MHPointFeatureClusterFeature *pointFeature = [MHPointFeatureClusterFeature new];
+    MHPointFeature *pointFeature = [MHPointFeature new];
     pointFeature.coordinate = CLLocationCoordinate2DMake(0.2, 100.2);
 
     MHShapeCollectionFeature *shapeCollectionFeature = [MHShapeCollectionFeature shapeCollectionWithShapes:@[polygonFeature, polylineFeature, multiPolygonFeature, multiPolylineFeature, pointCollectionFeature, pointFeature]];
