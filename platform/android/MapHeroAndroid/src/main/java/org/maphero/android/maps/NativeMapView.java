@@ -44,7 +44,7 @@ import java.util.Arrays;
 import java.util.List;
 
 // Class that wraps the native methods for convenience
-final class NativeMapView implements NativeMap {
+public final class NativeMapView implements NativeMap {
 
   private static final String TAG = "Mbgl-NativeMapView";
 
@@ -1170,6 +1170,10 @@ final class NativeMapView implements NativeMap {
     return true;
   }
 
+  public void setViewCallback(@Nullable ViewCallback viewCallback) {
+    this.viewCallback = viewCallback;
+  }
+
   @Keep
   protected void onSnapshotReady(@Nullable Bitmap mapContent) {
     if (checkState("OnSnapshotReady")) {
@@ -1186,6 +1190,8 @@ final class NativeMapView implements NativeMap {
             snapshotReadyCallback.onSnapshotReady(
                     BitmapUtils.mergeBitmaps(mapContent, viewContent)
             );
+          } else {
+            snapshotReadyCallback.onSnapshotReady(mapContent);
           }
         }
       }

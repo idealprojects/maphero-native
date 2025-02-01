@@ -4,7 +4,7 @@
     <string name="maphero_attributionsIconContentDescription">Icona d’atribució. Activa per mostrar el diàleg de l’atribució.</string>
     <string name="maphero_myLocationViewContentDescription">Vista de posició. Mostra la teva posició al mapa.</string>
     <string name="maphero_mapActionDescription">Mostrant un mapa creat amb MapLibre. Desplaça’t arrossegant amb dos dits. Fes zoom pessigant amb dos dits.</string>
-    <string name="maphero_attributionsDialogTitle">MapLibre Android SDK</string>
+    <string name="maphero_attributionsDialogTitle">MapHero Android SDK</string>
     <string name="maphero_offline_error_region_definition_invalid">La OfflineRegionDefinition proporcionada no encaixa amb els límits del món: %s</string>
 
     </resources>

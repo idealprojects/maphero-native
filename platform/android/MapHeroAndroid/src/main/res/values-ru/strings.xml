@@ -4,7 +4,7 @@
     <string name="maphero_attributionsIconContentDescription">Значок атрибутов. Активируйте, чтобы показать диалог.</string>
     <string name="maphero_myLocationViewContentDescription">Местоположение. Отображает вашу позицию на карте.</string>
     <string name="maphero_mapActionDescription">Отображает карту, созданную при помощи MapLibre. Пролистывайте двумя пальцами. Меняйте масштаб сведением пальцев.</string>
-    <string name="maphero_attributionsDialogTitle">MapLibre Maps SDK для Android</string>
+    <string name="maphero_attributionsDialogTitle">MapHero Maps SDK для Android</string>
     <string name="maphero_attributionErrorNoBrowser">На устройстве нет веб-браузера, нельзя показать веб-страницу.</string>
     <string name="maphero_offline_error_region_definition_invalid">Запрошенный OfflineRegionDefinition не входит в допустимые границы: %s</string>
     </resources>

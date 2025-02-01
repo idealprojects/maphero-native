@@ -4,3 +4,5 @@
 0	27	0	clean	e2bebd157400b98d
 0	25	0	clean	e2bebd157400b98d
 1	27	0	clean	e2bebd157400b98d
+7	233	1726497595507910365	../../../../../arm64-v8a/CMakeFiles/example-custom-layer.dir/platform/android/src/example_custom_layer.cpp.o	51f9418a439c6294
+234	503	1726497595784947990	/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/platform/android/MapHeroAndroidTestApp/build/intermediates/cxx/RelWithDebInfo/36s5o536/obj/arm64-v8a/libexample-custom-layer.so	fa910689b8e62675

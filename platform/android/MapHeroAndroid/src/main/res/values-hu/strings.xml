@@ -2,7 +2,7 @@
 <resources>
     <string name="maphero_myLocationViewContentDescription">Hely nézet. Megmutatja, hol vagy a térképen.</string>
     <string name="maphero_mapActionDescription">Egy MapLibre-szal készült térkép megjelenítése. Húzd két ujjadat a görgetéshez. Csippentsd össze a nagyításhoz.</string>
-    <string name="maphero_attributionsDialogTitle">MapLibre Maps SDK Androidhoz</string>
+    <string name="maphero_attributionsDialogTitle">MapHero Maps SDK Androidhoz</string>
     <string name="maphero_attributionErrorNoBrowser">Nincs webböngésző telepítve a készüléken, nem lehet megnyitni weboldalt.</string>
     <string name="maphero_offline_error_region_definition_invalid">A megadott OfflineRegionDefinition nem fér bele a világ kereteibe: %s</string>
     </resources>

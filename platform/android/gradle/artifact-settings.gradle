@@ -1,12 +1,12 @@
 ext {
-    mapLibreArtifactGroupId = 'org.maplibre.gl'
+    mapLibreArtifactGroupId = 'io.maphero'
     mapLibreArtifactId = 'android-sdk'
     mapLibreArtifactTitle = 'MapHero Maps SDK for Android'
     mapLibreArtifactDescription = 'MapHero Maps SDK for Android'
     mapLibreDeveloperName = 'MapHero'
-    mapLibreDeveloperId = 'maphero'
-    mapLibreArtifactUrl = 'https://github.com/maplibre/maplibre-native'
-    mapLibreArtifactScmUrl = 'scm:git@github.com:maplibre/maplibre-native.git'
+    mapLibreDeveloperId = 'developer.ipc'
+    mapLibreArtifactUrl = 'https://github.com/idealprojects/maphero-native'
+    mapLibreArtifactScmUrl = 'scm:git@github.com:idealprojects/maphero-native.git'
     mapLibreArtifactLicenseName = 'BSD'
     mapLibreArtifactLicenseUrl = 'https://opensource.org/licenses/BSD-2-Clause'
     versionName = project.hasProperty('VERSION_NAME') ? project.property('VERSION_NAME') : System.getenv('VERSION_NAME')

@@ -1,5 +1,5 @@
 Pod::Spec.new do |s|
-    version = "#{ENV['VERSION']}"
+    version = "0.0.1"
     s.name = 'MapHero'
     s.version = version
     s.license = { :type => 'BSD', :file => "LICENSE.md" }

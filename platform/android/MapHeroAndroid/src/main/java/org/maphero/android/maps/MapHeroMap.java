@@ -96,6 +96,10 @@ public final class MapHeroMap {
     this.developerAnimationStartedListeners = developerAnimationStartedListeners;
   }
 
+  public NativeMap getNativeMapView() {
+    return nativeMapView;
+  }
+
   /**
    * Trigger the mapview to repaint.
    */
