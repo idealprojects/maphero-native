@@ -1,4 +1,7 @@
 load("@aspect_rules_js//js:defs.bzl", "js_library")
+
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
 http_archive(
     name = "build_bazel_rules_apple",
     urls = ["https://github.com/bazelbuild/rules_apple/releases/download/0.38.0/rules_apple.0.38.0.tar.gz"],
@@ -9,7 +12,6 @@ load("@build_bazel_rules_apple//apple:repositories.bzl", "apple_rules_dependenci
 
 apple_rules_dependencies()
 
-load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 load("@build_bazel_rules_apple//apple:apple.bzl", "apple_static_xcframework", "apple_xcframework")
 load("@build_bazel_rules_apple//apple:ios.bzl", "ios_application", "ios_framework")
