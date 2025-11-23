@@ -95,7 +95,8 @@ jobs:
       - name: Build ios-sdk
         run: |
           bazel build //platform:ios-sdk --apple_platform_type=ios --ios_multi_cpus=arm64 --xcode_version=16.4 --define=APPLE_SDK_PLATFORM=iphoneos
-
+        env:
+          APPLE_SDK_PLATFORM: iphoneos
       - name: Build ios-sdk-dynamic
         run: |
           bazel build //platform:ios-sdk-dynamic --apple_platform_type=ios --sandbox_debug --verbose_failures --ios_multi_cpus=arm64 --xcode_version=16.4 --define=APPLE_SDK_PLATFORM=iphoneos
