@@ -13,10 +13,9 @@ objc_library(
 
     copts = WARNING_FLAGS["ios"] + [
         "-target", "arm64-apple-ios11.0",
-        "-isysroot", "$(APPLE_SDK_ROOT)",
-        "-F$(APPLE_SDK_ROOT)/System/Library/Frameworks",
+        "-isysroot", "__BAZEL_XCODE_SDKROOT__",
+        "-F__BAZEL_XCODE_SDKROOT__/System/Library/Frameworks",
     ],
-
     sdk_frameworks = ["UIKit"],
     sdk_includes = ["UIKit"],
 
