@@ -11,9 +11,10 @@ objc_library(
 
     includes = ["SMCalloutView"],
 
-    # Force iOS compilation instead of macOS
     copts = WARNING_FLAGS["ios"] + [
         "-target", "arm64-apple-ios11.0",
+        "-isysroot", "$(APPLE_SDK_ROOT)",
+        "-F$(APPLE_SDK_ROOT)/System/Library/Frameworks",
     ],
 
     sdk_frameworks = ["UIKit"],
