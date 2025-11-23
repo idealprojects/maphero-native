@@ -94,12 +94,14 @@ jobs:
 
       - name: Build ios-sdk
         run: |
-          bazel build //platform:ios-sdk --apple_platform_type=ios --ios_multi_cpus=arm64 --xcode_version=16.4 --define=APPLE_SDK_PLATFORM=iphoneos
+          sudo xcode-select -s /Applications/Xcode_16.4.app
+          bazel build //platform:ios-sdk --apple_platform_type=ios --ios_multi_cpus=arm64 --xcode_version=16.4 --define=APPLE_SDK_PLATFORM=iphoneos --sandbox_writable_path=/tmp
         env:
           APPLE_SDK_PLATFORM: iphoneos
       - name: Build ios-sdk-dynamic
         run: |
-          bazel build //platform:ios-sdk-dynamic --apple_platform_type=ios --sandbox_debug --verbose_failures --ios_multi_cpus=arm64 --xcode_version=16.4 --define=APPLE_SDK_PLATFORM=iphoneos
+          sudo xcode-select -s /Applications/Xcode_16.4.app
+          bazel build //platform:ios-sdk-dynamic --apple_platform_type=ios --sandbox_debug --verbose_failures --ios_multi_cpus=arm64 --xcode_version=16.4 --define=APPLE_SDK_PLATFORM=iphoneos --sandbox_writable_path=/tmp
 
       - name: Build iosapp
         run: |
