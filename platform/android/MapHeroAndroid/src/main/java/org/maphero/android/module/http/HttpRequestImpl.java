@@ -70,11 +70,14 @@ public class HttpRequestImpl implements HttpRequest {
 
       final String host = httpUrl.host().toLowerCase(MapHeroConstants.MAPHERO_LOCALE);
       resourceUrl = HttpRequestUrl.buildResourceUrl(host, resourceUrl, httpUrl.querySize(), offlineUsage);
-
+      String mapToken = MapHero.getApiKey();
+      if (mapToken == null) {
+        mapToken = "";
+      }
       final Request.Builder builder = new Request.Builder()
         .url(resourceUrl)
         .tag(resourceUrl.toLowerCase(MapHeroConstants.MAPHERO_LOCALE))
-              .addHeader("map-token", Optional.ofNullable(MapHero.getApiKey()).orElse(""))
+        .addHeader("map-token", mapToken)
         .addHeader("User-Agent", userAgentString);
       if (etag.length() > 0) {
         builder.addHeader("If-None-Match", etag);

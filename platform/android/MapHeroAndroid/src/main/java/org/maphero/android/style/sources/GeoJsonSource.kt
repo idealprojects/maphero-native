@@ -16,14 +16,14 @@ import java.util.*
  * @see [the style specification](https://maplibre.org/maplibre-style-spec/.sources-geojson)
  */
 @UiThread
-class GeoJsonSource : Source {
+open class GeoJsonSource : Source {
     /**
      * Internal use
      *
      * @param nativePtr - pointer to native peer
      */
     @Keep
-    internal constructor(nativePtr: Long) : super(nativePtr) {
+    public constructor(nativePtr: Long) : super(nativePtr) {
     }
 
     /**

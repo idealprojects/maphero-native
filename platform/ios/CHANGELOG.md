@@ -1,6 +1,10 @@
-# Changelog for MapLibre Native for iOS
+# Changelog for MapHero Native for iOS
 
 MapHero welcomes participation and contributions from everyone. Please read [`Contributing Guide`](https://github.dev/idealprojects/maphero-native/blob/master/CONTRIBUTING.md) to get started.
+
+* Changing icon for maplibre
+* 
+## 0.0.3 - Nov 23, 2025
 
 ## main
 

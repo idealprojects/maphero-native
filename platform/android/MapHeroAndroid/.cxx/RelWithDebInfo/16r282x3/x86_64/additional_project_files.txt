@@ -192,6 +192,7 @@
 /Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/platform/android/MapHeroAndroid/src/cpp/style/position.hpp
 /Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/platform/android/MapHeroAndroid/src/cpp/style/sources/custom_geometry_source.hpp
 /Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/platform/android/MapHeroAndroid/src/cpp/style/sources/geojson_source.hpp
+/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/platform/android/MapHeroAndroid/src/cpp/style/sources/live_geojson_source.hpp
 /Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/platform/android/MapHeroAndroid/src/cpp/style/sources/image_source.hpp
 /Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/platform/android/MapHeroAndroid/src/cpp/style/sources/raster_dem_source.hpp
 /Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/platform/android/MapHeroAndroid/src/cpp/style/sources/raster_source.hpp
@@ -369,6 +370,7 @@
 /Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/include/mbgl/style/source.hpp
 /Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/include/mbgl/style/sources/custom_geometry_source.hpp
 /Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/include/mbgl/style/sources/geojson_source.hpp
+/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/include/mbgl/style/sources/live_geojson_source.hpp
 /Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/include/mbgl/style/sources/image_source.hpp
 /Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/include/mbgl/style/sources/raster_dem_source.hpp
 /Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/include/mbgl/style/sources/raster_source.hpp
@@ -748,6 +750,7 @@
 /Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/src/mbgl/renderer/sources/render_custom_geometry_source.hpp
 /Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/src/mbgl/renderer/sources/render_geojson_source.cpp
 /Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/src/mbgl/renderer/sources/render_geojson_source.hpp
+/Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/src/mbgl/renderer/sources/render_live_geojson_source.hpp
 /Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/src/mbgl/renderer/sources/render_image_source.cpp
 /Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/src/mbgl/renderer/sources/render_image_source.hpp
 /Users/khalidtaha/Desktop/Doroob-Staff/maphero-native/src/mbgl/renderer/sources/render_raster_dem_source.cpp

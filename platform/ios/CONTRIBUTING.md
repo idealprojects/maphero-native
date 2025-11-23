@@ -46,7 +46,7 @@ bazel run //platform/ios:xcodeproj --@rules_xcodeproj//xcodeproj:extra_common_fl
 xed platform/ios/MapLibre.xcodeproj
 ```
 
-Then once in Xcode, click on "MapLibre" on the left, then "App" under Targets, then "Signing & Capabilities" in the tabbed menu. 
+Then once in Xcode, click on "MapHero" on the left, then "App" under Targets, then "Signing & Capabilities" in the tabbed menu. 
 Confirm that no errors are shown.
 
 <img width="921" alt="image" src="https://github.com/polvi/maplibre-native/assets/649392/a1ef30cb-97fc-429a-acee-194436f3fb8a">
@@ -79,7 +79,7 @@ To run the render tests, run the `RenderTest` target from iOS.
 When running in a simulator, use
 
 ```
-# check for 'DataContainer' of the app with `*.maplibre.RenderTestApp` id
+# check for 'DataContainer' of the app with `*.maphero.RenderTestApp` id
 xcrun simctl listapps booted
 ```
 
@@ -91,7 +91,7 @@ Run the tests from the `CppUnitTests` target in Xcode to run the C++ Unit Tests 
 
 ## Swift App
 
-There is also an example app built with Swift instead of Objective-C. The target is called `MapLibreApp` and the source code lives in `platform/ios/app-swift`.
+There is also an example app built with Swift instead of Objective-C. The target is called `MapHeroApp` and the source code lives in `platform/ios/app-swift`.
 
 ## Documentation
 

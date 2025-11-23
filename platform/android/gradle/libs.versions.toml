@@ -1,5 +1,6 @@
 [versions]
 mapLibreServices = "6.0.1"
+ndkVersion = "28.1.13356709"
 appCompat = "1.7.0"
 constraintLayout = "2.1.4"
 interpolator = "1.0.0"

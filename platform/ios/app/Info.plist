@@ -31,7 +31,7 @@
 	<key>NSLocationTemporaryUsageDescriptionDictionary</key>
 	<dict>
 		<key>MHAccuracyAuthorizationDescription</key>
-		<string>MapLibre requires your precise location to help you navigate the map.</string>
+		<string>MapHero requires your precise location to help you navigate the map.</string>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>The map will display your location.</string>

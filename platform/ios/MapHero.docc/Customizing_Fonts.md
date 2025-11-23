@@ -2,6 +2,7 @@
 
 Using custom fonts
 
+
 MapHero Native IOS can render text that is part of an ``MHSymbolStyleLayer`` in a font of your choice. The font customization options discussed in this document do not apply to user interface elements such as the scale bar or annotation callout views.
 
 ## Server-side fonts
