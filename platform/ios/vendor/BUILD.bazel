@@ -19,8 +19,6 @@ objc_library(
 
     sdk_frameworks = ["UIKit"],
 
-    platform_type = "ios",   # ✅ CRITICAL FIX
-
     tags = ["manual"],
     visibility = [
         "//platform:__pkg__",
