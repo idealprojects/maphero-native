@@ -94,11 +94,11 @@ jobs:
 
       - name: Build ios-sdk
         run: |
-          bazel build //platform:ios-sdk --sandbox_debug --verbose_failures
+          bazel build //platform:ios-sdk --apple_platform_type=ios --sandbox_debug --verbose_failures
 
       - name: Build ios-sdk-dynamic
         run: |
-          bazel build //platform:ios-sdk-dynamic --sandbox_debug --verbose_failures
+          bazel build //platform:ios-sdk-dynamic --apple_platform_type=ios --sandbox_debug --verbose_failures
 
       - name: Build iosapp
         run: |
