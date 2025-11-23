@@ -281,7 +281,7 @@ mbgl::Immutable<mbgl::style::GeoJSONOptions> MHGeoJSONOptionsFromDictionary(NSDi
     return extensionValue;
 }
 
-- (NSArray<id <MHFeature>> *)leavesOfCluster:(MHPointFeatureClusterFeatureCluster *)cluster offset:(NSUInteger)offset limit:(NSUInteger)limit {
+- (NSArray<id <MHFeature>> *)leavesOfCluster:(MHPointFeatureCluster *)cluster offset:(NSUInteger)offset limit:(NSUInteger)limit {
     const std::map<std::string, mbgl::Value> options = {
         { "limit", static_cast<uint64_t>(limit) },
         { "offset", static_cast<uint64_t>(offset) }
@@ -301,7 +301,7 @@ mbgl::Immutable<mbgl::style::GeoJSONOptions> MHGeoJSONOptionsFromDictionary(NSDi
     return MHFeaturesFromMBGLFeatures(leaves);
 }
 
-- (NSArray<id <MHFeature>> *)childrenOfCluster:(MHPointFeatureClusterFeatureCluster *)cluster {
+- (NSArray<id <MHFeature>> *)childrenOfCluster:(MHPointFeatureCluster *)cluster {
     auto featureExtension = [self featureExtensionValueOfCluster:cluster extension:"children" options:{}];
     
     if (!featureExtension) {
@@ -316,7 +316,7 @@ mbgl::Immutable<mbgl::style::GeoJSONOptions> MHGeoJSONOptionsFromDictionary(NSDi
     return MHFeaturesFromMBGLFeatures(leaves);
 }
 
-- (double)zoomLevelForExpandingCluster:(MHPointFeatureClusterFeatureCluster *)cluster {
+- (double)zoomLevelForExpandingCluster:(MHPointFeatureCluster *)cluster {
     auto featureExtension = [self featureExtensionValueOfCluster:cluster extension:"expansion-zoom" options:{}];
 
     if (!featureExtension) {
@@ -347,7 +347,7 @@ mbgl::Immutable<mbgl::style::GeoJSONOptions> MHGeoJSONOptionsFromDictionary(NSDi
     
     printf("%*s%s\n", (int)indent, "", log.UTF8String);
     
-    MHPointFeatureClusterFeatureCluster *cluster = MH_OBJC_DYNAMIC_CAST(feature, MHPointFeatureClusterFeatureCluster);
+    MHPointFeatureCluster *cluster = MH_OBJC_DYNAMIC_CAST(feature, MHPointFeatureCluster);
     
     if (cluster) {
         for (id <MHFeature> child in [self childrenOfCluster:cluster]) {

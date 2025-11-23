@@ -42,8 +42,8 @@
     NSArray<MHShape <MHFeature> *> *shapes = MHFeaturesFromMBGLFeatures(features);
     XCTAssertEqual(shapes.count, 3UL, @"All features should be converted into shapes");
 
-    MHPointFeatureClusterFeature *pointShape = (MHPointFeatureClusterFeature *)shapes[0];
-    XCTAssertTrue([pointShape isKindOfClass:[MHPointFeatureClusterFeature class]]);
+    MHPointFeature *pointShape = (MHPointFeature *)shapes[0];
+    XCTAssertTrue([pointShape isKindOfClass:[MHPointFeature class]]);
     XCTAssertEqualObjects([NSValue valueWithMHCoordinate:pointShape.coordinate],
                           [NSValue valueWithMHCoordinate:CLLocationCoordinate2DMake(29.95, -90.066667)]);
 
@@ -103,7 +103,7 @@
     XCTAssert(cluster.clusterIdentifier == 1);
     XCTAssert(cluster.clusterPointCount == 5);
     
-    XCTAssert([cluster isMemberOfClass:[MHPointFeatureClusterFeatureCluster class]]);
+    XCTAssert([cluster isMemberOfClass:[MHPointFeatureCluster class]]);
 }
 
 - (void)testPropertyConversion {
@@ -176,7 +176,7 @@
 }
 
 - (void)testPointFeatureGeoJSONDictionary {
-    MHPointFeatureClusterFeature *pointFeature = [[MHPointFeatureClusterFeature alloc] init];
+    MHPointFeature *pointFeature = [[MHPointFeature alloc] init];
     CLLocationCoordinate2D coordinate = { 10, 10 };
     pointFeature.coordinate = coordinate;
 
@@ -315,7 +315,7 @@
 }
 
 - (void)testShapeCollectionFeatureGeoJSONDictionary {
-    MHPointFeatureClusterFeature *pointFeature = [[MHPointFeatureClusterFeature alloc] init];
+    MHPointFeature *pointFeature = [[MHPointFeature alloc] init];
     CLLocationCoordinate2D pointCoordinate = { 10, 10 };
     pointFeature.coordinate = pointCoordinate;
 

@@ -36,7 +36,7 @@ To include multiple shapes in the source, create and pass an ``MHShapeCollection
  ``MHShapeSource/initWithIdentifier:features:options:`` or 
  ``MHShapeSource/initWithIdentifier:shapes:options:`` method to create a shape source 
  with an array. ``MHShapeSource/initWithIdentifier:features:options:`` accepts only ``MHFeature``
- instances, such as ``MHPointFeatureClusterFeature`` objects, whose attributes you can use when
+ instances, such as ``MHPointFeature`` objects, whose attributes you can use when
  applying a predicate to ``MHVectorStyleLayer`` or configuring a style layer’s
  appearance.
 

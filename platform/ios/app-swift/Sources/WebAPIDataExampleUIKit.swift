@@ -31,7 +31,7 @@ class WebAPIDataExample: UIViewController, MHMapViewDelegate {
         }
     }
 
-    func addItemsToMap(features: [MHPointFeatureClusterFeature]) {
+    func addItemsToMap(features: [MHPointFeature]) {
         // MHMapView.style is optional, so you must guard against it not being set.
         guard let style = mapView.style else { return }
 
@@ -64,7 +64,7 @@ class WebAPIDataExample: UIViewController, MHMapViewDelegate {
         symbols.iconHaloWidth = NSExpression(forConstantValue: 1)
         symbols.iconOpacity = NSExpression(forMHInterpolating: NSExpression.zoomLevelVariable, curveType: MHExpressionInterpolationMode.linear, parameters: nil, stops: NSExpression(forConstantValue: [5.9: 0, 6: 1]))
 
-        // "name" references the "name" key in an MHPointFeatureClusterFeature’s attributes dictionary.
+        // "name" references the "name" key in an MHPointFeature’s attributes dictionary.
         symbols.text = NSExpression(forKeyPath: "name")
         symbols.textColor = symbols.iconColor
         symbols.textFontSize = NSExpression(forMHInterpolating: NSExpression.zoomLevelVariable, curveType: MHExpressionInterpolationMode.linear, parameters: nil, stops: NSExpression(forConstantValue: [10: 10, 16: 16]))
@@ -89,10 +89,10 @@ class WebAPIDataExample: UIViewController, MHMapViewDelegate {
             // Try matching the exact point first.
             let point = sender.location(in: sender.view!)
             for feature in mapView.visibleFeatures(at: point, styleLayerIdentifiers: layerIdentifiers)
-                where feature is MHPointFeatureClusterFeature
+                where feature is MHPointFeature
             {
-                guard let selectedFeature = feature as? MHPointFeatureClusterFeature else {
-                    fatalError("Failed to cast selected feature as MHPointFeatureClusterFeature")
+                guard let selectedFeature = feature as? MHPointFeature else {
+                    fatalError("Failed to cast selected feature as MHPointFeature")
                 }
                 showCallout(feature: selectedFeature)
                 return
@@ -103,15 +103,15 @@ class WebAPIDataExample: UIViewController, MHMapViewDelegate {
 
             // Otherwise, get all features within a rect the size of a touch (44x44).
             let touchRect = CGRect(origin: point, size: .zero).insetBy(dx: -22.0, dy: -22.0)
-            let possibleFeatures = mapView.visibleFeatures(in: touchRect, styleLayerIdentifiers: Set(layerIdentifiers)).filter { $0 is MHPointFeatureClusterFeature }
+            let possibleFeatures = mapView.visibleFeatures(in: touchRect, styleLayerIdentifiers: Set(layerIdentifiers)).filter { $0 is MHPointFeature }
 
             // Select the closest feature to the touch center.
             let closestFeatures = possibleFeatures.sorted(by: {
                 CLLocation(latitude: $0.coordinate.latitude, longitude: $0.coordinate.longitude).distance(from: touchLocation) < CLLocation(latitude: $1.coordinate.latitude, longitude: $1.coordinate.longitude).distance(from: touchLocation)
             })
             if let feature = closestFeatures.first {
-                guard let closestFeature = feature as? MHPointFeatureClusterFeature else {
-                    fatalError("Failed to cast selected feature as MHPointFeatureClusterFeature")
+                guard let closestFeature = feature as? MHPointFeature else {
+                    fatalError("Failed to cast selected feature as MHPointFeature")
                 }
                 showCallout(feature: closestFeature)
                 return
@@ -122,8 +122,8 @@ class WebAPIDataExample: UIViewController, MHMapViewDelegate {
         }
     }
 
-    func showCallout(feature: MHPointFeatureClusterFeature) {
-        let point = MHPointFeatureClusterFeature()
+    func showCallout(feature: MHPointFeature) {
+        let point = MHPointFeature()
         point.title = feature.attributes["name"] as? String
         point.coordinate = feature.coordinate
 
@@ -149,7 +149,7 @@ class WebAPIDataExample: UIViewController, MHMapViewDelegate {
 
     // MARK: - Data fetching and parsing
 
-    func fetchPoints(withCompletion completion: @escaping (([MHPointFeatureClusterFeature]) -> Void)) {
+    func fetchPoints(withCompletion completion: @escaping (([MHPointFeature]) -> Void)) {
         // Wikidata query for all lighthouses in the United States: http://tinyurl.com/zrl2jc4
         let query = "SELECT DISTINCT ?item " +
             "?itemLabel ?coor ?image " +
@@ -193,8 +193,8 @@ class WebAPIDataExample: UIViewController, MHMapViewDelegate {
         }).resume()
     }
 
-    func parseJSONItems(items: [[String: AnyObject]]) -> [MHPointFeatureClusterFeature] {
-        var features = [MHPointFeatureClusterFeature]()
+    func parseJSONItems(items: [[String: AnyObject]]) -> [MHPointFeature] {
+        var features = [MHPointFeature]()
         for item in items {
             guard let label = item["itemLabel"] as? [String: AnyObject],
                   let title = label["value"] as? String else { continue }
@@ -204,7 +204,7 @@ class WebAPIDataExample: UIViewController, MHMapViewDelegate {
             let parsedPoint = point.replacingOccurrences(of: "Point(", with: "").replacingOccurrences(of: ")", with: "")
             let pointComponents = parsedPoint.components(separatedBy: " ")
             let coordinate = CLLocationCoordinate2D(latitude: Double(pointComponents[1])!, longitude: Double(pointComponents[0])!)
-            let feature = MHPointFeatureClusterFeature()
+            let feature = MHPointFeature()
             feature.coordinate = coordinate
             feature.title = title
             // A feature’s attributes can used by runtime styling for things like text labels.

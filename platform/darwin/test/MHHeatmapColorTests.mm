@@ -11,7 +11,7 @@
 @implementation MHHeatmapColorTests
 
 - (void)testProperties {
-    MHPointFeatureClusterFeature *feature = [[MHPointFeatureClusterFeature alloc] init];
+    MHPointFeature *feature = [[MHPointFeature alloc] init];
     MHShapeSource *source = [[MHShapeSource alloc] initWithIdentifier:@"sourceID" shape:feature options:nil];
     MHHeatmapStyleLayer *layer = [[MHHeatmapStyleLayer alloc] initWithIdentifier:@"layerID" source:source];
 

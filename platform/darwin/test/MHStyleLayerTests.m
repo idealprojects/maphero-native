@@ -9,7 +9,7 @@
 @dynamic layerType;
 
 - (void)testProperties {
-    MHPointFeatureClusterFeature *feature = [[MHPointFeatureClusterFeature alloc] init];
+    MHPointFeature *feature = [[MHPointFeature alloc] init];
     MHShapeSource *source = [[MHShapeSource alloc] initWithIdentifier:@"sourceID" shape:feature options:nil];
 
     MHFillStyleLayer *layer = [[MHFillStyleLayer alloc] initWithIdentifier:@"layerID" source:source];

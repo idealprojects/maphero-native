@@ -181,7 +181,7 @@ class MHDocumentationExampleTests: XCTestCase, MHMapViewDelegate {
         // We want to use mapbox.terrain-rgb in the example, but using a mapbox:
         // URL requires setting an access token. So this identically named
         // subclass of MHRasterDEMSource swaps in a nonexistent URL.
-        class MHRasterDEMSource: MapLibre.MHRasterDEMSource {
+        class MHRasterDEMSource: MapHero.MHRasterDEMSource {
             override init(identifier: String, configurationURL: URL, tileSize: CGFloat = 256) {
                 let bogusURL = URL(string: "https://example.com/raster-rgb.json")!
                 super.init(identifier: identifier, configurationURL: bogusURL, tileSize: tileSize)
@@ -232,7 +232,7 @@ class MHDocumentationExampleTests: XCTestCase, MHMapViewDelegate {
             bottomRight: CLLocationCoordinate2D(latitude: 37.936, longitude: -71.516),
             topRight: CLLocationCoordinate2D(latitude: 46.437, longitude: -71.516)
         )
-        let source = MHImageSource(identifier: "radar", coordinateQuad: coordinates, url: URL(string: "https://maplibre.org/maplibre-gl-js-docs/assets/radar.gif")!)
+        let source = MHImageSource(identifier: "radar", coordinateQuad: coordinates, url: URL(string: "https://MapHero.org/MapHero-gl-js-docs/assets/radar.gif")!)
         mapView.style?.addSource(source)
         // #-end-example-code
 
@@ -460,7 +460,7 @@ class MHDocumentationExampleTests: XCTestCase, MHMapViewDelegate {
     }
 
     func testMHMapSnapshotter() throws {
-        throw XCTSkip("Snapshotter not implemented yet for Metal. See https://github.com/maplibre/maplibre-native/issues/1862")
+        throw XCTSkip("Snapshotter not implemented yet for Metal. See https://github.com/MapHero/MapHero-native/issues/1862")
 
         let expectation = expectation(description: "MHMapSnapshotter should produce a snapshot")
         #if os(macOS)
@@ -532,7 +532,7 @@ class MHDocumentationExampleTests: XCTestCase, MHMapViewDelegate {
             // #-example-code
             let shape = try! MHShape(data: clusterShapeData, encoding: String.Encoding.utf8.rawValue)
 
-            guard let pointFeature = shape as? MHPointFeatureClusterFeature else {
+            guard let pointFeature = shape as? MHPointFeature else {
                 throw ExampleError.unexpectedFeatureType
             }
 
@@ -542,8 +542,8 @@ class MHDocumentationExampleTests: XCTestCase, MHMapViewDelegate {
             }
 
             // Currently the only supported class that conforms to ``MHCluster`` is
-            // ``MHPointFeatureClusterFeatureCluster``
-            guard cluster is MHPointFeatureClusterFeatureCluster else {
+            // ``MHPointFeatureCluster``
+            guard cluster is MHPointFeatureCluster else {
                 throw ExampleError.unexpectedFeatureType
             }
 

@@ -29,7 +29,7 @@
 
 <% if (type !== 'background' && type !== 'raster' && type !== 'hillshade') { -%>
 - (void)testPredicates {
-    MHPointFeatureClusterFeature *feature = [[MHPointFeatureClusterFeature alloc] init];
+    MHPointFeature *feature = [[MHPointFeature alloc] init];
     MHShapeSource *source = [[MHShapeSource alloc] initWithIdentifier:@"sourceID" shape:feature options:nil];
     MH<%- camelize(type) %>StyleLayer *layer = [[MH<%- camelize(type) %>StyleLayer alloc] initWithIdentifier:@"layerID" source:source];
 
@@ -51,7 +51,7 @@
 <% if (type === 'background') { -%>
     MH<%- camelize(type) %>StyleLayer *layer = [[MH<%- camelize(type) %>StyleLayer alloc] initWithIdentifier:@"layerID"];
 <% } else { -%>
-    MHPointFeatureClusterFeature *feature = [[MHPointFeatureClusterFeature alloc] init];
+    MHPointFeature *feature = [[MHPointFeature alloc] init];
     MHShapeSource *source = [[MHShapeSource alloc] initWithIdentifier:@"sourceID" shape:feature options:nil];
 
     MH<%- camelize(type) %>StyleLayer *layer = [[MH<%- camelize(type) %>StyleLayer alloc] initWithIdentifier:@"layerID" source:source];

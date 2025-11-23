@@ -63,7 +63,7 @@ When running your app in the simulator you should be greeted with the default [D
 
 ## UIKit
 
-You can use the following `UIViewController` to get started with MapLibre Native iOS with UIKit.
+You can use the following `UIViewController` to get started with MapHero Native IOS with UIKit.
 
 ```swift
 class SimpleMap: UIViewController, MHMapViewDelegate {

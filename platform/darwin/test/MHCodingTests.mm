@@ -31,21 +31,21 @@
 }
 
 - (void)testPointFeature {
-    MHPointFeatureClusterFeature *pointFeature = [[MHPointFeatureClusterFeature alloc] init];
+    MHPointFeature *pointFeature = [[MHPointFeature alloc] init];
     pointFeature.title = @"title";
     pointFeature.subtitle = @"subtitle";
     pointFeature.identifier = @(123);
     pointFeature.attributes = @{@"bbox": @[@1, @2, @3, @4]};
 
-    NSString *filePath = [self temporaryFilePathForClass:MHPointFeatureClusterFeature.class];
+    NSString *filePath = [self temporaryFilePathForClass:MHPointFeature.class];
     [NSKeyedArchiver archiveRootObject:pointFeature toFile:filePath];
-    MHPointFeatureClusterFeature *unarchivedPointFeature = [NSKeyedUnarchiver unarchiveObjectWithFile:filePath];
+    MHPointFeature *unarchivedPointFeature = [NSKeyedUnarchiver unarchiveObjectWithFile:filePath];
 
     XCTAssertEqualObjects(pointFeature, unarchivedPointFeature);
 }
 
 - (void)testPointFeatureCluster {
-    MHPointFeatureClusterFeature *pointFeature = [[MHPointFeatureClusterFeatureCluster alloc] init];
+    MHPointFeature *pointFeature = [[MHPointFeatureCluster alloc] init];
     pointFeature.title = @"title";
     pointFeature.subtitle = @"subtitle";
     pointFeature.identifier = @(123);
@@ -55,16 +55,16 @@
         @"point_count" : @(2),
     };
 
-    XCTAssert([pointFeature isKindOfClass:[MHPointFeatureClusterFeature class]], @"");
+    XCTAssert([pointFeature isKindOfClass:[MHPointFeature class]], @"");
     
-    NSString *filePath = [self temporaryFilePathForClass:MHPointFeatureClusterFeature.class];
+    NSString *filePath = [self temporaryFilePathForClass:MHPointFeature.class];
     [NSKeyedArchiver archiveRootObject:pointFeature toFile:filePath];
-    MHPointFeatureClusterFeature *unarchivedPointFeature = [NSKeyedUnarchiver unarchiveObjectWithFile:filePath];
+    MHPointFeature *unarchivedPointFeature = [NSKeyedUnarchiver unarchiveObjectWithFile:filePath];
     
     XCTAssertEqualObjects(pointFeature, unarchivedPointFeature);
 
     // Unarchive process should ensure we still have a cluster
-    XCTAssert([unarchivedPointFeature isMemberOfClass:[MHPointFeatureClusterFeatureCluster class]]);
+    XCTAssert([unarchivedPointFeature isMemberOfClass:[MHPointFeatureCluster class]]);
     
     id<MHCluster> cluster = MH_OBJC_DYNAMIC_CAST_AS_PROTOCOL(unarchivedPointFeature, MHCluster);
     
@@ -276,7 +276,7 @@
 - (void)testPointCollectionFeature {
     NSMutableArray *features = [NSMutableArray array];
     for (NSUInteger i = 0; i < 100; i++) {
-        MHPointFeatureClusterFeature *feature = [[MHPointFeatureClusterFeature alloc] init];
+        MHPointFeature *feature = [[MHPointFeature alloc] init];
         feature.coordinate = CLLocationCoordinate2DMake(arc4random() % 90, arc4random() % 180);
         [features addObject:feature];
     }

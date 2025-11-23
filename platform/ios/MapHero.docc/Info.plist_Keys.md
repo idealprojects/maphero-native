@@ -44,7 +44,7 @@ At runtime, you can obtain the value of this key using the ``MHOfflineStorage/da
 
 ## MHCollisionBehaviorPre4_0
 
- If this key is set to YES (`true`), collision detection is performed only between symbol style layers based on the same source, as in versions 2.0–3.7 of the MapLibre Native iOS. In other words, symbols in an `MHSymbolStyleLayer` based on one source (for example, an `MHShapeSource`) may overlap with symbols in another layer that is based on a different source. This is the case regardless of the ``MHSymbolStyleLayer/iconAllowsOverlap``, ``MHSymbolStyleLayer/iconIgnoresPlacement``, ``MHSymbolStyleLayer/textAllowsOverlap``, and ``MHSymbolStyleLayer/textIgnoresPlacement`` properties.
+ If this key is set to YES (`true`), collision detection is performed only between symbol style layers based on the same source, as in versions 2.0–3.7 of the MapHero Native IOS. In other words, symbols in an `MHSymbolStyleLayer` based on one source (for example, an `MHShapeSource`) may overlap with symbols in another layer that is based on a different source. This is the case regardless of the ``MHSymbolStyleLayer/iconAllowsOverlap``, ``MHSymbolStyleLayer/iconIgnoresPlacement``, ``MHSymbolStyleLayer/textAllowsOverlap``, and ``MHSymbolStyleLayer/textIgnoresPlacement`` properties.
 
 Beginning in version 4.0, the SDK also performs collision detection between style layers based on different sources by default. For the default behavior, omit the `MHCollisionBehaviorPre4_0` key or set it to NO (`false`).
 
