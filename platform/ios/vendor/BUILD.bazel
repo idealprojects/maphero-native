@@ -1,20 +1,27 @@
 load("//bazel:flags.bzl", "WARNING_FLAGS")
 
-# SMCalloutView
 objc_library(
     name = "SMCalloutView",
-    srcs = glob(
-        [
-            "SMCalloutView/*.h",
-            "SMCalloutView/*.m",
-        ],
-    ),
-    hdrs = glob(
-        ["SMCalloutView/*.h"],
-    ),
+    srcs = glob([
+        "SMCalloutView/*.m",
+    ]),
+    hdrs = glob([
+        "SMCalloutView/*.h",
+    ]),
+
     copts = WARNING_FLAGS["ios"],
     includes = ["SMCalloutView"],
     sdk_frameworks = ["UIKit"],
+
+    # 🔥 Force iOS only
+    platform_type = "ios",
+    minimum_os_version = "11.0",
+
+    # 🔥 Prevent macOS builds entirely
+    target_compatible_with = [
+        "@platforms//apple:ios",
+    ],
+
     tags = ["manual"],
     visibility = [
         "//platform:__pkg__",
