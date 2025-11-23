@@ -1,6 +1,6 @@
 ext {
     androidSdkVersions = [
-            ndkVersion       : '27.0.12077973',
-            cmakeVersion     : '3.22.1+',
+            ndkVersion       : '28.1.13356709',
+            cmakeVersion     : '3.24.0+',
     ]
 }

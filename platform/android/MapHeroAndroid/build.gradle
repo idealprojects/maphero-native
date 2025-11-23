@@ -45,9 +45,9 @@ tasks.withType(DokkaTask.class) {
 
 android {
     defaultConfig {
-        compileSdk 34
+        compileSdk 35
         minSdkVersion 21
-        targetSdkVersion 33
+        targetSdkVersion 35
         buildConfigField "String", "GIT_REVISION_SHORT", String.format("\"%s\"", getGitRevision())
         buildConfigField "String", "GIT_REVISION", String.format("\"%s\"", getGitRevision(false))
         buildConfigField "String", "MAPLIBRE_VERSION_STRING", String.format("\"MapHero Native/%s\"", project.VERSION_NAME)
@@ -59,6 +59,7 @@ android {
             }
         }
     }
+    ndkVersion androidSdkVersions.ndkVersion
 
     flavorDimensions += "renderer"
     productFlavors {
@@ -131,7 +132,6 @@ android {
         debug {
             testCoverageEnabled false
             jniDebuggable true
-            debuggable true
         }
     }
     namespace 'org.maphero.android'

@@ -12,7 +12,6 @@ FOUNDATION_EXPORT MH_EXPORT const unsigned char MapboxVersionString[];
 #import "MHAnnotationView.h"
 #import "MHAttributedExpression.h"
 #import "MHAttributionInfo.h"
-#import "MHBackgroundStyleLayer.h"
 #import "MHCalloutView.h"
 #import "MHCircleStyleLayer.h"
 #import "MHClockDirectionFormatter.h"

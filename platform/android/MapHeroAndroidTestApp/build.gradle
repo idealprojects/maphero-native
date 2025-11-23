@@ -22,13 +22,13 @@ android {
         applicationId "org.maphero.android.testapp"
         compileSdk 34
         minSdkVersion 21
-        targetSdkVersion 33
+        targetSdkVersion 35
         versionCode 14
         versionName "6.0.1"
         testInstrumentationRunner "org.maphero.android.InstrumentationRunner"
         multiDexEnabled = true
     }
-
+    ndkVersion "28.1.13356709"
     nativeBuild(["example-custom-layer"])
     packagingOptions {
         resources {
