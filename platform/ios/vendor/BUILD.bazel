@@ -11,12 +11,13 @@ objc_library(
 
     includes = ["SMCalloutView"],
 
+    # Compile options: WARNING_FLAGS["ios"] plus target architecture
     copts = WARNING_FLAGS["ios"] + [
-        "-target", "arm64-apple-ios11.0",
-        "-isysroot", "__BAZEL_XCODE_SDKROOT__",
-        "-F__BAZEL_XCODE_SDKROOT__/System/Library/Frameworks",
+        "-target", "arm64-apple-ios11.0",   # use arm64 for device, simulator can override with bazel flag
+        "-fobjc-arc",
     ],
 
+    # Link against UIKit
     sdk_frameworks = ["UIKit"],
 
     tags = ["manual"],

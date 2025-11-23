@@ -1,4 +1,4 @@
-#import "Mapbox.h"
+#import "MapHero.h"
 
 #import "MBXAppDelegate.h"
 #import "MBXViewController.h"

@@ -106,8 +106,8 @@ function generateXcodeSourceList(project, target, name) {
             })
     );
 
-    json.public_headers['Mapbox/Mapbox.h'] = json.public_headers['Mapbox.h'];
-    delete json.public_headers['Mapbox.h'];
+    json.public_headers['Mapbox/MapHero.h'] = json.public_headers['MapHero.h'];
+    delete json.public_headers['MapHero.h'];
 
     writeIfModified(`${projectPath}/${name || target}-files.json`, JSON.stringify(json, null, 4) + '\n');
 }

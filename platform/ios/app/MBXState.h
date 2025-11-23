@@ -1,4 +1,4 @@
-#import "Mapbox.h"
+#import "MapHero.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

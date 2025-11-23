@@ -1,4 +1,4 @@
-#import "Mapbox.h"
+#import "MapHero.h"
 
 #import "MBXOrnamentsViewController.h"
 
@@ -50,7 +50,7 @@
     self.mapView.compassViewPosition = currentPosition[1];
     self.mapView.logoViewPosition = currentPosition[2];
     self.mapView.attributionButtonPosition = currentPosition[3];
-    
+
     _currentPositionIndex = currentPositionIndex;
 }
 

@@ -1,4 +1,4 @@
-#import <Mapbox.h>
+#import <MapHero.h>
 #import <XCTest/XCTest.h>
 
 #import "../../ios/src/MHMapAccessibilityElement.h"
@@ -35,14 +35,14 @@
     };
     MHPlaceFeatureAccessibilityElement *element = [[MHPlaceFeatureAccessibilityElement alloc] initWithAccessibilityContainer:self feature:feature];
     XCTAssertEqualObjects(element.accessibilityValue, @"village green");
-    
+
     feature = [[MHPointFeature alloc] init];
     feature.attributes = @{
         @"maki": @"cat",
     };
     element = [[MHPlaceFeatureAccessibilityElement alloc] initWithAccessibilityContainer:self feature:feature];
     XCTAssertEqualObjects(element.accessibilityValue, @"cat");
-    
+
     feature = [[MHPointFeature alloc] init];
     feature.attributes = @{
         @"elevation_ft": @31337,
@@ -67,7 +67,7 @@
     };
     MHRoadFeatureAccessibilityElement *element = [[MHRoadFeatureAccessibilityElement alloc] initWithAccessibilityContainer:self feature:roadFeature];
     XCTAssertEqualObjects(element.accessibilityValue, @"Route 42, One way, southwest to northeast");
-    
+
     CLLocationCoordinate2D opposingCoordinates[] = {
         CLLocationCoordinate2DMake(2, 1),
         CLLocationCoordinate2DMake(1, 0),

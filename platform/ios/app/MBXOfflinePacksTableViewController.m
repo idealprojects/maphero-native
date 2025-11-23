@@ -1,4 +1,4 @@
-#import "Mapbox.h"
+#import "MapHero.h"
 
 #import "MBXOfflinePacksTableViewController.h"
 
@@ -131,7 +131,7 @@ static NSString * const MBXOfflinePacksTableViewActiveCellReuseIdentifier = @"Ac
 
 - (IBAction)invalidatePacks:(id)sender {
     for (MHOfflinePack *pack in [MHOfflineStorage sharedOfflineStorage].packs) {
-        
+
         CFTimeInterval start = CACurrentMediaTime();
         [[MHOfflineStorage sharedOfflineStorage] invalidatePack:pack withCompletionHandler:^(NSError * _Nullable error) {
             CFTimeInterval end = CACurrentMediaTime();

@@ -15,7 +15,7 @@ MH_IOS_SDK_HEADERS = [
 ]
 
 MH_IOS_PUBLIC_HEADERS = [
-    "src/Mapbox.h",
+    "src/MapHero.h",
 ]
 
 MH_IOS_PRIVATE_HEADERS = [

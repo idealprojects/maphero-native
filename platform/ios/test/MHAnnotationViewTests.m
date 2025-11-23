@@ -1,4 +1,4 @@
-#import <Mapbox.h>
+#import <MapHero.h>
 #import <XCTest/XCTest.h>
 #import "MHTestUtility.h"
 
@@ -232,11 +232,11 @@ static NSString * const MHTestAnnotationReuseIdentifer = @"MHTestAnnotationReuse
     MHPointFeature *point = [[MHPointFeature alloc] init];
     point.title = NSStringFromSelector(_cmd);
     point.coordinate = CLLocationCoordinate2DMake(0.0, 0.0);
-    
+
     XCTAssert(self.mapView.selectedAnnotations.count == 0, @"There should be 0 selected annotations");
-    
+
     [self.mapView selectAnnotation:point animated:NO completionHandler:nil];
-    
+
     XCTAssert(self.mapView.selectedAnnotations.count == 0, @"There should be 0 selected annotations");
 }
 

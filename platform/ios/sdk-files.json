@@ -192,7 +192,7 @@
         "MHOfflineStorage.h": "platform/darwin/src/MHOfflineStorage.h",
         "MHScaleBar.h": "platform/ios/src/MHScaleBar.h",
         "MHMapView.h": "platform/ios/src/MHMapView.h",
-        "Mapbox/Mapbox.h": "platform/ios/src/Mapbox.h"
+        "Mapbox/MapHero.h": "platform/ios/src/MapHero.h"
     },
     "private_headers": {
         "MHFillStyleLayer_Private.h": "platform/darwin/src/MHFillStyleLayer_Private.h",

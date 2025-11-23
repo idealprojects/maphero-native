@@ -1,4 +1,4 @@
-#import <Mapbox.h>
+#import <MapHero.h>
 #import <XCTest/XCTest.h>
 
 @interface MockUIPanGestureRecognizer : UIPanGestureRecognizer
@@ -133,7 +133,7 @@
     gesture.state = UIGestureRecognizerStateBegan;
     [self.mapView handleTwoFingerDragGesture:gesture];
     XCTAssertEqual(self.mapView.camera.pitch, 0, @"Pitch should initially be set to 0°.");
-    
+
     // Tilt gestures should not be triggered on horizontal dragging.
     for (NSInteger deltaX = 0; deltaX < 5; deltaX++) {
         gesture.mbx_westPoint = CGPointMake(100 - deltaX, 100);
@@ -141,7 +141,7 @@
         gesture.mbx_middlePoint = CGPointMake((gesture.mbx_westPoint.x + gesture.mbx_westPoint.x)/2, (gesture.mbx_westPoint.y + gesture.mbx_westPoint.y)/2);
 
         gesture.state = UIGestureRecognizerStateChanged;
-        
+
         [self.mapView handleTwoFingerDragGesture:gesture];
         XCTAssertEqual(self.mapView.camera.pitch, 0, @"Horizontal dragging should not tilt the map.");
     }

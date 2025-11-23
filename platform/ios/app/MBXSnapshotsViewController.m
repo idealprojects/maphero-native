@@ -1,4 +1,4 @@
-#import "Mapbox.h"
+#import "MapHero.h"
 
 #import "MBXSnapshotsViewController.h"
 
@@ -21,7 +21,7 @@
     MHMapSnapshotter* topLeftSnapshotter;
     MHMapSnapshotter* topCenterSnapshotter;
     MHMapSnapshotter* topRightSnapshotter;
-    
+
     // Bottom row
     MHMapSnapshotter* bottomLeftSnapshotter;
     MHMapSnapshotter* bottomCenterSnapshotter;
@@ -48,7 +48,7 @@
     mapCamera.centerCoordinate = coordinates;
     MHMapSnapshotOptions* options = [[MHMapSnapshotOptions alloc] initWithStyleURL:[[MHStyle predefinedStyle:@"Hybrid"] url] camera:mapCamera size:CGSizeMake(imageView.frame.size.width, imageView.frame.size.height)];
     options.zoomLevel = 10;
-    
+
     // Create and start the snapshotter
     __weak UIImageView *weakImageView = imageView;
     MHMapSnapshotter* snapshotter = [[MHMapSnapshotter alloc] initWithOptions:options];
@@ -59,7 +59,7 @@
             weakImageView.image = snapshot.image;
         }
     }];
-    
+
     return snapshotter;
 }
 

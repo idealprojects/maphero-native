@@ -1,4 +1,4 @@
-#import "Mapbox.h"
+#import "MapHero.h"
 
 #import "MBXBenchAppDelegate.h"
 #import "MBXBenchViewController.h"
@@ -13,7 +13,7 @@
 #endif
 
     [MHSettings useWellKnownTileServer:MHMapTiler];
-    
+
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.rootViewController = [MBXBenchViewController new];
     [self.window makeKeyAndVisible];

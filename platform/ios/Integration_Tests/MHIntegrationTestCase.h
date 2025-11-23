@@ -1,4 +1,4 @@
-#import <Mapbox/Mapbox.h>
+#import <Mapbox/MapHero.h>
 #import <XCTest/XCTest.h>
 #import "MHTestUtility.h"
 
