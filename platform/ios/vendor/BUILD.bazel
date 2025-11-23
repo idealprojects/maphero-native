@@ -16,8 +16,10 @@ objc_library(
         "-isysroot", "__BAZEL_XCODE_SDKROOT__",
         "-F__BAZEL_XCODE_SDKROOT__/System/Library/Frameworks",
     ],
+
     sdk_frameworks = ["UIKit"],
-    sdk_includes = ["UIKit"],
+
+    platform_type = "ios",   # ✅ CRITICAL FIX
 
     tags = ["manual"],
     visibility = [
