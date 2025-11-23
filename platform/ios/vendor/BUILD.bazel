@@ -9,18 +9,15 @@ objc_library(
         "SMCalloutView/*.h",
     ]),
 
-    copts = WARNING_FLAGS["ios"],
     includes = ["SMCalloutView"],
-    sdk_frameworks = ["UIKit"],
 
-    # 🔥 Force iOS only
-    platform_type = "ios",
-    minimum_os_version = "11.0",
-
-    # 🔥 Prevent macOS builds entirely
-    target_compatible_with = [
-        "@platforms//apple:ios",
+    # Force iOS compilation instead of macOS
+    copts = WARNING_FLAGS["ios"] + [
+        "-target", "arm64-apple-ios11.0",
     ],
+
+    sdk_frameworks = ["UIKit"],
+    sdk_includes = ["UIKit"],
 
     tags = ["manual"],
     visibility = [
