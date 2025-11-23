@@ -1,25 +1,20 @@
 load("//bazel:flags.bzl", "WARNING_FLAGS")
 
+# SMCalloutView
 objc_library(
     name = "SMCalloutView",
-    srcs = glob([
-        "SMCalloutView/*.m",
-    ]),
-    hdrs = glob([
-        "SMCalloutView/*.h",
-    ]),
-
+    srcs = glob(
+        [
+            "SMCalloutView/*.h",
+            "SMCalloutView/*.m",
+        ],
+    ),
+    hdrs = glob(
+        ["SMCalloutView/*.h"],
+    ),
+    copts = WARNING_FLAGS["ios"],
     includes = ["SMCalloutView"],
-
-    # Compile options: WARNING_FLAGS["ios"] plus target architecture
-    copts = WARNING_FLAGS["ios"] + [
-        "-target", "arm64-apple-ios11.0",   # use arm64 for device, simulator can override with bazel flag
-        "-fobjc-arc",
-    ],
-
-    # Link against UIKit
     sdk_frameworks = ["UIKit"],
-
     tags = ["manual"],
     visibility = [
         "//platform:__pkg__",
