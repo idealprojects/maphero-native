@@ -23,7 +23,7 @@ jobs:
         run: |
           python setup.py sdist
       - name: Upload sdist
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: dist
           path: dist/*.tar.gz
@@ -58,7 +58,7 @@ jobs:
           CIBW_TEST_COMMAND: python {project}/bindings/python/google_benchmark/example.py
 
       - name: Upload Google Benchmark ${{ matrix.os }} wheels
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: dist
           path: ./wheelhouse/*.whl
