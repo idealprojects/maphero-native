@@ -133,6 +133,9 @@ apple_xcframework(
         ],
         "device": ["arm64"],
     },
+    copts = [
+        "-Wno-unused-but-set-variable",
+    ],
     minimum_os_versions = {"ios": "12.0"},
     public_hdrs = public_hdrs,
     version = ":maphero_ios_version",
@@ -212,6 +215,9 @@ ios_application(
         "iphone",
         "ipad",
     ],
+    copts = [
+        "-Wno-unused-but-set-variable",
+    ],
     frameworks = [
         "MapHero.link",
     ],
@@ -220,6 +226,7 @@ ios_application(
     provisioning_profile = ":xcode_profile",
     resources = _IOS_APPLICATION_RESOURCES,
     visibility = ["//visibility:public"],
+
     deps = [
         "//platform:iosapp",
     ],
