@@ -235,6 +235,9 @@ objc_library(
         "WebKit",
     ],
     visibility = ["//visibility:public"],
+    copts = [
+        "-Wno-error",
+    ],
     deps = [
         ":objc-sdk",
         ":objcpp-sdk",
