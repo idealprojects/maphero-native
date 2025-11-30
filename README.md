@@ -122,9 +122,9 @@ For more information, refer to the [Android API Documentation](https://maplibre.
 
 ## iOS
 
-You can find MapLibre Native iOS on [Cocoapods](https://cocoapods.org/) and on the [Swift Package Index](https://swiftpackageindex.com/maplibre/maplibre-gl-native-distribution). You can also MapLibre Native iOS [as a dependency to Xcode directly](https://maplibre.org/maplibre-native/ios/latest/documentation/maplibre-native-for-ios/gettingstarted/#Add-MapLibre-Native-as-a-dependency).
+You can find MapHero Native iOS on [Cocoapods](https://cocoapods.org/) and on the [Swift Package Index](https://swiftpackageindex.com/maplibre/maplibre-gl-native-distribution). You can also MapHero Native iOS [as a dependency to Xcode directly](https://maplibre.org/maplibre-native/ios/latest/documentation/maplibre-native-for-ios/gettingstarted/#Add-MapLibre-Native-as-a-dependency).
 
-MapLibre Native iOS uses UIKit. To intergrate it with an UIKit project, you can use
+MapHero Native iOS uses UIKit. To intergrate it with an UIKit project, you can use
 
 ```swift
 class SimpleMap: UIViewController, MLNMapViewDelegate {
@@ -159,7 +159,7 @@ struct SimpleMap: UIViewRepresentable {
 ```
 
 > [!TIP]
-> You can also use [MapLibreSwiftUI](https://github.com/maplibre/swiftui-dsl), a wrapper around MapLibre Native iOS that offers a declarative API like SwiftUI.
+> You can also use [MapLibreSwiftUI](https://github.com/maplibre/swiftui-dsl), a wrapper around MapHero Native iOS that offers a declarative API like SwiftUI.
 
 The [iOS Documentation](https://maplibre.org/maplibre-native/ios/latest/documentation/maplibre/) contains many examples and the entire API of the library.
 
