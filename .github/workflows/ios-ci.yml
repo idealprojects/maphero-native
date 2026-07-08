@@ -36,6 +36,18 @@ jobs:
           export PATH="$HOME/bin:$PATH"
           echo "Bazel version: $(bazel --version)"
 
+      - name: Select compatible Xcode (<=16.2)
+        # apple_support 1.16.0 builds wrapped_clang in a way whose LC_UUID load command is
+        # dropped by the Xcode 16.3+ linker, so it crashes under newer dyld ("missing LC_UUID
+        # load command"). Xcode <=16.2's linker still emits LC_UUID, so pin to it.
+        run: |
+          echo "Available Xcodes:"; ls -d /Applications/Xcode*.app || true
+          XC="$(ls -d /Applications/Xcode_16.2*.app /Applications/Xcode_16.1*.app /Applications/Xcode_16.0*.app 2>/dev/null | sort -V | tail -1)"
+          if [ -z "$XC" ]; then echo "::error::No Xcode <=16.2 found on runner (needed for apple_support 1.16.0)"; exit 1; fi
+          echo "Selecting $XC"
+          sudo xcode-select -s "$XC/Contents/Developer"
+          xcodebuild -version
+
       - name: Install the Apple certificate and provisioning profile
         env:
           BUILD_CERTIFICATE_BASE64: ${{ secrets.BUILD_CERTIFICATE_BASE64 }}
