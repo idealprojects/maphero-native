@@ -136,9 +136,13 @@ NSString *HTTPFileSource::Impl::getUserAgent() const {
 
     NSBundle *appBundle = [NSBundle mainBundle];
     if (appBundle) {
+        // Report the bundle identifier (e.g. "com.iMech.TRAX") as the app's identifier so backends
+        // can reliably attribute requests to a specific app, mirroring the Android SDK which sends
+        // the package id. Fall back to the app name only if the bundle identifier is unavailable.
+        NSString *bundleIdentifier = appBundle.infoDictionary[@"CFBundleIdentifier"];
         NSString *appName = appBundle.infoDictionary[@"CFBundleName"];
         [userAgentComponents addObject:[NSString stringWithFormat:@"%@/%@",
-                                        appName.length ? appName : appBundle.infoDictionary[@"CFBundleIdentifier"],
+                                        bundleIdentifier.length ? bundleIdentifier : appName,
                                         appBundle.infoDictionary[@"CFBundleShortVersionString"]]];
     } else {
         [userAgentComponents addObject:[NSProcessInfo processInfo].processName];
