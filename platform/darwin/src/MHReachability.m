@@ -29,7 +29,9 @@
 
 #import <sys/socket.h>
 #import <netinet/in.h>
-#import <netinet6/in6.h>
+// Note: <netinet/in.h> already pulls in the IPv6 definitions; importing
+// <netinet6/in6.h> directly is a hard error under the iOS 26 SDK
+// ("do not include netinet6/in6.h directly"), so it is intentionally omitted.
 #import <arpa/inet.h>
 #import <ifaddrs.h>
 #import <netdb.h>

@@ -11,7 +11,10 @@ permissions:
 
 jobs:
   build-and-release:
-    runs-on: macos-latest
+    # Pin to macOS 15 / Xcode 16 (iOS SDK 18). macos-latest is now macOS 26 /
+    # Xcode 26.5, whose SDK 26.5 rejects headers this older codebase includes
+    # (e.g. <netinet6/in6.h>). SDK 18 is the generation this code builds against.
+    runs-on: macos-15
 
     env:
       NAME: MapHero
