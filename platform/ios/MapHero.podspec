@@ -1,5 +1,5 @@
 Pod::Spec.new do |s|
-    version = "1.0.4"
+    version = "1.2.0"
 
     s.name = 'MapHero'
     s.version = version
@@ -10,7 +10,7 @@ Pod::Spec.new do |s|
     s.platform = :ios
     s.source = {
 #         :http => "https://github.com/maphero/maphero-native/releases/download/ios-v#{version.to_s}/MapHero.dynamic.xcframework.zip",
-        :http => "https://github.com/idealprojects/maphero-native/releases/download/1.0.4/MapHero_ios_device.framework.zip",
+        :http => "https://github.com/idealprojects/maphero-native/releases/download/1.2.0/MapHero_ios_device.framework.zip",
         :type => "zip"
     }
 #     s.social_media_url  = 'https://mastodon.social/@maphero'

@@ -14,9 +14,9 @@ typedef NS_ENUM(NSUInteger, MHWellKnownTileServer) {
    */
   MHMapTiler,
   /**
-   MapLibre
+   MapHero
    */
-  MHMapLibre,
+  MHMapHero,
   /**
    Mapbox
    */

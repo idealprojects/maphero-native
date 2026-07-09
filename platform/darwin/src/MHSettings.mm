@@ -113,7 +113,7 @@
         case MHMapTiler:
             [MHSettings setTileServerOptionsInternal:mbgl::TileServerOptions::MapTilerConfiguration()];
             break;
-        case MHMapLibre:
+        case MHMapHero:
             [MHSettings setTileServerOptionsInternal:mbgl::TileServerOptions::MapHeroConfiguration()];
             break;
         case MHMapbox:
