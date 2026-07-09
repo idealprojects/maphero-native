@@ -129,5 +129,5 @@ Powerful, free and open-source mapping toolkit with full control over data sourc
 
 - ``MHAnnotationImage``
 - ``MHAnnotationView``
-- ``MHPointFeatureClusterFeature``
-- ``MHPointFeatureClusterFeatureCluster``
+- ``MHPointFeature``
+- ``MHPointFeatureCluster``

@@ -3471,7 +3471,7 @@ static void *windowScreenContext = &windowScreenContext;
     }
     
     UIBezierPath *path;
-    if ([feature isKindOfClass:[MHPointFeatureClusterFeature class]])
+    if ([feature isKindOfClass:[MHPointFeature class]])
     {
         CGPoint center = [self convertCoordinate:feature.coordinate toPointToView:self];
         CGRect annotationFrame = CGRectInset({center, CGSizeZero}, -MHAnnotationAccessibilityElementMinimumSize.width / 2, -MHAnnotationAccessibilityElementMinimumSize.width / 2);

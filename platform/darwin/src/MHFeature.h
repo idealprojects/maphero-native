@@ -161,18 +161,18 @@ MH_EXPORT
 @end
 
 /**
- An ``MHPointFeatureClusterFeature`` object associates a point shape with an optional
+ An ``MHPointFeature`` object associates a point shape with an optional
  identifier and attributes.
 
  #### Related examples
  - <doc:WebAPIDataExample>
  */
 MH_EXPORT
-@interface MHPointFeatureClusterFeature : MHPointAnnotation <MHFeature>
+@interface MHPointFeature : MHPointAnnotation <MHFeature>
 @end
 
 /**
- An ``MHPointFeatureClusterFeatureCluster`` object associates a point shape (with an optional
+ An ``MHPointFeatureCluster`` object associates a point shape (with an optional
  identifier and attributes) and represents a point cluster.
 
  @see ``MHCluster``
@@ -182,7 +182,7 @@ MH_EXPORT
  clusters and add them to your map.
  */
 MH_EXPORT
-@interface MHPointFeatureClusterFeatureCluster : MHPointFeatureClusterFeature <MHCluster>
+@interface MHPointFeatureCluster : MHPointFeature <MHCluster>
 @end
 
 /**

@@ -532,7 +532,7 @@ class MHDocumentationExampleTests: XCTestCase, MHMapViewDelegate {
             // #-example-code
             let shape = try! MHShape(data: clusterShapeData, encoding: String.Encoding.utf8.rawValue)
 
-            guard let pointFeature = shape as? MHPointFeatureClusterFeature else {
+            guard let pointFeature = shape as? MHPointFeature else {
                 throw ExampleError.unexpectedFeatureType
             }
 
@@ -542,8 +542,8 @@ class MHDocumentationExampleTests: XCTestCase, MHMapViewDelegate {
             }
 
             // Currently the only supported class that conforms to ``MHCluster`` is
-            // ``MHPointFeatureClusterFeatureCluster``
-            guard cluster is MHPointFeatureClusterFeatureCluster else {
+            // ``MHPointFeatureCluster``
+            guard cluster is MHPointFeatureCluster else {
                 throw ExampleError.unexpectedFeatureType
             }
 

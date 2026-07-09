@@ -77,7 +77,7 @@
     self.mapView.centerCoordinate = CLLocationCoordinate2DMake(38.897,-77.039);
     self.mapView.zoomLevel = 10.5;
     
-    MHPointFeatureClusterFeature *feature = [[MHPointFeatureClusterFeature alloc] init];
+    MHPointFeature *feature = [[MHPointFeature alloc] init];
     MHShapeSource *source = [[MHShapeSource alloc] initWithIdentifier:@"sourceID" shape:feature options:nil];
     
     // Testing generated layers
