@@ -23,6 +23,7 @@ const MHExpressionInterpolationMode MHExpressionInterpolationModeExponential = @
 const MHExpressionInterpolationMode MHExpressionInterpolationModeCubicBezier = @"cubic-bezier";
 
 @interface MHAftermarketExpressionInstaller: NSObject
++ (instancetype)sharedInstance;
 @end
 
 @implementation MHAftermarketExpressionInstaller
@@ -90,6 +91,26 @@ const MHExpressionInterpolationMode MHExpressionInterpolationModeCubicBezier = @
 
     #undef INSTALL_AFTERMARKET_FN
 #pragma clang diagnostic pop
+}
+
+/**
+ Shared evaluation target for aftermarket function expressions.
+
+ Foundation linked against the iOS 26 SDK no longer consults the methods
+ installed onto _NSPredicateUtilities, and +[NSExpression
+ expressionForFunction:arguments:] rejects any function name outside its
+ built-in list at construction time. Explicit-target function expressions
+ (expressionForFunction:selectorName:arguments:) bypass that validation and
+ evaluate by messaging the target — this instance, which implements every
+ mgl_/MH_ aftermarket function.
+ */
++ (instancetype)sharedInstance {
+    static MHAftermarketExpressionInstaller *shared;
+    static dispatch_once_t once;
+    dispatch_once(&once, ^{
+        shared = [[MHAftermarketExpressionInstaller alloc] init];
+    });
+    return shared;
 }
 
 /**
@@ -560,6 +581,14 @@ const MHExpressionInterpolationMode MHExpressionInterpolationModeCubicBezier = @
 
 @implementation NSExpression (MHAdditions)
 
+/// SDK-26-safe replacement for +expressionForFunction:arguments: with
+/// aftermarket (mgl_/MH_) function names — see MHAftermarketExpressionInstaller.
++ (NSExpression *)mh_expressionForAftermarketFunction:(NSString *)name arguments:(NSArray *)args {
+    NSExpression *target = [NSExpression expressionForConstantValue:[MHAftermarketExpressionInstaller sharedInstance]];
+    return [NSExpression expressionForFunction:target selectorName:name arguments:args];
+}
+
+
 + (NSExpression *)zoomLevelVariableExpression {
     return [NSExpression expressionForVariable:@"zoomLevel"];
 }
@@ -634,17 +663,17 @@ const MHExpressionInterpolationMode MHExpressionInterpolationModeCubicBezier = @
     }
 
     [optionsArray addObject:defaultExpression];
-    return [NSExpression expressionForFunction:@"MH_MATCH"
+    return [NSExpression mh_expressionForAftermarketFunction:@"MH_MATCH"
                                      arguments:optionsArray];
 }
 
 + (instancetype)mgl_expressionForAttributedExpressions:(nonnull NSArray<NSExpression *> *)attributedExpressions {
-    return [NSExpression expressionForFunction:@"mgl_attributed:" arguments:attributedExpressions];
+    return [NSExpression mh_expressionForAftermarketFunction:@"mgl_attributed:" arguments:attributedExpressions];
 }
 
 - (instancetype)mgl_expressionByAppendingExpression:(nonnull NSExpression *)expression {
     NSExpression *subexpression = [NSExpression expressionForAggregate:@[self, expression]];
-    return [NSExpression expressionForFunction:@"mgl_join:" arguments:@[subexpression]];
+    return [NSExpression mh_expressionForAftermarketFunction:@"mgl_join:" arguments:@[subexpression]];
 }
 
 static NSDictionary<NSString *, NSString *> *MHFunctionNamesByExpressionOperator;
@@ -726,7 +755,7 @@ NSArray *MHSubexpressionsWithJSONObjects(NSArray *objects) {
 
         if (![op isKindOfClass:[NSString class]]) {
             NSArray *subexpressions = MHSubexpressionsWithJSONObjects(array);
-            return [NSExpression expressionForFunction:@"MH_FUNCTION" arguments:subexpressions];
+            return [NSExpression mh_expressionForAftermarketFunction:@"MH_FUNCTION" arguments:subexpressions];
         }
 
         NSArray *argumentObjects = [array subarrayWithRange:NSMakeRange(1, array.count - 1)];
@@ -747,7 +776,7 @@ NSArray *MHSubexpressionsWithJSONObjects(NSArray *objects) {
                                              arguments:subexpressions];
         } else if ([op isEqualToString:@"collator"]) {
             // Avoid wrapping collator options object in literal expression.
-            return [NSExpression expressionForFunction:@"MH_FUNCTION" arguments:array];
+            return [NSExpression mh_expressionForAftermarketFunction:@"MH_FUNCTION" arguments:array];
         } else if ([op isEqualToString:@"literal"]) {
             if ([argumentObjects.firstObject isKindOfClass:[NSArray class]]) {
                 return [NSExpression expressionForAggregate:MHSubexpressionsWithJSONObjects(argumentObjects.firstObject)];
@@ -778,7 +807,7 @@ NSArray *MHSubexpressionsWithJSONObjects(NSArray *objects) {
 #endif
             }
             NSArray *subexpressions = MHSubexpressionsWithJSONObjects(array);
-            return [NSExpression expressionForFunction:@"MH_FUNCTION" arguments:subexpressions];
+            return [NSExpression mh_expressionForAftermarketFunction:@"MH_FUNCTION" arguments:subexpressions];
 
         } else if ([op isEqualToString:@"to-rgba"]) {
             NSExpression *operand = [NSExpression expressionWithMHJSONObject:argumentObjects.firstObject];
@@ -822,7 +851,7 @@ NSArray *MHSubexpressionsWithJSONObjects(NSArray *objects) {
         } else if ([op isEqualToString:@"concat"]) {
             NSArray *subexpressions = MHSubexpressionsWithJSONObjects(argumentObjects);
             NSExpression *subexpression = [NSExpression expressionForAggregate:subexpressions];
-            return [NSExpression expressionForFunction:@"mgl_join:" arguments:@[subexpression]];
+            return [NSExpression mh_expressionForAftermarketFunction:@"mgl_join:" arguments:@[subexpression]];
         }  else if ([op isEqualToString:@"at"]) {
             NSArray *subexpressions = MHSubexpressionsWithJSONObjects(argumentObjects);
             NSExpression *index = subexpressions.firstObject;
@@ -832,7 +861,7 @@ NSArray *MHSubexpressionsWithJSONObjects(NSArray *objects) {
             NSArray *subexpressions = MHSubexpressionsWithJSONObjects(argumentObjects);
             NSExpression *operand = argumentObjects.count > 1 ? subexpressions[1] : [NSExpression expressionForEvaluatedObject];
             NSExpression *key = subexpressions.firstObject;
-            return [NSExpression expressionForFunction:@"mgl_does:have:" arguments:@[operand, key]];
+            return [NSExpression mh_expressionForAftermarketFunction:@"mgl_does:have:" arguments:@[operand, key]];
         } else if ([op isEqualToString:@"interpolate"]) {
             NSArray *interpolationOptions = argumentObjects.firstObject;
             NSString *curveType = interpolationOptions.firstObject;
@@ -923,7 +952,7 @@ NSArray *MHSubexpressionsWithJSONObjects(NSArray *objects) {
                 NSPredicate *conditional = [arguments.firstObject constantValue];
                 return [NSExpression expressionForConditional:conditional trueExpression:arguments[1] falseExpression:arguments[2]];
             }
-            return [NSExpression expressionForFunction:@"MH_IF" arguments:arguments];
+            return [NSExpression mh_expressionForAftermarketFunction:@"MH_IF" arguments:arguments];
         } else if ([op isEqualToString:@"match"]) {
             NSMutableArray *optionsArray = [NSMutableArray array];
 
@@ -936,7 +965,7 @@ NSArray *MHSubexpressionsWithJSONObjects(NSArray *objects) {
                 [optionsArray addObject:option];
             }
 
-            return [NSExpression expressionForFunction:@"MH_MATCH"
+            return [NSExpression mh_expressionForAftermarketFunction:@"MH_MATCH"
                                              arguments:optionsArray];
         } else if ([op isEqualToString:@"format"]) {
             NSMutableArray *attributedExpressions = [NSMutableArray array];
@@ -955,7 +984,7 @@ NSArray *MHSubexpressionsWithJSONObjects(NSArray *objects) {
 
                 [attributedExpressions addObject:[NSExpression expressionForConstantValue:attributedExpression]];
             }
-            return [NSExpression expressionForFunction:@"mgl_attributed:" arguments:attributedExpressions];
+            return [NSExpression mh_expressionForAftermarketFunction:@"mgl_attributed:" arguments:attributedExpressions];
 
         } else if ([op isEqualToString:@"coalesce"]) {
             NSMutableArray *expressions = [NSMutableArray array];
@@ -966,7 +995,7 @@ NSArray *MHSubexpressionsWithJSONObjects(NSArray *objects) {
             return [NSExpression expressionWithFormat:@"mgl_coalesce(%@)", expressions];
         } else {
             NSArray *subexpressions = MHSubexpressionsWithJSONObjects(array);
-            return [NSExpression expressionForFunction:@"MH_FUNCTION" arguments:subexpressions];
+            return [NSExpression mh_expressionForAftermarketFunction:@"MH_FUNCTION" arguments:subexpressions];
         }
     }
 
