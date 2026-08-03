@@ -1,4 +1,4 @@
-# MapLibre Native Docs
+# MapHero Native Docs
 
 ## Build Locally
 

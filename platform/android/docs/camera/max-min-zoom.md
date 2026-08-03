@@ -5,7 +5,7 @@
 This example shows how to configure a maximum and a minimum zoom level.
 
 ```kotlin
---8<-- "MapLibreAndroidTestApp/src/main/java/org/maplibre/android/testapp/activity/camera/MaxMinZoomActivity.kt:zoomPreference"
+--8<-- "MapHeroAndroidTestApp/src/main/java/org/maphero/android/testapp/activity/camera/MaxMinZoomActivity.kt:zoomPreference"
 ```
 
 ## Bonus: Add Click Listener
@@ -13,10 +13,10 @@ This example shows how to configure a maximum and a minimum zoom level.
 As a bonus, this example also shows how you can define a click listener to the map.
 
 ```kotlin
---8<-- "MapLibreAndroidTestApp/src/main/java/org/maplibre/android/testapp/activity/camera/MaxMinZoomActivity.kt:addOnMapClickListener"
+--8<-- "MapHeroAndroidTestApp/src/main/java/org/maphero/android/testapp/activity/camera/MaxMinZoomActivity.kt:addOnMapClickListener"
 ```
 
-You can remove a click listener again with `MapLibreMap.removeOnMapClickListener`. To use this API you need to assign the click listener to a variable, since you need to pass the listener to that method.
+You can remove a click listener again with `MapHeroMap.removeOnMapClickListener`. To use this API you need to assign the click listener to a variable, since you need to pass the listener to that method.
 
 <figure markdown="span">
   <video controls width="250" poster="https://dwxvn1oqw6mkc.cloudfront.net/android-documentation-resources/max_min_zoom_thumbnail.jpg">

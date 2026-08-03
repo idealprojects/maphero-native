@@ -1,7 +1,7 @@
 if(TARGET mbgl-freetype)
     return()
 endif()
-if (MLN_TEXT_SHAPING_HARFBUZZ)
+if (MH_TEXT_SHAPING_HARFBUZZ)
     add_library(mbgl-freetype STATIC
         ${CMAKE_CURRENT_LIST_DIR}/freetype/src/autofit/autofit.c
         ${CMAKE_CURRENT_LIST_DIR}/freetype/src/base/ftbase.c
@@ -63,9 +63,9 @@ if (MLN_TEXT_SHAPING_HARFBUZZ)
     set_target_properties(
         mbgl-freetype
         PROPERTIES
-            INTERFACE_MAPLIBRE_NAME "freetype"
-            INTERFACE_MAPLIBRE_URL "https://github.com/freetype/freetype"
-            INTERFACE_MAPLIBRE_AUTHOR "David Turner, Robert Wilhelm, Werner Lemberg and FreeType contributors"
-            INTERFACE_MAPLIBRE_LICENSE ${CMAKE_CURRENT_LIST_DIR}/freetype/docs/FTL.TXT
+            INTERFACE_MAPHERO_NAME "freetype"
+            INTERFACE_MAPHERO_URL "https://github.com/freetype/freetype"
+            INTERFACE_MAPHERO_AUTHOR "David Turner, Robert Wilhelm, Werner Lemberg and FreeType contributors"
+            INTERFACE_MAPHERO_LICENSE ${CMAKE_CURRENT_LIST_DIR}/freetype/docs/FTL.TXT
     )
 endif()

@@ -1,15 +1,15 @@
-import MapLibre
+import MapHero
 import SwiftUI
 import UIKit
 
 // #-example-code(POIAlongRouteExample)
-class POIAlongRouteExample: UIViewController, MLNMapViewDelegate {
-    var mapView: MLNMapView!
+class POIAlongRouteExample: UIViewController, MHMapViewDelegate {
+    var mapView: MHMapView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        mapView = MLNMapView(frame: view.bounds, styleURL: AMERICANA_STYLE)
+        mapView = MHMapView(frame: view.bounds, styleURL: AMERICANA_STYLE)
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         mapView.setCenter(
             CLLocationCoordinate2D(latitude: 45.52214, longitude: -122.63748),
@@ -21,7 +21,7 @@ class POIAlongRouteExample: UIViewController, MLNMapViewDelegate {
     }
 
     // Wait until the map is loaded before adding to the map.
-    func mapView(_: MLNMapView, didFinishLoading _: MLNStyle) {
+    func mapView(_: MHMapView, didFinishLoading _: MHStyle) {
         loadGeoJson()
         restrictPOIVisibleShape()
         setCamera()
@@ -55,21 +55,21 @@ class POIAlongRouteExample: UIViewController, MLNMapViewDelegate {
     }
 
     func drawPolyline(geoJson: Data) {
-        // Add our GeoJSON data to the map as an MLNGeoJSONSource.
-        // We can then reference this data from an MLNStyleLayer.
+        // Add our GeoJSON data to the map as an MHGeoJSONSource.
+        // We can then reference this data from an MHStyleLayer.
 
-        // MLNMapView.style is optional, so you must guard against it not being set.
+        // MHMapView.style is optional, so you must guard against it not being set.
         guard let style = mapView.style else { return }
 
-        guard let shapeFromGeoJSON = try? MLNShape(data: geoJson, encoding: String.Encoding.utf8.rawValue) else {
-            fatalError("Could not generate MLNShape")
+        guard let shapeFromGeoJSON = try? MHShape(data: geoJson, encoding: String.Encoding.utf8.rawValue) else {
+            fatalError("Could not generate MHShape")
         }
 
-        let source = MLNShapeSource(identifier: "polyline", shape: shapeFromGeoJSON, options: nil)
+        let source = MHShapeSource(identifier: "polyline", shape: shapeFromGeoJSON, options: nil)
         style.addSource(source)
 
         // Create new layer for the line.
-        let layer = MLNLineStyleLayer(identifier: "polyline", source: source)
+        let layer = MHLineStyleLayer(identifier: "polyline", source: source)
 
         // Set the line join and cap to a rounded end.
         layer.lineJoin = NSExpression(forConstantValue: "round")
@@ -82,7 +82,7 @@ class POIAlongRouteExample: UIViewController, MLNMapViewDelegate {
         layer.lineWidth = NSExpression(mglJSONObject: ["interpolate", ["linear"], ["zoom"], 14, 2, 18, 20])
 
         // We can also add a second layer that will draw a stroke around the original line.
-        let casingLayer = MLNLineStyleLayer(identifier: "polyline-case", source: source)
+        let casingLayer = MHLineStyleLayer(identifier: "polyline-case", source: source)
         // Copy these attributes from the main line layer.
         casingLayer.lineJoin = layer.lineJoin
         casingLayer.lineCap = layer.lineCap
@@ -94,7 +94,7 @@ class POIAlongRouteExample: UIViewController, MLNMapViewDelegate {
         casingLayer.lineWidth = NSExpression(mglJSONObject: ["interpolate", ["linear"], ["zoom"], 14, 1, 18, 4])
 
         // Just for fun, let’s add another copy of the line with a dash pattern.
-        let dashedLayer = MLNLineStyleLayer(identifier: "polyline-dash", source: source)
+        let dashedLayer = MHLineStyleLayer(identifier: "polyline-dash", source: source)
         dashedLayer.lineJoin = layer.lineJoin
         dashedLayer.lineCap = layer.lineCap
         dashedLayer.lineColor = NSExpression(forConstantValue: UIColor.white)
@@ -103,7 +103,7 @@ class POIAlongRouteExample: UIViewController, MLNMapViewDelegate {
         // Dash pattern in the format [dash, gap, dash, gap, ...]. You’ll want to adjust these values based on the line cap style.
         dashedLayer.lineDashPattern = NSExpression(forConstantValue: [0, 1.5])
 
-        guard let poiLayer = mapView.style?.layer(withIdentifier: "poi") as? MLNSymbolStyleLayer else {
+        guard let poiLayer = mapView.style?.layer(withIdentifier: "poi") as? MHSymbolStyleLayer else {
             print("Could not find poi layer")
             return
         }
@@ -114,12 +114,12 @@ class POIAlongRouteExample: UIViewController, MLNMapViewDelegate {
 
     func restrictPOIVisibleShape() {
         // find poi-label layer
-        guard let poiLayer = mapView.style?.layer(withIdentifier: "poi") as? MLNSymbolStyleLayer else {
+        guard let poiLayer = mapView.style?.layer(withIdentifier: "poi") as? MHSymbolStyleLayer else {
             print("Could not find poi layer")
             return
         }
         // find road-label layer
-        guard let roadLabelLayer = mapView.style?.layer(withIdentifier: "road_label") as? MLNSymbolStyleLayer else {
+        guard let roadLabelLayer = mapView.style?.layer(withIdentifier: "road_label") as? MHSymbolStyleLayer else {
             print("Could not find road_label layer")
             return
         }
@@ -141,7 +141,7 @@ class POIAlongRouteExample: UIViewController, MLNMapViewDelegate {
         ]
         // create a polygon class
         let coordinates = polygonShape.map { CLLocationCoordinate2D(latitude: $0[1], longitude: $0[0]) }
-        let bufferedRoutePolygon = MLNPolygon(coordinates: coordinates, count: UInt(coordinates.count), interiorPolygons: nil)
+        let bufferedRoutePolygon = MHPolygon(coordinates: coordinates, count: UInt(coordinates.count), interiorPolygons: nil)
         // apply predicates to these two layers
         poiLayer.predicate = NSPredicate(format: "SELF IN %@", bufferedRoutePolygon)
         roadLabelLayer.predicate = NSPredicate(format: "SELF IN %@", bufferedRoutePolygon)

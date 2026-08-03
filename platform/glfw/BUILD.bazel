@@ -1,5 +1,5 @@
 load("@rules_cc//cc:defs.bzl", "cc_binary", "objc_library")
-load("//bazel:flags.bzl", "CPP_FLAGS", "MAPLIBRE_FLAGS")
+load("//bazel:flags.bzl", "CPP_FLAGS", "MAPHERO_FLAGS")
 
 objc_library(
     name = "metal_backend",
@@ -10,9 +10,9 @@ objc_library(
         "metal_backend.h",
         "metal_backend.mm",
     ],
-    copts = CPP_FLAGS + MAPLIBRE_FLAGS,
+    copts = CPP_FLAGS + MAPHERO_FLAGS,
     deps = [
-        "//:maplibre_lib",
+        "//:MAPHERO_lib",
         "//vendor:args",
         "@glfw",
     ],
@@ -37,10 +37,10 @@ cc_binary(
                    "glfw_gl_backend.hpp",
                ],
            }),
-    copts = CPP_FLAGS + MAPLIBRE_FLAGS,
+    copts = CPP_FLAGS + MAPHERO_FLAGS,
     data = glob(["assets/*"]),
     defines = [
-        r"MLN_ASSETS_PATH=\"assets/\"",
+        r"MH_ASSETS_PATH=\"assets/\"",
     ],
     linkopts = [
         "-lglfw",
@@ -55,7 +55,7 @@ cc_binary(
         "@rules_xcodeproj//xcodeproj:generated",
     ],
     deps = [
-        "//:maplibre_lib",
+        "//:MAPHERO_lib",
         "@glfw",
         "@tinyobjloader",
     ] + select({

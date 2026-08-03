@@ -1,42 +1,42 @@
 cmake_minimum_required(VERSION 3.25 FATAL_ERROR)
 
-option(MLN_WITH_CORE_ONLY "Build only the core bits, no platform code" OFF)
-option(MLN_WITH_CLANG_TIDY "Build with clang-tidy checks enabled" OFF)
-option(MLN_WITH_COVERAGE "Enable code coverage collection" OFF)
-option(MLN_WITH_QT "Build MapLibre Native Qt bindings" OFF)
-option(MLN_WITH_NODE "Build MapLibre Native Node.js bindings" OFF)
-option(MLN_WITH_GLFW "Set up targets for GLFW platform" ON)
-option(MLN_WITH_SANITIZER "Use [address|thread|undefined] here" OFF)
-option(MLN_WITH_RTTI "Compile with runtime type information" OFF)
-option(MLN_WITH_OPENGL "Build with OpenGL renderer" OFF)
-option(MLN_WITH_EGL "Build with EGL renderer" OFF)
-option(MLN_WITH_VULKAN "Build with Vulkan renderer" OFF)
-option(MLN_WITH_METAL "Build with Metal renderer" OFF)
-option(MLN_WITH_WEBGPU "Build with WebGPU renderer" OFF)
-option(MLN_WITH_PMTILES "Build with PMTiles support" ON)
-option(MLN_WITH_WERROR "Make all compilation warnings errors" ON)
-option(MLN_USE_UNORDERED_DENSE "Use ankerl dense containers for performance" ON)
-option(MLN_USE_TRACY "Enable Tracy instrumentation" OFF)
-option(MLN_USE_RUST "Use components in Rust" OFF)
-option(MLN_TEXT_SHAPING_HARFBUZZ "Use haffbuzz to shape complex text" ON)
-option(MLN_CORE_INCLUDE_DEPS "Include depdendencies in static build of core" OFF)
-option(MLN_CREATE_AUTORELEASEPOOL "Create autoreleasepool in render loop" OFF)
+option(MH_WITH_CORE_ONLY "Build only the core bits, no platform code" OFF)
+option(MH_WITH_CLANG_TIDY "Build with clang-tidy checks enabled" OFF)
+option(MH_WITH_COVERAGE "Enable code coverage collection" OFF)
+option(MH_WITH_QT "Build MapHero Native Qt bindings" OFF)
+option(MH_WITH_NODE "Build MapHero Native Node.js bindings" OFF)
+option(MH_WITH_GLFW "Set up targets for GLFW platform" ON)
+option(MH_WITH_SANITIZER "Use [address|thread|undefined] here" OFF)
+option(MH_WITH_RTTI "Compile with runtime type information" OFF)
+option(MH_WITH_OPENGL "Build with OpenGL renderer" OFF)
+option(MH_WITH_EGL "Build with EGL renderer" OFF)
+option(MH_WITH_VULKAN "Build with Vulkan renderer" OFF)
+option(MH_WITH_METAL "Build with Metal renderer" OFF)
+option(MH_WITH_WEBGPU "Build with WebGPU renderer" OFF)
+option(MH_WITH_PMTILES "Build with PMTiles support" ON)
+option(MH_WITH_WERROR "Make all compilation warnings errors" ON)
+option(MH_USE_UNORDERED_DENSE "Use ankerl dense containers for performance" ON)
+option(MH_USE_TRACY "Enable Tracy instrumentation" OFF)
+option(MH_USE_RUST "Use components in Rust" OFF)
+option(MH_TEXT_SHAPING_HARFBUZZ "Use haffbuzz to shape complex text" ON)
+option(MH_CORE_INCLUDE_DEPS "Include depdendencies in static build of core" OFF)
+option(MH_CREATE_AUTORELEASEPOOL "Create autoreleasepool in render loop" OFF)
 
 include(cmake/validate-backend-options.cmake)
 include(cmake/clang-tidy.cmake)
 
-if (MLN_WITH_QT AND NOT CMAKE_OSX_DEPLOYMENT_TARGET)
+if (MH_WITH_QT AND NOT CMAKE_OSX_DEPLOYMENT_TARGET)
     set(CMAKE_OSX_DEPLOYMENT_TARGET 13.0)
 endif()
 
-if(WIN32 AND NOT DEFINED ENV{MSYSTEM} AND NOT MLN_WITH_QT AND NOT CMAKE_SYSTEM_NAME STREQUAL Android)
+if(WIN32 AND NOT DEFINED ENV{MSYSTEM} AND NOT MH_WITH_QT AND NOT CMAKE_SYSTEM_NAME STREQUAL Android)
     set(CMAKE_TOOLCHAIN_FILE ${CMAKE_CURRENT_LIST_DIR}/platform/windows/custom-toolchain.cmake)
 endif()
 
-project("MapLibre Native" LANGUAGES CXX C)
+project("MapHero Native" LANGUAGES CXX C)
 
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
-set_property(GLOBAL PROPERTY PREDEFINED_TARGETS_FOLDER MapLibre)
+set_property(GLOBAL PROPERTY PREDEFINED_TARGETS_FOLDER MapHero)
 
 set(
     MEMORYCHECK_COMMAND_OPTIONS
@@ -55,35 +55,35 @@ add_library(
 
 set(UBSAN_BLACKLIST ${PROJECT_SOURCE_DIR}/scripts/ubsan.blacklist)
 
-if (MLN_WITH_SANITIZER)
-    message(STATUS "MLN_WITH_SANITIZER is enabled, using \"${MLN_WITH_SANITIZER}\" sanitizer")
+if (MH_WITH_SANITIZER)
+    message(STATUS "MH_WITH_SANITIZER is enabled, using \"${MH_WITH_SANITIZER}\" sanitizer")
 endif()
 
 target_compile_options(
     mbgl-compiler-options
     INTERFACE
-        $<$<BOOL:${MLN_WITH_COVERAGE}>:--coverage>
-        $<$<BOOL:${MLN_WITH_SANITIZER}>:-DSANITIZE>
-        $<$<BOOL:${MLN_WITH_SANITIZER}>:-fno-omit-frame-pointer>
-        $<$<BOOL:${MLN_WITH_SANITIZER}>:-fno-optimize-sibling-calls>
-        $<$<STREQUAL:${MLN_WITH_SANITIZER},address>:-fsanitize=address>
-        $<$<STREQUAL:${MLN_WITH_SANITIZER},thread>:-fsanitize=thread>
-        $<$<STREQUAL:${MLN_WITH_SANITIZER},undefined>:-fsanitize=implicit-conversion,
+        $<$<BOOL:${MH_WITH_COVERAGE}>:--coverage>
+        $<$<BOOL:${MH_WITH_SANITIZER}>:-DSANITIZE>
+        $<$<BOOL:${MH_WITH_SANITIZER}>:-fno-omit-frame-pointer>
+        $<$<BOOL:${MH_WITH_SANITIZER}>:-fno-optimize-sibling-calls>
+        $<$<STREQUAL:${MH_WITH_SANITIZER},address>:-fsanitize=address>
+        $<$<STREQUAL:${MH_WITH_SANITIZER},thread>:-fsanitize=thread>
+        $<$<STREQUAL:${MH_WITH_SANITIZER},undefined>:-fsanitize=implicit-conversion,
         -fsanitize-blacklist=${UBSAN_BLACKLIST}>
-        $<$<STREQUAL:${MLN_WITH_SANITIZER},undefined>:-fsanitize=undefined,
+        $<$<STREQUAL:${MH_WITH_SANITIZER},undefined>:-fsanitize=undefined,
         -fsanitize-blacklist=${UBSAN_BLACKLIST}>
-        $<$<STREQUAL:${MLN_WITH_SANITIZER},undefined>:-fsanitize=unsigned-integer-overflow,
+        $<$<STREQUAL:${MH_WITH_SANITIZER},undefined>:-fsanitize=unsigned-integer-overflow,
         -fsanitize-blacklist=${UBSAN_BLACKLIST}>
-        $<$<STREQUAL:${MLN_WITH_SANITIZER},undefined>:-fsanitize=nullability,
+        $<$<STREQUAL:${MH_WITH_SANITIZER},undefined>:-fsanitize=nullability,
         -fsanitize-blacklist=${UBSAN_BLACKLIST}>
-        $<$<STREQUAL:${MLN_WITH_SANITIZER},undefined>:-fsanitize=float-divide-by-zero,
+        $<$<STREQUAL:${MH_WITH_SANITIZER},undefined>:-fsanitize=float-divide-by-zero,
         -fsanitize-blacklist=${UBSAN_BLACKLIST}>
         $<$<PLATFORM_ID:iOS>:-fembed-bitcode>
-        $<$<AND:$<OR:$<COMPILE_LANGUAGE:CXX>,$<COMPILE_LANGUAGE:OBJCXX>>,$<NOT:$<OR:$<BOOL:${MLN_WITH_RTTI}>,$<CXX_COMPILER_ID:MSVC>>>>:-fno-rtti>
+        $<$<AND:$<OR:$<COMPILE_LANGUAGE:CXX>,$<COMPILE_LANGUAGE:OBJCXX>>,$<NOT:$<OR:$<BOOL:${MH_WITH_RTTI}>,$<CXX_COMPILER_ID:MSVC>>>>:-fno-rtti>
         $<$<AND:$<COMPILE_LANGUAGE:CXX>,$<NOT:$<PLATFORM_ID:Windows>>>:-Wall>
         $<$<AND:$<COMPILE_LANGUAGE:CXX>,$<NOT:$<PLATFORM_ID:Windows>>>:-Wshadow>
         $<$<AND:$<COMPILE_LANGUAGE:CXX>,$<NOT:$<PLATFORM_ID:Windows>>>:-Wextra>
-        $<$<AND:$<COMPILE_LANGUAGE:CXX>,$<NOT:$<PLATFORM_ID:Windows>>,$<BOOL:${MLN_WITH_WERROR}>>:-Werror>
+        $<$<AND:$<COMPILE_LANGUAGE:CXX>,$<NOT:$<PLATFORM_ID:Windows>>,$<BOOL:${MH_WITH_WERROR}>>:-Werror>
         $<$<AND:$<COMPILE_LANGUAGE:CXX>,$<PLATFORM_ID:Android>>:-Wno-error=tautological-constant-compare>
         $<$<CXX_COMPILER_ID:GNU>:-Wno-error=maybe-uninitialized>
         $<$<CXX_COMPILER_ID:GNU>:-Wno-error=return-type>
@@ -91,9 +91,9 @@ target_compile_options(
         $<$<CXX_COMPILER_ID:GNU>:-Wno-error=pragmas>
         $<$<CXX_COMPILER_ID:GNU>:-Wno-psabi>
         $<$<CXX_COMPILER_ID:AppleClang>:-Wno-unknown-warning-option>
-        $<$<AND:$<CXX_COMPILER_ID:AppleClang>,$<NOT:$<BOOL:${MLN_WITH_QT}>>>:-Wno-error=deprecated-declarations>
-        $<$<AND:$<CXX_COMPILER_ID:AppleClang>,$<NOT:$<BOOL:${MLN_WITH_QT}>>>:-Wno-error=unused-parameter>
-        $<$<AND:$<CXX_COMPILER_ID:AppleClang>,$<NOT:$<BOOL:${MLN_WITH_QT}>>>:-Wno-error=unused-property-ivar>
+        $<$<AND:$<CXX_COMPILER_ID:AppleClang>,$<NOT:$<BOOL:${MH_WITH_QT}>>>:-Wno-error=deprecated-declarations>
+        $<$<AND:$<CXX_COMPILER_ID:AppleClang>,$<NOT:$<BOOL:${MH_WITH_QT}>>>:-Wno-error=unused-parameter>
+        $<$<AND:$<CXX_COMPILER_ID:AppleClang>,$<NOT:$<BOOL:${MH_WITH_QT}>>>:-Wno-error=unused-property-ivar>
         $<$<CXX_COMPILER_ID:MSVC>:/utf-8>
         $<$<CXX_COMPILER_ID:MSVC>:/WX>      # all warnings as errors
         $<$<CXX_COMPILER_ID:MSVC>:/EHsc>    # exceptions
@@ -107,10 +107,10 @@ target_compile_options(
 target_link_libraries(
     mbgl-compiler-options
     INTERFACE
-        $<$<BOOL:${MLN_WITH_COVERAGE}>:--coverage>
-        $<$<STREQUAL:${MLN_WITH_SANITIZER},address>:-fsanitize=address>
-        $<$<STREQUAL:${MLN_WITH_SANITIZER},thread>:-fsanitize=thread>
-        $<$<STREQUAL:${MLN_WITH_SANITIZER},undefined>:-fsanitize=undefined>
+        $<$<BOOL:${MH_WITH_COVERAGE}>:--coverage>
+        $<$<STREQUAL:${MH_WITH_SANITIZER},address>:-fsanitize=address>
+        $<$<STREQUAL:${MH_WITH_SANITIZER},thread>:-fsanitize=thread>
+        $<$<STREQUAL:${MH_WITH_SANITIZER},undefined>:-fsanitize=undefined>
 )
 
 cmake_policy(SET CMP0063 NEW)
@@ -131,7 +131,7 @@ set(CMAKE_INTERPROCEDURAL_OPTIMIZATION_MINSIZEREL ON)
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 set(CMAKE_VISIBILITY_INLINES_HIDDEN 1)
 
-if(MLN_WITH_QT)
+if(MH_WITH_QT)
     add_library(mbgl-core OBJECT)
 else()
     add_library(mbgl-core STATIC)
@@ -819,6 +819,14 @@ list(APPEND SRC_FILES
     ${PROJECT_SOURCE_DIR}/src/mbgl/style/layers/custom_layer_impl.hpp
     ${PROJECT_SOURCE_DIR}/src/mbgl/renderer/layers/render_custom_layer.cpp
     ${PROJECT_SOURCE_DIR}/src/mbgl/renderer/layers/render_custom_layer.hpp
+    ${PROJECT_SOURCE_DIR}/src/mbgl/style/layers/model3d_layer.cpp
+    ${PROJECT_SOURCE_DIR}/src/mbgl/style/layers/model3d_layer_impl.cpp
+    ${PROJECT_SOURCE_DIR}/src/mbgl/style/layers/model3d_layer_impl.hpp
+    ${PROJECT_SOURCE_DIR}/src/mbgl/layermanager/model3d_layer_factory.cpp
+    ${PROJECT_SOURCE_DIR}/src/mbgl/renderer/layers/model3d_host.cpp
+    ${PROJECT_SOURCE_DIR}/src/mbgl/renderer/layers/model3d_host.hpp
+    ${PROJECT_SOURCE_DIR}/src/mbgl/renderer/layers/render_model3d_layer.cpp
+    ${PROJECT_SOURCE_DIR}/src/mbgl/renderer/layers/render_model3d_layer.hpp
     ${PROJECT_SOURCE_DIR}/src/mbgl/text/bidi.hpp
     ${PROJECT_SOURCE_DIR}/src/mbgl/text/check_max_angle.cpp
     ${PROJECT_SOURCE_DIR}/src/mbgl/text/check_max_angle.hpp
@@ -894,7 +902,7 @@ list(APPEND SRC_FILES
     ${PROJECT_SOURCE_DIR}/src/mbgl/util/bounding_volumes.cpp
     ${PROJECT_SOURCE_DIR}/src/mbgl/util/chrono.cpp
     ${PROJECT_SOURCE_DIR}/src/mbgl/util/client_options.cpp
-    ${PROJECT_SOURCE_DIR}/src/mbgl/util/color$<IF:$<BOOL:${MLN_USE_RUST}>,.rs.cpp,.cpp>
+    ${PROJECT_SOURCE_DIR}/src/mbgl/util/color$<IF:$<BOOL:${MH_USE_RUST}>,.rs.cpp,.cpp>
     ${PROJECT_SOURCE_DIR}/src/mbgl/util/constants.cpp
     ${PROJECT_SOURCE_DIR}/src/mbgl/util/convert.cpp
     ${PROJECT_SOURCE_DIR}/src/mbgl/util/event.cpp
@@ -976,13 +984,13 @@ list(APPEND SRC_FILES
 )
 
 
-if(MLN_WITH_OPENGL)
+if(MH_WITH_OPENGL)
     message(STATUS "Configuring GL-Native with OpenGL renderer backend")
     target_compile_definitions(
         mbgl-core
         PUBLIC
-            MLN_RENDER_BACKEND_OPENGL=1
-            "MLN_USE_UNORDERED_DENSE=$<BOOL:${MLN_USE_UNORDERED_DENSE}>"
+            MH_RENDER_BACKEND_OPENGL=1
+            "MH_USE_UNORDERED_DENSE=$<BOOL:${MH_USE_UNORDERED_DENSE}>"
     )
     list(APPEND
         INCLUDE_FILES
@@ -1121,13 +1129,13 @@ if(MLN_WITH_OPENGL)
     )
 endif()
 
-if(MLN_WITH_METAL)
+if(MH_WITH_METAL)
     message(STATUS "Configuring Metal renderer backend")
     target_compile_definitions(
         mbgl-core
         PUBLIC
-            MLN_RENDER_BACKEND_METAL=1
-            "MLN_USE_UNORDERED_DENSE=$<BOOL:${MLN_USE_UNORDERED_DENSE}>"
+            MH_RENDER_BACKEND_METAL=1
+            "MH_USE_UNORDERED_DENSE=$<BOOL:${MH_USE_UNORDERED_DENSE}>"
     )
     list(APPEND
         INCLUDE_FILES
@@ -1219,13 +1227,13 @@ if(MLN_WITH_METAL)
 
 endif()
 
-if(MLN_WITH_VULKAN)
+if(MH_WITH_VULKAN)
     message(STATUS "Configuring Vulkan renderer backend")
 
     target_compile_definitions(
         mbgl-core
         PUBLIC
-            MLN_RENDER_BACKEND_VULKAN=1
+            MH_RENDER_BACKEND_VULKAN=1
     )
 
     list(APPEND
@@ -1315,13 +1323,13 @@ if(MLN_WITH_VULKAN)
     )
 endif()
 
-if(MLN_WITH_WEBGPU)
+if(MH_WITH_WEBGPU)
     message(STATUS "Configuring WebGPU renderer backend")
 
     target_compile_definitions(
         mbgl-core
         PUBLIC
-            MLN_RENDER_BACKEND_WEBGPU=1
+            MH_RENDER_BACKEND_WEBGPU=1
     )
 
     list(APPEND
@@ -1420,12 +1428,12 @@ if(MLN_WITH_WEBGPU)
     include(${PROJECT_SOURCE_DIR}/vendor/webgpu.cmake)
 
     # Include Dawn integration when requested
-    if(MLN_WEBGPU_IMPL_DAWN)
+    if(MH_WEBGPU_IMPL_DAWN)
         include(${PROJECT_SOURCE_DIR}/vendor/dawn.cmake)
         if(TARGET mbgl-vendor-dawn)
             target_link_libraries(mbgl-core PRIVATE mbgl-vendor-dawn)
         endif()
-    elseif(MLN_WEBGPU_IMPL_WGPU)
+    elseif(MH_WEBGPU_IMPL_WGPU)
         # Include wgpu-native integration
         include(${PROJECT_SOURCE_DIR}/vendor/wgpu.cmake)
         if(TARGET mbgl-vendor-wgpu)
@@ -1450,11 +1458,11 @@ list(APPEND
 set(SHAPE_TARGETS, "")
 list(APPEND
     SRC_FILES
-        # Base text shaping files, which are always included. They don't depend on HarfBuzz if MLN_TEXT_SHAPING_HARFBUZZ is OFF.
+        # Base text shaping files, which are always included. They don't depend on HarfBuzz if MH_TEXT_SHAPING_HARFBUZZ is OFF.
         ${PROJECT_SOURCE_DIR}/src/mbgl/text/harfbuzz.cpp
         ${PROJECT_SOURCE_DIR}/src/mbgl/text/harfbuzz.hpp
 )
-if (MLN_TEXT_SHAPING_HARFBUZZ)
+if (MH_TEXT_SHAPING_HARFBUZZ)
     message(STATUS "Configuring with HarfBuzz text shaping")
     list(APPEND
         SRC_FILES
@@ -1465,7 +1473,7 @@ if (MLN_TEXT_SHAPING_HARFBUZZ)
     )
     target_compile_definitions(
         mbgl-core
-        PRIVATE MLN_TEXT_SHAPING_HARFBUZZ=1
+        PRIVATE MH_TEXT_SHAPING_HARFBUZZ=1
     )
     include(${PROJECT_SOURCE_DIR}/vendor/freetype.cmake)
     include(${PROJECT_SOURCE_DIR}/vendor/harfbuzz.cmake)
@@ -1485,7 +1493,7 @@ target_sources(
     ${SRC_FILES}
 )
 
-if (MLN_WITH_CLANG_TIDY)
+if (MH_WITH_CLANG_TIDY)
     set_target_properties(mbgl-core PROPERTIES CXX_CLANG_TIDY "${CLANG_TIDY_COMMAND}")
 endif()
 
@@ -1517,23 +1525,25 @@ if(EXISTS ${PROJECT_SOURCE_DIR}/.git/HEAD)
             --short=8
             HEAD
         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
-        OUTPUT_VARIABLE MLN_VERSION_REV
+        OUTPUT_VARIABLE MH_VERSION_REV
         OUTPUT_STRIP_TRAILING_WHITESPACE
     )
 else()
-    set(MLN_VERSION_REV 00000000)
+    set(MH_VERSION_REV 00000000)
 endif()
 
 set_source_files_properties(
     ${PROJECT_SOURCE_DIR}/src/mbgl/util/version.cpp
     PROPERTIES
     COMPILE_DEFINITIONS
-    MBGL_VERSION_REV="${MLN_VERSION_REV}"
+    MBGL_VERSION_REV="${MH_VERSION_REV}"
 )
 
 target_include_directories(
     mbgl-core
     PRIVATE ${PROJECT_SOURCE_DIR}/src
+    # tinygltf (header-only) for the model3d layer's .glb loading
+    PRIVATE ${PROJECT_SOURCE_DIR}/vendor/tinygltf
 )
 
 target_include_directories(
@@ -1564,7 +1574,7 @@ include(${PROJECT_SOURCE_DIR}/vendor/expected-lite.cmake)
 include(${PROJECT_SOURCE_DIR}/vendor/kdbush.cmake)
 include(${PROJECT_SOURCE_DIR}/vendor/filesystem.cmake)
 
-if(MLN_USE_RUST)
+if(MH_USE_RUST)
 include(${PROJECT_SOURCE_DIR}/rustutils/rustutils.cmake)
 endif()
 
@@ -1572,9 +1582,9 @@ target_link_libraries(
     mbgl-core
     PRIVATE
         mbgl-vendor-kdbush
-        MapLibreNative::Base::shelf-pack-cpp
-        MapLibreNative::Base::geojson-vt-cpp
-        MapLibreNative::Base::cheap-ruler-cpp
+        MapHeroNative::Base::shelf-pack-cpp
+        MapHeroNative::Base::geojson-vt-cpp
+        MapHeroNative::Base::cheap-ruler-cpp
         mbgl-compiler-options
         mbgl-vendor-boost
         mbgl-vendor-earcut.hpp
@@ -1588,18 +1598,18 @@ target_link_libraries(
         mbgl-vendor-vector-tile
         mbgl-vendor-wagyu
 	    mlt-cpp
-        $<$<BOOL:${MLN_WITH_METAL}>:mbgl-vendor-metal-cpp>
-        $<IF:$<BOOL:${MLN_USE_RUST}>,mbgl-rustutils,mbgl-vendor-csscolorparser>
-        $<$<BOOL:${MLN_TEXT_SHAPING_HARFBUZZ}>:mbgl-freetype>
-        $<$<BOOL:${MLN_TEXT_SHAPING_HARFBUZZ}>:mbgl-harfbuzz>
+        $<$<BOOL:${MH_WITH_METAL}>:mbgl-vendor-metal-cpp>
+        $<IF:$<BOOL:${MH_USE_RUST}>,mbgl-rustutils,mbgl-vendor-csscolorparser>
+        $<$<BOOL:${MH_TEXT_SHAPING_HARFBUZZ}>:mbgl-freetype>
+        $<$<BOOL:${MH_TEXT_SHAPING_HARFBUZZ}>:mbgl-harfbuzz>
     PUBLIC
-        MapLibreNative::Base
+        MapHeroNative::Base
         mbgl-vendor-expected-lite
         mbgl-vendor-rapidjson
-        MapLibreNative::Base::geojson.hpp
-        MapLibreNative::Base::geometry.hpp
-        MapLibreNative::Base::variant
-        $<$<BOOL:${MLN_USE_TRACY}>:TracyClient>
+        MapHeroNative::Base::geojson.hpp
+        MapHeroNative::Base::geometry.hpp
+        MapHeroNative::Base::variant
+        $<$<BOOL:${MH_USE_TRACY}>:TracyClient>
         unordered_dense
 )
 
@@ -1635,13 +1645,13 @@ set(EXPORT_TARGETS
     unordered_dense
 )
 
-if(MLN_USE_RUST)
+if(MH_USE_RUST)
     list(APPEND EXPORT_TARGETS mbgl-rustutils rustutils)
 else()
     list(APPEND EXPORT_TARGETS mbgl-vendor-csscolorparser)
 endif()
 
-if(MLN_TEXT_SHAPING_HARFBUZZ)
+if(MH_TEXT_SHAPING_HARFBUZZ)
     list(APPEND EXPORT_TARGETS mbgl-freetype mbgl-harfbuzz)
 endif()
 
@@ -1655,7 +1665,7 @@ endif()
 
 export(TARGETS ${EXPORT_TARGETS} FILE MapboxCoreTargets.cmake)
 
-if(MLN_WITH_VULKAN)
+if(MH_WITH_VULKAN)
     include(${PROJECT_SOURCE_DIR}/vendor/vulkan.cmake)
 
     target_link_libraries(
@@ -1672,19 +1682,19 @@ endif()
 set_target_properties(
     mbgl-core
     PROPERTIES
-        INTERFACE_MAPLIBRE_NAME "MapLibre Native"
-        INTERFACE_MAPLIBRE_URL "https://github.com/maplibre/maplibre-native"
-        INTERFACE_MAPLIBRE_AUTHOR "MapLibre"
-        INTERFACE_MAPLIBRE_LICENSE ${PROJECT_SOURCE_DIR}/LICENSE.md
+        INTERFACE_MAPHERO_NAME "MapHero Native"
+        INTERFACE_MAPHERO_URL "https://github.com/maplibre/maplibre-native"
+        INTERFACE_MAPHERO_AUTHOR "MapHero"
+        INTERFACE_MAPHERO_LICENSE ${PROJECT_SOURCE_DIR}/LICENSE.md
 )
 
-if(MLN_WITH_METAL AND MLN_CREATE_AUTORELEASEPOOL)
+if(MH_WITH_METAL AND MH_CREATE_AUTORELEASEPOOL)
     # When using the Metal backend, if there is is no AutoreleasePool, it will result
     # in memory leaks when autoreleased objects are created.
 
     # Platforms such as iOS and GLFW use ARC with @autoreleasepool blocks, for these platforms
     # creating an AutoreleasePool is not neccesary (and in fact will not work).
-    # When using MapLibre Native with Metal on other platforms such as Node.js, you can pass
+    # When using MapHero Native with Metal on other platforms such as Node.js, you can pass
     # this variable to ensure an AutoReleasePool is created in the render loop.
     # See also:
     # https://developer.apple.com/documentation/foundation/nsautoreleasepool
@@ -1692,23 +1702,23 @@ if(MLN_WITH_METAL AND MLN_CREATE_AUTORELEASEPOOL)
     # vendor/metal-cpp/README.md 'AutoreleasePools and Objects'
     target_compile_definitions(
         mbgl-core
-            PRIVATE MLN_CREATE_AUTORELEASEPOOL=1
+            PRIVATE MH_CREATE_AUTORELEASEPOOL=1
     )
 endif()
 
-set_property(TARGET mbgl-core PROPERTY FOLDER MapLibre)
+set_property(TARGET mbgl-core PROPERTY FOLDER MapHero)
 
 add_library(
     Mapbox::Map ALIAS mbgl-core
 )
 
-if(MLN_WITH_CORE_ONLY)
+if(MH_WITH_CORE_ONLY)
     return()
 endif()
 
 include(${PROJECT_SOURCE_DIR}/scripts/license.cmake)
 
-if(MLN_WITH_QT)
+if(MH_WITH_QT)
     include(${PROJECT_SOURCE_DIR}/platform/qt/qt.cmake)
 elseif(CMAKE_SYSTEM_NAME STREQUAL Android)
     include(${PROJECT_SOURCE_DIR}/platform/android/android.cmake)

@@ -1,9 +1,9 @@
 #import <UIKit/UIKit.h>
 
-@class MLNMapView;
+@class MHMapView;
 
 @interface MBXOfflinePacksTableViewController : UITableViewController
 
-@property (nonatomic, weak) MLNMapView *mapView;
+@property (nonatomic, weak) MHMapView *mapView;
 
 @end

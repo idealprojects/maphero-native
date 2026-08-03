@@ -1,6 +1,6 @@
 # Plugin Layers
 
-Plugin Layers are a way to add layer types that render themselves into the style parsing engine at runtime.  It is a way to dynamically link new layer types to the MapLibre core -- and styling language -- without having to compile them into the library itself.
+Plugin Layers are a way to add layer types that render themselves into the style parsing engine at runtime.  It is a way to dynamically link new layer types to the MapHero core -- and styling language -- without having to compile them into the library itself.
 
 Because the layers are bound at runtime, one or more different types of specialized layers can be added and different versions of layer types can be added.
 
@@ -9,7 +9,7 @@ Currently Plugin Layers are only available on iOS/Darwin using the Metal Renderi
 
 ## Creating a Plugin Layer
 
-Plugin Layers can be created by creating a descendant from MLNPluginLayer and add the class type to an instance of MLNMapView.  The layer is self describing (e.g. the layer type, what properties are available, etc) and that information will be registered with the MapLibre core.  When the plugin layer type is found in the style, the core will automatically instantiate it, pass along initial properties and manage the rendering of the layer.
+Plugin Layers can be created by creating a descendant from MHPluginLayer and add the class type to an instance of MHMapView.  The layer is self describing (e.g. the layer type, what properties are available, etc) and that information will be registered with the MapHero core.  When the plugin layer type is found in the style, the core will automatically instantiate it, pass along initial properties and manage the rendering of the layer.
 
 ### Defining a layer's capabilities
 The newly created layer class should override the layerCapabilites class method.  Please note that this is a class method and not an instance method, so make sure it's prefaced with a + and not a -.
@@ -21,9 +21,9 @@ The triangle example (platform/darwin/app/PluginLayerExampleMetalRendering.mm) d
 Initialization properties can also be added to the "properties": section of the layer style.
 
 ```objc
-+(MLNPluginLayerCapabilities *)layerCapabilities {
++(MHPluginLayerCapabilities *)layerCapabilities {
 
-    MLNPluginLayerCapabilities *tempResult = [[MLNPluginLayerCapabilities alloc] init];
+    MHPluginLayerCapabilities *tempResult = [[MHPluginLayerCapabilities alloc] init];
     tempResult.layerID = @"plugin-layer-metal-rendering";
     tempResult.requiresPass3D = YES;
 
@@ -31,13 +31,13 @@ Initialization properties can also be added to the "properties": section of the 
     // what types they are
     tempResult.layerProperties = @[
         // The scale property
-        [MLNPluginLayerProperty propertyWithName:@"scale"
-                                    propertyType:MLNPluginLayerPropertyTypeSingleFloat
+        [MHPluginLayerProperty propertyWithName:@"scale"
+                                    propertyType:MHPluginLayerPropertyTypeSingleFloat
                                     defaultValue:@(1.0)],
 
         // The fill color property
-        [MLNPluginLayerProperty propertyWithName:@"fill-color"
-                                    propertyType:MLNPluginLayerPropertyTypeColor
+        [MHPluginLayerProperty propertyWithName:@"fill-color"
+                                    propertyType:MHPluginLayerPropertyTypeColor
                                     defaultValue:[UIColor blueColor]]
 
     ];

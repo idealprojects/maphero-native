@@ -6,7 +6,7 @@ add_executable(
 target_link_libraries(
     mbgl-cache
     PRIVATE
-        MapLibreNative::Base
+        MapHeroNative::Base
         mbgl-vendor-args
         mbgl-compiler-options
         mbgl-core

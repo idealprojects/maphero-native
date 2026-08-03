@@ -1,4 +1,4 @@
-# Changelog MapLibre Native for Android
+# Changelog MapHero Native for Android
 
 ## 12.2.0
 
@@ -90,7 +90,7 @@
 ### ✨ Features and improvements
 
 - Add HarfBuzz Text Shaping and Font Fallback Support ([#3611](https://github.com/maplibre/maplibre-native/pull/3611)).
-  This implements the [`font-faces` property of the MapLibre Style Spec](https://maplibre.org/maplibre-style-spec/font-faces/).
+  This implements the [`font-faces` property of the MapHero Style Spec](https://maplibre.org/maplibre-style-spec/font-faces/).
 
 ## 11.12.1
 
@@ -120,7 +120,7 @@
 
 - Improve the logic to let source peers be consistent with C++ peers ([#3561](https://github.com/maplibre/maplibre-native/pull/3561)).
 - set default move gesture threshold to a small non-zero value ([#3573](https://github.com/maplibre/maplibre-native/pull/3573)).
-- Bump version of MapLibre Gestures Android to 0.0.4 ([#3583](https://github.com/maplibre/maplibre-native/pull/3583)).
+- Bump version of MapHero Gestures Android to 0.0.4 ([#3583](https://github.com/maplibre/maplibre-native/pull/3583)).
 - Expose sync methods in GeoJsonSource  ([#3560](https://github.com/maplibre/maplibre-native/pull/3560)).
 
 ### 🐞 Bug fixes
@@ -244,7 +244,7 @@ They are available with a `-debug` postfix on Maven Central, for example `org.ma
 ## 11.8.1
 
 > [!NOTE]
-> We are now releasing OpenGL ES and Vulkan variants of MapLibre Android. See the [11.7.0 release notes](https://github.com/maplibre/maplibre-native/releases/tag/android-v11.7.0) for details.
+> We are now releasing OpenGL ES and Vulkan variants of MapHero Android. See the [11.7.0 release notes](https://github.com/maplibre/maplibre-native/releases/tag/android-v11.7.0) for details.
 
 ### ✨ Features and improvements
 
@@ -259,7 +259,7 @@ They are available with a `-debug` postfix on Maven Central, for example `org.ma
 ## 11.8.0
 
 > [!NOTE]
-> We are now releasing OpenGL ES and Vulkan variants of MapLibre Android. See the [11.7.0 release notes](https://github.com/maplibre/maplibre-native/releases/tag/android-v11.7.0) for details.
+> We are now releasing OpenGL ES and Vulkan variants of MapHero Android. See the [11.7.0 release notes](https://github.com/maplibre/maplibre-native/releases/tag/android-v11.7.0) for details.
 
 ### ✨ Features and improvements
 
@@ -275,7 +275,7 @@ We have a new feature in the C++ Core to constrain the screen (instead of the ce
 ## 11.7.1
 
 > [!NOTE]
-> We are now releasing OpenGL ES and Vulkan variants of MapLibre Android. See the [11.7.0 release notes](https://github.com/maplibre/maplibre-native/releases/tag/android-v11.7.0) for details.
+> We are now releasing OpenGL ES and Vulkan variants of MapHero Android. See the [11.7.0 release notes](https://github.com/maplibre/maplibre-native/releases/tag/android-v11.7.0) for details.
 
 ### ✨ Features and improvements
 
@@ -289,7 +289,7 @@ We have a new feature in the C++ Core to constrain the screen (instead of the ce
 
 ## 11.7.0
 
-This release marks the official release of MapLibre Android with Vulkan support. [Vulkan](https://www.vulkan.org) is a modern graphics API which brings advantages such as improved performance, improved observability and better stability. Specifically, starting with this version we are releasing multiple versions of MapLibre Android:
+This release marks the official release of MapHero Android with Vulkan support. [Vulkan](https://www.vulkan.org) is a modern graphics API which brings advantages such as improved performance, improved observability and better stability. Specifically, starting with this version we are releasing multiple versions of MapHero Android:
 
 - `org.maplibre.gl:android-sdk` (still OpenGL ES for now, might default to another rendering backend or might choose depending on device support in a future major release).
 - `org.maplibre.gl:android-sdk-opengl` (OpenGL ES).
@@ -305,7 +305,7 @@ Thanks to everyone who helped test the pre-releases!
 
 - Fix the issue that the empty polyline cannot be updated ([#3046](https://github.com/maplibre/maplibre-native/pull/3046)).
 - feat: add `getZoom` and `setZoom` function support for Android Auto ([#3037](https://github.com/maplibre/maplibre-native/pull/3037)).
-- Use MapLibre Android as attribution string across languages ([#3080](https://github.com/maplibre/maplibre-native/pull/3080)).
+- Use MapHero Android as attribution string across languages ([#3080](https://github.com/maplibre/maplibre-native/pull/3080)).
 - Use CMake 3.24.0+ for Android ([#3065](https://github.com/maplibre/maplibre-native/pull/3065)).
 
 ### 🐞 Bug fixes
@@ -368,7 +368,7 @@ Thanks to everyone who helped test the pre-releases!
 - Compile for Android with support for 16 KB page sizes ([#2852](https://github.com/maplibre/maplibre-native/pull/2852)).
 - Enable crash mitigation when running OpenGL in the Android emulator ([#2858](https://github.com/maplibre/maplibre-native/pull/2858)). Technically the crashes were caused by an issue with the Android Emulator, but we were able to find a workaround.
 - Add array support for `icon-padding` ([#2845](https://github.com/maplibre/maplibre-native/pull/2845)).
-  More information can be found in the [MapLibre Style Spec Documentation](https://maplibre.org/maplibre-style-spec/types/#padding). This is the first (code) contribution from [@random3940](https://github.com/random3940)! 🎉
+  More information can be found in the [MapHero Style Spec Documentation](https://maplibre.org/maplibre-style-spec/types/#padding). This is the first (code) contribution from [@random3940](https://github.com/random3940)! 🎉
 - Use `thread_local` for thread local scheduler ([#2863](https://github.com/maplibre/maplibre-native/pull/2863)).
 
 ### 🐞 Bug fixes
@@ -381,7 +381,7 @@ Thanks to everyone who helped test the pre-releases!
 ### ✨ Features and improvements
 
 - Add `textFitWidth` and `textFitHeight` properties to sprites ([#2780](https://github.com/maplibre/maplibre-native/pull/2780)).
-  More information can be found in the [MapLibre Style Spec](https://maplibre.org/maplibre-style-spec/sprite/#text-fit-properties).
+  More information can be found in the [MapHero Style Spec](https://maplibre.org/maplibre-style-spec/sprite/#text-fit-properties).
 - Move UBO updates from render layers to tweakers ([#2703](https://github.com/maplibre/maplibre-native/pull/2703)).
 - Improve tile lifecycle determinism  ([#2819](https://github.com/maplibre/maplibre-native/pull/2819)).
 - Make sure swapBehavior is NoFlush ([#2827](https://github.com/maplibre/maplibre-native/pull/2827)).
@@ -408,7 +408,7 @@ Thanks to everyone who helped test the pre-releases!
 ### ✨ Features and improvements
 
 - Toggle tile cache final API ([#2723](https://github.com/maplibre/maplibre-native/pull/2723)).
-    This is a new API on `MapLibreMap`: `setTileCacheEnabled()` and `getTileCacheEnabled()`. This tile cache is used to cache tiles on different zoom levels, disabling it will reduce memory usage.
+    This is a new API on `MapHeroMap`: `setTileCacheEnabled()` and `getTileCacheEnabled()`. This tile cache is used to cache tiles on different zoom levels, disabling it will reduce memory usage.
 - Add `getOfflineRegion` Kotlin API ([#2516](https://github.com/maplibre/maplibre-native/pull/2516)). This is the first (code) contribution from [@JRWilding](https://github.com/JRWilding)! 🎉
 - Bump NDK version to 27.0.12077973, replace `ALooper_pollAll` with `ALooper_pollOnce` ([#2663](https://github.com/maplibre/maplibre-native/pull/2663)).
 - Remove OkHttp3 ProGuard rules ([#2665](https://github.com/maplibre/maplibre-native/pull/2665)).
@@ -417,7 +417,7 @@ Thanks to everyone who helped test the pre-releases!
 - Update Android Dependencies, use [maplibre-gestures-android](https://github.com/maplibre/maplibre-gestures-android) ([#2714](https://github.com/maplibre/maplibre-native/pull/2714)).
 - Update dependency gradle to v8.10 ([#2721](https://github.com/maplibre/maplibre-native/pull/2721)).
 - Cleanup `mbgl/actor/mailbox*` implementation for repetition in ensuring valid weakScheduler exists before usage ([#2733](https://github.com/maplibre/maplibre-native/pull/2733)).
-- Use latest MapLibre Style Spec ([#2756](https://github.com/maplibre/maplibre-native/pull/2756)).
+- Use latest MapHero Style Spec ([#2756](https://github.com/maplibre/maplibre-native/pull/2756)).
   This PR adds two new APIs to `TransitionOptions` of `LocationIndicatorLayer`: `getBearingTransition()` and `setBearingTransition()`.
 - Use timestamps for attribute updates ([#2629](https://github.com/maplibre/maplibre-native/pull/2629)).
 
@@ -464,7 +464,7 @@ Thanks to everyone who helped test the pre-releases!
 
 ## 11.0.0
 
-The rendering internals of MapLibre Native have undergone major changes. We've had an extensive period of [pre-releases](https://github.com/maplibre/maplibre-native/issues/1608) leading up to this official release. While we've worked hard to minimize potential issues, it's possible that there may still be regressions. Therefore, it's important to conduct your own testing and report any encountered issues on GitHub.
+The rendering internals of MapHero Native have undergone major changes. We've had an extensive period of [pre-releases](https://github.com/maplibre/maplibre-native/issues/1608) leading up to this official release. While we've worked hard to minimize potential issues, it's possible that there may still be regressions. Therefore, it's important to conduct your own testing and report any encountered issues on GitHub.
 
 This release utilizes **OpenGL ES 3.0**. As a result, some older devices are no longer supported. If you require compatibility with devices that do not support OpenGL ES 3.0, it's recommended to continue using the 10.x.x release series.
 
@@ -472,25 +472,25 @@ This release utilizes **OpenGL ES 3.0**. As a result, some older devices are no 
 
 - Add support for custom `ModuleProvider` implementations (#[2231](https://github.com/maplibre/maplibre-native/pull/2231))
 - Allow setting padding when camera is tracking (#[2165](https://github.com/maplibre/maplibre-native/pull/2165)).
-- Update user agent from Mapbox to MapLibreNative.
+- Update user agent from Mapbox to MapHeroNative.
 
-- 💥 Breaking: Change package of all classes from `com.mapbox.mapboxsdk` to `org.maplibre.android` ([#1201](https://github.com/maplibre/maplibre-native/pull/1201)). This means you will need to fix your imports.
+- 💥 Breaking: Change package of all classes from `com.mapbox.mapboxsdk` to `org.maphero.android` ([#1201](https://github.com/maplibre/maplibre-native/pull/1201)). This means you will need to fix your imports.
 
   > To migrate:
-  > In your imports in each of your project files, replace `com.mapbox.mapboxsdk.` with `org.maplibre.android.*`.
+  > In your imports in each of your project files, replace `com.mapbox.mapboxsdk.` with `org.maphero.android.*`.
 
 - 💥 Breaking: Rename several classes to no longer contain the word "Mapbox". You will need to migrate by renaming references.
 
   > To migrate:
-  > Each affected occurrence will be marked as an error during compilation. Replace each occurrence of "Mapbox" with "MapLibre" and let your IDE do the import.
+  > Each affected occurrence will be marked as an error during compilation. Replace each occurrence of "Mapbox" with "MapHero" and let your IDE do the import.
   >
   > These are the most important classes that have been renamed:
   >
-  > - `Mapbox` → `MapLibre`
-  > - `MapboxMap` → `MapLibreMap`
-  > - `MapboxConstants` → `MapLibreConstants`
-  > - `MapboxMapOptions` → `MapLibreMapOptions`
-  > - but also others, less frequently used ones, like `MapboxGLSurfaceView` → `MapLibreGLSurfaceView`.
+  > - `Mapbox` → `MapHero`
+  > - `MapboxMap` → `MapHeroMap`
+  > - `MapboxConstants` → `MapHeroConstants`
+  > - `MapboxMapOptions` → `MapHeroMapOptions`
+  > - but also others, less frequently used ones, like `MapboxGLSurfaceView` → `MapHeroGLSurfaceView`.
 
 ### 🐞 Bug fixes
 
@@ -549,10 +549,10 @@ This version is identical to 10.0.2.
 
 ### ✨ Features and improvements
 
-- 💥 Breaking: Changed resourcePrefix to `maplibre_` from `mapbox_` ([#647](https://github.com/maplibre/maplibre-native/pull/647)) and renamed resources accordingly. Note that this is a breaking change since the names of public resources were renamed as well. Replaced Mapbox logo with MapLibre logo.
+- 💥 Breaking: Changed resourcePrefix to `MAPHERO_` from `mapbox_` ([#647](https://github.com/maplibre/maplibre-native/pull/647)) and renamed resources accordingly. Note that this is a breaking change since the names of public resources were renamed as well. Replaced Mapbox logo with MapHero logo.
 
   > To migrate:
-  > If you use any of the public Android resources, you will get an error that they can not be found. Replace the prefix of each, e.g. `R.style.mapbox_LocationComponent` -> `R.style.maplibre_LocationComponent`.
+  > If you use any of the public Android resources, you will get an error that they can not be found. Replace the prefix of each, e.g. `R.style.mapbox_LocationComponent` -> `R.style.MAPHERO_LocationComponent`.
 
 - 💥 Breaking: several deprecated overloads of `LocationComponent.activateLocationComponent` were removed. Use `LocationComponentActivationOptions.Builder` instead.
 
@@ -569,12 +569,12 @@ This version is identical to 10.0.2.
   > locationComponent.activateLocationComponent(options)
   > ```
 
-- 💥 Breaking: the `LocationEngine` implemented with Google Location Services has been removed to make MapLibre Native for Android fully FLOSS ([#379](https://github.com/maplibre/maplibre-native/issues/379)).
+- 💥 Breaking: the `LocationEngine` implemented with Google Location Services has been removed to make MapHero Native for Android fully FLOSS ([#379](https://github.com/maplibre/maplibre-native/issues/379)).
 
   > To migrate:
-  > Include the source code of the removed [`GoogleLocationEngineImpl`](https://github.com/maplibre/maplibre-native/blob/4a34caab7593f4f1b6d8c09c06a5e25d7c6cfc43/platform/android/MapLibreAndroid/src/main/java/com/mapbox/mapboxsdk/location/engine/GoogleLocationEngineImpl.java) in your source tree.
+  > Include the source code of the removed [`GoogleLocationEngineImpl`](https://github.com/maplibre/maplibre-native/blob/4a34caab7593f4f1b6d8c09c06a5e25d7c6cfc43/platform/android/MapHeroAndroid/src/main/java/com/mapbox/mapboxsdk/location/engine/GoogleLocationEngineImpl.java) in your source tree.
   >
-  > Pass an instance of `LocationEngine` based on `GoogleLocationEngineImpl` to `LocationComponentActivationOptions.Builder.locationEngine` (this was done in a now removed [`LocationEngineProvider`](https://github.com/maplibre/maplibre-native/blob/68d58d6f6f453d5c6cc0fa92fcc6c6cfe0cf967f/platform/android/MapLibreAndroid/src/main/java/com/mapbox/mapboxsdk/location/engine/LocationEngineProvider.java#L59) class):
+  > Pass an instance of `LocationEngine` based on `GoogleLocationEngineImpl` to `LocationComponentActivationOptions.Builder.locationEngine` (this was done in a now removed [`LocationEngineProvider`](https://github.com/maplibre/maplibre-native/blob/68d58d6f6f453d5c6cc0fa92fcc6c6cfe0cf967f/platform/android/MapHeroAndroid/src/main/java/com/mapbox/mapboxsdk/location/engine/LocationEngineProvider.java#L59) class):
   >
   > ```kotlin
   > val locationEngine = LocationEngineProxy<Any>(GoogleLocationEngineImpl(context))
@@ -584,7 +584,7 @@ This version is identical to 10.0.2.
 
 - 💥 Breaking: The static `LocationEngineResult.extractResult` can no longer extract a `LocationEngineResult` from a Google Play intent.
 
-  > To migrate, include and use the [previous implementation](https://github.com/maplibre/maplibre-native/blob/ea234edf67bb3aec75f077e15c1c30c99756b926/platform/android/MapLibreAndroid/src/main/java/com/mapbox/mapboxsdk/location/engine/LocationEngineResult.java#L97) in your source tree.
+  > To migrate, include and use the [previous implementation](https://github.com/maplibre/maplibre-native/blob/ea234edf67bb3aec75f077e15c1c30c99756b926/platform/android/MapHeroAndroid/src/main/java/com/mapbox/mapboxsdk/location/engine/LocationEngineResult.java#L97) in your source tree.
 
 - Improve Kotlinification of LatLng ([#742](https://github.com/maplibre/maplibre-native/issues))
 - Increment minSdkVersion from 14 to 21, as it covers 99.2%% of the newer devices since 2014 and lessens the backward compatibility burden ([#630](https://github.com/maplibre/maplibre-native/pull/630))
@@ -609,12 +609,12 @@ This version is identical to 10.0.2.
 - Migrate examples in android TestApp to Kotlin ([#416](https://github.com/maplibre/maplibre-native/pull/416))
 - Add ClientOptions to be able to pass around client name and version ([#365](https://github.com/maplibre/maplibre-native/pull/365))
 - Use maplibre docs for more links ([#354](https://github.com/maplibre/maplibre-native/pull/354))
-- Use the MapLibre style spec docs website ([#353](https://github.com/maplibre/maplibre-native/pull/353))
+- Use the MapHero style spec docs website ([#353](https://github.com/maplibre/maplibre-native/pull/353))
 - Refresh iOS & Android build docs ([5f679b55b](https://github.com/maplibre/maplibre-native/commit/5f679b55b))
 - Qt build improvements and documentation ([#277](https://github.com/maplibre/maplibre-native/pull/277))
-- Replace Mapbox with MapLibre in README titles ([#297](https://github.com/maplibre/maplibre-native/pull/297))
+- Replace Mapbox with MapHero in README titles ([#297](https://github.com/maplibre/maplibre-native/pull/297))
 - Rename MaptilerFileSource to MBTilesFileSource ([#198](https://github.com/maplibre/maplibre-native/pull/198))
-- Changed missed MapBox reference to MapLibre ([#253](https://github.com/maplibre/maplibre-native/pull/253))
+- Changed missed MapBox reference to MapHero ([#253](https://github.com/maplibre/maplibre-native/pull/253))
 - Implement map projection functionality ([#254](https://github.com/maplibre/maplibre-native/pull/254))
 - chore: rename master -> main in CI and scripts ([#246](https://github.com/maplibre/maplibre-native/pull/246))
 - Feature - Bring back node support ([#217](https://github.com/maplibre/maplibre-native/pull/217))
@@ -647,14 +647,14 @@ This version is identical to 10.0.2.
 ### Bug Fixes
 
 - raster layers stopped working in Android [#161](https://github.com/maplibre/maplibre-native/pull/161)
-- remove Mapbox's in favor of MapLibre in attribution dialog [#160](https://github.com/maplibre/maplibre-native/pull/160)
+- remove Mapbox's in favor of MapHero in attribution dialog [#160](https://github.com/maplibre/maplibre-native/pull/160)
 - queryRenderedFeatures returns wrong results - issue #184, [#147](https://github.com/maplibre/maplibre-native/pull/174)
 
 ## 9.5.1 - September 06, 2021
 
 ### Bug Fixes
 
-- Invalid tile url template for MapLibre style [#107](https://github.com/maplibre/maplibre-native/pull/107)
+- Invalid tile url template for MapHero style [#107](https://github.com/maplibre/maplibre-native/pull/107)
 - Crash when inflating view on Android [#130](https://github.com/maplibre/maplibre-native/pull/130)
 
 ### Other

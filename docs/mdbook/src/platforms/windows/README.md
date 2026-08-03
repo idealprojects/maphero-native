@@ -1,6 +1,6 @@
 # Windows
 
-This guide explains how to build MapLibre Native in Windows.
+This guide explains how to build MapHero Native in Windows.
 
 The files produced by building `mbgl-core` target can be reused as libraries in other projects.
 

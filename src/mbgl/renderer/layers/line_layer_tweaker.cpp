@@ -14,16 +14,16 @@
 #include <mbgl/util/logging.hpp>
 #include <mbgl/util/math.hpp>
 
-#if MLN_RENDER_BACKEND_METAL
+#if MH_RENDER_BACKEND_METAL
 #include <mbgl/shaders/mtl/line.hpp>
-#endif // MLN_RENDER_BACKEND_METAL
+#endif // MH_RENDER_BACKEND_METAL
 
 namespace mbgl {
 
 using namespace style;
 using namespace shaders;
 
-#if MLN_RENDER_BACKEND_METAL && !defined(NDEBUG)
+#if MH_RENDER_BACKEND_METAL && !defined(NDEBUG)
 constexpr bool diff(float actual, float expected, float e = 1.0e-6) {
     return actual != expected && (expected == 0 || std::fabs((actual - expected) / expected) > e);
 }
@@ -31,9 +31,9 @@ constexpr bool diff(Color actual, Color expected, float e = 1.0e-6) {
     return diff(actual.r, expected.r, e) || diff(actual.g, expected.g, e) || diff(actual.b, expected.b, e) ||
            diff(actual.a, expected.a, e);
 }
-#endif // MLN_RENDER_BACKEND_METAL
+#endif // MH_RENDER_BACKEND_METAL
 
-#if MLN_RENDER_BACKEND_METAL && !defined(NDEBUG)
+#if MH_RENDER_BACKEND_METAL && !defined(NDEBUG)
 template <typename Result>
 std::optional<Result> LineLayerTweaker::gpuEvaluate(
     [[maybe_unused]] const LinePaintProperties::PossiblyEvaluated& evaluated,
@@ -47,19 +47,19 @@ std::optional<Result> LineLayerTweaker::gpuEvaluate(
     }
     return {};
 }
-#endif // MLN_RENDER_BACKEND_METAL
+#endif // MH_RENDER_BACKEND_METAL
 
 template <typename Property>
 auto LineLayerTweaker::evaluate([[maybe_unused]] const PaintParameters& parameters) const {
     const auto& evaluated = static_cast<const LineLayerProperties&>(*evaluatedProperties).evaluated;
 
-#if MLN_RENDER_BACKEND_METAL && !defined(NDEBUG)
+#if MH_RENDER_BACKEND_METAL && !defined(NDEBUG)
     constexpr auto index = propertyIndex<Property>();
     if (auto gpuValue = gpuEvaluate<typename Property::Type>(evaluated, parameters, index)) {
         assert(!diff(*gpuValue, evaluated.get<Property>().constantOr(Property::defaultValue())));
         return *gpuValue;
     }
-#endif // MLN_RENDER_BACKEND_METAL
+#endif // MH_RENDER_BACKEND_METAL
 
     return evaluated.get<Property>().constantOr(Property::defaultValue());
 }
@@ -79,7 +79,7 @@ void LineLayerTweaker::execute(LayerGroupBase& layerGroup, const PaintParameters
     const auto zoom = static_cast<float>(parameters.state.getZoom());
     const auto intZoom = parameters.state.getIntegerZoom();
 
-#if MLN_RENDER_BACKEND_METAL
+#if MH_RENDER_BACKEND_METAL
     const auto getExpressionBuffer = [&]() {
         const bool enableEval = gfx::Backend::getEnableGPUExpressionEval();
         if (!expressionUniformBuffer || (gpuExpressionsUpdated && enableEval)) {
@@ -97,10 +97,10 @@ void LineLayerTweaker::execute(LayerGroupBase& layerGroup, const PaintParameters
         }
         return expressionUniformBuffer;
     };
-#endif // MLN_RENDER_BACKEND_METAL
+#endif // MH_RENDER_BACKEND_METAL
 
     if (!evaluatedPropsUniformBuffer || propertiesUpdated) {
-#if MLN_RENDER_BACKEND_METAL
+#if MH_RENDER_BACKEND_METAL
         expressionMask =
             !gfx::Backend::getEnableGPUExpressionEval()
                 ? LineExpressionMask::None
@@ -138,7 +138,7 @@ void LineLayerTweaker::execute(LayerGroupBase& layerGroup, const PaintParameters
                                                                             : evaluate<LineFloorWidth>(parameters),
             .expressionMask = expressionMask,
             .pad1 = 0};
-#elif MLN_RENDER_BACKEND_WEBGPU
+#elif MH_RENDER_BACKEND_WEBGPU
         expressionMask = LineExpressionMask::None;
         if (evaluated.get<LineColor>().isConstant()) {
             expressionMask |= LineExpressionMask::Color;
@@ -182,7 +182,7 @@ void LineLayerTweaker::execute(LayerGroupBase& layerGroup, const PaintParameters
                                              /*floorwidth =*/evaluate<LineFloorWidth>(parameters),
                                              LineExpressionMask::None,
                                              0};
-#endif // MLN_RENDER_BACKEND_METAL
+#endif // MH_RENDER_BACKEND_METAL
 
         context.emplaceOrUpdateUniformBuffer(evaluatedPropsUniformBuffer, &propsUBO);
         propertiesUpdated = false;
@@ -190,12 +190,12 @@ void LineLayerTweaker::execute(LayerGroupBase& layerGroup, const PaintParameters
     auto& layerUniforms = layerGroup.mutableUniformBuffers();
     layerUniforms.set(idLineEvaluatedPropsUBO, evaluatedPropsUniformBuffer);
 
-#if MLN_RENDER_BACKEND_METAL
+#if MH_RENDER_BACKEND_METAL
     // GPU Expressions
     layerUniforms.set(idLineExpressionUBO, getExpressionBuffer());
-#endif // MLN_RENDER_BACKEND_METAL
+#endif // MH_RENDER_BACKEND_METAL
 
-#if MLN_UBO_CONSOLIDATION
+#if MH_UBO_CONSOLIDATION
     int i = 0;
     std::vector<LineDrawableUnionUBO> drawableUBOVector(layerGroup.getDrawableCount());
     std::vector<LineTilePropsUnionUBO> tilePropsUBOVector(layerGroup.getDrawableCount());
@@ -227,12 +227,12 @@ void LineLayerTweaker::execute(LayerGroupBase& layerGroup, const PaintParameters
         const auto matrix = getTileMatrix(
             tileID, parameters, translation, anchor, nearClipped, inViewportPixelUnits, drawable);
 
-#if !MLN_UBO_CONSOLIDATION
+#if !MH_UBO_CONSOLIDATION
         auto& drawableUniforms = drawable.mutableUniformBuffers();
 #endif
         switch (static_cast<LineType>(drawable.getType())) {
             case LineType::Simple: {
-#if MLN_UBO_CONSOLIDATION
+#if MH_UBO_CONSOLIDATION
                 drawableUBOVector[i].lineDrawableUBO = {
 #else
                 const LineDrawableUBO drawableUBO = {
@@ -249,14 +249,14 @@ void LineLayerTweaker::execute(LayerGroupBase& layerGroup, const PaintParameters
                     .pad1 = 0
                 };
 
-#if !MLN_UBO_CONSOLIDATION
+#if !MH_UBO_CONSOLIDATION
                 drawableUniforms.createOrUpdate(idLineDrawableUBO, &drawableUBO, context);
 #endif
 
             } break;
 
             case LineType::Gradient: {
-#if MLN_UBO_CONSOLIDATION
+#if MH_UBO_CONSOLIDATION
                 drawableUBOVector[i].lineGradientDrawableUBO = {
 #else
                 const LineGradientDrawableUBO drawableUBO = {
@@ -273,7 +273,7 @@ void LineLayerTweaker::execute(LayerGroupBase& layerGroup, const PaintParameters
                     .pad2 = 0
                 };
 
-#if !MLN_UBO_CONSOLIDATION
+#if !MH_UBO_CONSOLIDATION
                 drawableUniforms.createOrUpdate(idLineDrawableUBO, &drawableUBO, context);
 #endif
             } break;
@@ -283,7 +283,7 @@ void LineLayerTweaker::execute(LayerGroupBase& layerGroup, const PaintParameters
                 if (const auto& texture = drawable.getTexture(idLineImageTexture)) {
                     textureSize = texture->getSize();
                 }
-#if MLN_UBO_CONSOLIDATION
+#if MH_UBO_CONSOLIDATION
                 drawableUBOVector[i].linePatternDrawableUBO = {
 #else
                 const LinePatternDrawableUBO drawableUBO = {
@@ -300,7 +300,7 @@ void LineLayerTweaker::execute(LayerGroupBase& layerGroup, const PaintParameters
                     .pattern_to_t = std::get<1>(binders->get<LinePattern>()->interpolationFactor(zoom))
                 };
 
-#if MLN_UBO_CONSOLIDATION
+#if MH_UBO_CONSOLIDATION
                 tilePropsUBOVector[i].linePatternTilePropsUBO = LinePatternTilePropsUBO {
 #else
                 const LinePatternTilePropsUBO tilePropsUBO = {
@@ -318,7 +318,7 @@ void LineLayerTweaker::execute(LayerGroupBase& layerGroup, const PaintParameters
                     .fade = crossfade.t, .pad1 = 0
                 };
 
-#if !MLN_UBO_CONSOLIDATION
+#if !MH_UBO_CONSOLIDATION
                 drawableUniforms.createOrUpdate(idLineDrawableUBO, &drawableUBO, context);
                 drawableUniforms.createOrUpdate(idLineTilePropsUBO, &tilePropsUBO, context);
 #endif
@@ -346,7 +346,7 @@ void LineLayerTweaker::execute(LayerGroupBase& layerGroup, const PaintParameters
                     const float widthA = posA.width * crossfade.fromScale;
                     const float widthB = posB.width * crossfade.toScale;
 
-#if MLN_UBO_CONSOLIDATION
+#if MH_UBO_CONSOLIDATION
                     drawableUBOVector[i].lineSDFDrawableUBO = {
 #else
                     const LineSDFDrawableUBO drawableUBO = {
@@ -369,7 +369,7 @@ void LineLayerTweaker::execute(LayerGroupBase& layerGroup, const PaintParameters
                         .pad2 = 0
                     };
 
-#if MLN_UBO_CONSOLIDATION
+#if MH_UBO_CONSOLIDATION
                     tilePropsUBOVector[i].lineSDFTilePropsUBO = LineSDFTilePropsUBO {
 #else
                     const LineSDFTilePropsUBO tilePropsUBO = {
@@ -379,7 +379,7 @@ void LineLayerTweaker::execute(LayerGroupBase& layerGroup, const PaintParameters
                         .mix = crossfade.t, .pad1 = 0, .pad2 = 0
                     };
 
-#if !MLN_UBO_CONSOLIDATION
+#if !MH_UBO_CONSOLIDATION
                     drawableUniforms.createOrUpdate(idLineDrawableUBO, &drawableUBO, context);
                     drawableUniforms.createOrUpdate(idLineTilePropsUBO, &tilePropsUBO, context);
 #endif
@@ -392,12 +392,12 @@ void LineLayerTweaker::execute(LayerGroupBase& layerGroup, const PaintParameters
             } break;
         }
 
-#if MLN_UBO_CONSOLIDATION
+#if MH_UBO_CONSOLIDATION
         drawable.setUBOIndex(i++);
 #endif
     });
 
-#if MLN_UBO_CONSOLIDATION
+#if MH_UBO_CONSOLIDATION
     const size_t drawableUBOVectorSize = sizeof(LineDrawableUnionUBO) * drawableUBOVector.size();
     if (!drawableUniformBuffer || drawableUniformBuffer->getSize() < drawableUBOVectorSize) {
         drawableUniformBuffer = context.createUniformBuffer(
@@ -419,7 +419,7 @@ void LineLayerTweaker::execute(LayerGroupBase& layerGroup, const PaintParameters
 #endif
 }
 
-#if MLN_RENDER_BACKEND_METAL
+#if MH_RENDER_BACKEND_METAL
 void LineLayerTweaker::updateGPUExpressions(const Unevaluated& unevaluated, TimePoint now) {
     if (gfx::Backend::getEnableGPUExpressionEval()) {
         if (unevaluated.updateGPUExpressions(gpuExpressions, now)) {
@@ -431,6 +431,6 @@ void LineLayerTweaker::updateGPUExpressions(const Unevaluated& unevaluated, Time
     }
 }
 
-#endif // MLN_RENDER_BACKEND_METAL
+#endif // MH_RENDER_BACKEND_METAL
 
 } // namespace mbgl

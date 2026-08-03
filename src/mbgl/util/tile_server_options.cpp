@@ -211,10 +211,10 @@ const std::string& TileServerOptions::defaultStyle() const {
 }
 
 TileServerOptions TileServerOptions::DefaultConfiguration() {
-    return MapLibreConfiguration();
+    return MapHeroConfiguration();
 }
 
-TileServerOptions TileServerOptions::MapLibreConfiguration() {
+TileServerOptions TileServerOptions::MapHeroConfiguration() {
     std::vector<mbgl::util::DefaultStyle> styles{// https://demotiles.maplibre.org/style.json
                                                  mbgl::util::DefaultStyle("maplibre://maps/style", "Basic", 1)};
 

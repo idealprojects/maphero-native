@@ -1,13 +1,13 @@
-import MapLibre
+import MapHero
 import SwiftUI
 import UIKit
 
 // #-example-code(AddMarkerSymbolExample)
-class AddMarkerSymbolExampleUIKit: UIViewController, MLNMapViewDelegate {
+class AddMarkerSymbolExampleUIKit: UIViewController, MHMapViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let mapView = MLNMapView(frame: view.bounds)
+        let mapView = MHMapView(frame: view.bounds)
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         mapView.delegate = self
 
@@ -16,16 +16,16 @@ class AddMarkerSymbolExampleUIKit: UIViewController, MLNMapViewDelegate {
         view.addSubview(mapView)
     }
 
-    func mapView(_ mapView: MLNMapView, didFinishLoading style: MLNStyle) {
+    func mapView(_ mapView: MHMapView, didFinishLoading style: MHStyle) {
         // Create point to represent where the symbol should be placed
-        let point = MLNPointAnnotation()
+        let point = MHPointAnnotation()
         point.coordinate = mapView.centerCoordinate
 
         // Create a data source to hold the point data
-        let shapeSource = MLNShapeSource(identifier: "marker-source", shape: point, options: nil)
+        let shapeSource = MHShapeSource(identifier: "marker-source", shape: point, options: nil)
 
         // Create a style layer for the symbol
-        let shapeLayer = MLNSymbolStyleLayer(identifier: "marker-style", source: shapeSource)
+        let shapeLayer = MHSymbolStyleLayer(identifier: "marker-style", source: shapeSource)
 
         // Add the image to the style's sprite
         if let image = UIImage(named: "house-icon") {

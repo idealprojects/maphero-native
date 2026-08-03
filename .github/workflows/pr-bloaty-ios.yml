@@ -67,10 +67,10 @@ jobs:
           cmake -B build -G Ninja -S .
           cmake --build build
 
-      - name: Download MapLibre_dynamic-main, MapLibre_DWARF-main
+      - name: Download MapHero_dynamic-main, MapHero_DWARF-main
         run: |
-          wget -O MapLibre_dynamic-main "${download_url}/size-test-ios/MapLibre_dynamic-main"
-          wget -O MapLibre_DWARF-main "${download_url}/size-test-ios/MapLibre_DWARF-main"
+          wget -O MapHero_dynamic-main "${download_url}/size-test-ios/MapHero_dynamic-main"
+          wget -O MapHero_DWARF-main "${download_url}/size-test-ios/MapHero_DWARF-main"
 
       - uses: ./.github/actions/get-pr-number
         id: get-pr-number
@@ -78,10 +78,10 @@ jobs:
       - uses: ./.github/actions/download-workflow-run-artifact
         with:
           artifact-name: ios-size-test-files
-          expect-files: "MapLibre_dynamic,MapLibre_DWARF"
+          expect-files: "MapHero_dynamic,MapHero_DWARF"
 
       - name: Run Bloaty
-        run: bloaty/build/bloaty --debug-file MapLibre_DWARF --debug-file MapLibre_DWARF-main MapLibre_dynamic -n 0 -s vm -d compileunits -- MapLibre_dynamic-main > bloaty_diff.txt
+        run: bloaty/build/bloaty --debug-file MapHero_DWARF --debug-file MapHero_DWARF-main MapHero_dynamic -n 0 -s vm -d compileunits -- MapHero_dynamic-main > bloaty_diff.txt
 
       - name: Configure AWS Credentials
         if: vars.OIDC_AWS_ROLE_TO_ASSUME

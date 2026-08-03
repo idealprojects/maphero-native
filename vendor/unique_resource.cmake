@@ -14,8 +14,8 @@ target_include_directories(
 set_target_properties(
     mbgl-vendor-unique_resource
     PROPERTIES
-        INTERFACE_MAPLIBRE_NAME "unique_resource"
-        INTERFACE_MAPLIBRE_URL "https://github.com/okdshin/unique_resource"
-        INTERFACE_MAPLIBRE_AUTHOR "Shintarou Okada"
-        INTERFACE_MAPLIBRE_LICENSE ${CMAKE_CURRENT_LIST_DIR}/unique_resource/LICENSE.txt
+        INTERFACE_MAPHERO_NAME "unique_resource"
+        INTERFACE_MAPHERO_URL "https://github.com/okdshin/unique_resource"
+        INTERFACE_MAPHERO_AUTHOR "Shintarou Okada"
+        INTERFACE_MAPHERO_LICENSE ${CMAKE_CURRENT_LIST_DIR}/unique_resource/LICENSE.txt
 )

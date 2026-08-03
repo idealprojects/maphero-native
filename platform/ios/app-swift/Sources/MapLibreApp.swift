@@ -1,10 +1,10 @@
-import MapLibre
+import MapHero
 import Sentry
 import SwiftUI
 import UIKit
 
 @main
-struct MapLibreApp: App {
+struct MapHeroApp: App {
     init() {
         if let dsn = Bundle.main.object(forInfoDictionaryKey: "SENTRY_DSN") as? String {
             SentrySDK.start { options in
@@ -19,7 +19,7 @@ struct MapLibreApp: App {
 
     var body: some Scene {
         WindowGroup {
-            MapLibreNavigationView()
+            MapHeroNavigationView()
         }
     }
 }

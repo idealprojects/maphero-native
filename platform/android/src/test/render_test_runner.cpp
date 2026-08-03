@@ -53,7 +53,7 @@ void android_main(struct android_app* app) {
             return result;
         };
 
-#if MLN_RENDER_BACKEND_VULKAN
+#if MH_RENDER_BACKEND_VULKAN
         auto result = runTestWithManifest("/metrics/android-vulkan-render-test-runner-metrics.json");
         result = runTestWithManifest("/metrics/android-vulkan-render-test-runner-style.json") && result;
 #else

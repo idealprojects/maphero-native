@@ -58,9 +58,9 @@ private:
     gfx::ShaderGroupPtr patternShaderGroup;
     gfx::ShaderGroupPtr outlinePatternShaderGroup;
 
-#if MLN_TRIANGULATE_FILL_OUTLINES
+#if MH_TRIANGULATE_FILL_OUTLINES
     gfx::ShaderGroupPtr outlineTriangulatedShaderGroup;
-#endif // MLN_TRIANGULATE_FILL_OUTLINES
+#endif // MH_TRIANGULATE_FILL_OUTLINES
 };
 
 } // namespace mbgl

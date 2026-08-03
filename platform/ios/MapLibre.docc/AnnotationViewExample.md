@@ -2,18 +2,18 @@
 
 Add a custom annotation view
 
-This examples shows how you can implement and use a custom ``MLNAnnotationView``.
+This examples shows how you can implement and use a custom ``MHAnnotationView``.
 
-You need to implement ``MLNMapViewDelegate/mapView:viewForAnnotation:`` of ``MLNMapViewDelegate`` which will be called when you add an ``MLNAnnotation`` to the example. In this case, three ``MLNPointAnnotation``s are added to the map. When one is selected selected ``MLNAnnotationView/setSelected:animated:`` will be called.
+You need to implement ``MHMapViewDelegate/mapView:viewForAnnotation:`` of ``MHMapViewDelegate`` which will be called when you add an ``MHAnnotation`` to the example. In this case, three ``MHPointAnnotation``s are added to the map. When one is selected selected ``MHAnnotationView/setSelected:animated:`` will be called.
 
 <!-- include-example(AnnotationViewExample) -->
 
 ```swift
-class AnnotationViewExample: UIViewController, MLNMapViewDelegate {
+class AnnotationViewExample: UIViewController, MHMapViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let mapView = MLNMapView(frame: view.bounds)
+        let mapView = MHMapView(frame: view.bounds)
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         mapView.attributionButton.isHidden = true
         mapView.tintColor = .lightGray
@@ -30,9 +30,9 @@ class AnnotationViewExample: UIViewController, MLNMapViewDelegate {
         ]
 
         // Fill an array with point annotations and add it to the map.
-        var pointAnnotations = [MLNPointAnnotation]()
+        var pointAnnotations = [MHPointAnnotation]()
         for coordinate in coordinates {
-            let point = MLNPointAnnotation()
+            let point = MHPointAnnotation()
             point.coordinate = coordinate
             point.title = "\(coordinate.latitude), \(coordinate.longitude)"
             pointAnnotations.append(point)
@@ -41,12 +41,12 @@ class AnnotationViewExample: UIViewController, MLNMapViewDelegate {
         mapView.addAnnotations(pointAnnotations)
     }
 
-    // MARK: - MLNMapViewDelegate methods
+    // MARK: - MHMapViewDelegate methods
 
-    // This delegate method is where you tell the map to load a view for a specific annotation. To load a static MLNAnnotationImage, you would use `-mapView:imageForAnnotation:`.
-    func mapView(_ mapView: MLNMapView, viewFor annotation: MLNAnnotation) -> MLNAnnotationView? {
+    // This delegate method is where you tell the map to load a view for a specific annotation. To load a static MHAnnotationImage, you would use `-mapView:imageForAnnotation:`.
+    func mapView(_ mapView: MHMapView, viewFor annotation: MHAnnotation) -> MHAnnotationView? {
         // This example is only concerned with point annotations.
-        guard annotation is MLNPointAnnotation else {
+        guard annotation is MHPointAnnotation else {
             return nil
         }
 
@@ -69,14 +69,14 @@ class AnnotationViewExample: UIViewController, MLNMapViewDelegate {
         return annotationView
     }
 
-    func mapView(_: MLNMapView, annotationCanShowCallout _: MLNAnnotation) -> Bool {
+    func mapView(_: MHMapView, annotationCanShowCallout _: MHAnnotation) -> Bool {
         true
     }
 }
 
 //
-// MLNAnnotationView subclass
-class CustomAnnotationView: MLNAnnotationView {
+// MHAnnotationView subclass
+class CustomAnnotationView: MHAnnotationView {
     override func layoutSubviews() {
         super.layoutSubviews()
 

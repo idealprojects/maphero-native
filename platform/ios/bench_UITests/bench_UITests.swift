@@ -2,7 +2,7 @@
 //  bench_UITests.swift
 //  bench UITests
 //
-//  Copyright © 2021 MapLibre. All rights reserved.
+//  Copyright © 2021 MapHero. All rights reserved.
 //
 
 import XCTest

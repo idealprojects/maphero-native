@@ -9,5 +9,5 @@ This example demonstrates how you can add markers in bulk.
 </div>
 
 ```kotlin title="BulkMarkerActivity.kt"
---8<-- "MapLibreAndroidTestApp/src/main/java/org/maplibre/android/testapp/activity/annotation/BulkMarkerActivity.kt"
+--8<-- "MapHeroAndroidTestApp/src/main/java/org/maphero/android/testapp/activity/annotation/BulkMarkerActivity.kt"
 ```

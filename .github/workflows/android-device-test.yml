@@ -37,8 +37,8 @@ jobs:
           },
           {
             artifactName: benchmarkAPKs,
-            testFile: "MapLibreAndroidTestApp-opengl-release-androidTest.apk",
-            appFile: "MapLibreAndroidTestApp-opengl-release.apk",
+            testFile: "MapHeroAndroidTestApp-opengl-release-androidTest.apk",
+            appFile: "MapHeroAndroidTestApp-opengl-release.apk",
             name: "Android Benchmark",
             testFilter: "org.maplibre.android.benchmark.Benchmark",
             # Google Pixel 7 Pro
@@ -106,8 +106,8 @@ jobs:
         id: generate_token
         with:
           skip-token-revoke: true  # revoking will fail for long running workflows, because the token will already have expired
-          app-id: ${{ secrets.MAPLIBRE_NATIVE_BOT_APP_ID }}
-          private-key: ${{ secrets.MAPLIBRE_NATIVE_BOT_PRIVATE_KEY }}
+          app-id: ${{ secrets.MAPHERO_NATIVE_BOT_APP_ID }}
+          private-key: ${{ secrets.MAPHERO_NATIVE_BOT_PRIVATE_KEY }}
 
       - name: Check if comment on PR contains '!benchmark android'
         if: matrix.test.name == 'Android Benchmark' && steps.get-pr-number.outputs.pr-number
@@ -208,8 +208,8 @@ jobs:
         uses: actions/create-github-app-token@7e473efe3cb98aa54f8d4bac15400b15fad77d94 # v2.2.0
         id: generate_token_2
         with:
-          app-id: ${{ secrets.MAPLIBRE_NATIVE_BOT_APP_ID }}
-          private-key: ${{ secrets.MAPLIBRE_NATIVE_BOT_PRIVATE_KEY }}
+          app-id: ${{ secrets.MAPHERO_NATIVE_BOT_APP_ID }}
+          private-key: ${{ secrets.MAPHERO_NATIVE_BOT_PRIVATE_KEY }}
 
       - uses: LouisBrunner/checks-action@6b626ffbad7cc56fd58627f774b9067e6118af23 # v2.0.0
         if: always()

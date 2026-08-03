@@ -1,12 +1,12 @@
-import MapLibre
+import MapHero
 import SwiftUI
 import UIKit
 
-class ClusteringExampleUIKit: UIViewController, MLNMapViewDelegate {
+class ClusteringExampleUIKit: UIViewController, MHMapViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let mapView = MLNMapView(frame: view.bounds)
+        let mapView = MHMapView(frame: view.bounds)
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         mapView.delegate = self
 
@@ -14,15 +14,15 @@ class ClusteringExampleUIKit: UIViewController, MLNMapViewDelegate {
         view.addSubview(mapView)
     }
 
-    func mapView(_: MLNMapView, didFinishLoading style: MLNStyle) {
+    func mapView(_: MHMapView, didFinishLoading style: MHStyle) {
         guard let earthquakesJson = Bundle.main.url(forResource: "earthquakes", withExtension: "geojson"),
               let data = try? Data(contentsOf: earthquakesJson),
-              let shape = try? MLNShape(data: data, encoding: String.Encoding.utf8.rawValue)
+              let shape = try? MHShape(data: data, encoding: String.Encoding.utf8.rawValue)
         else {
             preconditionFailure("Failed to load local GeoJSON file earthquakes.json")
         }
 
-        let shapeSource = MLNShapeSource(
+        let shapeSource = MHShapeSource(
             identifier: "earthquakes",
             shape: shape,
             options: [
@@ -39,19 +39,19 @@ class ClusteringExampleUIKit: UIViewController, MLNMapViewDelegate {
             style.setImage(image, forName: "home-symbol")
         }
 
-        let unclusteredLayer = MLNSymbolStyleLayer(identifier: "unclustered-symbols", source: shapeSource)
+        let unclusteredLayer = MHSymbolStyleLayer(identifier: "unclustered-symbols", source: shapeSource)
         unclusteredLayer.iconImageName = NSExpression(forConstantValue: "home-symbol")
         unclusteredLayer.iconScale = NSExpression(forConstantValue: 0.5)
         unclusteredLayer.predicate = NSPredicate(format: "cluster != YES")
         style.addLayer(unclusteredLayer)
 
-        let clusterLayer = MLNCircleStyleLayer(identifier: "cluster-circles", source: shapeSource)
+        let clusterLayer = MHCircleStyleLayer(identifier: "cluster-circles", source: shapeSource)
         clusterLayer.circleColor = NSExpression(forConstantValue: UIColor.red)
         clusterLayer.circleRadius = NSExpression(forConstantValue: 20)
         clusterLayer.predicate = NSPredicate(format: "cluster == YES")
         style.addLayer(clusterLayer)
 
-        let clusterCountLayer = MLNSymbolStyleLayer(identifier: "cluster-counts", source: shapeSource)
+        let clusterCountLayer = MHSymbolStyleLayer(identifier: "cluster-counts", source: shapeSource)
         clusterCountLayer.text = NSExpression(format: "CAST(point_count, 'NSString')")
         clusterCountLayer.textColor = NSExpression(forConstantValue: UIColor.white)
         clusterCountLayer.textFontSize = NSExpression(forConstantValue: 12)

@@ -4,16 +4,16 @@
 
 This example showcases the different animation types.
 
-- **Move**: available via the `MapLibreMap.moveCamera` method.
-- **Ease**: available via the `MapLibreMap.easeCamera` method.
-- **Animate**: available via the `MapLibreMap.animateCamera` method.
+- **Move**: available via the `MapHeroMap.moveCamera` method.
+- **Ease**: available via the `MapHeroMap.easeCamera` method.
+- **Animate**: available via the `MapHeroMap.animateCamera` method.
 
 ### Move
 
-The `MapLibreMap.moveCamera` method jumps to the camera position provided.
+The `MapHeroMap.moveCamera` method jumps to the camera position provided.
 
 ```kotlin
---8<-- "MapLibreAndroidTestApp/src/main/java/org/maplibre/android/testapp/activity/camera/CameraAnimationTypeActivity.kt:moveCamera"
+--8<-- "MapHeroAndroidTestApp/src/main/java/org/maphero/android/testapp/activity/camera/CameraAnimationTypeActivity.kt:moveCamera"
 ```
 
 <figure markdown="span">
@@ -24,10 +24,10 @@ The `MapLibreMap.moveCamera` method jumps to the camera position provided.
 
 ### Ease
 
-The `MapLibreMap.moveCamera` eases to the camera position provided (with constant ground speed).
+The `MapHeroMap.moveCamera` eases to the camera position provided (with constant ground speed).
 
 ```kotlin
---8<-- "MapLibreAndroidTestApp/src/main/java/org/maplibre/android/testapp/activity/camera/CameraAnimationTypeActivity.kt:easeCamera"
+--8<-- "MapHeroAndroidTestApp/src/main/java/org/maphero/android/testapp/activity/camera/CameraAnimationTypeActivity.kt:easeCamera"
 ```
 
 <figure markdown="span">
@@ -39,12 +39,12 @@ The `MapLibreMap.moveCamera` eases to the camera position provided (with constan
 
 ### Animate
 
-The `MapLibreMap.animateCamera` uses a powered flight animation move to the camera position provided[^1].
+The `MapHeroMap.animateCamera` uses a powered flight animation move to the camera position provided[^1].
 
 [^1]: The implementation is based on  Van Wijk, Jarke J.; Nuij, Wim A. A. “Smooth and efficient zooming and panning.” INFOVIS ’03. pp. 15–22. [https://www.win.tue.nl/~vanwijk/zoompan.pdf#page=5](https://www.win.tue.nl/~vanwijk/zoompan.pdf#page=5)
 
 ```kotlin
---8<-- "MapLibreAndroidTestApp/src/main/java/org/maplibre/android/testapp/activity/camera/CameraAnimationTypeActivity.kt:animateCamera"
+--8<-- "MapHeroAndroidTestApp/src/main/java/org/maphero/android/testapp/activity/camera/CameraAnimationTypeActivity.kt:animateCamera"
 ```
 
 <figure markdown="span">
@@ -58,5 +58,5 @@ The `MapLibreMap.animateCamera` uses a powered flight animation move to the came
 In the previous section a `CancellableCallback` was passed to the last two animation methods. This callback shows a toast message when the animation is cancelled or when it is finished.
 
 ```kotlin
---8<-- "MapLibreAndroidTestApp/src/main/java/org/maplibre/android/testapp/activity/camera/CameraAnimationTypeActivity.kt:callback"
+--8<-- "MapHeroAndroidTestApp/src/main/java/org/maphero/android/testapp/activity/camera/CameraAnimationTypeActivity.kt:callback"
 ```

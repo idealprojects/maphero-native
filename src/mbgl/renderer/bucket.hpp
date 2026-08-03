@@ -70,7 +70,7 @@ public:
 
     const util::SimpleIdentity& getID() const { return bucketID; }
 
-#if MLN_SYMBOL_GUARDS
+#if MH_SYMBOL_GUARDS
     virtual bool check(std::source_location) { return true; }
 #else
     bool check(std::string_view = {}) { return true; }

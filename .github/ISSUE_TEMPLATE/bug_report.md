@@ -7,7 +7,7 @@ assignees: ''
 
 ---
 
-<!-- If your issue is about MapLibre iOS or MapLibre Android, please use the corresponding template. -->
+<!-- If your issue is about MapHero iOS or MapHero Android, please use the corresponding template. -->
 
 **Describe the bug**
 

@@ -14,7 +14,7 @@
 #include <mbgl/shaders/shader_program_base.hpp>
 #include <mbgl/style/layers/fill_extrusion_layer_properties.hpp>
 
-#if MLN_RENDER_BACKEND_METAL
+#if MH_RENDER_BACKEND_METAL
 #include <mbgl/shaders/mtl/fill_extrusion.hpp>
 #endif
 
@@ -64,7 +64,7 @@ void FillExtrusionLayerTweaker::execute(LayerGroupBase& layerGroup, const PaintP
     const auto defPattern = mbgl::Faded<expression::Image>{.from = "", .to = ""};
     const auto fillPatternValue = evaluated.get<FillExtrusionPattern>().constantOr(defPattern);
 
-#if MLN_UBO_CONSOLIDATION
+#if MH_UBO_CONSOLIDATION
     int i = 0;
     std::vector<FillExtrusionDrawableUBO> drawableUBOVector(layerGroup.getDrawableCount());
     std::vector<FillExtrusionTilePropsUBO> tilePropsUBOVector(layerGroup.getDrawableCount());
@@ -112,7 +112,7 @@ void FillExtrusionLayerTweaker::execute(LayerGroupBase& layerGroup, const PaintP
             binders->setPatternParameters(patternPosA, patternPosB, crossfade);
         }
 
-#if MLN_UBO_CONSOLIDATION
+#if MH_UBO_CONSOLIDATION
         drawableUBOVector[i] = {
 #else
         const FillExtrusionDrawableUBO drawableUBO = {
@@ -131,7 +131,7 @@ void FillExtrusionLayerTweaker::execute(LayerGroupBase& layerGroup, const PaintP
             .pad1 = 0
         };
 
-#if MLN_UBO_CONSOLIDATION
+#if MH_UBO_CONSOLIDATION
         tilePropsUBOVector[i] = {
 #else
         const FillExtrusionTilePropsUBO tilePropsUBO = {
@@ -143,7 +143,7 @@ void FillExtrusionLayerTweaker::execute(LayerGroupBase& layerGroup, const PaintP
             .pad2 = 0
         };
 
-#if MLN_UBO_CONSOLIDATION
+#if MH_UBO_CONSOLIDATION
         drawable.setUBOIndex(i++);
 #else
         auto& drawableUniforms = drawable.mutableUniformBuffers();
@@ -152,7 +152,7 @@ void FillExtrusionLayerTweaker::execute(LayerGroupBase& layerGroup, const PaintP
 #endif
     });
 
-#if MLN_UBO_CONSOLIDATION
+#if MH_UBO_CONSOLIDATION
     const size_t drawableUBOVectorSize = sizeof(FillExtrusionDrawableUBO) * drawableUBOVector.size();
     if (!drawableUniformBuffer || drawableUniformBuffer->getSize() < drawableUBOVectorSize) {
         drawableUniformBuffer = context.createUniformBuffer(

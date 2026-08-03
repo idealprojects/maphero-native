@@ -24,7 +24,7 @@ public:
     };
     enum class VectorEncoding : std::uint8_t {
         Mapbox, // Mapbox Vector Tiles (MVT)
-        MLT,    // MapLibre Tiles
+        MLT,    // MapHero Tiles
     };
 
     std::vector<std::string> tiles;

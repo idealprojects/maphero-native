@@ -1,0 +1,5 @@
+framework module MapHero {
+  umbrella header "MapHero.h"
+  export *
+  module * { export * }
+}

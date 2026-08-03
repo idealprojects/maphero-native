@@ -18,7 +18,7 @@ tag=$1
 commit_sha=${2:-$(git rev-parse HEAD)}
 
 if [ -z "$(git config user.name)" ]; then
-  git config user.name "MapLibre Team"
+  git config user.name "MapHero Team"
 fi
 
 if [ -z "$(git config user.email)" ]; then

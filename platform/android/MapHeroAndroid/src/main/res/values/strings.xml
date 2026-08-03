@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="MAPHERO_compassContentDescription">Map compass. Activate to reset the map rotation to North.</string>
+    <string name="MAPHERO_attributionsIconContentDescription">Attribution icon. Activate to show attribution dialog.</string>
+    <string name="MAPHERO_myLocationViewContentDescription">Location View. This shows your location on the map.</string>
+    <string name="MAPHERO_mapActionDescription">Showing a Map created with MapHero. Scroll by dragging two fingers. Zoom by pinching two fingers.</string>
+    <string name="MAPHERO_attributionsDialogTitle">MapHero Android</string>
+    <string name="MAPHERO_attributionErrorNoBrowser">No web browser installed on device, can\'t open web page.</string>
+    <string name="MAPHERO_offline_error_region_definition_invalid">Provided OfflineRegionDefinition doesn\'t fit the world bounds: %s</string>
+</resources>

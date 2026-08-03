@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="MAPHERO_compassContentDescription">Kompas. Naciśnij, żeby skierować mapę na północ.</string>
+    <string name="MAPHERO_attributionsIconContentDescription">Atrybucja. Aktywuj, żeby pokazać więcej informacji.</string>
+    <string name="MAPHERO_myLocationViewContentDescription">Widok lokalizacji. Pokazuje twoją pozycję na mapie.</string>
+    <string name="MAPHERO_mapActionDescription">Pokazuje mapę stworzoną za pomocą biblioteki MapHero. Przesuń mapę za pomocą przeciągnięcia dwoma palcami. Przybliż za pomocą uszczypnięcia dwoma palcami. </string>
+    <string name="MAPHERO_attributionsDialogTitle">MapHero Android</string>
+    <string name="MAPHERO_attributionErrorNoBrowser">Nie potrafię otworzyć strony, brak przeglądarki internetowej zainstalowanej na urządzeniu.</string>
+    <string name="MAPHERO_offline_error_region_definition_invalid">Wymagany region nie mieści się w granicach świata: %s</string>
+    </resources>

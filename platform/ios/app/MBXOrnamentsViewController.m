@@ -4,7 +4,7 @@
 
 @interface MBXOrnamentsViewController ()
 
-@property (nonatomic) MLNMapView *mapView;
+@property (nonatomic) MHMapView *mapView;
 @property (nonatomic) NSTimer *timer;
 @property (nonatomic) NSInteger currentPositionIndex;
 
@@ -13,39 +13,39 @@
 @implementation MBXOrnamentsViewController
 
 - (void)setCurrentPositionIndex:(NSInteger)currentPositionIndex {
-    MLNOrnamentPosition ornamentPositions[5][4] = {
+    MHOrnamentPosition ornamentPositions[5][4] = {
         {
-            MLNOrnamentPositionTopLeft,
-            MLNOrnamentPositionTopRight,
-            MLNOrnamentPositionBottomRight,
-            MLNOrnamentPositionBottomLeft
+            MHOrnamentPositionTopLeft,
+            MHOrnamentPositionTopRight,
+            MHOrnamentPositionBottomRight,
+            MHOrnamentPositionBottomLeft
         },
         {
-            MLNOrnamentPositionTopRight,
-            MLNOrnamentPositionBottomRight,
-            MLNOrnamentPositionBottomLeft,
-            MLNOrnamentPositionTopLeft
+            MHOrnamentPositionTopRight,
+            MHOrnamentPositionBottomRight,
+            MHOrnamentPositionBottomLeft,
+            MHOrnamentPositionTopLeft
         },
         {
-            MLNOrnamentPositionBottomRight,
-            MLNOrnamentPositionBottomLeft,
-            MLNOrnamentPositionTopLeft,
-            MLNOrnamentPositionTopRight
+            MHOrnamentPositionBottomRight,
+            MHOrnamentPositionBottomLeft,
+            MHOrnamentPositionTopLeft,
+            MHOrnamentPositionTopRight
         },
         {
-            MLNOrnamentPositionBottomLeft,
-            MLNOrnamentPositionTopLeft,
-            MLNOrnamentPositionTopRight,
-            MLNOrnamentPositionBottomRight
+            MHOrnamentPositionBottomLeft,
+            MHOrnamentPositionTopLeft,
+            MHOrnamentPositionTopRight,
+            MHOrnamentPositionBottomRight
         },
         {
-            MLNOrnamentPositionTopLeft,
-            MLNOrnamentPositionTopRight,
-            MLNOrnamentPositionBottomRight,
-            MLNOrnamentPositionBottomLeft
+            MHOrnamentPositionTopLeft,
+            MHOrnamentPositionTopRight,
+            MHOrnamentPositionBottomRight,
+            MHOrnamentPositionBottomLeft
         }
     };
-    MLNOrnamentPosition *currentPosition = ornamentPositions[currentPositionIndex];
+    MHOrnamentPosition *currentPosition = ornamentPositions[currentPositionIndex];
     self.mapView.scaleBarPosition = currentPosition[0];
     self.mapView.compassViewPosition = currentPosition[1];
     self.mapView.logoViewPosition = currentPosition[2];
@@ -58,7 +58,7 @@
     [super viewDidLoad];
     self.title = @"Ornaments";
 
-    MLNMapView *mapView = [[MLNMapView alloc] initWithFrame:self.view.bounds];
+    MHMapView *mapView = [[MHMapView alloc] initWithFrame:self.view.bounds];
     mapView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [mapView setCenterCoordinate:CLLocationCoordinate2DMake(39.915143, 116.404053)
                        zoomLevel:16

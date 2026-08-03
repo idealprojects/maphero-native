@@ -4,29 +4,29 @@ load("@npm//:defs.bzl", "npm_link_all_packages")
 load("@rules_cc//cc:defs.bzl", "cc_library")
 load(
     "//bazel:core.bzl",
-    "MLN_CORE_HEADERS",
-    "MLN_CORE_SOURCE",
-    "MLN_DRAWABLES_GL_HEADERS",
-    "MLN_DRAWABLES_GL_SOURCE",
-    "MLN_DRAWABLES_HEADERS",
-    "MLN_DRAWABLES_MTL_HEADERS",
-    "MLN_DRAWABLES_MTL_SOURCE",
-    "MLN_DRAWABLES_SOURCE",
-    "MLN_DRAWABLES_WEBGPU_HEADERS",
-    "MLN_DRAWABLES_WEBGPU_SOURCE",
-    "MLN_GENERATED_OPENGL_SHADER_HEADERS",
-    "MLN_GENERATED_SHADER_HEADERS",
-    "MLN_GENERATED_SHADER_SOURCE",
-    "MLN_GENERATED_STYLE_SOURCE",
-    "MLN_LAYER_PLUGIN_HEADERS",
-    "MLN_LAYER_PLUGIN_SOURCE",
-    "MLN_OPENGL_HEADERS",
-    "MLN_OPENGL_SOURCE",
-    "MLN_PRIVATE_GENERATED_STYLE_HEADERS",
-    "MLN_PUBLIC_GENERATED_STYLE_HEADERS",
-    "MLN_SHAPING_HARFBUZZ_SRCS",
+    "MH_CORE_HEADERS",
+    "MH_CORE_SOURCE",
+    "MH_DRAWABLES_GL_HEADERS",
+    "MH_DRAWABLES_GL_SOURCE",
+    "MH_DRAWABLES_HEADERS",
+    "MH_DRAWABLES_MTL_HEADERS",
+    "MH_DRAWABLES_MTL_SOURCE",
+    "MH_DRAWABLES_SOURCE",
+    "MH_DRAWABLES_WEBGPU_HEADERS",
+    "MH_DRAWABLES_WEBGPU_SOURCE",
+    "MH_GENERATED_OPENGL_SHADER_HEADERS",
+    "MH_GENERATED_SHADER_HEADERS",
+    "MH_GENERATED_SHADER_SOURCE",
+    "MH_GENERATED_STYLE_SOURCE",
+    "MH_LAYER_PLUGIN_HEADERS",
+    "MH_LAYER_PLUGIN_SOURCE",
+    "MH_OPENGL_HEADERS",
+    "MH_OPENGL_SOURCE",
+    "MH_PRIVATE_GENERATED_STYLE_HEADERS",
+    "MH_PUBLIC_GENERATED_STYLE_HEADERS",
+    "MH_SHAPING_HARFBUZZ_SRCS",
 )
-load("//bazel:flags.bzl", "CPP_FLAGS", "MAPLIBRE_FLAGS")
+load("//bazel:flags.bzl", "CPP_FLAGS", "MAPHERO_FLAGS")
 
 # Generate code required by the core
 
@@ -36,9 +36,9 @@ js_run_binary(
         ["**/*.ejs"],
         allow_empty = False,
     ),
-    outs = MLN_PUBLIC_GENERATED_STYLE_HEADERS +
-           MLN_PRIVATE_GENERATED_STYLE_HEADERS +
-           MLN_GENERATED_STYLE_SOURCE,
+    outs = MH_PUBLIC_GENERATED_STYLE_HEADERS +
+           MH_PRIVATE_GENERATED_STYLE_HEADERS +
+           MH_GENERATED_STYLE_SOURCE,
     tool = ":generate-style-code-script",
 )
 
@@ -48,9 +48,9 @@ js_run_binary(
         ["shaders/*.glsl"],
         allow_empty = False,
     ),
-    outs = MLN_GENERATED_SHADER_HEADERS +
-           MLN_GENERATED_SHADER_SOURCE +
-           MLN_GENERATED_OPENGL_SHADER_HEADERS,
+    outs = MH_GENERATED_SHADER_HEADERS +
+           MH_GENERATED_SHADER_SOURCE +
+           MH_GENERATED_OPENGL_SHADER_HEADERS,
     tool = ":generate-shader-code-script",
 )
 
@@ -61,11 +61,11 @@ cc_library(
     hdrs = [
                ":generated_shaders",
                ":generated_style_code",
-           ] + MLN_PUBLIC_GENERATED_STYLE_HEADERS +
-           MLN_GENERATED_SHADER_HEADERS +
+           ] + MH_PUBLIC_GENERATED_STYLE_HEADERS +
+           MH_GENERATED_SHADER_HEADERS +
            select({
                "//:metal_renderer": [],
-               "//conditions:default": MLN_GENERATED_OPENGL_SHADER_HEADERS,
+               "//conditions:default": MH_GENERATED_OPENGL_SHADER_HEADERS,
            }),
     visibility = ["//visibility:public"],
 )
@@ -73,7 +73,7 @@ cc_library(
 # ditto, but for private headers (under the src/ path)
 cc_library(
     name = "mbgl-core-generated-private-artifacts",
-    hdrs = [":generated_style_code"] + MLN_PRIVATE_GENERATED_STYLE_HEADERS,
+    hdrs = [":generated_style_code"] + MH_PRIVATE_GENERATED_STYLE_HEADERS,
     visibility = ["//visibility:private"],
 )
 
@@ -81,40 +81,40 @@ cc_library(
 # the prefix from the path.
 cc_library(
     name = "mbgl-core",
-    srcs = MLN_LAYER_PLUGIN_SOURCE +
-           MLN_CORE_SOURCE +
-           MLN_GENERATED_SHADER_SOURCE +
-           MLN_GENERATED_STYLE_SOURCE + select({
-        ":drawable_renderer": MLN_OPENGL_SOURCE + MLN_DRAWABLES_SOURCE + MLN_DRAWABLES_GL_SOURCE,
-        ":metal_renderer": MLN_DRAWABLES_SOURCE + MLN_DRAWABLES_MTL_SOURCE,
-        ":webgpu_renderer": MLN_DRAWABLES_SOURCE + MLN_DRAWABLES_WEBGPU_SOURCE,
+    srcs = MH_LAYER_PLUGIN_SOURCE +
+           MH_CORE_SOURCE +
+           MH_GENERATED_SHADER_SOURCE +
+           MH_GENERATED_STYLE_SOURCE + select({
+        ":drawable_renderer": MH_OPENGL_SOURCE + MH_DRAWABLES_SOURCE + MH_DRAWABLES_GL_SOURCE,
+        ":metal_renderer": MH_DRAWABLES_SOURCE + MH_DRAWABLES_MTL_SOURCE,
+        ":webgpu_renderer": MH_DRAWABLES_SOURCE + MH_DRAWABLES_WEBGPU_SOURCE,
         "//conditions:default": [],
     }) + select({
-        "//:harfbuzz_text_shaping": MLN_SHAPING_HARFBUZZ_SRCS,
+        "//:harfbuzz_text_shaping": MH_SHAPING_HARFBUZZ_SRCS,
         "//conditions:default": [],
     }),
-    hdrs = MLN_LAYER_PLUGIN_HEADERS + MLN_CORE_HEADERS + select({
-        ":drawable_renderer": MLN_OPENGL_HEADERS + MLN_DRAWABLES_HEADERS + MLN_DRAWABLES_GL_HEADERS,
-        ":metal_renderer": MLN_DRAWABLES_HEADERS + MLN_DRAWABLES_MTL_HEADERS,
-        ":webgpu_renderer": MLN_DRAWABLES_HEADERS + MLN_DRAWABLES_WEBGPU_HEADERS,
+    hdrs = MH_LAYER_PLUGIN_HEADERS + MH_CORE_HEADERS + select({
+        ":drawable_renderer": MH_OPENGL_HEADERS + MH_DRAWABLES_HEADERS + MH_DRAWABLES_GL_HEADERS,
+        ":metal_renderer": MH_DRAWABLES_HEADERS + MH_DRAWABLES_MTL_HEADERS,
+        ":webgpu_renderer": MH_DRAWABLES_HEADERS + MH_DRAWABLES_WEBGPU_HEADERS,
         "//conditions:default": [],
     }),
-    copts = CPP_FLAGS + MAPLIBRE_FLAGS,
+    copts = CPP_FLAGS + MAPHERO_FLAGS,
     defines = select({
         ":drawable_renderer": [
-            "MLN_RENDER_BACKEND_OPENGL=1",
+            "MH_RENDER_BACKEND_OPENGL=1",
         ],
         ":metal_renderer": [
-            "MLN_RENDER_BACKEND_METAL=1",
+            "MH_RENDER_BACKEND_METAL=1",
         ],
         ":webgpu_renderer": [
-            "MLN_RENDER_BACKEND_WEBGPU=1",
+            "MH_RENDER_BACKEND_WEBGPU=1",
         ],
     }) + select({
         "@platforms//os:ios": ["GLES_SILENCE_DEPRECATION=1"],
         "//conditions:default": [],
     }) + select({
-        "//:harfbuzz_text_shaping": ["MLN_TEXT_SHAPING_HARFBUZZ=1"],
+        "//:harfbuzz_text_shaping": ["MH_TEXT_SHAPING_HARFBUZZ=1"],
         "//conditions:default": [],
     }),
     includes = [
@@ -133,7 +133,7 @@ cc_library(
         "//conditions:default": [],
     }),
     local_defines = [
-        r"MLN_VERSION_REV=\"standalone\"",
+        r"MH_VERSION_REV=\"standalone\"",
     ],
     visibility = ["//visibility:public"],
     deps = [
@@ -142,6 +142,7 @@ cc_library(
         "//vendor:boost",
         "//vendor:earcut.hpp",
         "//vendor:eternal",
+        "//vendor:tinygltf",
         "//vendor:expected-lite",
         "//vendor:maplibre-native-base",
         "//vendor:parsedate",
@@ -305,7 +306,7 @@ js_library(
 )
 
 cc_library(
-    name = "maplibre_lib",
+    name = "MAPHERO_lib",
     srcs = [],
     visibility = ["//visibility:public"],
     deps = select({

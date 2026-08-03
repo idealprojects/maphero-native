@@ -253,7 +253,7 @@ void RenderHeatmapLayer::update(gfx::ShaderRegistry& shaders,
             }
             return true;
         };
-#if MLN_RENDER_BACKEND_WEBGPU
+#if MH_RENDER_BACKEND_WEBGPU
         bool anyUpdated = false;
         bool skippedDrawables = false;
         tileLayerGroup->visitDrawables(renderPass, tileID, [&](gfx::Drawable& drawable) {

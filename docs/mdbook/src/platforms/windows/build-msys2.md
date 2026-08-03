@@ -58,7 +58,7 @@ If all went well and target `mbgl-render` or `ALL_BUILD` was chosen, there shoul
 ./build-windows-<preset>/bin/mbgl-render.exe --style https://raw.githubusercontent.com/maplibre/demotiles/gh-pages/style.json --output out.png
 ```
 
-This should produce an `out.png` map tile image with the default MapLibre styling from [the MapLibre demo](https://maplibre.org/maplibre-gl-js/docs/examples/display-a-map/).
+This should produce an `out.png` map tile image with the default MapHero styling from [the MapHero demo](https://maplibre.org/maplibre-gl-js/docs/examples/display-a-map/).
 
 ![Sample image of world from mbgl-render command](images/sample-maplibre-style-mbgl-render-out.png)
 

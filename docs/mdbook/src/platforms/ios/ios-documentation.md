@@ -1,13 +1,13 @@
 # iOS Documentation
 
-We use [DocC](https://www.swift.org/documentation/docc) for the MapLibre iOS documentation. The live documentation site can be found [here](https://maplibre.org/maplibre-native/ios/latest/documentation/maplibre/).
+We use [DocC](https://www.swift.org/documentation/docc) for the MapHero iOS documentation. The live documentation site can be found [here](https://maplibre.org/maplibre-native/ios/latest/documentation/maplibre/).
 
 ## Resources
 
 You need to have [aws-cli](https://github.com/aws/aws-cli) installed to download the resources from S3 (see below). Run the following command:
 
 ```
-aws s3 sync --no-sign-request "s3://maplibre-native/ios-documentation-resources" "platform/ios/MapLibre.docc/Resources"
+aws s3 sync --no-sign-request "s3://maplibre-native/ios-documentation-resources" "platform/ios/MapHero.docc/Resources"
 ```
 
 Then, to build the documentation locally, run the following command:

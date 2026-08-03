@@ -3,7 +3,7 @@
 #include <mbgl/gfx/drawable_tweaker.hpp>
 #include <mbgl/gfx/drawable_builder.hpp>
 #include <mbgl/renderer/paint_parameters.hpp>
-#if MLN_RENDER_BACKEND_METAL
+#if MH_RENDER_BACKEND_METAL
 #include <mbgl/style/layers/mtl/custom_layer_render_parameters.hpp>
 #include <mbgl/mtl/render_pass.hpp>
 #else
@@ -46,7 +46,7 @@ void RenderPluginLayerTweaker::execute([[maybe_unused]] mbgl::gfx::Drawable& dra
     context.resetState(paintParameters.depthModeForSublayer(0, mbgl::gfx::DepthMaskType::ReadOnly),
                        paintParameters.colorModeForRenderPass());
 
-#if MLN_RENDER_BACKEND_METAL
+#if MH_RENDER_BACKEND_METAL
     const auto& mtlRenderPass = static_cast<mbgl::mtl::RenderPass*>(paintParameters.renderPass.get());
     mtlRenderPass->resetState();
 

@@ -148,7 +148,7 @@ struct alignas(16) LineEvaluatedPropsUBO {
 };
 static_assert(sizeof(LineEvaluatedPropsUBO) == 3 * 16);
 
-#if MLN_UBO_CONSOLIDATION
+#if MH_UBO_CONSOLIDATION
 
 union LineDrawableUnionUBO {
     LineDrawableUBO lineDrawableUBO;

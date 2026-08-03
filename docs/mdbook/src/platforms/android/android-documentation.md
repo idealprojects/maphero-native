@@ -1,8 +1,8 @@
-# Documentation for MapLibre Android
+# Documentation for MapHero Android
 
 ## API Documentation
 
-We use Dokka for the MapLibre Android API documentation. The live documentation site can be found [here](https://maplibre.org/maplibre-native/android/api/).
+We use Dokka for the MapHero Android API documentation. The live documentation site can be found [here](https://maplibre.org/maplibre-native/android/api/).
 
 ## Examples Documentation
 
@@ -42,7 +42,7 @@ Where `example.kt` is the path to the file.
 
 ### Static Assets
 
-Static assets are ideally uploaded to the [MapLibre Native S3 Bucket](https://maplibre-native.s3.eu-central-1.amazonaws.com/index.html#android-documentation-resources/).
+Static assets are ideally uploaded to the [MapHero Native S3 Bucket](https://maplibre-native.s3.eu-central-1.amazonaws.com/index.html#android-documentation-resources/).
 
 Please open an issue with the ARN of your AWS account to get upload privileges.
 

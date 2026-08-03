@@ -4,7 +4,7 @@ Creating a Custom Style Layer with Metal
 
 Custom style layers allow you to draw directly with Metal, enabling you to render specialized shapes, custom geometry, or apply advanced visual effects that go beyond what is possible with standard style layers.
 
-Below you can find an example of how to create a custom style layer with ``MLNCustomStyleLayer``. In this implementation, a SwiftUI view wraps an ``MLNMapView`` and appends a subclassed custom style layer once the map loads. The layer’s ``MLNCustomStyleLayer/didMoveToMapView:`` method handles initialization, including compiling Metal shaders and creating a [`MTLRenderPipelineState`](https://developer.apple.com/documentation/metal/mtlrenderpipelinestate?language=objc) for subsequent draw operations. The ``MLNCustomStyleLayer/willMoveFromMapView:`` method provides a place to release or invalidate resources when the layer is removed from the map, while the ``MLNCustomStyleLayer/drawInMapView:withContext:`` method encodes the drawing commands using a [`MTLRenderCommandEncoder`](https://developer.apple.com/documentation/metal/mtlrendercommandencoder) and the map’s projection matrix. By projecting latitude/longitude coordinates into a normalized 0–1 space and then transforming them into tile coordinates, the layer ensures that rendered geometry aligns correctly with the base map.
+Below you can find an example of how to create a custom style layer with ``MHCustomStyleLayer``. In this implementation, a SwiftUI view wraps an ``MHMapView`` and appends a subclassed custom style layer once the map loads. The layer’s ``MHCustomStyleLayer/didMoveToMapView:`` method handles initialization, including compiling Metal shaders and creating a [`MTLRenderPipelineState`](https://developer.apple.com/documentation/metal/mtlrenderpipelinestate?language=objc) for subsequent draw operations. The ``MHCustomStyleLayer/willMoveFromMapView:`` method provides a place to release or invalidate resources when the layer is removed from the map, while the ``MHCustomStyleLayer/drawInMapView:withContext:`` method encodes the drawing commands using a [`MTLRenderCommandEncoder`](https://developer.apple.com/documentation/metal/mtlrendercommandencoder) and the map’s projection matrix. By projecting latitude/longitude coordinates into a normalized 0–1 space and then transforming them into tile coordinates, the layer ensures that rendered geometry aligns correctly with the base map.
 
 ![](CustomStyleLayerExample.png)
 
@@ -16,35 +16,35 @@ struct CustomStyleLayerExample: UIViewRepresentable {
         Coordinator(self)
     }
 
-    final class Coordinator: NSObject, MLNMapViewDelegate {
+    final class Coordinator: NSObject, MHMapViewDelegate {
         var control: CustomStyleLayerExample
 
         init(_ control: CustomStyleLayerExample) {
             self.control = control
         }
 
-        func mapViewDidFinishLoadingMap(_ mapView: MLNMapView) {
+        func mapViewDidFinishLoadingMap(_ mapView: MHMapView) {
             let mapOverlay = CustomStyleLayer(identifier: "test-overlay")
             let style = mapView.style!
             style.layers.append(mapOverlay)
         }
     }
 
-    func makeUIView(context: Context) -> MLNMapView {
-        let mapView = MLNMapView()
+    func makeUIView(context: Context) -> MHMapView {
+        let mapView = MHMapView()
         mapView.delegate = context.coordinator
         return mapView
     }
 
-    func updateUIView(_: MLNMapView, context _: Context) {}
+    func updateUIView(_: MHMapView, context _: Context) {}
 }
 
-class CustomStyleLayer: MLNCustomStyleLayer {
+class CustomStyleLayer: MHCustomStyleLayer {
     private var pipelineState: MTLRenderPipelineState?
     private var depthStencilStateWithoutStencil: MTLDepthStencilState?
 
-    override func didMove(to mapView: MLNMapView) {
-        #if MLN_RENDER_BACKEND_METAL
+    override func didMove(to mapView: MHMapView) {
+        #if MH_RENDER_BACKEND_METAL
             let resource = mapView.backendResource()
 
             let shaderSource = """
@@ -120,10 +120,10 @@ class CustomStyleLayer: MLNCustomStyleLayer {
         #endif
     }
 
-    override func willMove(from _: MLNMapView) {}
+    override func willMove(from _: MHMapView) {}
 
-    override func draw(in _: MLNMapView, with context: MLNStyleLayerDrawingContext) {
-        #if MLN_RENDER_BACKEND_METAL
+    override func draw(in _: MHMapView, with context: MHStyleLayerDrawingContext) {
+        #if MH_RENDER_BACKEND_METAL
             guard let renderEncoder else { return }
 
             // Project to 0..1.
@@ -173,15 +173,15 @@ class CustomStyleLayer: MLNCustomStyleLayer {
         return CGPoint(x: x, y: y)
     }
 
-    struct MLNMatrix4f {
+    struct MHMatrix4f {
         var m00, m01, m02, m03: Float
         var m10, m11, m12, m13: Float
         var m20, m21, m22, m23: Float
         var m30, m31, m32, m33: Float
     }
 
-    func convertMatrix(_ mat: MLNMatrix4) -> MLNMatrix4f {
-        MLNMatrix4f(
+    func convertMatrix(_ mat: MHMatrix4) -> MHMatrix4f {
+        MHMatrix4f(
             m00: Float(mat.m00), m01: Float(mat.m01), m02: Float(mat.m02), m03: Float(mat.m03),
             m10: Float(mat.m10), m11: Float(mat.m11), m12: Float(mat.m12), m13: Float(mat.m13),
             m20: Float(mat.m20), m21: Float(mat.m21), m22: Float(mat.m22), m23: Float(mat.m23),

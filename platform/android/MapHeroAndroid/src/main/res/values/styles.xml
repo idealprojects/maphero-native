@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <style name="MAPHERO_LocationComponent">
+    <item name="MAPHERO_foregroundDrawable">@drawable/maphero_user_icon</item>
+    <item name="MAPHERO_backgroundDrawable">@drawable/maphero_user_stroke_icon</item>
+    <item name="MAPHERO_bearingDrawable">@drawable/maphero_user_bearing_icon</item>
+    <item name="MAPHERO_gpsDrawable">@drawable/maphero_user_puck_icon</item>
+
+    <item name="MAPHERO_foregroundDrawableStale">@drawable/maphero_user_icon_stale</item>
+    <item name="MAPHERO_backgroundDrawableStale">@drawable/maphero_user_stroke_icon</item>
+
+    <item name="MAPHERO_accuracyAlpha">0.15</item>
+    <item name="MAPHERO_accuracyColor">@color/MAPHERO_location_layer_blue</item>
+
+    <item name="MAPHERO_elevation">12dp</item>
+
+    <item name="MAPHERO_enableStaleState">true</item>
+    <item name="MAPHERO_staleStateTimeout">30000</item>
+
+    <!-- Location icon padding -->
+    <item name="MAPHERO_iconPaddingLeft">0</item>
+    <item name="MAPHERO_iconPaddingTop">0</item>
+    <item name="MAPHERO_iconPaddingRight">0</item>
+    <item name="MAPHERO_iconPaddingBottom">0</item>
+
+    <!-- Location icon scale based on map zoom levels -->
+    <item name="MAPHERO_maxZoomIconScale">1</item>
+    <item name="MAPHERO_minZoomIconScale">0.6</item>
+
+    <!-- Camera tracking settings -->
+    <item name="MAPHERO_trackingGesturesManagement">false</item>
+    <item name="MAPHERO_trackingInitialMoveThreshold">@dimen/MAPHERO_locationComponentTrackingInitialMoveThreshold</item>
+    <item name="MAPHERO_trackingMultiFingerMoveThreshold">@dimen/MAPHERO_locationComponentTrackingMultiFingerMoveThreshold</item>
+
+    <!-- Location pulsing circle -->
+    <item name="MAPHERO_pulsingLocationCircleEnabled">false</item>
+    <item name="MAPHERO_pulsingLocationCircleFadeEnabled">true</item>
+    <item name="MAPHERO_pulsingLocationCircleColor">@color/MAPHERO_location_layer_blue</item>
+    <item name="MAPHERO_pulsingLocationCircleDuration">2300</item>
+    <item name="MAPHERO_pulsingLocationCircleRadius">35</item>
+    <item name="MAPHERO_pulsingLocationCircleAlpha">0.4</item>
+    <item name="MAPHERO_pulsingLocationCircleInterpolator">decelerate</item>
+
+  </style>
+</resources>

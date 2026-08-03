@@ -14,8 +14,8 @@ target_include_directories(
 set_target_properties(
     mbgl-vendor-pmtiles
     PROPERTIES
-        INTERFACE_MAPLIBRE_NAME "pmtiles"
-        INTERFACE_MAPLIBRE_URL "https://github.com/protomaps/PMTiles"
-        INTERFACE_MAPLIBRE_AUTHOR "Protomaps LLC"
-        INTERFACE_MAPLIBRE_LICENSE ${CMAKE_CURRENT_LIST_DIR}/PMTiles/LICENSE
+        INTERFACE_MAPHERO_NAME "pmtiles"
+        INTERFACE_MAPHERO_URL "https://github.com/protomaps/PMTiles"
+        INTERFACE_MAPHERO_AUTHOR "Protomaps LLC"
+        INTERFACE_MAPHERO_LICENSE ${CMAKE_CURRENT_LIST_DIR}/PMTiles/LICENSE
 )

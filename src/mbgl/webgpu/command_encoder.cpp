@@ -24,7 +24,7 @@ CommandEncoder::CommandEncoder(Context& ctx)
 
     if (device) {
         WGPUCommandEncoderDescriptor desc = {};
-        WGPUStringView label = {"MapLibre Command Encoder", strlen("MapLibre Command Encoder")};
+        WGPUStringView label = {"MapHero Command Encoder", strlen("MapHero Command Encoder")};
         desc.label = label;
         encoder = wgpuDeviceCreateCommandEncoder(device, &desc);
     }
@@ -83,7 +83,7 @@ void CommandEncoder::submitCommandBuffer() {
 
     // Create a new command encoder so subsequent passes in the same frame can continue recording
     WGPUCommandEncoderDescriptor desc = {};
-    WGPUStringView encoderLabel = {"MapLibre Command Encoder", strlen("MapLibre Command Encoder")};
+    WGPUStringView encoderLabel = {"MapHero Command Encoder", strlen("MapHero Command Encoder")};
     desc.label = encoderLabel;
     encoder = wgpuDeviceCreateCommandEncoder(device, &desc);
 

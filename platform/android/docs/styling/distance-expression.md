@@ -12,11 +12,11 @@ This example shows how you can modify a style to only show certain features with
 First we add a [fill layer](https://maplibre.org/maplibre-style-spec/layers/#fill) and a GeoJSON source.
 
 ```kotlin
---8<-- "MapLibreAndroidTestApp/src/main/java/org/maplibre/android/testapp/activity/style/DistanceExpressionActivity.kt:FillLayer"
+--8<-- "MapHeroAndroidTestApp/src/main/java/org/maphero/android/testapp/activity/style/DistanceExpressionActivity.kt:FillLayer"
 ```
 
 Next, we only show features from symbol layers that are less than a certain distance from the point. All symbol layers whose identifier does not start with `poi` are completely hidden.
 
 ```kotlin
---8<-- "MapLibreAndroidTestApp/src/main/java/org/maplibre/android/testapp/activity/style/DistanceExpressionActivity.kt:distanceExpression"
+--8<-- "MapHeroAndroidTestApp/src/main/java/org/maphero/android/testapp/activity/style/DistanceExpressionActivity.kt:distanceExpression"
 ```

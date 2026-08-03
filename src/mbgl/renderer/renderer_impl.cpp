@@ -24,7 +24,7 @@
 #include <mbgl/renderer/layer_tweaker.hpp>
 #include <mbgl/renderer/render_target.hpp>
 
-#if MLN_RENDER_BACKEND_METAL
+#if MH_RENDER_BACKEND_METAL
 #include <mbgl/mtl/renderer_backend.hpp>
 #include <Metal/MTLCaptureManager.hpp>
 #include <Metal/MTLCaptureScope.hpp>
@@ -33,10 +33,10 @@
 constexpr auto EnableMetalCapture = 0;
 constexpr auto CaptureFrameStart = 0; // frames are 0-based
 constexpr auto CaptureFrameCount = 1;
-#elif MLN_RENDER_BACKEND_OPENGL
+#elif MH_RENDER_BACKEND_OPENGL
 #include <mbgl/gl/defines.hpp>
 #include <mbgl/gl/drawable_gl.hpp>
-#endif // !MLN_RENDER_BACKEND_METAL
+#endif // !MH_RENDER_BACKEND_METAL
 
 namespace mbgl {
 
@@ -86,14 +86,14 @@ void Renderer::Impl::setObserver(RendererObserver* observer_) {
 }
 
 void Renderer::Impl::render(const RenderTree& renderTree, const std::shared_ptr<UpdateParameters>& updateParameters) {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
     auto& context = backend.getContext();
     context.setObserver(this);
 
     assert(updateParameters);
 
-#if MLN_RENDER_BACKEND_METAL
-#if MLN_CREATE_AUTORELEASEPOOL
+#if MH_RENDER_BACKEND_METAL
+#if MH_CREATE_AUTORELEASEPOOL
     NS::SharedPtr pool = NS::TransferPtr(NS::AutoreleasePool::alloc()->init());
 #endif
 
@@ -157,7 +157,7 @@ void Renderer::Impl::render(const RenderTree& renderTree, const std::shared_ptr<
             }
         }
     }
-#endif // MLN_RENDER_BACKEND_METAL
+#endif // MH_RENDER_BACKEND_METAL
 
     // Blocks execution until the renderable is available.
     backend.getDefaultRenderable().wait();
@@ -189,7 +189,7 @@ void Renderer::Impl::render(const RenderTree& renderTree, const std::shared_ptr<
     const EdgeInsets& frustumOffset = state.getFrustumOffset();
     const gfx::ScissorRect scissorRect = {
         .x = static_cast<int32_t>(frustumOffset.left() * pixelRatio),
-#if MLN_RENDER_BACKEND_OPENGL
+#if MH_RENDER_BACKEND_OPENGL
         .y = static_cast<int32_t>(frustumOffset.bottom() * pixelRatio),
 #else
         .y = static_cast<int32_t>(frustumOffset.top() * pixelRatio),
@@ -448,7 +448,7 @@ void Renderer::Impl::render(const RenderTree& renderTree, const std::shared_ptr<
     parameters.encoder.reset();
     context.endFrame();
 
-#if MLN_RENDER_BACKEND_METAL
+#if MH_RENDER_BACKEND_METAL
     if constexpr (EnableMetalCapture) {
         if (commandCaptureScope) {
             commandCaptureScope->endScope();
@@ -459,7 +459,7 @@ void Renderer::Impl::render(const RenderTree& renderTree, const std::shared_ptr<
             }
         }
     }
-#endif // MLN_RENDER_BACKEND_METAL
+#endif // MH_RENDER_BACKEND_METAL
 
     context.renderingStats().encodingTime = renderTree.getElapsedTime() - context.renderingStats().renderingTime;
 
@@ -477,7 +477,7 @@ void Renderer::Impl::render(const RenderTree& renderTree, const std::shared_ptr<
     }
 
     frameCount += 1;
-    MLN_END_FRAME();
+    MH_END_FRAME();
 }
 
 void Renderer::Impl::reduceMemoryUse() {

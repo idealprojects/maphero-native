@@ -1,14 +1,14 @@
 # Getting Started
 
-Setting up an Xcode project that uses MapLibre Native for iOS.
+Setting up an Xcode project that uses MapHero Native for iOS.
 
 ## Create a new iOS project
 
 Create a new (SwiftUI) iOS project with Xcode. Go to *File > New > Project...*.
 
-## Add MapLibre Native as a dependency
+## Add MapHero Native as a dependency
 
-MapLibre Native for iOS is available on [Cocoapods](https://cocoapods.org) and on the [Swift Package Index](https://swiftpackageindex.com/maplibre/maplibre-gl-native-distribution) (for use with the Swift Package Manager). However, for this guide we will add the MapLibre Native as a package dependency directly.
+MapHero Native for iOS is available on [Cocoapods](https://cocoapods.org) and on the [Swift Package Index](https://swiftpackageindex.com/maplibre/maplibre-gl-native-distribution) (for use with the Swift Package Manager). However, for this guide we will add the MapHero Native as a package dependency directly.
 
 In Xcode, right click your project and select "Add Package Dependencies...":
 
@@ -20,28 +20,28 @@ Paste the following URL and click Add Package:
 https://github.com/maplibre/maplibre-gl-native-distribution
 ```
 
-> Note: The [maplibre-gl-native-distributon](https://github.com/maplibre/maplibre-gl-native-distribution) repository only exists for distributing the iOS package of MapLibre Native. To report issues and ask questions, use the [maplibre-native](https://github.com/maplibre/maplibre-native) repository.
+> Note: The [maplibre-gl-native-distributon](https://github.com/maplibre/maplibre-gl-native-distribution) repository only exists for distributing the iOS package of MapHero Native. To report issues and ask questions, use the [maplibre-native](https://github.com/maplibre/maplibre-native) repository.
 
-Verify you can import MapLibre in your app:
+Verify you can import MapHero in your app:
 
 ```swift
-import MapLibre
+import MapHero
 ```
 
 ## SwiftUI
 
-To use MapLibre with SwiftUI we need to create a wrapper for the UIKit view that MapLibre provides (using UIViewRepresentable. The simplest way to implement this protocol is as follows:
+To use MapHero with SwiftUI we need to create a wrapper for the UIKit view that MapHero provides (using UIViewRepresentable. The simplest way to implement this protocol is as follows:
 
 <!-- include-example(SimpleMap) -->
 
 ```swift
 struct SimpleMap: UIViewRepresentable {
-    func makeUIView(context _: Context) -> MLNMapView {
-        let mapView = MLNMapView()
+    func makeUIView(context _: Context) -> MHMapView {
+        let mapView = MHMapView()
         return mapView
     }
 
-    func updateUIView(_: MLNMapView, context _: Context) {}
+    func updateUIView(_: MHMapView, context _: Context) {}
 }
 ```
 
@@ -66,21 +66,21 @@ When running your app in the simulator you should be greeted with the default [D
 You can use the following `UIViewController` to get started with MapHero Native iOS with UIKit.
 
 ```swift
-class SimpleMap: UIViewController, MLNMapViewDelegate {
-    var mapView: MLNMapView!
+class SimpleMap: UIViewController, MHMapViewDelegate {
+    var mapView: MHMapView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        mapView = MLNMapView(frame: view.bounds)
+        mapView = MHMapView(frame: view.bounds)
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         view.addSubview(mapView)
 
         mapView.delegate = self
     }
 
-    // MLNMapViewDelegate method called when map has finished loading
-    func mapView(_: MLNMapView, didFinishLoading _: MLNStyle) {
+    // MHMapViewDelegate method called when map has finished loading
+    func mapView(_: MHMapView, didFinishLoading _: MHStyle) {
     }
 }
 ```

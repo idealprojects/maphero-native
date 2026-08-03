@@ -23,13 +23,13 @@ Create a new activity named `BasicLocationPulsingCircleActivity`:
 - At the end of the `onCreate()` method, call `checkPermissions()` to ensure that the application can access the user's location.
 
 ```kotlin
---8<-- "MapLibreAndroidTestApp/src/main/java/org/maplibre/android/testapp/activity/location/BasicLocationPulsingCircleActivity.kt:top"
+--8<-- "MapHeroAndroidTestApp/src/main/java/org/maphero/android/testapp/activity/location/BasicLocationPulsingCircleActivity.kt:top"
 ```
 
 In the `checkPermissions()` method, the [PermissionManager] is used to request location permissions at runtime and handle the callbacks for permission granting or rejection.Additionally, you should pass the results of `Activity.onRequestPermissionResult()` to it. If the permissions are granted, call `mapView.getMapAsync(this)` to register the activity as a listener for onMapReady event.
 
 ```kotlin
---8<-- "MapLibreAndroidTestApp/src/main/java/org/maplibre/android/testapp/activity/location/BasicLocationPulsingCircleActivity.kt:permission"
+--8<-- "MapHeroAndroidTestApp/src/main/java/org/maphero/android/testapp/activity/location/BasicLocationPulsingCircleActivity.kt:permission"
 
 ```
 
@@ -50,7 +50,7 @@ In this method:
 - `locationComponent!!.forceLocationUpdate(lastLocation)` updates the the user's last known location.
 
 ```kotlin
---8<-- "MapLibreAndroidTestApp/src/main/java/org/maplibre/android/testapp/activity/location/BasicLocationPulsingCircleActivity.kt:onMapReady"
+--8<-- "MapHeroAndroidTestApp/src/main/java/org/maphero/android/testapp/activity/location/BasicLocationPulsingCircleActivity.kt:onMapReady"
 ```
 
 [LocationComponentActivationOptions] is used to hold the style, [LocationComponentOptions] and other locating behaviors.
@@ -60,7 +60,7 @@ In this method:
 - For more information, please visit the [documentation page][LocationComponentActivationOptions].
 
 ```kotlin
---8<-- "MapLibreAndroidTestApp/src/main/java/org/maplibre/android/testapp/activity/location/BasicLocationPulsingCircleActivity.kt:LocationComponentActivationOptions"
+--8<-- "MapHeroAndroidTestApp/src/main/java/org/maphero/android/testapp/activity/location/BasicLocationPulsingCircleActivity.kt:LocationComponentActivationOptions"
 ```
 
 For further customization, you can also utilize the `foregroundTintColor()` and `pulseColor()` methods on the [LocationComponentOptions] builder:
@@ -85,14 +85,14 @@ Here is the final results with different color configurations. For the complete 
 [^1]: A variety of [camera modes] determine how the camera will track the user location.
       They provide the right context to your users at the correct time.
 
-[LocationComponent]: https://maplibre.org/maplibre-native/android/api/-map-libre%20-native%20-android/org.maplibre.android.location/-location-component/index.html
+[LocationComponent]: https://maplibre.org/maplibre-native/android/api/-map-libre%20-native%20-android/org.maphero.android.location/-location-component/index.html
 [Android Developer Documentation]: https://developer.android.com/training/location/permissions
-[onMapReadyCallback]: https://maplibre.org/maplibre-native/android/api/-map-libre%20-native%20-android/org.maplibre.android.maps/-on-map-ready-callback/index.html
-[PermissionManager]: https://maplibre.org/maplibre-native/android/api/-map-libre%20-native%20-android/org.maplibre.android.location.permissions/-permissions-manager/index.html
-[LocationComponentOptions]: https://maplibre.org/maplibre-native/android/api/-map-libre%20-native%20-android/org.maplibre.android.location/-location-component-options/index.html
+[onMapReadyCallback]: https://maplibre.org/maplibre-native/android/api/-map-libre%20-native%20-android/org.maphero.android.maps/-on-map-ready-callback/index.html
+[PermissionManager]: https://maplibre.org/maplibre-native/android/api/-map-libre%20-native%20-android/org.maphero.android.location.permissions/-permissions-manager/index.html
+[LocationComponentOptions]: https://maplibre.org/maplibre-native/android/api/-map-libre%20-native%20-android/org.maphero.android.location/-location-component-options/index.html
 [demotiles]: https://demotiles.maplibre.org/style.json
 [predefined styles]: https://github.com/maplibre/maplibre-native/tree/main/src/mbgl/util/tile_server_options.cpp
-[LocationComponentActivationOptions]: https://maplibre.org/maplibre-native/android/api/-map-libre%20-native%20-android/org.maplibre.android.location/-location-component-activation-options/index.html
-[LocationEngine]: https://maplibre.org/maplibre-native/android/api/-map-libre%20-native%20-android/org.maplibre.android.location.engine/-location-engine/index.html
-[Test APP]: https://github.com/maplibre/maplibre-native/tree/main/platform/android/MapLibreAndroidTestApp/src/main/java/org/maplibre/android/testapp/activity/location/BasicLocationPulsingCircleActivity.kt
-[camera modes]: https://maplibre.org/maplibre-native/android/api/-map-libre%20-native%20-android/org.maplibre.android.location.modes/-camera-mode/index.html
+[LocationComponentActivationOptions]: https://maplibre.org/maplibre-native/android/api/-map-libre%20-native%20-android/org.maphero.android.location/-location-component-activation-options/index.html
+[LocationEngine]: https://maplibre.org/maplibre-native/android/api/-map-libre%20-native%20-android/org.maphero.android.location.engine/-location-engine/index.html
+[Test APP]: https://github.com/maplibre/maplibre-native/tree/main/platform/android/MapHeroAndroidTestApp/src/main/java/org/maphero/android/testapp/activity/location/BasicLocationPulsingCircleActivity.kt
+[camera modes]: https://maplibre.org/maplibre-native/android/api/-map-libre%20-native%20-android/org.maphero.android.location.modes/-camera-mode/index.html

@@ -1,25 +1,25 @@
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/7ff2cda8-f564-4e70-a971-d34152f969f0#gh-light-mode-only" alt="MapLibre Logo" width="200">
-  <img src="https://github.com/user-attachments/assets/cee8376b-9812-40ff-91c6-2d53f9581b83#gh-dark-mode-only" alt="MapLibre Logo" width="200">
+  <img src="https://github.com/user-attachments/assets/7ff2cda8-f564-4e70-a971-d34152f969f0#gh-light-mode-only" alt="MapHero Logo" width="200">
+  <img src="https://github.com/user-attachments/assets/cee8376b-9812-40ff-91c6-2d53f9581b83#gh-dark-mode-only" alt="MapHero Logo" width="200">
 </p>
 
-# MapLibre Native
+# MapHero Native
 
 [![codecov](https://codecov.io/github/maplibre/maplibre-native/branch/main/graph/badge.svg?token=8ZQRRY56ZA)](https://codecov.io/github/maplibre/maplibre-native) [![](https://img.shields.io/badge/Slack-%23maplibre--native-2EB67D?logo=slack)](https://slack.openstreetmap.us/)
 
-MapLibre Native is a free and open-source library for publishing maps in your apps and desktop applications on various platforms. Fast displaying of maps is possible thanks to GPU-accelerated vector tile rendering.
+MapHero Native is a free and open-source library for publishing maps in your apps and desktop applications on various platforms. Fast displaying of maps is possible thanks to GPU-accelerated vector tile rendering.
 
 This project originated as a fork of Mapbox GL Native, before their switch to a non-OSS license in December 2020. For more information, see: [`FORK.md`](./FORK.md).
 
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/649392/211550776-8779041a-7c12-4bed-a7bd-c2ec80af2b29.png" alt="Android device with MapLibre" width="24%">   <img src="https://user-images.githubusercontent.com/649392/211550762-0f42ebc9-05ab-4d89-bd59-c306453ea9af.png" alt="iOS device with MapLibre" width="25%">
+  <img src="https://user-images.githubusercontent.com/649392/211550776-8779041a-7c12-4bed-a7bd-c2ec80af2b29.png" alt="Android device with MapHero" width="24%">   <img src="https://user-images.githubusercontent.com/649392/211550762-0f42ebc9-05ab-4d89-bd59-c306453ea9af.png" alt="iOS device with MapHero" width="25%">
 </p>
 
 ## Getting Started
 
 ### Android
 
-Add [the latest version](https://central.sonatype.com/artifact/org.maplibre.gl/android-sdk/versions) of MapLibre Native Android as a dependency to your project.
+Add [the latest version](https://central.sonatype.com/artifact/org.maplibre.gl/android-sdk/versions) of MapHero Native Android as a dependency to your project.
 
 ```gradle
     dependencies {
@@ -40,7 +40,7 @@ Add a `MapView` to your layout XML file:
 ```
 
 > [!TIP]
-> There are external projects such as [Ramani Maps](https://github.com/ramani-maps/ramani-maps) and [MapLibre Compose Playground](https://github.com/Rallista/maplibre-compose-playground) available to intergrate MapLibre Native Android with Compose-based projects.
+> There are external projects such as [Ramani Maps](https://github.com/ramani-maps/ramani-maps) and [MapHero Compose Playground](https://github.com/Rallista/maplibre-compose-playground) available to intergrate MapHero Native Android with Compose-based projects.
 
 Next, initialize the map in an activity:
 
@@ -64,8 +64,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Init MapLibre
-        MapLibre.getInstance(this)
+        // Init MapHero
+        MapHero.getInstance(this)
 
         // Init layout view
         val inflater = LayoutInflater.from(this)
@@ -122,23 +122,23 @@ For more information, refer to the [Android API Documentation](https://maplibre.
 
 ## iOS
 
-You can find MapHero Native iOS on [Cocoapods](https://cocoapods.org/) and on the [Swift Package Index](https://swiftpackageindex.com/maplibre/maplibre-gl-native-distribution). You can also MapHero Native iOS [as a dependency to Xcode directly](https://maplibre.org/maplibre-native/ios/latest/documentation/maplibre-native-for-ios/gettingstarted/#Add-MapLibre-Native-as-a-dependency).
+You can find MapHero Native iOS on [Cocoapods](https://cocoapods.org/) and on the [Swift Package Index](https://swiftpackageindex.com/maplibre/maplibre-gl-native-distribution). You can also MapHero Native iOS [as a dependency to Xcode directly](https://maplibre.org/maplibre-native/ios/latest/documentation/maplibre-native-for-ios/gettingstarted/#Add-MapHero-Native-as-a-dependency).
 
 MapHero Native iOS uses UIKit. To intergrate it with an UIKit project, you can use
 
 ```swift
-class SimpleMap: UIViewController, MLNMapViewDelegate {
-    var mapView: MLNMapView!
+class SimpleMap: UIViewController, MHMapViewDelegate {
+    var mapView: MHMapView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        mapView = MLNMapView(frame: view.bounds)
+        mapView = MHMapView(frame: view.bounds)
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         view.addSubview(mapView)
         mapView.delegate = self
     }
 
-    func mapView(_: MLNMapView, didFinishLoading _: MLNStyle) {
+    func mapView(_: MHMapView, didFinishLoading _: MHStyle) {
     }
 }
 ```
@@ -146,45 +146,45 @@ class SimpleMap: UIViewController, MLNMapViewDelegate {
 You need to create a wrapper when using SwiftUI.
 
 ```swift
-import MapLibre
+import MapHero
 
 struct SimpleMap: UIViewRepresentable {
-    func makeUIView(context _: Context) -> MLNMapView {
-        let mapView = MLNMapView()
+    func makeUIView(context _: Context) -> MHMapView {
+        let mapView = MHMapView()
         return mapView
     }
 
-    func updateUIView(_: MLNMapView, context _: Context) {}
+    func updateUIView(_: MHMapView, context _: Context) {}
 }
 ```
 
 > [!TIP]
-> You can also use [MapLibreSwiftUI](https://github.com/maplibre/swiftui-dsl), a wrapper around MapHero Native iOS that offers a declarative API like SwiftUI.
+> You can also use [MapHeroSwiftUI](https://github.com/maplibre/swiftui-dsl), a wrapper around MapHero Native iOS that offers a declarative API like SwiftUI.
 
 The [iOS Documentation](https://maplibre.org/maplibre-native/ios/latest/documentation/maplibre/) contains many examples and the entire API of the library.
 
 ## Node.js
 
-There is an [npm package](https://www.npmjs.com/package/@maplibre/maplibre-gl-native) for using MapLibre Native in a Node.js project. The source code of this project [can be found in this repository](https://github.com/maplibre/maplibre-native/tree/main/platform/node).
+There is an [npm package](https://www.npmjs.com/package/@maplibre/maplibre-gl-native) for using MapHero Native in a Node.js project. The source code of this project [can be found in this repository](https://github.com/maplibre/maplibre-native/tree/main/platform/node).
 
 ## Qt
 
-Please check out the [`maplibre/maplibre-native-qt` repository](https://github.com/maplibre/maplibre-native-qt) to learn how to intergrate MapLibre Native with a Qt project.
+Please check out the [`maplibre/maplibre-native-qt` repository](https://github.com/maplibre/maplibre-native-qt) to learn how to intergrate MapHero Native with a Qt project.
 
 ## Compose Multiplatform
 
-[MapLibre Compose](https://github.com/maplibre/maplibre-compose) wraps MapLibre Native for various platforms that [Compose Multiplatform](https://www.jetbrains.com/compose-multiplatform/) supports. As of August 2025, iOS and Android are supported, with web and desktop partially supported.
+[MapHero Compose](https://github.com/maplibre/maplibre-compose) wraps MapHero Native for various platforms that [Compose Multiplatform](https://www.jetbrains.com/compose-multiplatform/) supports. As of August 2025, iOS and Android are supported, with web and desktop partially supported.
 
 ## Other Platforms
 
-MapLibre Native can also be built on [Linux](platform/linux/README.md), [Windows](platform/windows/README.md) and [macOS](platform/macos/README.md).
+MapHero Native can also be built on [Linux](platform/linux/README.md), [Windows](platform/windows/README.md) and [macOS](platform/macos/README.md).
 
 ## Contributing
 
 > [!NOTE]
-> This section is only relevant for people who want to contribute to MapLibre Native.
+> This section is only relevant for people who want to contribute to MapHero Native.
 
-MapLibre Native has at its core a C++ library. This is where the bulk of development is currently happening.
+MapHero Native has at its core a C++ library. This is where the bulk of development is currently happening.
 
 To get started with the code base, you need to clone the the repository including all its submodules.
 
@@ -195,7 +195,7 @@ git clone --recurse-submodules git@github.com:<YOUR NAME>/maplibre-native.git
 git remote add origin https://github.com/maplibre/maplibre-native.git
 ```
 
-The go-to reference is the [MapLibre Native Developer Documentation](https://maplibre.org/maplibre-native/docs/book/).
+The go-to reference is the [MapHero Native Developer Documentation](https://maplibre.org/maplibre-native/docs/book/).
 
 > [!TIP]
 > Check out issues labelled as a [good first issue](https://github.com/maplibre/maplibre-native/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22).
@@ -210,7 +210,7 @@ The go-to reference is the [MapLibre Native Developer Documentation](https://map
 
 Open `platform/android` with Android Studio.
 
-More information: [MapLibre Android Developer Guide](https://maplibre.org/maplibre-native/docs/book/platforms/android/index.html).
+More information: [MapHero Android Developer Guide](https://maplibre.org/maplibre-native/docs/book/platforms/android/index.html).
 
 ### iOS
 
@@ -218,12 +218,12 @@ You need to use [Bazel](https://bazel.build/) to generate an Xcode project. Inst
 
 ```bash
 bazel run //platform/ios:xcodeproj --@rules_xcodeproj//xcodeproj:extra_common_flags="--//:renderer=metal"
-xed platform/ios/MapLibre.xcodeproj
+xed platform/ios/MapHero.xcodeproj
 ```
 
 To generate and open the Xcode project.
 
-More information: [MapLibre iOS Developer Guide](https://maplibre.org/maplibre-native/docs/book/platforms/ios/index.html).
+More information: [MapHero iOS Developer Guide](https://maplibre.org/maplibre-native/docs/book/platforms/ios/index.html).
 
 ## Other Platforms
 
@@ -239,7 +239,7 @@ Thanks to our sponsors, we are able to award bounties to developers making contr
 
 We thank everyone who supported us financially in the past and special thanks to the people and organizations who support us with recurring donations!
 
-Read more about the MapLibre Sponsorship Program at [https://maplibre.org/sponsors/](https://maplibre.org/sponsors/).
+Read more about the MapHero Sponsorship Program at [https://maplibre.org/sponsors/](https://maplibre.org/sponsors/).
 
 Gold:
 
@@ -271,4 +271,4 @@ Backers and Supporters:
 
 ## License
 
-**MapLibre Native** is licensed under the [BSD 2-Clause License](./LICENSE.md).
+**MapHero Native** is licensed under the [BSD 2-Clause License](./LICENSE.md).

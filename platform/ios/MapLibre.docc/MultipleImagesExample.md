@@ -33,20 +33,20 @@ The icons need to be extracted with a tool like [Inkscape](https://inkscape.org/
 
 ## Adding Icons on Style Load
 
-The `.mbtiles` file needs to be added to the assets of the app. When the style loads we can add a ``MLNVectorTileSource`` with as URL `mbtiles://\(Bundle.main.bundlePath)/pois-nps.mbtiles"`.
+The `.mbtiles` file needs to be added to the assets of the app. When the style loads we can add a ``MHVectorTileSource`` with as URL `mbtiles://\(Bundle.main.bundlePath)/pois-nps.mbtiles"`.
 
-The images need to be added to an imageset so they can be loaded as an `UIImage` and added to the style with ``MLNStyle/setImage:forName:`` as is shown below in the example. Note that you should set ``MLNVectorStyleLayer/sourceLayerIdentifier`` to match the layer name in the MBTiles file. Lastly a [`match` expression](https://maplibre.org/maplibre-style-spec/expressions/#match) is used to select the correct image based on `POITYPE` attribute present in the feature.
+The images need to be added to an imageset so they can be loaded as an `UIImage` and added to the style with ``MHStyle/setImage:forName:`` as is shown below in the example. Note that you should set ``MHVectorStyleLayer/sourceLayerIdentifier`` to match the layer name in the MBTiles file. Lastly a [`match` expression](https://maplibre.org/maplibre-style-spec/expressions/#match) is used to select the correct image based on `POITYPE` attribute present in the feature.
 
 <!-- include-example(MultipleImagesExample) -->
 
 ```swift
-class MultipleImagesExample: UIViewController, MLNMapViewDelegate {
-    var mapView: MLNMapView!
+class MultipleImagesExample: UIViewController, MHMapViewDelegate {
+    var mapView: MHMapView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        mapView = MLNMapView(frame: view.bounds, styleURL: AMERICANA_STYLE)
+        mapView = MHMapView(frame: view.bounds, styleURL: AMERICANA_STYLE)
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         mapView.tintColor = .darkGray
 
@@ -59,8 +59,8 @@ class MultipleImagesExample: UIViewController, MLNMapViewDelegate {
     }
 
     // Wait until the style is loaded before modifying the map style.
-    func mapView(_: MLNMapView, didFinishLoading style: MLNStyle) {
-        let source = MLNVectorTileSource(identifier: "pois-nps", configurationURL: URL(string: "mbtiles://\(Bundle.main.bundlePath)/pois-nps.mbtiles")!)
+    func mapView(_: MHMapView, didFinishLoading style: MHStyle) {
+        let source = MHVectorTileSource(identifier: "pois-nps", configurationURL: URL(string: "mbtiles://\(Bundle.main.bundlePath)/pois-nps.mbtiles")!)
 
         style.addSource(source)
 
@@ -81,7 +81,7 @@ class MultipleImagesExample: UIViewController, MLNMapViewDelegate {
             }
         }
 
-        let imageLayer = MLNSymbolStyleLayer(identifier: "npc-poi-images", source: source)
+        let imageLayer = MHSymbolStyleLayer(identifier: "npc-poi-images", source: source)
         imageLayer.sourceLayerIdentifier = "pois"
         imageLayer.iconImageName = NSExpression(mglJSONObject: [
             "match", ["get", "POITYPE"],

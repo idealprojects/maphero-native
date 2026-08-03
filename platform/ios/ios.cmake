@@ -22,9 +22,9 @@ file(GLOB_RECURSE IOS_SDK_RESOURCE_FILES
 )
 
 
-if(NOT MLN_WITH_OPENGL)
+if(NOT MH_WITH_OPENGL)
     list(FILTER IOS_SDK_SOURCE_FILES EXCLUDE REGEX ".*(OpenGL|gl).*")
-elseif(NOT MLN_WITH_METAL)
+elseif(NOT MH_WITH_METAL)
     list(FILTER IOS_SDK_SOURCE_FILES EXCLUDE REGEX ".*Metal.*")
 endif()
 
@@ -62,7 +62,7 @@ add_custom_target(create-framework-bundle
 
 add_library(
     ios-sdk-static
-    STATIC ${IOS_SDK_SOURCE_FILES} ${MLN_GENERATED_DARWIN_STYLE_SOURCE}
+    STATIC ${IOS_SDK_SOURCE_FILES} ${MH_GENERATED_DARWIN_STYLE_SOURCE}
     ${IOS_SDK_RESOURCE_FILES}
 )
 
@@ -81,20 +81,20 @@ set_target_properties(ios-sdk-static PROPERTIES
     XCODE_ATTRIBUTE_MACH_O_TYPE "staticlib"
 
     # Provide a unique bundle identifier
-    MACOSX_FRAMEWORK_IDENTIFIER "org.maplibre.ios"
+    MACOSX_FRAMEWORK_IDENTIFIER "org.maphero.ios"
 
     # FIXME: versioning
     MACOSX_FRAMEWORK_BUNDLE_VERSION "1.0"
     MACOSX_FRAMEWORK_SHORT_VERSION_STRING "1.0"
 )
 
-if(MLN_WITH_METAL)
+if(MH_WITH_METAL)
     message(STATUS "Configuring Metal renderer backend")
 endif()
 
 target_include_directories(
     ios-sdk-static
-    PUBLIC ${MLN_GENERATED_DARWIN_CODE_DIR} ${CMAKE_CURRENT_LIST_DIR}/src ${PROJECT_SOURCE_DIR}/platform/darwin/src
+    PUBLIC ${MH_GENERATED_DARWIN_CODE_DIR} ${CMAKE_CURRENT_LIST_DIR}/src ${PROJECT_SOURCE_DIR}/platform/darwin/src
     PRIVATE ${PROJECT_SOURCE_DIR}/src
 )
 

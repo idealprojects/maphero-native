@@ -2,14 +2,14 @@ load("@darwin_config//:config.bzl", "BUNDLE_ID_PREFIX")
 load("@rules_apple//apple:ios.bzl", "ios_application", "ios_unit_test")
 load("@rules_apple//apple:resources.bzl", "apple_resource_bundle")
 load("@rules_cc//cc:defs.bzl", "cc_library", "objc_library")
-load("//bazel:flags.bzl", "CPP_FLAGS", "MAPLIBRE_FLAGS")
+load("//bazel:flags.bzl", "CPP_FLAGS", "MAPHERO_FLAGS")
 
 cc_library(
     name = "test_cpp_srcs",
     srcs = [
         "ios_test_runner.cpp",
     ],
-    copts = CPP_FLAGS + MAPLIBRE_FLAGS,
+    copts = CPP_FLAGS + MAPHERO_FLAGS,
     deps = [
         "//platform:ios-sdk",
         "//platform/ios/test/common:ios_test_runner_lib",

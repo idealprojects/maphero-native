@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="MAPHERO_compassContentDescription">Kompas van de map. Activeer om de map rotatie te herzetten naar het noorden.</string>
+    <string name="MAPHERO_attributionsIconContentDescription">Attributie icoon. Activeer voor het tonen van het attributie dialoog. </string>
+    <string name="MAPHERO_myLocationViewContentDescription">Locatie Element. Dit toont jouw locatie op de map.</string>
+    <string name="MAPHERO_mapActionDescription">Toont een map gemaakt met MapHero. Scroll door het slepen met twee vingers. Zoom door vingers te nijpen.</string>
+    <string name="MAPHERO_attributionsDialogTitle">MapHero Android</string>
+    <string name="MAPHERO_offline_error_region_definition_invalid">Aangeleverde OfflineRegionDefinition past niet in de wereld omtrek: %s</string>
+
+    </resources>

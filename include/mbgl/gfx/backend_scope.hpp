@@ -7,7 +7,7 @@ class RendererBackend;
 
 class BackendScope {
 public:
-    /// There are two types of scopes: Creating an "Implicit" scope tells MapLibre
+    /// There are two types of scopes: Creating an "Implicit" scope tells MapHero
     /// Native that the supporting windowing system has already activated the
     /// RenderBackend and that no further actions are required. Creating an "Explicit"
     /// scope (the default) actually enables the RenderBackend, and disables it when

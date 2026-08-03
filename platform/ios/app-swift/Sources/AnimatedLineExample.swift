@@ -1,19 +1,19 @@
-import MapLibre
+import MapHero
 import SwiftUI
 import UIKit
 
 // #-example-code(AnimatedLineExample)
-class AnimatedLineExample: UIViewController, MLNMapViewDelegate {
-    var mapView: MLNMapView!
+class AnimatedLineExample: UIViewController, MHMapViewDelegate {
+    var mapView: MHMapView!
     var timer: Timer?
-    var polylineSource: MLNShapeSource?
+    var polylineSource: MHShapeSource?
     var currentIndex = 1
     var allCoordinates: [CLLocationCoordinate2D]!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        mapView = MLNMapView(frame: view.bounds, styleURL: AMERICANA_STYLE)
+        mapView = MHMapView(frame: view.bounds, styleURL: AMERICANA_STYLE)
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 
         mapView.setCenter(
@@ -29,25 +29,25 @@ class AnimatedLineExample: UIViewController, MLNMapViewDelegate {
     }
 
     // Wait until the map is loaded before adding to the map.
-    func mapViewDidFinishLoadingMap(_ mapView: MLNMapView) {
+    func mapViewDidFinishLoadingMap(_ mapView: MHMapView) {
         addPolyline(to: mapView.style!)
         animatePolyline()
     }
 
-    func addPolyline(to style: MLNStyle) {
-        // Add an empty MLNShapeSource, we’ll keep a reference to this and add points to this later.
-        let source = MLNShapeSource(identifier: "polyline", shape: nil, options: nil)
+    func addPolyline(to style: MHStyle) {
+        // Add an empty MHShapeSource, we’ll keep a reference to this and add points to this later.
+        let source = MHShapeSource(identifier: "polyline", shape: nil, options: nil)
         style.addSource(source)
         polylineSource = source
 
         // Add a layer to style our polyline.
-        let layer = MLNLineStyleLayer(identifier: "polyline", source: source)
+        let layer = MHLineStyleLayer(identifier: "polyline", source: source)
         layer.lineJoin = NSExpression(forConstantValue: "round")
         layer.lineCap = NSExpression(forConstantValue: "round")
         layer.lineColor = NSExpression(forConstantValue: UIColor.blue)
 
         // The line width should gradually increase based on the zoom level.
-        layer.lineWidth = NSExpression(forMLNInterpolating: NSExpression.zoomLevelVariable, curveType: MLNExpressionInterpolationMode.linear, parameters: nil, stops: NSExpression(forConstantValue: [14: 5, 18: 20]))
+        layer.lineWidth = NSExpression(forMHInterpolating: NSExpression.zoomLevelVariable, curveType: MHExpressionInterpolationMode.linear, parameters: nil, stops: NSExpression(forConstantValue: [14: 5, 18: 20]))
         style.addLayer(layer)
     }
 
@@ -68,7 +68,7 @@ class AnimatedLineExample: UIViewController, MLNMapViewDelegate {
         // Create a subarray of locations up to the current index.
         let coordinates = Array(allCoordinates[0 ..< currentIndex])
 
-        // Update our MLNShapeSource with the current locations.
+        // Update our MHShapeSource with the current locations.
         updatePolylineWithCoordinates(coordinates: coordinates)
 
         currentIndex += 1
@@ -77,9 +77,9 @@ class AnimatedLineExample: UIViewController, MLNMapViewDelegate {
     func updatePolylineWithCoordinates(coordinates: [CLLocationCoordinate2D]) {
         var mutableCoordinates = coordinates
 
-        let polyline = MLNPolylineFeature(coordinates: &mutableCoordinates, count: UInt(mutableCoordinates.count))
+        let polyline = MHPolylineFeature(coordinates: &mutableCoordinates, count: UInt(mutableCoordinates.count))
 
-        // Updating the MLNShapeSource’s shape will have the map redraw our polyline with the current coordinates.
+        // Updating the MHShapeSource’s shape will have the map redraw our polyline with the current coordinates.
         polylineSource?.shape = polyline
     }
 

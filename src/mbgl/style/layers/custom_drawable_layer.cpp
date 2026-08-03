@@ -108,7 +108,7 @@ public:
             callback(drawable, parameters, options);
         }
 
-#if MLN_UBO_CONSOLIDATION
+#if MH_UBO_CONSOLIDATION
         if (!layerUniforms) {
             layerUniforms = parameters.context.createLayerUniformBufferArray();
         }
@@ -145,7 +145,7 @@ public:
             };
 
             expressionUniformBuffer = parameters.context.createUniformBuffer(&exprUBO, sizeof(exprUBO));
-#if MLN_UBO_CONSOLIDATION
+#if MH_UBO_CONSOLIDATION
             layerUniforms->set(idLineExpressionUBO, expressionUniformBuffer);
 #else
             auto& drawableUniforms = drawable.mutableUniformBuffers();
@@ -153,7 +153,7 @@ public:
 #endif
         }
 
-#if MLN_UBO_CONSOLIDATION
+#if MH_UBO_CONSOLIDATION
         shaders::LineDrawableUnionUBO drawableUBO;
         drawableUBO.lineDrawableUBO = {
 #else
@@ -171,7 +171,7 @@ public:
             /* .pad1 = */ 0
         };
 
-#if MLN_UBO_CONSOLIDATION
+#if MH_UBO_CONSOLIDATION
         if (!drawableUniformBuffer) {
             drawableUniformBuffer = parameters.context.createUniformBuffer(
                 &drawableUBO, sizeof(drawableUBO), false, true);
@@ -195,7 +195,7 @@ private:
     CustomDrawableLayerHost::Interface::LineOptions options;
     CustomDrawableLayerHost::Interface::LineTweakerCallback callback;
 
-#if MLN_UBO_CONSOLIDATION
+#if MH_UBO_CONSOLIDATION
     gfx::UniqueUniformBufferArray layerUniforms;
     gfx::UniformBufferPtr drawableUniformBuffer;
 #endif
@@ -254,12 +254,12 @@ public:
             /* .color = */ options.color,
             /* .w2 = */ options.width,
             /* .offset = */ options.offset,
-            /* .edge = */ 0.0f,      // TODO: MLN does not provide a value. Analyze impact.
+            /* .edge = */ 0.0f,      // TODO: MH does not provide a value. Analyze impact.
             /* .texRepeat = */ 0.0f, // N/A
             /* .texOffset = */ {},   // N/A
             /* .miterLimit = */ options.geometry.miterLimit,
             /* .join = */ static_cast<int32_t>(options.geometry.joinType),
-            /* .cap = */ static_cast<int32_t>(options.geometry.beginCap), // TODO: MLN option for endCap to be
+            /* .cap = */ static_cast<int32_t>(options.geometry.beginCap), // TODO: MH option for endCap to be
                                                                           // implemented in the shader!
             /* .hasExp = */ false,                                        // N/A
             /* .interClipLimit = */ 0.0f,                                 // N/A
@@ -295,7 +295,7 @@ public:
             callback(drawable, parameters, options);
         }
 
-#if MLN_UBO_CONSOLIDATION
+#if MH_UBO_CONSOLIDATION
         if (!layerUniforms) {
             layerUniforms = parameters.context.createLayerUniformBufferArray();
         }
@@ -312,7 +312,7 @@ public:
                                                          /* .from_scale = */ 0.f,
                                                          /* .to_scale = */ 0.f};
 
-#if MLN_UBO_CONSOLIDATION
+#if MH_UBO_CONSOLIDATION
         FillDrawableUnionUBO drawableUBO;
         drawableUBO.fillDrawableUBO = {
 #else
@@ -326,7 +326,7 @@ public:
             /* .pad2 = */ 0
         };
 
-#if MLN_UBO_CONSOLIDATION
+#if MH_UBO_CONSOLIDATION
         if (!drawableUniformBuffer) {
             drawableUniformBuffer = parameters.context.createUniformBuffer(
                 &drawableUBO, sizeof(drawableUBO), false, true);
@@ -350,7 +350,7 @@ private:
     CustomDrawableLayerHost::Interface::FillOptions options;
     CustomDrawableLayerHost::Interface::FillTweakerCallback callback;
 
-#if MLN_UBO_CONSOLIDATION
+#if MH_UBO_CONSOLIDATION
     gfx::UniqueUniformBufferArray layerUniforms;
     gfx::UniformBufferPtr drawableUniformBuffer;
 #endif
@@ -513,7 +513,7 @@ bool CustomDrawableLayerHost::Interface::updateBuilder(BuilderType type,
 
 util::SimpleIdentity CustomDrawableLayerHost::Interface::addPolyline(const LineString<double>& coordinates,
                                                                      LineShaderType shaderType) {
-#if !MLN_RENDER_BACKEND_METAL
+#if !MH_RENDER_BACKEND_METAL
     shaderType = LineShaderType::Classic;
 #endif
 
@@ -555,7 +555,7 @@ util::SimpleIdentity CustomDrawableLayerHost::Interface::addPolyline(const LineS
 
 util::SimpleIdentity CustomDrawableLayerHost::Interface::addPolyline(const GeometryCoordinates& coordinates,
                                                                      LineShaderType shaderType) {
-#if !MLN_RENDER_BACKEND_METAL
+#if !MH_RENDER_BACKEND_METAL
     shaderType = LineShaderType::Classic;
 #endif
 

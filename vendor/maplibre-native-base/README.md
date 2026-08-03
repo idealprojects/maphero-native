@@ -1,6 +1,6 @@
-![MapLibre Logo](https://maplibre.org/img/maplibre-logo-big.svg)
+![MapHero Logo](https://maplibre.org/img/maplibre-logo-big.svg)
 
-# MapLibre Native Base C++ Libraries
+# MapHero Native Base C++ Libraries
 
 maplibre-native-base
 

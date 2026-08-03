@@ -256,7 +256,7 @@ The following list shows concrete public properties or functions that should be 
     * `var textIgnorePlacement: Boolean` (default `false`)
     * `var textOptional: Boolean` (default `false`)
     * `var textVariableAnchor: Anchor[]?` (throws on empty array)
-* `MapLibreMap` (in addition to its other methods)
+* `MapHeroMap` (in addition to its other methods)
     * `add(Annotation...)`
     * `remove(Annotation...)`
     * `removeAllAnnotations()`

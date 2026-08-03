@@ -9,6 +9,6 @@ bcp --boost="$BOOST" --scan $(find {src,include,test,platform,bin,render-test} -
 
 pushd vendor/boost
 VERSION=$(sed -n 's/^#define BOOST_LIB_VERSION "\([^"]*\)"$/\1/p' include/boost/version.hpp)
-echo "libboost ${VERSION/_/.} for MapLibre Native" > README.md
+echo "libboost ${VERSION/_/.} for MapHero Native" > README.md
 git add README.md include
 popd

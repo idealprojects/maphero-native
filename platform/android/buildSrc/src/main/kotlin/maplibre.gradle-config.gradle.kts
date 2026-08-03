@@ -1,9 +1,9 @@
 tasks.register("apiKey") {
     val tokenFile = file("${projectDir}/src/main/res/values/developer-config.xml")
     if (!tokenFile.exists()) {
-        var apiKey = System.getenv("MLN_API_KEY") ?: "null"
+        var apiKey = System.getenv("MH_API_KEY") ?: "null"
         if (apiKey == "null") {
-            println("You should set the MLN_API_KEY environment variable.")
+            println("You should set the MH_API_KEY environment variable.")
             apiKey = "YOUR_API_KEY_GOES_HERE"
         }
         val tokenFileContents = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" +

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<org.maphero.android.maps.MapView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@id/mapView"
+        android:layout_width="match_parent"
+        android:layout_height="256dp"
+        app:MAPHERO_cameraTargetLat="45.38301927899065"
+        app:MAPHERO_cameraTargetLng="8.63525390625"
+        app:MAPHERO_cameraZoom="7"/>

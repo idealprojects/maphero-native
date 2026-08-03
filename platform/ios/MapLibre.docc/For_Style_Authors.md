@@ -43,8 +43,8 @@ Icon and text labels should be legible regardless of the map’s orientation.
 By default, this SDK makes it easy for your users to rotate or tilt the map
 using multitouch gestures.
 If you do not intend your design to accommodate rotation and tilting, disable
-these gestures using the `MLNMapView.rotateEnabled` and
-`MLNMapView.pitchEnabled` properties, respectively, or the corresponding
+these gestures using the `MHMapView.rotateEnabled` and
+`MHMapView.pitchEnabled` properties, respectively, or the corresponding
 inspectables in Interface Builder.
 
 ### Interactivity
@@ -54,7 +54,7 @@ A text label may look like a tappable button merely due to matching your
 application’s tint color or the default blue tint color.
 You can make an icon or text label interactive by installing a gesture
 recognizer and performing feature querying (e.g.,
-``MLNMapView/visibleFeaturesAtPoint:``) to get details about the selected
+``MHMapView/visibleFeaturesAtPoint:``) to get details about the selected
 feature.
 
 Make sure your users can easily distinguish any interactive elements from the
@@ -70,18 +70,18 @@ the subject.
 
 ## Applying your style
 
-You set an `MLNMapView` object’s style either in code, by setting the
-`MLNMapView.styleURL` property, or in Interface Builder, by setting the “Style
+You set an `MHMapView` object’s style either in code, by setting the
+`MHMapView.styleURL` property, or in Interface Builder, by setting the “Style
 URL” inspectable. The URL must point to a local or remote style JSON file. The
 style JSON file format is defined by the
-[MapLibre Style Spec](https://maplibre.org/maplibre-style-spec/).
+[MapHero Style Spec](https://maplibre.org/maplibre-style-spec/).
 
 ## Manipulating the style at runtime
 
 The _runtime styling API_ enables you to modify every aspect of a style
 dynamically as a user interacts with your application. The style itself is
-represented at runtime by an ``MLNStyle`` object, which provides access to various
-``MLNSource`` and ``MLNStyleLayer`` objects that represent content sources and style
+represented at runtime by an ``MHStyle`` object, which provides access to various
+``MHSource`` and ``MHStyleLayer`` objects that represent content sources and style
 layers, respectively.
 
 To avoid conflicts with Objective-C keywords or Cocoa terminology, this SDK uses
@@ -103,15 +103,15 @@ source                     | content source
 
 Each source defined by a style JSON file is represented at runtime by a content
 source object that you can use to initialize new style layers. The content
-source object is a member of one of the following subclasses of ``MLNSource``:
+source object is a member of one of the following subclasses of ``MHSource``:
 
 In style JSON | In the SDK
 --------------|-----------
-`vector`      | ``MLNVectorTileSource``
-`raster`      | ``MLNRasterTileSource``
-`raster-dem`  | ``MLNRasterDEMSource``
-`geojson`     | ``MLNShapeSource``
-`image`       | ``MLNImageSource``
+`vector`      | ``MHVectorTileSource``
+`raster`      | ``MHRasterTileSource``
+`raster-dem`  | ``MHRasterDEMSource``
+`geojson`     | ``MHShapeSource``
+`image`       | ``MHImageSource``
 
 `canvas` and `video` sources are not supported.
 
@@ -123,64 +123,64 @@ subset of the keys defined in version 2.1.0 of the
 [TileJSON](https://github.com/mapbox/tilejson-spec/tree/master/2.1.0)
 specification. As an alternative to authoring a custom TileJSON file, you may
 supply various tile source options when creating a raster or vector tile source.
-These options are detailed in the `MLNTileSourceOption` documentation:
+These options are detailed in the `MHTileSourceOption` documentation:
 
 In style JSON | In TileJSON   | In the SDK
 --------------|---------------|-----------
-`url`         | —             | `configurationURL` parameter in `-[MLNTileSource initWithIdentifier:configurationURL:]`
-`tiles`       | `tiles`       | `tileURLTemplates` parameter in `-[MLNTileSource initWithIdentifier:tileURLTemplates:options:]`
-`minzoom`     | `minzoom`     | `MLNTileSourceOptionMinimumZoomLevel`
-`maxzoom`     | `maxzoom`     | `MLNTileSourceOptionMaximumZoomLevel`
-`bounds`      | `bounds`      | `MLNTileSourceOptionCoordinateBounds`
-`tileSize`    | —             | `MLNTileSourceOptionTileSize`
-`attribution` | `attribution` | `MLNTileSourceOptionAttributionHTMLString` (but consider specifying `MLNTileSourceOptionAttributionInfos` instead for improved security)
-`scheme`      | `scheme`      | `MLNTileSourceOptionTileCoordinateSystem`
-`encoding`    | –             | `MLNTileSourceOptionDEMEncoding`
+`url`         | —             | `configurationURL` parameter in `-[MHTileSource initWithIdentifier:configurationURL:]`
+`tiles`       | `tiles`       | `tileURLTemplates` parameter in `-[MHTileSource initWithIdentifier:tileURLTemplates:options:]`
+`minzoom`     | `minzoom`     | `MHTileSourceOptionMinimumZoomLevel`
+`maxzoom`     | `maxzoom`     | `MHTileSourceOptionMaximumZoomLevel`
+`bounds`      | `bounds`      | `MHTileSourceOptionCoordinateBounds`
+`tileSize`    | —             | `MHTileSourceOptionTileSize`
+`attribution` | `attribution` | `MHTileSourceOptionAttributionHTMLString` (but consider specifying `MHTileSourceOptionAttributionInfos` instead for improved security)
+`scheme`      | `scheme`      | `MHTileSourceOptionTileCoordinateSystem`
+`encoding`    | –             | `MHTileSourceOptionDEMEncoding`
 
 ### Shape sources
 
 Shape sources also accept various options. These options are detailed in the
-`MLNShapeSourceOption` documentation:
+`MHShapeSourceOption` documentation:
 
 In style JSON    | In the SDK
 -----------------|-----------
-`data`           | `url` parameter in `-[MLNShapeSource initWithIdentifier:URL:options:]`
-`maxzoom`        | `MLNShapeSourceOptionMaximumZoomLevel`
-`buffer`         | `MLNShapeSourceOptionBuffer`
-`tolerance`      | `MLNShapeSourceOptionSimplificationTolerance`
-`cluster`        | `MLNShapeSourceOptionClustered`
-`clusterRadius`  | `MLNShapeSourceOptionClusterRadius`
-`clusterMinPoints`  | `MLNShapeSourceOptionClusterMinPoints`
-`clusterMaxZoom` | `MLNShapeSourceOptionMaximumZoomLevelForClustering`
-`lineMetrics`    | `MLNShapeSourceOptionLineDistanceMetrics`
+`data`           | `url` parameter in `-[MHShapeSource initWithIdentifier:URL:options:]`
+`maxzoom`        | `MHShapeSourceOptionMaximumZoomLevel`
+`buffer`         | `MHShapeSourceOptionBuffer`
+`tolerance`      | `MHShapeSourceOptionSimplificationTolerance`
+`cluster`        | `MHShapeSourceOptionClustered`
+`clusterRadius`  | `MHShapeSourceOptionClusterRadius`
+`clusterMinPoints`  | `MHShapeSourceOptionClusterMinPoints`
+`clusterMaxZoom` | `MHShapeSourceOptionMaximumZoomLevelForClustering`
+`lineMetrics`    | `MHShapeSourceOptionLineDistanceMetrics`
 
 To create a shape source from local GeoJSON data, first
 [convert the GeoJSON data into a shape](working-with-geojson-data.html#converting-geojson-data-into-shape-objects),
-then use the `-[MLNShapeSource initWithIdentifier:shape:options:]` method.
+then use the `-[MHShapeSource initWithIdentifier:shape:options:]` method.
 
 ### Image sources
 
 Image sources accept a non-axis aligned quadrilateral as their geographic coordinates.
-These coordinates, in `MLNCoordinateQuad`, are described in counterclockwise order,
+These coordinates, in `MHCoordinateQuad`, are described in counterclockwise order,
 in contrast to the clockwise order defined in the style specification.
 
 ## Configuring the map content’s appearance
 
 Each layer defined by the style JSON file is represented at runtime by a style
 layer object, which you can use to refine the map’s appearance. The style layer
-object is a member of one of the following subclasses of `MLNStyleLayer`:
+object is a member of one of the following subclasses of `MHStyleLayer`:
 
 In style JSON | In the SDK
 --------------|-----------
-`background` | `MLNBackgroundStyleLayer`
-`circle` | `MLNCircleStyleLayer`
-`fill` | `MLNFillStyleLayer`
-`fill-extrusion` | `MLNFillExtrusionStyleLayer`
-`heatmap` | `MLNHeatmapStyleLayer`
-`hillshade` | `MLNHillshadeStyleLayer`
-`line` | `MLNLineStyleLayer`
-`raster` | `MLNRasterStyleLayer`
-`symbol` | `MLNSymbolStyleLayer`
+`background` | `MHBackgroundStyleLayer`
+`circle` | `MHCircleStyleLayer`
+`fill` | `MHFillStyleLayer`
+`fill-extrusion` | `MHFillExtrusionStyleLayer`
+`heatmap` | `MHHeatmapStyleLayer`
+`hillshade` | `MHHillshadeStyleLayer`
+`line` | `MHLineStyleLayer`
+`raster` | `MHRasterStyleLayer`
+`symbol` | `MHSymbolStyleLayer`
 
 You configure layout and paint attributes by setting properties on these style
 layer objects. The property names generally correspond to the style JSON
@@ -191,77 +191,77 @@ whose names differ from the style specification are listed below:
 
 In style JSON | In Objective-C | In Swift
 --------------|----------------|---------
-`circle-pitch-scale` | `MLNCircleStyleLayer.circleScaleAlignment` | `MLNCircleStyleLayer.circleScaleAlignment`
-`circle-translate` | `MLNCircleStyleLayer.circleTranslation` | `MLNCircleStyleLayer.circleTranslation`
-`circle-translate-anchor` | `MLNCircleStyleLayer.circleTranslationAnchor` | `MLNCircleStyleLayer.circleTranslationAnchor`
+`circle-pitch-scale` | `MHCircleStyleLayer.circleScaleAlignment` | `MHCircleStyleLayer.circleScaleAlignment`
+`circle-translate` | `MHCircleStyleLayer.circleTranslation` | `MHCircleStyleLayer.circleTranslation`
+`circle-translate-anchor` | `MHCircleStyleLayer.circleTranslationAnchor` | `MHCircleStyleLayer.circleTranslationAnchor`
 
 ### Fill style layers
 
 In style JSON | In Objective-C | In Swift
 --------------|----------------|---------
-`fill-antialias` | `MLNFillStyleLayer.fillAntialiased` | `MLNFillStyleLayer.isFillAntialiased`
-`fill-translate` | `MLNFillStyleLayer.fillTranslation` | `MLNFillStyleLayer.fillTranslation`
-`fill-translate-anchor` | `MLNFillStyleLayer.fillTranslationAnchor` | `MLNFillStyleLayer.fillTranslationAnchor`
+`fill-antialias` | `MHFillStyleLayer.fillAntialiased` | `MHFillStyleLayer.isFillAntialiased`
+`fill-translate` | `MHFillStyleLayer.fillTranslation` | `MHFillStyleLayer.fillTranslation`
+`fill-translate-anchor` | `MHFillStyleLayer.fillTranslationAnchor` | `MHFillStyleLayer.fillTranslationAnchor`
 
 ### Fill extrusion style layers
 
 In style JSON | In Objective-C | In Swift
 --------------|----------------|---------
-`fill-extrusion-vertical-gradient` | `MLNFillExtrusionStyleLayer.fillExtrusionHasVerticalGradient` | `MLNFillExtrusionStyleLayer.fillExtrusionHasVerticalGradient`
-`fill-extrusion-translate` | `MLNFillExtrusionStyleLayer.fillExtrusionTranslation` | `MLNFillExtrusionStyleLayer.fillExtrusionTranslation`
-`fill-extrusion-translate-anchor` | `MLNFillExtrusionStyleLayer.fillExtrusionTranslationAnchor` | `MLNFillExtrusionStyleLayer.fillExtrusionTranslationAnchor`
+`fill-extrusion-vertical-gradient` | `MHFillExtrusionStyleLayer.fillExtrusionHasVerticalGradient` | `MHFillExtrusionStyleLayer.fillExtrusionHasVerticalGradient`
+`fill-extrusion-translate` | `MHFillExtrusionStyleLayer.fillExtrusionTranslation` | `MHFillExtrusionStyleLayer.fillExtrusionTranslation`
+`fill-extrusion-translate-anchor` | `MHFillExtrusionStyleLayer.fillExtrusionTranslationAnchor` | `MHFillExtrusionStyleLayer.fillExtrusionTranslationAnchor`
 
 ### Line style layers
 
 In style JSON | In Objective-C | In Swift
 --------------|----------------|---------
-`line-dasharray` | `MLNLineStyleLayer.lineDashPattern` | `MLNLineStyleLayer.lineDashPattern`
-`line-translate` | `MLNLineStyleLayer.lineTranslation` | `MLNLineStyleLayer.lineTranslation`
-`line-translate-anchor` | `MLNLineStyleLayer.lineTranslationAnchor` | `MLNLineStyleLayer.lineTranslationAnchor`
+`line-dasharray` | `MHLineStyleLayer.lineDashPattern` | `MHLineStyleLayer.lineDashPattern`
+`line-translate` | `MHLineStyleLayer.lineTranslation` | `MHLineStyleLayer.lineTranslation`
+`line-translate-anchor` | `MHLineStyleLayer.lineTranslationAnchor` | `MHLineStyleLayer.lineTranslationAnchor`
 
 ### Raster style layers
 
 In style JSON | In Objective-C | In Swift
 --------------|----------------|---------
-`raster-brightness-max` | `MLNRasterStyleLayer.maximumRasterBrightness` | `MLNRasterStyleLayer.maximumRasterBrightness`
-`raster-brightness-min` | `MLNRasterStyleLayer.minimumRasterBrightness` | `MLNRasterStyleLayer.minimumRasterBrightness`
-`raster-hue-rotate` | `MLNRasterStyleLayer.rasterHueRotation` | `MLNRasterStyleLayer.rasterHueRotation`
-`raster-resampling` | `MLNRasterStyleLayer.rasterResamplingMode` | `MLNRasterStyleLayer.rasterResamplingMode`
+`raster-brightness-max` | `MHRasterStyleLayer.maximumRasterBrightness` | `MHRasterStyleLayer.maximumRasterBrightness`
+`raster-brightness-min` | `MHRasterStyleLayer.minimumRasterBrightness` | `MHRasterStyleLayer.minimumRasterBrightness`
+`raster-hue-rotate` | `MHRasterStyleLayer.rasterHueRotation` | `MHRasterStyleLayer.rasterHueRotation`
+`raster-resampling` | `MHRasterStyleLayer.rasterResamplingMode` | `MHRasterStyleLayer.rasterResamplingMode`
 
 ### Symbol style layers
 
 In style JSON | In Objective-C | In Swift
 --------------|----------------|---------
-`icon-allow-overlap` | `MLNSymbolStyleLayer.iconAllowsOverlap` | `MLNSymbolStyleLayer.iconAllowsOverlap`
-`icon-ignore-placement` | `MLNSymbolStyleLayer.iconIgnoresPlacement` | `MLNSymbolStyleLayer.iconIgnoresPlacement`
-`icon-image` | `MLNSymbolStyleLayer.iconImageName` | `MLNSymbolStyleLayer.iconImageName`
-`icon-optional` | `MLNSymbolStyleLayer.iconOptional` | `MLNSymbolStyleLayer.isIconOptional`
-`icon-rotate` | `MLNSymbolStyleLayer.iconRotation` | `MLNSymbolStyleLayer.iconRotation`
-`icon-size` | `MLNSymbolStyleLayer.iconScale` | `MLNSymbolStyleLayer.iconScale`
-`icon-keep-upright` | `MLNSymbolStyleLayer.keepsIconUpright` | `MLNSymbolStyleLayer.keepsIconUpright`
-`text-keep-upright` | `MLNSymbolStyleLayer.keepsTextUpright` | `MLNSymbolStyleLayer.keepsTextUpright`
-`text-max-angle` | `MLNSymbolStyleLayer.maximumTextAngle` | `MLNSymbolStyleLayer.maximumTextAngle`
-`text-max-width` | `MLNSymbolStyleLayer.maximumTextWidth` | `MLNSymbolStyleLayer.maximumTextWidth`
-`symbol-avoid-edges` | `MLNSymbolStyleLayer.symbolAvoidsEdges` | `MLNSymbolStyleLayer.symbolAvoidsEdges`
-`text-field` | `MLNSymbolStyleLayer.text` | `MLNSymbolStyleLayer.text`
-`text-allow-overlap` | `MLNSymbolStyleLayer.textAllowsOverlap` | `MLNSymbolStyleLayer.textAllowsOverlap`
-`text-font` | `MLNSymbolStyleLayer.textFontNames` | `MLNSymbolStyleLayer.textFontNames`
-`text-size` | `MLNSymbolStyleLayer.textFontSize` | `MLNSymbolStyleLayer.textFontSize`
-`text-ignore-placement` | `MLNSymbolStyleLayer.textIgnoresPlacement` | `MLNSymbolStyleLayer.textIgnoresPlacement`
-`text-justify` | `MLNSymbolStyleLayer.textJustification` | `MLNSymbolStyleLayer.textJustification`
-`text-optional` | `MLNSymbolStyleLayer.textOptional` | `MLNSymbolStyleLayer.isTextOptional`
-`text-rotate` | `MLNSymbolStyleLayer.textRotation` | `MLNSymbolStyleLayer.textRotation`
-`text-writing-mode` | `MLNSymbolStyleLayer.textWritingModes` | `MLNSymbolStyleLayer.textWritingModes`
-`icon-translate` | `MLNSymbolStyleLayer.iconTranslation` | `MLNSymbolStyleLayer.iconTranslation`
-`icon-translate-anchor` | `MLNSymbolStyleLayer.iconTranslationAnchor` | `MLNSymbolStyleLayer.iconTranslationAnchor`
-`text-translate` | `MLNSymbolStyleLayer.textTranslation` | `MLNSymbolStyleLayer.textTranslation`
-`text-translate-anchor` | `MLNSymbolStyleLayer.textTranslationAnchor` | `MLNSymbolStyleLayer.textTranslationAnchor`
+`icon-allow-overlap` | `MHSymbolStyleLayer.iconAllowsOverlap` | `MHSymbolStyleLayer.iconAllowsOverlap`
+`icon-ignore-placement` | `MHSymbolStyleLayer.iconIgnoresPlacement` | `MHSymbolStyleLayer.iconIgnoresPlacement`
+`icon-image` | `MHSymbolStyleLayer.iconImageName` | `MHSymbolStyleLayer.iconImageName`
+`icon-optional` | `MHSymbolStyleLayer.iconOptional` | `MHSymbolStyleLayer.isIconOptional`
+`icon-rotate` | `MHSymbolStyleLayer.iconRotation` | `MHSymbolStyleLayer.iconRotation`
+`icon-size` | `MHSymbolStyleLayer.iconScale` | `MHSymbolStyleLayer.iconScale`
+`icon-keep-upright` | `MHSymbolStyleLayer.keepsIconUpright` | `MHSymbolStyleLayer.keepsIconUpright`
+`text-keep-upright` | `MHSymbolStyleLayer.keepsTextUpright` | `MHSymbolStyleLayer.keepsTextUpright`
+`text-max-angle` | `MHSymbolStyleLayer.maximumTextAngle` | `MHSymbolStyleLayer.maximumTextAngle`
+`text-max-width` | `MHSymbolStyleLayer.maximumTextWidth` | `MHSymbolStyleLayer.maximumTextWidth`
+`symbol-avoid-edges` | `MHSymbolStyleLayer.symbolAvoidsEdges` | `MHSymbolStyleLayer.symbolAvoidsEdges`
+`text-field` | `MHSymbolStyleLayer.text` | `MHSymbolStyleLayer.text`
+`text-allow-overlap` | `MHSymbolStyleLayer.textAllowsOverlap` | `MHSymbolStyleLayer.textAllowsOverlap`
+`text-font` | `MHSymbolStyleLayer.textFontNames` | `MHSymbolStyleLayer.textFontNames`
+`text-size` | `MHSymbolStyleLayer.textFontSize` | `MHSymbolStyleLayer.textFontSize`
+`text-ignore-placement` | `MHSymbolStyleLayer.textIgnoresPlacement` | `MHSymbolStyleLayer.textIgnoresPlacement`
+`text-justify` | `MHSymbolStyleLayer.textJustification` | `MHSymbolStyleLayer.textJustification`
+`text-optional` | `MHSymbolStyleLayer.textOptional` | `MHSymbolStyleLayer.isTextOptional`
+`text-rotate` | `MHSymbolStyleLayer.textRotation` | `MHSymbolStyleLayer.textRotation`
+`text-writing-mode` | `MHSymbolStyleLayer.textWritingModes` | `MHSymbolStyleLayer.textWritingModes`
+`icon-translate` | `MHSymbolStyleLayer.iconTranslation` | `MHSymbolStyleLayer.iconTranslation`
+`icon-translate-anchor` | `MHSymbolStyleLayer.iconTranslationAnchor` | `MHSymbolStyleLayer.iconTranslationAnchor`
+`text-translate` | `MHSymbolStyleLayer.textTranslation` | `MHSymbolStyleLayer.textTranslation`
+`text-translate-anchor` | `MHSymbolStyleLayer.textTranslationAnchor` | `MHSymbolStyleLayer.textTranslationAnchor`
 
 ## Setting attribute values
 
 Each property representing a layout or paint attribute is set to an
 `NSExpression` object. `NSExpression` objects play the same role as
-[expressions in the MapLibre Style Spec](https://maplibre.org/maplibre-style-spec/expressions/),
+[expressions in the MapHero Style Spec](https://maplibre.org/maplibre-style-spec/expressions/),
 but you create the former using a very different syntax. `NSExpression`’s format
 string syntax is reminiscent of a spreadsheet formula or an expression in a
 database query. See the
@@ -298,7 +298,7 @@ defined by the style specification
 ## Filtering sources
 
 You can filter a shape or vector tile source by setting the
-`MLNVectorStyleLayer.predicate` property to an `NSPredicate` object. Below is a
+`MHVectorStyleLayer.predicate` property to an `NSPredicate` object. Below is a
 table of style JSON operators and the corresponding operators used in the
 predicate format string:
 
@@ -321,13 +321,13 @@ In style JSON             | In the format string
 ## Specifying the text format
 
 The following format attributes are defined as `NSString` constans that you
-can use to update the formatting of `MLNSymbolStyleLayer.text` property.
+can use to update the formatting of `MHSymbolStyleLayer.text` property.
 
 In style JSON | In Objective-C        | In Swift
 --------------|-----------------------|---------
-`text-font`      | `MLNFontNamesAttribute` | `.fontNamesAttribute`
-`font-scale`      | `MLNFontScaleAttribute` | `.fontScaleAttribute`
-`text-color`  | `MLNFontColorAttribute` | `.fontColorAttribute`
+`text-font`      | `MHFontNamesAttribute` | `.fontNamesAttribute`
+`font-scale`      | `MHFontScaleAttribute` | `.fontScaleAttribute`
+`text-color`  | `MHFontColorAttribute` | `.fontColorAttribute`
 
 See <doc:Predicates_and_Expressions> for
 a full description of the supported operators and operand types.

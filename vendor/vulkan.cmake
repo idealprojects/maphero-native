@@ -9,9 +9,9 @@ target_include_directories(
 set_target_properties(
     mbgl-vendor-vulkan-headers
     PROPERTIES
-        INTERFACE_MAPLIBRE_NAME "Vulkan-Headers"
-        INTERFACE_MAPLIBRE_URL "https://github.com/KhronosGroup/Vulkan-Headers.git"
-        INTERFACE_MAPLIBRE_LICENSE ${CMAKE_CURRENT_LIST_DIR}/Vulkan-Headers/LICENSE.md
+        INTERFACE_MAPHERO_NAME "Vulkan-Headers"
+        INTERFACE_MAPHERO_URL "https://github.com/KhronosGroup/Vulkan-Headers.git"
+        INTERFACE_MAPHERO_LICENSE ${CMAKE_CURRENT_LIST_DIR}/Vulkan-Headers/LICENSE.md
 )
 
 add_library(mbgl-vendor-VulkanMemoryAllocator INTERFACE)
@@ -25,9 +25,9 @@ target_include_directories(
 set_target_properties(
     mbgl-vendor-VulkanMemoryAllocator
     PROPERTIES
-        INTERFACE_MAPLIBRE_NAME "VulkanMemoryAllocator"
-        INTERFACE_MAPLIBRE_URL "https://github.com/GPUOpen-LibrariesAndSDKs/VulkanMemoryAllocator.git"
-        INTERFACE_MAPLIBRE_LICENSE ${CMAKE_CURRENT_LIST_DIR}/VulkanMemoryAllocator/LICENSE.txt
+        INTERFACE_MAPHERO_NAME "VulkanMemoryAllocator"
+        INTERFACE_MAPHERO_URL "https://github.com/GPUOpen-LibrariesAndSDKs/VulkanMemoryAllocator.git"
+        INTERFACE_MAPHERO_LICENSE ${CMAKE_CURRENT_LIST_DIR}/VulkanMemoryAllocator/LICENSE.txt
 )
 
 set(ENABLE_OPT OFF)
@@ -51,25 +51,25 @@ endif()
 set_target_properties(
     glslang
     PROPERTIES
-        INTERFACE_MAPLIBRE_NAME "glslang"
-        INTERFACE_MAPLIBRE_URL "https://github.com/KhronosGroup/glslang.git"
-        INTERFACE_MAPLIBRE_LICENSE ${CMAKE_CURRENT_LIST_DIR}/glslang/LICENSE.txt
+        INTERFACE_MAPHERO_NAME "glslang"
+        INTERFACE_MAPHERO_URL "https://github.com/KhronosGroup/glslang.git"
+        INTERFACE_MAPHERO_LICENSE ${CMAKE_CURRENT_LIST_DIR}/glslang/LICENSE.txt
 )
 
 set_target_properties(
     SPIRV
     PROPERTIES
-        INTERFACE_MAPLIBRE_NAME "SPIRV"
-        INTERFACE_MAPLIBRE_URL "https://github.com/KhronosGroup/glslang.git"
-        INTERFACE_MAPLIBRE_LICENSE ${CMAKE_CURRENT_LIST_DIR}/glslang/LICENSE.txt
+        INTERFACE_MAPHERO_NAME "SPIRV"
+        INTERFACE_MAPHERO_URL "https://github.com/KhronosGroup/glslang.git"
+        INTERFACE_MAPHERO_LICENSE ${CMAKE_CURRENT_LIST_DIR}/glslang/LICENSE.txt
 )
 
 set_target_properties(
     glslang-default-resource-limits
     PROPERTIES
-        INTERFACE_MAPLIBRE_NAME "glslang-default-resource-limits"
-        INTERFACE_MAPLIBRE_URL "https://github.com/KhronosGroup/glslang.git"
-        INTERFACE_MAPLIBRE_LICENSE ${CMAKE_CURRENT_LIST_DIR}/glslang/LICENSE.txt
+        INTERFACE_MAPHERO_NAME "glslang-default-resource-limits"
+        INTERFACE_MAPHERO_URL "https://github.com/KhronosGroup/glslang.git"
+        INTERFACE_MAPHERO_LICENSE ${CMAKE_CURRENT_LIST_DIR}/glslang/LICENSE.txt
 )
 
 export(TARGETS

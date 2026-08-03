@@ -14,8 +14,8 @@ target_include_directories(
 set_target_properties(
 	mbgl-vendor-expected-lite
 	PROPERTIES
-		INTERFACE_MAPLIBRE_NAME "expected-lite"
-		INTERFACE_MAPLIBRE_URL "https://github.com/martinmoene/expected-lite"
-		INTERFACE_MAPLIBRE_AUTHOR "Martin Moene"
-		INTERFACE_MAPLIBRE_LICENSE ${CMAKE_CURRENT_LIST_DIR}/expected-lite/LICENSE.txt
+		INTERFACE_MAPHERO_NAME "expected-lite"
+		INTERFACE_MAPHERO_URL "https://github.com/martinmoene/expected-lite"
+		INTERFACE_MAPHERO_AUTHOR "Martin Moene"
+		INTERFACE_MAPHERO_LICENSE ${CMAKE_CURRENT_LIST_DIR}/expected-lite/LICENSE.txt
 )

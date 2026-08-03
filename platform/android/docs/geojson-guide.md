@@ -1,6 +1,6 @@
 # Using a GeoJSON Source
 
-This guide will teach you how to use [`GeoJsonSource`](https://maplibre.org/maplibre-native/android/api/-map-libre%20-native%20-android/org.maplibre.android.style.sources/-geo-json-source/index.html) by deep diving into [GeoJSON](https://geojson.org/) file format.
+This guide will teach you how to use [`GeoJsonSource`](https://maplibre.org/maplibre-native/android/api/-map-libre%20-native%20-android/org.maphero.android.style.sources/-geo-json-source/index.html) by deep diving into [GeoJSON](https://geojson.org/) file format.
 
 ## Goals
 
@@ -72,7 +72,7 @@ There are several ways to construct a `GeoJsonSource`:
 A sample `GeoJsonSource`:
 
 ```kotlin
---8<-- "MapLibreAndroidTestApp/src/main/java/org/maplibre/android/testapp/activity/style/CollectionUpdateOnStyleChange.kt:setupLayer"
+--8<-- "MapHeroAndroidTestApp/src/main/java/org/maphero/android/testapp/activity/style/CollectionUpdateOnStyleChange.kt:setupLayer"
 ```
 
 Note that you can not simply show data on a map. Layers must reference them. Therefore, you create a layer that gives visual appearance to it.
@@ -82,34 +82,34 @@ Note that you can not simply show data on a map. Layers must reference them. The
 There are various ways you can create a `GeoJSONSource`. Some of the options are shown below.
 
 ```kotlin title="Loading from local files with assets folder file"
---8<-- "MapLibreAndroidTestApp/src/main/java/org/maplibre/android/testapp/activity/style/NoStyleActivity.kt:setup"
+--8<-- "MapHeroAndroidTestApp/src/main/java/org/maphero/android/testapp/activity/style/NoStyleActivity.kt:setup"
 ```
 
 ```kotlin title="Loading with raw folder file"
---8<-- "MapLibreAndroidTestApp/src/main/java/org/maplibre/android/testapp/activity/style/RuntimeStyleActivity.kt:source"
+--8<-- "MapHeroAndroidTestApp/src/main/java/org/maphero/android/testapp/activity/style/RuntimeStyleActivity.kt:source"
 ```
 
 ```kotlin title="Parsing inline JSON"
---8<-- "MapLibreAndroidTestApp/src/main/java/org/maplibre/android/testapp/utils/ResourceUtils.kt:readRawResource"
+--8<-- "MapHeroAndroidTestApp/src/main/java/org/maphero/android/testapp/utils/ResourceUtils.kt:readRawResource"
 ```
 
 ```kotlin title="Loading from remote services"
---8<-- "MapLibreAndroidTestApp/src/main/java/org/maplibre/android/testapp/activity/style/HeatmapLayerActivity.kt:createEarthquakeSource"
+--8<-- "MapHeroAndroidTestApp/src/main/java/org/maphero/android/testapp/activity/style/HeatmapLayerActivity.kt:createEarthquakeSource"
 ```
 
 ```kotlin
---8<-- "MapLibreAndroidTestApp/src/main/java/org/maplibre/android/testapp/activity/style/HeatmapLayerActivity.kt:constants"
+--8<-- "MapHeroAndroidTestApp/src/main/java/org/maphero/android/testapp/activity/style/HeatmapLayerActivity.kt:constants"
 ```
 
 ```kotlin title="Parsing string with the fromJson method of FeatureCollection"
---8<-- "MapLibreAndroidTestApp/src/main/java/org/maplibre/android/testapp/activity/turf/MapSnapshotterWithinExpression.kt:fromJson"
+--8<-- "MapHeroAndroidTestApp/src/main/java/org/maphero/android/testapp/activity/turf/MapSnapshotterWithinExpression.kt:fromJson"
 ```
 
 ```kotlin title="Creating Geometry, Feature, and FeatureCollections from scratch"
---8<-- "MapLibreAndroidTestApp/src/main/java/org/maplibre/android/testapp/activity/feature/QuerySourceFeaturesActivity.kt:JsonObject"
+--8<-- "MapHeroAndroidTestApp/src/main/java/org/maphero/android/testapp/activity/feature/QuerySourceFeaturesActivity.kt:JsonObject"
 ```
 
-Note that the GeoJSON objects we discussed earlier have classes defined in the MapLibre SDK.
+Note that the GeoJSON objects we discussed earlier have classes defined in the MapHero SDK.
 Therefore, we can either map JSON objects to regular Java/Kotlin objects or build them directly.
 
 ## 4. Updating data at runtime
@@ -118,11 +118,11 @@ The key feature of `GeoJsonSource`s is that once we add one, we can set another 
 We achieve this using `setGeoJson()` method. For instance, we create a source variable and check if we have not assigned it, then we create a new source object and add it to style; otherwise, we set a different data source:
 
 ```kotlin
---8<-- "MapLibreAndroidTestApp/src/main/java/org/maplibre/android/testapp/activity/style/ZoomFunctionSymbolLayerActivity.kt:createFeatureCollection"
+--8<-- "MapHeroAndroidTestApp/src/main/java/org/maphero/android/testapp/activity/style/ZoomFunctionSymbolLayerActivity.kt:createFeatureCollection"
 ```
 
 ```kotlin
---8<-- "MapLibreAndroidTestApp/src/main/java/org/maplibre/android/testapp/activity/style/ZoomFunctionSymbolLayerActivity.kt:updateSource"
+--8<-- "MapHeroAndroidTestApp/src/main/java/org/maphero/android/testapp/activity/style/ZoomFunctionSymbolLayerActivity.kt:updateSource"
 ```
 
 See [this guide](styling/animated-symbol-layer.md) for an advanced example that showcases random cars and a passenger on a map updating their positions with smooth animation.

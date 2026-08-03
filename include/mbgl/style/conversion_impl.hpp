@@ -24,7 +24,7 @@ namespace style {
 
 /**
    The `conversion` namespace defines conversions from JSON structures
-   conforming to the schema defined by the MapLibre %Style Specification, to the
+   conforming to the schema defined by the MapHero %Style Specification, to the
    various C++ types that form the C++ model of that domain:
 
        * `std::unique_ptr<Source>`

@@ -2,9 +2,9 @@
 
 ## Workflow for Resolving Critical Vulnerabilities
 
-The maintainers of MapLibre Native are committed to a fast and efficient resolution of critical security vulnerabilities. We aim to get back to you within 24 hours of creating the report. However, we cannot guarantee this. Luckily, vulnerabilities can be reported, fixed, merged, and released by anyone with write access (committers).
+The maintainers of MapHero Native are committed to a fast and efficient resolution of critical security vulnerabilities. We aim to get back to you within 24 hours of creating the report. However, we cannot guarantee this. Luckily, vulnerabilities can be reported, fixed, merged, and released by anyone with write access (committers).
 
-1. `[Reporter]` To report a critical security vulnerability in MapLibre Native, create a [security advisory](https://github.com/maplibre/maplibre-native/security/advisories/new).
+1. `[Reporter]` To report a critical security vulnerability in MapHero Native, create a [security advisory](https://github.com/maplibre/maplibre-native/security/advisories/new).
 
 2. `[Reporter or Maintainer]` A private fork will be created. You can add collaborators that you believe will be able to help work on a fix.
 
@@ -37,6 +37,6 @@ We are actively trying to prevent security incidents using the following methods
 - Static analysis with the use of [clang-tidy](https://clang.llvm.org/extra/clang-tidy/).
 - C++ [code scanning](https://github.com/maplibre/maplibre-native/security/code-scanning) with CodeQL.
 
-MapLibre Native relies on several [external open-source libraries](https://github.com/maplibre/maplibre-native/issues/990). We currently do not monitor these dependencies automatically for vulnerabilities.
+MapHero Native relies on several [external open-source libraries](https://github.com/maplibre/maplibre-native/issues/990). We currently do not monitor these dependencies automatically for vulnerabilities.
 
 If you have any suggestions how to improve our security mitigation strategies, feel free to open an issue or start a Discussion. Be sure to check out the [open issues](https://github.com/maplibre/maplibre-native/labels/security) tagged with the security label.

@@ -8,7 +8,7 @@ namespace gl {
 IndexBufferResource::IndexBufferResource(UniqueBuffer&& buffer_, int byteSize_)
     : buffer(std::move(buffer_)),
       byteSize(byteSize_) {
-    MLN_TRACE_ALLOC_INDEX_BUFFER(buffer.get(), byteSize);
+    MH_TRACE_ALLOC_INDEX_BUFFER(buffer.get(), byteSize);
 
     if (buffer) {
         auto& stats = buffer.get_deleter().context.renderingStats();
@@ -22,7 +22,7 @@ IndexBufferResource::IndexBufferResource(UniqueBuffer&& buffer_, int byteSize_)
 }
 
 IndexBufferResource::~IndexBufferResource() noexcept {
-    MLN_TRACE_FREE_INDEX_BUFFER(buffer.get());
+    MH_TRACE_FREE_INDEX_BUFFER(buffer.get());
 
     if (buffer) {
         auto& stats = buffer.get_deleter().context.renderingStats();

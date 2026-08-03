@@ -2,8 +2,8 @@
 
 Using URL Templates when defining tile sources
 
-``MLNTileSource`` objects, specifically ``MLNRasterTileSource`` and
-``MLNVectorTileSource`` objects, can be created using an initializer that accepts
+``MHTileSource`` objects, specifically ``MHRasterTileSource`` and
+``MHVectorTileSource`` objects, can be created using an initializer that accepts
 an array of tile URL templates. Tile URL templates are strings that specify the
 URLs of the vector tiles or raster tile images to load. A template resembles an
 absolute URL, but with any number of placeholder strings that the source
@@ -29,8 +29,8 @@ all of which are optional:
 | Placeholder string | Description |
 | --- | --- |
 | `{x}` | The index of the tile along the map’s x axis according to Spherical Mercator projection. If the value is 0, the tile’s left edge corresponds to the 180th meridian west. If the value is 2^z−1, the tile’s right edge corresponds to the 180th meridian east. |
-| `{y}` | The index of the tile along the map’s y axis according to Spherical Mercator projection. If the value is 0, the tile’s tile edge corresponds to arctan(sinh(π)), or approximately 85.0511 degrees north. If the value is 2^z−1, the tile’s bottom edge corresponds to −arctan(sinh(π)), or approximately 85.0511 degrees south. The y axis is inverted if the options parameter contains ``MLNTileSourceOptionTileCoordinateSystem`` with a value of ``MLNTileCoordinateSystem/MLNTileCoordinateSystemTMS``. |
-| `{z}` | The tile’s zoom level. At zoom level 0, each tile covers the entire world map; at zoom level 1, it covers ¼ of the world; at zoom level 2, 1⁄16 of the world, and so on. For tiles loaded by a ``MLNRasterTileSource`` object, whether the tile zoom level matches the map’s current zoom level depends on the value of the source’s tile size as specified in the ``MLNTileSourceOptionTileSize`` key of the options parameter. |
+| `{y}` | The index of the tile along the map’s y axis according to Spherical Mercator projection. If the value is 0, the tile’s tile edge corresponds to arctan(sinh(π)), or approximately 85.0511 degrees north. If the value is 2^z−1, the tile’s bottom edge corresponds to −arctan(sinh(π)), or approximately 85.0511 degrees south. The y axis is inverted if the options parameter contains ``MHTileSourceOptionTileCoordinateSystem`` with a value of ``MHTileCoordinateSystem/MHTileCoordinateSystemTMS``. |
+| `{z}` | The tile’s zoom level. At zoom level 0, each tile covers the entire world map; at zoom level 1, it covers ¼ of the world; at zoom level 2, 1⁄16 of the world, and so on. For tiles loaded by a ``MHRasterTileSource`` object, whether the tile zoom level matches the map’s current zoom level depends on the value of the source’s tile size as specified in the ``MHTileSourceOptionTileSize`` key of the options parameter. |
 | `{bbox-epsg-3857}` | The tile’s bounding box, expressed as a comma-separated list of the tile’s western, southern, eastern, and northern extents according to Spherical Mercator (EPSG:3857) projection. The bounding box is typically used with map services conforming to the <a href="http://www.opengeospatial.org/standards/wms">Web Map Service</a> protocol. |
 | `{quadkey}` | A quadkey indicating both the tile’s location and its zoom level. The quadkey is typically used with <a href="https://msdn.microsoft.com/en-us/library/bb259689.aspx">Bing Maps</a>.  |
 | `{ratio}` | A suffix indicating the resolution of the tile image. The suffix is the empty string for standard resolution displays and `@2x` for Retina displays, including displays for which `UIScreen.scale` is 3.  |

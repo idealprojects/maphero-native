@@ -3,7 +3,7 @@ import path from "node:path";
 import { execFileSync } from "node:child_process";
 import _ from "lodash";
 
-const keyword = /\bMLN_EXPORT\b/;
+const keyword = /\bMH_EXPORT\b/;
 
 let scanned = [];
 

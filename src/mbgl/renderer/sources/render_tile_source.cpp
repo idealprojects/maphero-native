@@ -26,10 +26,10 @@
 #include <mbgl/gfx/drawable_tweaker.hpp>
 #include <mbgl/renderer/layer_tweaker.hpp>
 
-#if MLN_RENDER_BACKEND_METAL || MLN_RENDER_BACKEND_WEBGPU || (MLN_RENDER_BACKEND_VULKAN && defined(__ANDROID__))
-#define MLN_ENABLE_POLYLINE_DRAWABLES 1
+#if MH_RENDER_BACKEND_METAL || MH_RENDER_BACKEND_WEBGPU || (MH_RENDER_BACKEND_VULKAN && defined(__ANDROID__))
+#define MH_ENABLE_POLYLINE_DRAWABLES 1
 #else
-#define MLN_ENABLE_POLYLINE_DRAWABLES 0
+#define MH_ENABLE_POLYLINE_DRAWABLES 0
 #endif
 
 namespace mbgl {
@@ -43,7 +43,7 @@ void TileSourceRenderItem::upload(gfx::UploadPass& parameters) const {
     }
 }
 
-#if MLN_ENABLE_POLYLINE_DRAWABLES
+#if MH_ENABLE_POLYLINE_DRAWABLES
 class PolylineLayerImpl : public Layer::Impl {
 public:
     PolylineLayerImpl()
@@ -100,7 +100,7 @@ public:
         };
         layerUniforms.createOrUpdate(idLineExpressionUBO, &exprUBO, context);
 
-#if MLN_UBO_CONSOLIDATION
+#if MH_UBO_CONSOLIDATION
         int i = 0;
         std::vector<LineDrawableUnionUBO> drawableUBOVector(layerGroup.getDrawableCount());
 #endif
@@ -117,7 +117,7 @@ public:
             const auto matrix = LayerTweaker::getTileMatrix(
                 tileID, parameters, {{0, 0}}, style::TranslateAnchorType::Viewport, false, false, drawable, false);
 
-#if MLN_UBO_CONSOLIDATION
+#if MH_UBO_CONSOLIDATION
             drawableUBOVector[i].lineDrawableUBO = {
 #else
             const shaders::LineDrawableUBO drawableUBO = {
@@ -134,7 +134,7 @@ public:
                 /* .pad1 = */ 0
             };
 
-#if MLN_UBO_CONSOLIDATION
+#if MH_UBO_CONSOLIDATION
             drawable.setUBOIndex(i++);
 #else
             auto& drawableUniforms = drawable.mutableUniformBuffers();
@@ -142,7 +142,7 @@ public:
 #endif
         });
 
-#if MLN_UBO_CONSOLIDATION
+#if MH_UBO_CONSOLIDATION
         const size_t drawableUBOVectorSize = sizeof(LineDrawableUnionUBO) * drawableUBOVector.size();
         if (!drawableUniformBuffer || drawableUniformBuffer->getSize() < drawableUBOVectorSize) {
             drawableUniformBuffer = context.createUniformBuffer(
@@ -157,7 +157,7 @@ public:
 private:
     shaders::LineEvaluatedPropsUBO propsUBO;
 
-#if MLN_UBO_CONSOLIDATION
+#if MH_UBO_CONSOLIDATION
     gfx::UniformBufferPtr drawableUniformBuffer;
 #endif
 };
@@ -196,7 +196,7 @@ void TileSourceRenderItem::updateDebugDrawables(DebugLayerGroupMap& debugLayerGr
         return builder;
     }();
 
-#if MLN_ENABLE_POLYLINE_DRAWABLES
+#if MH_ENABLE_POLYLINE_DRAWABLES
     // initialize polyline builder
     gfx::ShaderPtr polylineShader;
     const auto createPolylineShader = [&]() -> gfx::ShaderPtr {
@@ -300,7 +300,7 @@ void TileSourceRenderItem::updateDebugDrawables(DebugLayerGroupMap& debugLayerGr
         }
     };
 
-#if MLN_ENABLE_POLYLINE_DRAWABLES
+#if MH_ENABLE_POLYLINE_DRAWABLES
     const shaders::LineEvaluatedPropsUBO linePropertiesUBO = {/* .color = */ Color::red(),
                                                               /* .blur = */ 0.f,
                                                               /* .opacity = */ 1.f,
@@ -416,7 +416,7 @@ void TileSourceRenderItem::updateDebugDrawables(DebugLayerGroupMap& debugLayerGr
             const auto& debugBucket = tile.debugBucket;
             if (!debugBucket) continue;
 
-#if MLN_ENABLE_POLYLINE_DRAWABLES
+#if MH_ENABLE_POLYLINE_DRAWABLES
             if (0 == tileLayerGroup->getDrawableCount(renderPass, tileID) && tile.getNeedsRendering()) {
                 addPolylineDrawable(tileLayerGroup, tile);
             }
@@ -463,8 +463,8 @@ std::unique_ptr<RenderItem> RenderTileSource::createRenderItem() {
 }
 
 void RenderTileSource::prepare(const SourcePrepareParameters& parameters) {
-    MLN_TRACE_FUNC();
-    MLN_ZONE_STR(baseImpl->id);
+    MH_TRACE_FUNC();
+    MH_ZONE_STR(baseImpl->id);
     bearing = static_cast<float>(parameters.transform.state.getBearing());
     filteredRenderTiles = nullptr;
     renderTilesSortedByY = nullptr;

@@ -4,7 +4,7 @@
 <dict>
 	<key>NSLocationTemporaryUsageDescriptionDictionary</key>
 	<dict>
-		<key>MLNAccuracyAuthorizationDescription</key>
+		<key>MHAccuracyAuthorizationDescription</key>
 		<string>Dummy Precise Location Description</string>
 	</dict>
 	<key>LSApplicationCategoryType</key>

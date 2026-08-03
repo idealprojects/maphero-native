@@ -148,7 +148,7 @@ jobs:
           path: ${{ github.workspace }}\platform\windows\vendor\vcpkg\archives
           key: vcpkg-${{ env.VCPKG_COMMIT_ID }}
 
-      - name: Configure MapLibre Native Core
+      - name: Configure MapHero Native Core
         env:
           CI: 1
           VCPKG_INSTALL_OPTIONS: "--debug"
@@ -160,7 +160,7 @@ jobs:
           cmake --version
           cmake --preset windows-${{ matrix.renderer }} -DCMAKE_POLICY_DEFAULT_CMP0141=NEW -DCMAKE_MSVC_DEBUG_INFORMATION_FORMAT=Embedded -DCMAKE_BUILD_TYPE=RelWithDebInfo
 
-      - name: Build MapLibre Native Core
+      - name: Build MapHero Native Core
         run: |
           cmake --build build-windows-${{ matrix.renderer }} --target mbgl-core mbgl-test-runner mbgl-render-test-runner mbgl-expression-test mbgl-render mbgl-benchmark-runner
 
@@ -290,7 +290,7 @@ jobs:
           & $env:SCCACHE_PATH --start-server
           & $env:SCCACHE_PATH --zero-stats
 
-      - name: Configure MapLibre Native Core
+      - name: Configure MapHero Native Core
         env:
           CI: 1
           CMAKE_C_COMPILER_LAUNCHER: "${{ env.SCCACHE_PATH }}"
@@ -300,7 +300,7 @@ jobs:
           cmake --version
           cmake --preset windows-${{ matrix.renderer }} -DCMAKE_POLICY_DEFAULT_CMP0141=NEW -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++
 
-      - name: Build MapLibre Native Core
+      - name: Build MapHero Native Core
         shell: msys2 {0}
         run: |
           cmake --build build-windows-${{ matrix.renderer }} --target mbgl-core mbgl-test-runner mbgl-render-test-runner mbgl-expression-test mbgl-render mbgl-benchmark-runner

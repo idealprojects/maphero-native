@@ -4,15 +4,15 @@ An annotation as described in this proposal is a piece of UI that is drawn on th
 
 ## Motivation
 
-Most mobile map experiences display some sort of custom content on the map, often in the form of annotations. MapLibre’s current annotation system is difficult to use, performs poorly, and lacks many of the features developers expect from modern mapping libraries.
+Most mobile map experiences display some sort of custom content on the map, often in the form of annotations. MapHero’s current annotation system is difficult to use, performs poorly, and lacks many of the features developers expect from modern mapping libraries.
 
-This proposal introduces the concept of annotations that are complex, animatable and interactive to MapLibre’s core. The first phase allows bitmap backed annotations to be rendered. The second phase will enable native platform views (iOS, Android) to be rendered directly by MapLibre Native.
+This proposal introduces the concept of annotations that are complex, animatable and interactive to MapHero’s core. The first phase allows bitmap backed annotations to be rendered. The second phase will enable native platform views (iOS, Android) to be rendered directly by MapHero Native.
 
 These new annotations will provide a more flexible tool for drawing user content on the map that is more in line with what developers expect from the built-in mobile map toolkits. The focus on animations and interactivity allows developers to create differentiated map experiences that feel made for mobile.
 
 By introducing a specialized rendering path for annotations, we bypass some of the limitations of the current layer-based system. This leads to better performance, especially in scenarios with many dynamic elements, where full layout re-calculations would otherwise cause noticeable lag and degrade the user experience.
 
-The customization options that these annotations will provide, together with the existing MapLibre stack, aim to offer a system that is more adaptable and robust than those from Google or Apple.
+The customization options that these annotations will provide, together with the existing MapHero stack, aim to offer a system that is more adaptable and robust than those from Google or Apple.
 
 ## Proposed Change
 
@@ -20,7 +20,7 @@ The customization options that these annotations will provide, together with the
 
 For this phase we would like to just build our support for bitmaps. The idea being that all native views eventually become bitmaps and supporting them robustly will eventually allow the renderer to draw native views correctly.
 
-* Introduce “Annotation” as a first class citizen of the MapLibre Native C++ Core.
+* Introduce “Annotation” as a first class citizen of the MapHero Native C++ Core.
 * Annotations rely on their own bitmap handling and not on the symbol layer texture atlas. Bitmaps should be able to be transformed and quickly swappable to support animations.
 * Annotations can define a label (reuse symbol layer logic).
 * Annotations provide callbacks and can trigger full map re-renders. These callbacks need to be in sync with the native render loop so that animations can be synchronized properly.

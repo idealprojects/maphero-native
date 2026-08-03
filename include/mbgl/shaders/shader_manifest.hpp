@@ -2,7 +2,7 @@
 #pragma once
 #include <mbgl/shaders/shader_source.hpp>
 
-#if MLN_RENDER_BACKEND_OPENGL
+#if MH_RENDER_BACKEND_OPENGL
 #include <mbgl/shaders/gl/prelude.hpp>
 #include <mbgl/shaders/gl/clipping_mask.hpp>
 #include <mbgl/shaders/gl/background.hpp>

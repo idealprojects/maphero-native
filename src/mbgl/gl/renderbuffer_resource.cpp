@@ -6,7 +6,7 @@ namespace mbgl {
 namespace gl {
 
 RenderbufferResource::~RenderbufferResource() noexcept {
-    MLN_TRACE_FREE_RT(renderbuffer.get());
+    MH_TRACE_FREE_RT(renderbuffer.get());
 }
 
 } // namespace gl

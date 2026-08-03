@@ -1,16 +1,16 @@
-message(STATUS "Configuring MapLibre Native with Qt platform")
+message(STATUS "Configuring MapHero Native with Qt platform")
 
-option(MLN_QT_LIBRARY_ONLY "Build only MapLibre Native Qt bindings libraries" OFF)
-option(MLN_QT_WITH_INTERNAL_SQLITE "Build MapLibre Native Qt bindings with internal sqlite" OFF)
+option(MH_QT_LIBRARY_ONLY "Build only MapHero Native Qt bindings libraries" OFF)
+option(MH_QT_WITH_INTERNAL_SQLITE "Build MapHero Native Qt bindings with internal sqlite" OFF)
 
 if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
     find_package(Threads REQUIRED)
 
-    option(MLN_QT_WITH_INTERNAL_ICU "Build MapLibre GL Qt bindings with internal ICU" OFF)
-    if(NOT MLN_QT_WITH_INTERNAL_ICU)
+    option(MH_QT_WITH_INTERNAL_ICU "Build MapHero GL Qt bindings with internal ICU" OFF)
+    if(NOT MH_QT_WITH_INTERNAL_ICU)
         # find ICU ignoring Qt paths
-        option(MLN_QT_IGNORE_ICU "Ignore Qt-provided ICU library" ON)
-        if(MLN_QT_IGNORE_ICU)
+        option(MH_QT_IGNORE_ICU "Ignore Qt-provided ICU library" ON)
+        if(MH_QT_IGNORE_ICU)
             set(_CMAKE_PREFIX_PATH_ORIG ${CMAKE_PREFIX_PATH})
             set(_CMAKE_FIND_ROOT_PATH_ORIG ${CMAKE_FIND_ROOT_PATH})
             unset(CMAKE_PREFIX_PATH)
@@ -22,7 +22,7 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
         pkg_check_modules(ICU_UC REQUIRED icu-uc)
         pkg_check_modules(ICU_I18N REQUIRED icu-i18n)
 
-        if(MLN_QT_IGNORE_ICU)
+        if(MH_QT_IGNORE_ICU)
             set(CMAKE_PREFIX_PATH ${_CMAKE_PREFIX_PATH_ORIG})
             set(CMAKE_FIND_ROOT_PATH ${_CMAKE_FIND_ROOT_PATH_ORIG})
             unset(_CMAKE_PREFIX_PATH_ORIG)
@@ -44,7 +44,7 @@ find_package(Qt${QT_VERSION_MAJOR}
                         Network
              REQUIRED)
 
-if(NOT MLN_QT_WITH_INTERNAL_SQLITE)
+if(NOT MH_QT_WITH_INTERNAL_SQLITE)
     find_package(Qt${QT_VERSION_MAJOR}Sql REQUIRED)
 else()
     message(STATUS "Using internal sqlite")
@@ -62,8 +62,8 @@ if (MSVC)
     endforeach()
 endif()
 
-# Qt Vulkan renderer backend: only when MLN_WITH_VULKAN and qvulkaninstance.h present
-if(MLN_WITH_VULKAN)
+# Qt Vulkan renderer backend: only when MH_WITH_VULKAN and qvulkaninstance.h present
+if(MH_WITH_VULKAN)
     find_path(QT_VULKAN_HEADER qvulkaninstance.h
         PATHS ${Qt${QT_VERSION_MAJOR}Gui_INCLUDE_DIRS}
         NO_DEFAULT_PATH)
@@ -81,9 +81,9 @@ target_sources(
         ${PROJECT_SOURCE_DIR}/platform/default/include/mbgl/gfx/headless_frontend.hpp
         ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/gfx/headless_backend.cpp
         ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/gfx/headless_frontend.cpp
-        $<$<BOOL:${MLN_WITH_OPENGL}>:${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/gl/headless_backend.cpp>
-        $<$<BOOL:${MLN_WITH_METAL}>:${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/mtl/headless_backend.cpp>
-        $<$<BOOL:${MLN_WITH_VULKAN}>:${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/vulkan/headless_backend.cpp>
+        $<$<BOOL:${MH_WITH_OPENGL}>:${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/gl/headless_backend.cpp>
+        $<$<BOOL:${MH_WITH_METAL}>:${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/mtl/headless_backend.cpp>
+        $<$<BOOL:${MH_WITH_VULKAN}>:${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/vulkan/headless_backend.cpp>
         ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/i18n/collator.cpp
         ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/layermanager/layer_manager.cpp
         ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/platform/time.cpp
@@ -99,15 +99,15 @@ target_sources(
         ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/storage/offline_database.cpp
         ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/storage/offline_download.cpp
         ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/storage/online_file_source.cpp
-        ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/storage/$<IF:$<BOOL:${MLN_WITH_PMTILES}>,pmtiles_file_source.cpp,pmtiles_file_source_stub.cpp>
-        ${PROJECT_SOURCE_DIR}/platform/$<IF:$<BOOL:${MLN_QT_WITH_INTERNAL_SQLITE}>,default/src/mbgl/storage/sqlite3.cpp,qt/src/mbgl/sqlite3.cpp>
+        ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/storage/$<IF:$<BOOL:${MH_WITH_PMTILES}>,pmtiles_file_source.cpp,pmtiles_file_source_stub.cpp>
+        ${PROJECT_SOURCE_DIR}/platform/$<IF:$<BOOL:${MH_QT_WITH_INTERNAL_SQLITE}>,default/src/mbgl/storage/sqlite3.cpp,qt/src/mbgl/sqlite3.cpp>
         ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/util/compression.cpp
         ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/util/filesystem.cpp
         ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/util/monotonic_timer.cpp
         ${PROJECT_SOURCE_DIR}/platform/qt/src/mbgl/async_task.cpp
         ${PROJECT_SOURCE_DIR}/platform/qt/src/mbgl/async_task_impl.hpp
         ${PROJECT_SOURCE_DIR}/platform/qt/src/mbgl/gl_functions.cpp
-        $<$<BOOL:${MLN_WITH_OPENGL}>:${PROJECT_SOURCE_DIR}/platform/qt/src/mbgl/headless_backend_qt.cpp>
+        $<$<BOOL:${MH_WITH_OPENGL}>:${PROJECT_SOURCE_DIR}/platform/qt/src/mbgl/headless_backend_qt.cpp>
         ${PROJECT_SOURCE_DIR}/platform/qt/src/mbgl/http_file_source.cpp
         ${PROJECT_SOURCE_DIR}/platform/qt/src/mbgl/http_file_source.hpp
         ${PROJECT_SOURCE_DIR}/platform/qt/src/mbgl/http_request.cpp
@@ -155,7 +155,7 @@ target_link_libraries(
         $<BUILD_INTERFACE:mbgl-vendor-csscolorparser>
         $<$<PLATFORM_ID:iOS>:$<BUILD_INTERFACE:mbgl-vendor-filesystem>>
         $<$<NOT:$<OR:$<PLATFORM_ID:Windows>,$<PLATFORM_ID:Emscripten>>>:z>
-        $<IF:$<BOOL:${MLN_QT_WITH_INTERNAL_SQLITE}>,$<BUILD_INTERFACE:mbgl-vendor-sqlite>,Qt${QT_VERSION_MAJOR}::Sql>
+        $<IF:$<BOOL:${MH_QT_WITH_INTERNAL_SQLITE}>,$<BUILD_INTERFACE:mbgl-vendor-sqlite>,Qt${QT_VERSION_MAJOR}::Sql>
     PRIVATE
         $<$<PLATFORM_ID:Linux>:${CMAKE_THREAD_LIBS_INIT}>
         Qt${QT_VERSION_MAJOR}::Core
@@ -164,7 +164,7 @@ target_link_libraries(
 )
 
 if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
-    if (MLN_QT_WITH_INTERNAL_ICU)
+    if (MH_QT_WITH_INTERNAL_ICU)
         target_link_libraries(mbgl-core PUBLIC $<BUILD_INTERFACE:mbgl-vendor-icu>)
     else()
         target_link_libraries(mbgl-core PUBLIC ${ICU_UC_LIBRARIES} ${ICU_I18N_LIBRARIES})
@@ -173,20 +173,20 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
 endif()
 
 # Object library list
-get_directory_property(MLN_QT_HAS_PARENT PARENT_DIRECTORY)
-if(MLN_QT_HAS_PARENT)
-    set(MLN_QT_VENDOR_LIBRARIES
+get_directory_property(MH_QT_HAS_PARENT PARENT_DIRECTORY)
+if(MH_QT_HAS_PARENT)
+    set(MH_QT_VENDOR_LIBRARIES
         mbgl-vendor-parsedate
         mbgl-vendor-nunicode
         mbgl-vendor-csscolorparser
         $<$<PLATFORM_ID:iOS>:mbgl-vendor-filesystem>
-        $<$<BOOL:${MLN_QT_WITH_INTERNAL_SQLITE}>:mbgl-vendor-sqlite>
-        $<$<AND:$<PLATFORM_ID:Linux>,$<BOOL:${MLN_QT_WITH_INTERNAL_ICU}>>:mbgl-vendor-icu>
+        $<$<BOOL:${MH_QT_WITH_INTERNAL_SQLITE}>:mbgl-vendor-sqlite>
+        $<$<AND:$<PLATFORM_ID:Linux>,$<BOOL:${MH_QT_WITH_INTERNAL_ICU}>>:mbgl-vendor-icu>
         PARENT_SCOPE
     )
 endif()
 
-if(NOT MLN_QT_LIBRARY_ONLY)
+if(NOT MH_QT_LIBRARY_ONLY)
     # test runner
     add_executable(
         mbgl-test-runner

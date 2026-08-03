@@ -130,7 +130,7 @@ static constexpr uint32_t maxUBOCountPerDrawable = layerUBOStartId - globalUBOCo
 
 // layer UBOs
 
-#if MLN_RENDER_BACKEND_VULKAN
+#if MH_RENDER_BACKEND_VULKAN
 #define getLayerStartValue(packedValue) layerUBOStartId
 #else
 #define getLayerStartValue(packedValue) packedValue

@@ -2,29 +2,29 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class MLNNativeNetworkManager;
+@class MHNativeNetworkManager;
 
-@interface MLNInternalNetworkResponse : NSObject
+@interface MHInternalNetworkResponse : NSObject
 
 @property (retain, nullable) NSError *error;
 @property (retain, nullable) NSData *data;
 @property (retain, nullable) NSURLResponse *response;
 
-+ (MLNInternalNetworkResponse *)responseWithData:(NSData *)data
++ (MHInternalNetworkResponse *)responseWithData:(NSData *)data
                                      urlResponse:(NSURLResponse *)response
                                            error:(NSError *)error;
 
 @end
 
-@protocol MLNNativeNetworkDelegate <NSObject>
+@protocol MHNativeNetworkDelegate <NSObject>
 
 @optional
 
-- (NSURLSession *)sessionForNetworkManager:(MLNNativeNetworkManager *)networkManager;
+- (NSURLSession *)sessionForNetworkManager:(MHNativeNetworkManager *)networkManager;
 
 - (NSMutableURLRequest *)willSendRequest:(NSMutableURLRequest *)request;
 
-- (MLNInternalNetworkResponse *)didReceiveResponse:(MLNInternalNetworkResponse *)response;
+- (MHInternalNetworkResponse *)didReceiveResponse:(MHInternalNetworkResponse *)response;
 
 @required
 
@@ -42,13 +42,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-#define MLN_APPLE_EXPORT __attribute__((visibility("default")))
+#define MH_APPLE_EXPORT __attribute__((visibility("default")))
 
-@interface MLNNativeNetworkManager : NSObject
+@interface MHNativeNetworkManager : NSObject
 
-+ (MLNNativeNetworkManager *)sharedManager;
++ (MHNativeNetworkManager *)sharedManager;
 
-@property (nonatomic, weak) id<MLNNativeNetworkDelegate> delegate;
+@property (nonatomic, weak) id<MHNativeNetworkDelegate> delegate;
 
 @property (nonatomic, readonly) NSURLSessionConfiguration *sessionConfiguration;
 

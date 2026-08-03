@@ -1,7 +1,7 @@
 if(TARGET mbgl-harfbuzz)
     return()
 endif()
-if (MLN_TEXT_SHAPING_HARFBUZZ)
+if (MH_TEXT_SHAPING_HARFBUZZ)
     add_library(mbgl-harfbuzz STATIC
         ${CMAKE_CURRENT_LIST_DIR}/harfbuzz/src/harfbuzz.cc
     )
@@ -18,9 +18,9 @@ if (MLN_TEXT_SHAPING_HARFBUZZ)
     set_target_properties(
         mbgl-harfbuzz
         PROPERTIES
-            INTERFACE_MAPLIBRE_NAME "harfbuzz"
-            INTERFACE_MAPLIBRE_URL "https://github.com/harfbuzz/harfbuzz"
-            INTERFACE_MAPLIBRE_AUTHOR ${CMAKE_CURRENT_LIST_DIR}/harfbuzz/AUTHORS
-            INTERFACE_MAPLIBRE_LICENSE ${CMAKE_CURRENT_LIST_DIR}/harfbuzz/COPYING
+            INTERFACE_MAPHERO_NAME "harfbuzz"
+            INTERFACE_MAPHERO_URL "https://github.com/harfbuzz/harfbuzz"
+            INTERFACE_MAPHERO_AUTHOR ${CMAKE_CURRENT_LIST_DIR}/harfbuzz/AUTHORS
+            INTERFACE_MAPHERO_LICENSE ${CMAKE_CURRENT_LIST_DIR}/harfbuzz/COPYING
     )
 endif()

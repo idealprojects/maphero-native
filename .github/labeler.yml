@@ -15,7 +15,7 @@ documentation:
 - changed-files:
   - any-glob-to-any-file:
     - 'docs/**/*'
-    - 'platform/ios/ios/MapLibre.docc/**/*'
+    - 'platform/ios/ios/MapHero.docc/**/*'
     - 'platform/android/docs/**/*'
 node:
 - changed-files:

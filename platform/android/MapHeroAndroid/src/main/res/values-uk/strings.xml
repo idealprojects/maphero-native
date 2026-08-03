@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="MAPHERO_compassContentDescription">Компас. Натисніть щоб зорієнтувати мапу на північ.</string>
+    <string name="MAPHERO_attributionsIconContentDescription">Значок атрибуції. Натисніть, щоб показати діалог атрибуції.</string>
+    <string name="MAPHERO_myLocationViewContentDescription">Визначення положення. Показує ваше місцеположення на мапі.</string>
+    <string name="MAPHERO_mapActionDescription">Показує мапи створені за допомоги MapHero. Пересувайте мапу двома пальцями. Змінюйте масштаб стуляючи/розводячи два пальці.</string>
+    <string name="MAPHERO_attributionsDialogTitle">MapHero Android</string>
+    <string name="MAPHERO_attributionErrorNoBrowser">Веб-оглядач відсутній на цьому пристрої, неможливо відкрити веб-сторінку</string>
+    <string name="MAPHERO_offline_error_region_definition_invalid">Межі ділянки для оффлайнового користування даними за межами світу: %s</string>
+    </resources>

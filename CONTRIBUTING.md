@@ -2,7 +2,7 @@
 
 ## Documentation
 
-The [MapLibre Native Developer Docs](https://maplibre.org/maplibre-native/docs/book/) is the go-to reference for developing MapLibre Native.
+The [MapHero Native Developer Docs](https://maplibre.org/maplibre-native/docs/book/) is the go-to reference for developing MapHero Native.
 
 ## Source code checkout
 
@@ -22,7 +22,7 @@ If you want to contribute code:
 
 ## Design Proposals
 
-If you would like to change MapLibre Native in a substantial way, we recommend that you write a Design Proposal. Examples for substantial changes could be if you would like to split the mono-repo or if you would like to introduce shaders written in Metal.
+If you would like to change MapHero Native in a substantial way, we recommend that you write a Design Proposal. Examples for substantial changes could be if you would like to split the mono-repo or if you would like to introduce shaders written in Metal.
 
 The purpose of a Design Proposal is to collectively think through a problem before starting to implement a solution. Every implementation has advantages and disadvantages. We can discuss them in a Design Proposal, and once we reach an agreement, we follow the guidelines in the Design Proposal and work on the implementation.
 

@@ -12,7 +12,7 @@ function(create_test folder_name)
 
     add_executable(${target_name} ${test_files})
     target_link_libraries(${target_name} PRIVATE
-        MapLibreNative::Base
+        MapHeroNative::Base
         gtest_all
         pthread
     )

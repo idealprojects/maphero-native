@@ -1,5 +1,5 @@
-name: MapLibre iOS Bug Report
-description: Report a bug you encountered with MapLibre iOS.
+name: MapHero iOS Bug Report
+description: Report a bug you encountered with MapHero iOS.
 labels: ["ios"]
 type: "bug"
 body:
@@ -10,7 +10,7 @@ body:
   - type: input
     id: version
     attributes:
-      label: MapLibre iOS Version
+      label: MapHero iOS Version
       placeholder: e.g. 6.8.1
     validations:
       required: true

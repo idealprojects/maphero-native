@@ -130,7 +130,7 @@ void Drawable::updateVertexAttributes(gfx::VertexAttributeArrayPtr vertices,
 }
 
 void Drawable::upload(gfx::UploadPass& uploadPass_) {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     if (isCustom) {
         return;
@@ -237,7 +237,7 @@ void Drawable::upload(gfx::UploadPass& uploadPass_) {
 }
 
 void Drawable::draw(PaintParameters& parameters) const {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     if (isCustom) {
         return;
@@ -359,7 +359,7 @@ gfx::UniformBufferArray& Drawable::mutableUniformBuffers() {
 }
 
 void Drawable::buildVulkanInputBindings() noexcept {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     impl->vulkanVertexBuffers.clear();
     impl->vulkanVertexOffsets.clear();
@@ -413,7 +413,7 @@ void Drawable::buildVulkanInputBindings() noexcept {
 }
 
 bool Drawable::bindAttributes(CommandEncoder& encoder) const noexcept {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     if (impl->vulkanVertexBuffers.empty()) return false;
 
@@ -434,7 +434,7 @@ bool Drawable::bindAttributes(CommandEncoder& encoder) const noexcept {
 }
 
 bool Drawable::bindDescriptors(CommandEncoder& encoder) const noexcept {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     if (!shader) return false;
 
@@ -465,7 +465,7 @@ bool Drawable::bindDescriptors(CommandEncoder& encoder) const noexcept {
 }
 
 void Drawable::uploadTextures(UploadPass&) const noexcept {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
     for (const auto& texture : textures) {
         if (texture) {
             texture->upload();

@@ -13,7 +13,7 @@ FetchContent_MakeAvailable(tinyobjloader)
 set_target_properties(
     tinyobjloader
     PROPERTIES
-        INTERFACE_MAPLIBRE_NAME "tinyobjloader"
-        INTERFACE_MAPLIBRE_URL "https://github.com/tinyobjloader/tinyobjloader.git"
-        INTERFACE_MAPLIBRE_LICENSE ${CMAKE_CURRENT_LIST_DIR}/tinyobjloader/LICENSE
+        INTERFACE_MAPHERO_NAME "tinyobjloader"
+        INTERFACE_MAPHERO_URL "https://github.com/tinyobjloader/tinyobjloader.git"
+        INTERFACE_MAPHERO_LICENSE ${CMAKE_CURRENT_LIST_DIR}/tinyobjloader/LICENSE
 )

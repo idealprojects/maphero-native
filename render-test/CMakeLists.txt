@@ -58,10 +58,10 @@ target_link_libraries(
     mbgl-render-test
     PRIVATE
         mbgl-vendor-args
-        MapLibreNative::Base::pixelmatch-cpp
+        MapHeroNative::Base::pixelmatch-cpp
         mbgl-compiler-options
         mbgl-vendor-boost
     PUBLIC mbgl-core
 )
 
-set_property(TARGET mbgl-render-test PROPERTY FOLDER MapLibre)
+set_property(TARGET mbgl-render-test PROPERTY FOLDER MapHero)

@@ -139,7 +139,7 @@ gfx::AttributeBindingArray UploadPass::buildAttributeBindings(
     const gfx::BufferUsageType usage,
     const std::optional<std::chrono::duration<double>> lastUpdate,
     /*out*/ std::vector<std::unique_ptr<gfx::VertexBufferResource>>& outBuffers) {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
     AttributeBindingArray bindings;
     bindings.resize(defaults.allocatedSize());
 
@@ -166,7 +166,7 @@ gfx::AttributeBindingArray UploadPass::buildAttributeBindings(
 
     // For each attribute in the program, with the corresponding default and optional override...
     const auto resolveAttr = [&](const size_t id, auto& defaultAttr, auto& overrideAttr) -> void {
-        MLN_TRACE_ZONE(binding);
+        MH_TRACE_ZONE(binding);
         auto& effectiveAttr = overrideAttr ? *overrideAttr : defaultAttr;
         const auto& defaultGL = static_cast<const VertexAttributeGL&>(defaultAttr);
         const auto stride = defaultAttr.getStride();

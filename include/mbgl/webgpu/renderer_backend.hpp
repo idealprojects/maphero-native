@@ -3,9 +3,9 @@
 #include <mbgl/gfx/renderer_backend.hpp>
 #include <mbgl/util/size.hpp>
 
-#if MLN_WEBGPU_IMPL_DAWN
+#if MH_WEBGPU_IMPL_DAWN
 #include <webgpu/webgpu.h>
-#elif MLN_WEBGPU_IMPL_WGPU
+#elif MH_WEBGPU_IMPL_WGPU
 #include <webgpu.h>
 #endif
 

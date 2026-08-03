@@ -1,6 +1,6 @@
 # Predicates and expressions
 
-Using `NSPredicate` with MapLibre iOS
+Using `NSPredicate` with MapHero iOS
 
 Style layers use predicates and expressions to determine what to display and how
 to format it. _Predicates_ are represented by the same `NSPredicate` class that
@@ -13,12 +13,12 @@ syntax supported by this SDK. For a more general introduction to predicates and
 expressions, consult the
 _[Predicate Programming Guide](https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/Predicates/AdditionalChapters/Introduction.html)_
 in Apple developer documentation. For additional detail on how this SDK has
-extended the `NSExpression` class, see the [`NSExpression+MLNAdditions.h`](https://github.com/maplibre/maplibre-native/blob/main/platform/darwin/src/NSExpression%2BMLNAdditions.h) header.
+extended the `NSExpression` class, see the [`NSExpression+MHAdditions.h`](https://github.com/maplibre/maplibre-native/blob/main/platform/darwin/src/NSExpression%2BMHAdditions.h) header.
 
 ## Using predicates to filter vector data
 
-Most style layer classes display `MLNFeature` objects that you can show or hide
-based on the feature’s attributes. Use the `MLNVectorStyleLayer.predicate`
+Most style layer classes display `MHFeature` objects that you can show or hide
+based on the feature’s attributes. Use the `MHVectorStyleLayer.predicate`
 property to include only the features in the source layer that satisfy a
 condition that you define.
 
@@ -56,15 +56,15 @@ The following aggregate operators are supported:
 `NSInPredicateOperatorType`       | `key IN { 'iOS', 'macOS', 'tvOS', 'watchOS' }`
 `NSContainsPredicateOperatorType` | `{ 'iOS', 'macOS', 'tvOS', 'watchOS' } CONTAINS key`
 
-You can use the `IN` and `CONTAINS` operators to test whether a value appears in a collection, whether a string is a substring of a larger string, or whether the evaluated feature (`SELF`) lies within a given `MLNShape` or `MLNFeature`. For example, to show one delicious local chain of sandwich shops, but not similarly named steakhouses and pizzerias:
+You can use the `IN` and `CONTAINS` operators to test whether a value appears in a collection, whether a string is a substring of a larger string, or whether the evaluated feature (`SELF`) lies within a given `MHShape` or `MHFeature`. For example, to show one delicious local chain of sandwich shops, but not similarly named steakhouses and pizzerias:
 
 ```objc
-MLNPolygon *cincinnati = [MLNPolygon polygonWithCoordinates:cincinnatiCoordinates count:sizeof(cincinnatiCoordinates) / sizeof(cincinnatiCoordinates[0])];
+MHPolygon *cincinnati = [MHPolygon polygonWithCoordinates:cincinnatiCoordinates count:sizeof(cincinnatiCoordinates) / sizeof(cincinnatiCoordinates[0])];
 deliLayer.predicate = [NSPredicate predicateWithFormat:@"class = 'food_and_drink' AND name CONTAINS 'Izzy' AND SELF IN %@", cincinnati];
 ```
 
 ```swift
-let cincinnati = MLNPolygon(coordinates: &cincinnatiCoordinates, count: UInt(cincinnatiCoordinates.count))
+let cincinnati = MHPolygon(coordinates: &cincinnatiCoordinates, count: UInt(cincinnatiCoordinates.count))
 deliLayer.predicate = NSPredicate(format: "class = 'food_and_drink' AND name CONTAINS 'Izzy' AND SELF IN %@", cincinnati)
 ```
 
@@ -136,8 +136,8 @@ of `-[NSNumber numberWithFloat:]` to avoid precision issues.
 
 ### Key paths
 
-A key path expression refers to an attribute of the `MLNFeature` object being
-evaluated for display. For example, if a polygon’s `MLNFeature.attributes`
+A key path expression refers to an attribute of the `MHFeature` object being
+evaluated for display. For example, if a polygon’s `MHFeature.attributes`
 dictionary contains the `floorCount` key, then the key path `floorCount` refers
 to the value of the `floorCount` attribute when evaluating that particular
 polygon.
@@ -204,7 +204,7 @@ Initializer parameter | Format string syntax
 `length:`             | `length('Wapakoneta')`
 `castObject:toType:`  | `CAST(ele, 'NSString')`<br>`CAST(ele, 'NSNumber')`
 
-A number of [MapLibre-specific functions](#MapLibre-specific-functions) are also
+A number of [MapHero-specific functions](#MapHero-specific-functions) are also
 available.
 
 The following predefined functions are **not** supported:
@@ -231,7 +231,7 @@ Conditionals are supported via the built-in
 `+[NSExpression expressionForConditional:trueExpression:falseExpression:]`
 method and `TERNARY()` operator. If you need to express multiple cases
 (“else-if”), you can either nest a conditional within a conditional or use the
-[`MLN_IF()`](#code-mgl_if-code) or [`MLN_MATCH()`](#code-mgl_match-code) function.
+[`MH_IF()`](#code-mgl_if-code) or [`MH_MATCH()`](#code-mgl_match-code) function.
 
 ### Aggregates
 
@@ -246,29 +246,29 @@ The following variables are defined by this SDK for use with style layers:
 | Variable | Type | Meaning |
 | --- | --- | --- |
 | `$featureIdentifier` | Any GeoJSON data type | A value that uniquely identifies the feature in the containing source. This variable corresponds to the `NSExpression.featureIdentifierVariableExpression` property. |
-| `$geometryType` | String | The type of geometry represented by the feature. A feature’s type is one of the following strings:<br><br>*   `Point` for point features, corresponding to the `MLNPointAnnotation` class<br>*   `LineString` for polyline features, corresponding to the ``MLNPolyline`` class<br>*   `Polygon` for polygon features, corresponding to the ``MLNPolygon`` class<br><br>This variable corresponds to the `NSExpression.geometryTypeVariableExpression` property. |
+| `$geometryType` | String | The type of geometry represented by the feature. A feature’s type is one of the following strings:<br><br>*   `Point` for point features, corresponding to the `MHPointAnnotation` class<br>*   `LineString` for polyline features, corresponding to the ``MHPolyline`` class<br>*   `Polygon` for polygon features, corresponding to the ``MHPolygon`` class<br><br>This variable corresponds to the `NSExpression.geometryTypeVariableExpression` property. |
 | `$heatmapDensity` | Number | The [kernel density estimation](https://en.wikipedia.org/wiki/Kernel_density_estimation) of a screen point in a heatmap layer; in other words, a relative measure of how many data points are crowded around a particular pixel. This variable can only be used with the `heatmapColor` property. This variable corresponds to the `NSExpression.heatmapDensityVariableExpression` property. |
 | `$zoomLevel` | Number | The current zoom level. In style layout and paint properties, this variable may only appear as the target of a top-level interpolation or step expression. This variable corresponds to the `NSExpression.zoomLevelVariableExpression` property. |
-| `$lineProgress` | Number | A number that indicates the relative distance along a line at a given point along the line. This variable evaluates to 0 at the beginning of the line and 1 at the end of the line. It can only be used with the ``MLNLineStyleLayer/lineGradient`` property. It corresponds to the `NSExpression.lineProgressVariableExpression` property. |
+| `$lineProgress` | Number | A number that indicates the relative distance along a line at a given point along the line. This variable evaluates to 0 at the beginning of the line and 1 at the end of the line. It can only be used with the ``MHLineStyleLayer/lineGradient`` property. It corresponds to the `NSExpression.lineProgressVariableExpression` property. |
 
 In addition to these variables, you can define your own variables and refer to
 them elsewhere in the expression. The syntax for defining a variable makes use
-of a [MapLibre-specific function](#MapLibre-specific-functions) that takes an
+of a [MapHero-specific function](#MapHero-specific-functions) that takes an
 `NSDictionary` as an argument:
 
 ```objc
-[NSExpression expressionWithFormat:@"MLN_LET('floorCount', 2, $floorCount + 1)"];
+[NSExpression expressionWithFormat:@"MH_LET('floorCount', 2, $floorCount + 1)"];
 ```
 
 ```swift
-NSExpression(format: "MLN_LET(floorCount, 2, $floorCount + 1)")
+NSExpression(format: "MH_LET(floorCount, 2, $floorCount + 1)")
 ```
 
-## MapLibre-specific functions
+## MapHero-specific functions
 
 > Warning: Due to a change in iOS 15.5, some of these stopped working. See [#331](https://github.com/maplibre/maplibre-native/issues/331) for more information and workarounds.
 
-For compatibility with the MapLibre Style Spec, the following functions
+For compatibility with the MapHero Style Spec, the following functions
 are defined by this SDK. When setting a style layer property, you can call these
 functions just like the predefined functions above, using either the
 `+[NSExpression expressionForFunction:arguments:]` method or a convenient format
@@ -335,7 +335,7 @@ Returns the arccosine of the number.
 
 This function corresponds to the
 [`acos`](https://maplibre.org/maplibre-style-spec/expressions/#acos)
-operator in the MapLibre Style Spec.
+operator in the MapHero Style Spec.
 
 ### mgl_asin:
 
@@ -347,7 +347,7 @@ Returns the arcsine of the number.
 
 This function corresponds to the
 [`asin`](https://maplibre.org/maplibre-style-spec/expressions/#asin)
-operator in the MapLibre Style Spec.
+operator in the MapHero Style Spec.
 
 ### mgl_atan:
 
@@ -359,7 +359,7 @@ Returns the arctangent of the number.
 
 This function corresponds to the
 [`atan`](https://maplibre.org/maplibre-style-spec/expressions/#atan)
-operator in the MapLibre Style Spec.
+operator in the MapHero Style Spec.
 
 ### mgl_cos:
 
@@ -371,7 +371,7 @@ Returns the cosine of the number.
 
 This function corresponds to the
 [`cos`](https://maplibre.org/maplibre-style-spec/expressions/#cos)
-operator in the MapLibre Style Spec.
+operator in the MapHero Style Spec.
 
 ### mgl_log2:
 
@@ -383,7 +383,7 @@ Returns the base-2 logarithm of the number.
 
 This function corresponds to the
 [`log2`](https://maplibre.org/maplibre-style-spec/expressions/#log2)
-operator in the MapLibre Style Spec.
+operator in the MapHero Style Spec.
 
 ### mgl_round:
 
@@ -396,7 +396,7 @@ between two integers, this function rounds it away from zero.
 
 This function corresponds to the
 [`round`](https://maplibre.org/maplibre-style-spec/expressions/#round)
-operator in the MapLibre Style Spec.
+operator in the MapHero Style Spec.
 
 ### mgl_sin:
 
@@ -408,7 +408,7 @@ Returns the sine of the number.
 
 This function corresponds to the
 [`sin`](https://maplibre.org/maplibre-style-spec/expressions/#sin)
-operator in the MapLibre Style Spec.
+operator in the MapHero Style Spec.
 
 ### mgl_tan:
 
@@ -420,19 +420,19 @@ Returns the tangent of the number.
 
 This function corresponds to the
 [`tan`](https://maplibre.org/maplibre-style-spec/expressions/#tan)
-operator in the MapLibre Style Spec.
+operator in the MapHero Style Spec.
 
 ### mgl_distanceFrom:
 
 **Selector:** `mgl_distanceFrom:`
 
-**Format string syntax:** `mgl_distanceFrom(%@)` with an `MLNShape`
+**Format string syntax:** `mgl_distanceFrom(%@)` with an `MHShape`
 
 Returns the straight-line distance from the evaluated object to the given shape.
 
 This function corresponds to the
 [`distance`](https://maplibre.org/maplibre-style-spec/expressions/#distance)
-operator in the MapLibre Style Spec.
+operator in the MapHero Style Spec.
 
 ### mgl_coalesce:
 
@@ -444,7 +444,7 @@ Returns the first non-`nil` value from an array of expressions.
 
 This function corresponds to the
 [`coalesce`](https://maplibre.org/maplibre-style-spec/expressions/#coalesce)
-operator in the MapLibre Style Spec.
+operator in the MapHero Style Spec.
 
 ### mgl_attributed:
 
@@ -452,26 +452,26 @@ operator in the MapLibre Style Spec.
 
 **Format string syntax:** `mgl_attributed({x, y, z})`
 
-Concatenates and returns the array of `MLNAttributedExpression` objects, for use
-with the `MLNSymbolStyleLayer.text` property.
+Concatenates and returns the array of `MHAttributedExpression` objects, for use
+with the `MHSymbolStyleLayer.text` property.
 
-`MLNAttributedExpression.attributes` valid attributes.
+`MHAttributedExpression.attributes` valid attributes.
 
  Key | Value Type
  --- | ---
- `MLNFontNamesAttribute` | An `NSExpression` evaluating to an `NSString` array.
- `MLNFontScaleAttribute` | An `NSExpression` evaluating to an `NSNumber` value.
- `MLNFontColorAttribute` | An `NSExpression` evaluating to an `UIColor` (iOS) or `NSColor` (macOS).
+ `MHFontNamesAttribute` | An `NSExpression` evaluating to an `NSString` array.
+ `MHFontScaleAttribute` | An `NSExpression` evaluating to an `NSNumber` value.
+ `MHFontColorAttribute` | An `NSExpression` evaluating to an `UIColor` (iOS) or `NSColor` (macOS).
 
 This function corresponds to the
 [`format`](https://maplibre.org/maplibre-style-spec/expressions/#types-format)
-operator in the MapLibre Style Spec.
+operator in the MapHero Style Spec.
 
-### MLN_LET
+### MH_LET
 
-**Selector:** `MLN_LET:`
+**Selector:** `MH_LET:`
 
-**Format string syntax:** `MLN_LET('age', uppercase('old'), 'name', uppercase('MacDonald'), mgl_join({$age, $name}))`
+**Format string syntax:** `MH_LET('age', uppercase('old'), 'name', uppercase('MacDonald'), mgl_join({$age, $name}))`
 
 **Arguments:** Any number of variable names interspersed with their assigned
 `NSExpression` values, followed by an `NSExpression`
@@ -483,11 +483,11 @@ Compared to the
 function, this function takes the variable names and values inline before the
 expression that contains references to those variables.
 
-### MLN_MATCH
+### MH_MATCH
 
-**Selector:** `MLN_MATCH:`
+**Selector:** `MH_MATCH:`
 
-**Format string syntax:** `MLN_MATCH(x, 0, 'zero match', 1, 'one match', 2, 'two match', 'default')`
+**Format string syntax:** `MH_MATCH(x, 0, 'zero match', 1, 'one match', 2, 'two match', 'default')`
 
 **Arguments:** An input expression, then any number of argument pairs, followed by a default
 expression. Each argument pair consists of a constant value followed by an
@@ -501,16 +501,16 @@ Returns the result of matching the input expression against the given constant
 values.
 
 This function corresponds to the
-`+[NSExpression(MLNAdditions) mgl_expressionForMatchingExpression:inDictionary:defaultExpression:]`
+`+[NSExpression(MHAdditions) mgl_expressionForMatchingExpression:inDictionary:defaultExpression:]`
 method and the
 [`match`](https://maplibre.org/maplibre-style-spec/expressions/#match)
-operator in the MapLibre Style Spec.
+operator in the MapHero Style Spec.
 
-### MLN_IF
+### MH_IF
 
-**Selector:** `MLN_IF:`
+**Selector:** `MH_IF:`
 
-**Format string syntax:** `MLN_IF(1 = 2, YES, 2 = 2, YES, NO)`
+**Format string syntax:** `MH_IF(1 = 2, YES, 2 = 2, YES, NO)`
 
 **Arguments:** Alternating `NSPredicate` conditionals and resulting expressions,
 followed by a default expression.
@@ -523,21 +523,21 @@ and is supported on iOS 8._x_ and macOS 10.10._x_; however, each conditional
 passed into this function must be wrapped in a constant expression.
 
 This function corresponds to the
-`+[NSExpression(MLNAdditions) mgl_expressionForConditional:trueExpression:falseExpresssion:]`
+`+[NSExpression(MHAdditions) mgl_expressionForConditional:trueExpression:falseExpresssion:]`
 method and the
 [`case`](https://maplibre.org/maplibre-style-spec/expressions/#case)
-operator in the MapLibre Style Spec.
+operator in the MapHero Style Spec.
 
-### MLN_FUNCTION
+### MH_FUNCTION
 
-**Selector:** `MLN_FUNCTION:`
+**Selector:** `MH_FUNCTION:`
 
-**Format string syntax:** `MLN_FUNCTION('typeof', mystery)`
+**Format string syntax:** `MH_FUNCTION('typeof', mystery)`
 
 **Arguments:** Any arguments required by the expression operator.
 
 An expression exactly as defined by the
-[MapLibre Style Spec](https://maplibre.org/maplibre-style-spec/expressions/).
+[MapHero Style Spec](https://maplibre.org/maplibre-style-spec/expressions/).
 
 ## Custom functions
 
@@ -550,9 +550,9 @@ classes, but you should not call them directly outside the context of an
 expression, because the result may differ from the evaluated expression's result
 or may result in undefined behavior.
 
-The MapLibre Style Spec defines some operators for which no custom
+The MapHero Style Spec defines some operators for which no custom
 function is available. To use these operators in an `NSExpression`, call the
-[`MLN_FUNCTION()`](#code-mgl_function-code) function with the same arguments
+[`MH_FUNCTION()`](#code-mgl_function-code) function with the same arguments
 that the operator expects.
 
 ### boolValue
@@ -579,14 +579,14 @@ or the evaluated object (`SELF`).
 
 **Arguments:** An `NSExpression` that evaluates to an `NSString`
 representing the key to look up in the dictionary or the feature attribute to
-look up in the evaluated object (see `MLNFeature.attributes`).
+look up in the evaluated object (see `MHFeature.attributes`).
 
 `true` if the dictionary has a value for the key or if the evaluated
 object has a value for the feature attribute.
 
 This function corresponds to the
 [`has`](https://maplibre.org/maplibre-style-spec/expressions/#has)
-operator in the MapLibre Style Spec. See also the
+operator in the MapHero Style Spec. See also the
 [`mgl_does:have:`](#code-mgl_does-have-code) function, which is used on its own
 without the `FUNCTION()` operator. You can also check whether an object has an
 attribute by comparing the key path to `NIL`, for example `cheeseburger != NIL`
@@ -611,8 +611,8 @@ defined in the context dictionary.
 
 This function corresponds to the
 [`let`](https://maplibre.org/maplibre-style-spec/expressions/#let)
-operator in the MapLibre Style Spec. See also the
-[`MLN_LET`](#code-mgl_let-code) function, which is used on its own without the
+operator in the MapHero Style Spec. See also the
+[`MH_LET`](#code-mgl_let-code) function, which is used on its own without the
 `FUNCTION()` operator.
 
 ### mgl_interpolateWithCurveType:parameters:stops:
@@ -653,10 +653,10 @@ use a stop dictionary with the zoom levels 0, 10, and 20 as keys and the colors
 yellow, orange, and red as the values.
 
 This function corresponds to the
-`+[NSExpression(MLNAdditions) mgl_expressionForInterpolatingExpression:withCurveType:parameters:stops:]`
+`+[NSExpression(MHAdditions) mgl_expressionForInterpolatingExpression:withCurveType:parameters:stops:]`
 method and the
 [`interpolate`](https://maplibre.org/maplibre-style-spec/expressions/#interpolate)
-operator in the MapLibre Style Spec. See also the
+operator in the MapHero Style Spec. See also the
 [`mgl_interpolate:withCurveType:parameters:stops:`](#code-mgl_interpolate-withcurvetype-parameters-stops-code)
 function, which is used on its own without the `FUNCTION()` operator.
 
@@ -710,7 +710,7 @@ A numeric representation of the target:
 
 This function corresponds to the
 [`to-number`](https://maplibre.org/maplibre-style-spec/expressions/#types-to-number)
-operator in the MapLibre Style Spec. You can also cast a value to a
+operator in the MapHero Style Spec. You can also cast a value to a
 number by passing the value and the string `NSNumber` into the `CAST()`
 operator.
 
@@ -746,10 +746,10 @@ use a stop dictionary with the zoom levels 0, 10, and 20 as keys and the colors
 yellow, orange, and red as the values.
 
 This function corresponds to the
-`+[NSExpression(MLNAdditions) mgl_expressionForSteppingExpression:fromExpression:stops:]`
+`+[NSExpression(MHAdditions) mgl_expressionForSteppingExpression:fromExpression:stops:]`
 method and the
 [`step`](https://maplibre.org/maplibre-style-spec/expressions/#step)
-operator in the MapLibre Style Spec.
+operator in the MapHero Style Spec.
 
 ### stringByAppendingString:
 
@@ -768,10 +768,10 @@ One or more `NSExpression`s, each evaluating to a string.
 The target string with each of the argument strings appended in order.
 
 This function corresponds to the
-`-[NSExpression(MLNAdditions) mgl_expressionByAppendingExpression:]`
+`-[NSExpression(MHAdditions) mgl_expressionByAppendingExpression:]`
 method and is similar to the
 [`concat`](https://maplibre.org/maplibre-style-spec/expressions/#concat)
-operator in the MapLibre Style Spec. See also the
+operator in the MapHero Style Spec. See also the
 [`mgl_join:`](#code-mgl_join-code) function, which concatenates multiple
 expressions and is used on its own without the `FUNCTION()` operator.
 
@@ -806,6 +806,6 @@ A string representation of the target:
 
 This function corresponds to the
 [`to-string`](https://maplibre.org/maplibre-style-spec/expressions/#types-to-string)
-operator in the MapLibre Style Spec. You can also cast a value to a
+operator in the MapHero Style Spec. You can also cast a value to a
 string by passing the value and the string `NSString` into the `CAST()`
 operator.

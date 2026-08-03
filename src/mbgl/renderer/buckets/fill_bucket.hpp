@@ -10,12 +10,12 @@
 
 /**
     Control how the fill outlines are being generated:
-    MLN_TRIANGULATE_FILL_OUTLINES = 0 : Simple line primitives will be generated. Draw using gfx::Lines
-    MLN_TRIANGULATE_FILL_OUTLINES = 1 : Generate triangulated lines. Draw using gfx::Triangles and a Line shader.
+    MH_TRIANGULATE_FILL_OUTLINES = 0 : Simple line primitives will be generated. Draw using gfx::Lines
+    MH_TRIANGULATE_FILL_OUTLINES = 1 : Generate triangulated lines. Draw using gfx::Triangles and a Line shader.
  */
-#define MLN_TRIANGULATE_FILL_OUTLINES (MLN_RENDER_BACKEND_METAL || MLN_RENDER_BACKEND_WEBGPU)
+#define MH_TRIANGULATE_FILL_OUTLINES (MH_RENDER_BACKEND_METAL || MH_RENDER_BACKEND_WEBGPU)
 
-#if MLN_TRIANGULATE_FILL_OUTLINES
+#if MH_TRIANGULATE_FILL_OUTLINES
 #include <mbgl/renderer/buckets/line_bucket.hpp>
 #endif
 
@@ -54,7 +54,7 @@ public:
 
     static FillLayoutVertex layoutVertex(Point<int16_t> p) { return FillLayoutVertex{{{p.x, p.y}}}; }
 
-#if MLN_TRIANGULATE_FILL_OUTLINES
+#if MH_TRIANGULATE_FILL_OUTLINES
     using LineVertexVector = gfx::VertexVector<LineLayoutVertex>;
     const std::shared_ptr<LineVertexVector> sharedLineVertices = std::make_shared<LineVertexVector>();
     LineVertexVector& lineVertices = *sharedLineVertices;
@@ -64,7 +64,7 @@ public:
     LineIndexVector& lineIndexes = *sharedLineIndexes;
 
     SegmentVector lineSegments;
-#endif // MLN_TRIANGULATE_FILL_OUTLINES
+#endif // MH_TRIANGULATE_FILL_OUTLINES
 
     using BasicLineIndexVector = gfx::IndexVector<gfx::Lines>;
     const std::shared_ptr<BasicLineIndexVector> sharedBasicLineIndexes = std::make_shared<BasicLineIndexVector>();

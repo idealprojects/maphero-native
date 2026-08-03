@@ -1,4 +1,4 @@
-import MapLibre
+import MapHero
 import SwiftUI
 import UIKit
 

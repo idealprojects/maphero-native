@@ -5,7 +5,7 @@
 This example shows how you can move the map by x/y pixels.
 
 ```kotlin
---8<-- "MapLibreAndroidTestApp/src/main/java/org/maplibre/android/testapp/activity/camera/ScrollByActivity.kt:scrollBy"
+--8<-- "MapHeroAndroidTestApp/src/main/java/org/maphero/android/testapp/activity/camera/ScrollByActivity.kt:scrollBy"
 ```
 
 <figure markdown="span">

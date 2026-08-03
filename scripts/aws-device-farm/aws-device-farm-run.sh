@@ -82,7 +82,7 @@ for attempt in $(seq 1 $max_retries); do
   echo "Scheduling Device Farm run (attempt $attempt)" >&2
   arn=$(aws devicefarm schedule-run \
     --project-arn "$AWS_DEVICE_FARM_PROJECT_ARN" \
-    --name "MapLibre Native $name" \
+    --name "MapHero Native $name" \
     --app-arn "$app_arn" \
     --device-pool-arn "$AWS_DEVICE_FARM_DEVICE_POOL_ARN" \
     --test type=$testType,testPackageArn=$test_package_arn${testFilter:+,filter=$testFilter}${testSpecArn:+,testSpecArn=$testSpecArn} \

@@ -67,9 +67,9 @@ public:
      Creates a new rasterizer with the given font names as a fallback.
 
      The fallback font names can also be specified in the style as a font stack
-     or in the `MLNIdeographicFontFamilyName` key of
+     or in the `MHIdeographicFontFamilyName` key of
      `NSUserDefaults.standardUserDefaults`. The font stack takes precedence,
-     followed by the `MLNIdeographicFontFamilyName` user default, then finally
+     followed by the `MHIdeographicFontFamilyName` user default, then finally
      the `fallbackFontNames_` parameter as a last resort.
 
      @param fallbackFontNames_ A list of font names, one per line. Each font
@@ -80,7 +80,7 @@ public:
      */
     Impl(const std::optional<std::string> fallbackFontNames_)
     {
-        fallbackFontNames = [[NSUserDefaults standardUserDefaults] stringArrayForKey:@"MLNIdeographicFontFamilyName"];
+        fallbackFontNames = [[NSUserDefaults standardUserDefaults] stringArrayForKey:@"MHIdeographicFontFamilyName"];
         if (fallbackFontNames_) {
             fallbackFontNames = [fallbackFontNames ?: @[] arrayByAddingObjectsFromArray:[@(fallbackFontNames_->c_str()) componentsSeparatedByString:@"\n"]];
         }
@@ -108,7 +108,7 @@ public:
     CTFontDescriptorRef createFontDescriptor(const FontStack& fontStack) {
         NSMutableArray *fontNames = [NSMutableArray arrayWithCapacity:fontStack.size() + fallbackFontNames.count];
         for (auto& fontName : fontStack) {
-            // Per the MapLibre Style Spec, the text-font property comes
+            // Per the MapHero Style Spec, the text-font property comes
             // with these last resort fonts by default, but they shouldn’t take
             // precedence over any application or system fallback font that may
             // be more appropriate to the current device.

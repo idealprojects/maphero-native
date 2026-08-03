@@ -197,6 +197,18 @@ cc_library(
     visibility = ["//visibility:public"],
 )
 
+# vendor/tinygltf (header-only; model3d layer's .glb loading)
+cc_library(
+    name = "tinygltf",
+    hdrs = [
+        "tinygltf/tiny_gltf.h",
+        "tinygltf/json.hpp",
+    ],
+    copts = CPP_FLAGS,
+    includes = ["tinygltf"],
+    visibility = ["//visibility:public"],
+)
+
 # vendor/metal-cpp.json
 cc_library(
     name = "metal-cpp",

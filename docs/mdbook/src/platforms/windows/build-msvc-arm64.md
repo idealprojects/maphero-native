@@ -1,6 +1,6 @@
-# Build Windows ARM64 with MSCV for MapLibre Native
+# Build Windows ARM64 with MSCV for MapHero Native
 
-This guide provides step-by-step instructions for building MapLibre Native on Windows ARM64 systems.
+This guide provides step-by-step instructions for building MapHero Native on Windows ARM64 systems.
 
 ## Prerequisites
 
@@ -71,7 +71,7 @@ if (Test-Path platform\windows\vendor\vcpkg\installed\x86-windows\include\GLES3)
 
 ## Step 3: Configure and Build
 
-You can build MapLibre Native with either OpenGL or Vulkan renderer. The Vulkan renderer provides significantly better performance on ARM64 devices.
+You can build MapHero Native with either OpenGL or Vulkan renderer. The Vulkan renderer provides significantly better performance on ARM64 devices.
 
 ### Option A: Build with OpenGL (Default)
 
@@ -194,7 +194,7 @@ cd build-windows-arm64-vulkan\platform\glfw\Release
 ## Build Outputs
 
 After a successful build, you'll find:
-- `mbgl-core.lib` - The core MapLibre library (~107 MB)
+- `mbgl-core.lib` - The core MapHero library (~107 MB)
 - `mbgl-render.exe` - Command-line renderer
 - `mbgl-test-runner.exe` - Test suite executable
 - `mbgl-glfw.exe` - Interactive map viewer using GLFW

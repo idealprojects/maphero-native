@@ -1,4 +1,4 @@
-import MapLibre
+import MapHero
 
 private class NavigationConfig {
     var RANDOM = RandomNumberGeneratorWithSeed(seed: 42)
@@ -55,7 +55,7 @@ private class NavigationConfig {
     }
 }
 
-class NavigationMap: MLNMapView, MLNMapViewDelegate, NavigationLocationManagerDelegate {
+class NavigationMap: MHMapView, MHMapViewDelegate, NavigationLocationManagerDelegate {
     fileprivate let config = NavigationConfig()
     private var route: NavigationRoute?
     private var continuation: CheckedContinuation<Void, Never>?
@@ -83,7 +83,7 @@ class NavigationMap: MLNMapView, MLNMapViewDelegate, NavigationLocationManagerDe
         }
     }
 
-    @objc(mapView:didFinishLoadingStyle:) func mapView(_: MLNMapView, didFinishLoading _: MLNStyle) {
+    @objc(mapView:didFinishLoadingStyle:) func mapView(_: MHMapView, didFinishLoading _: MHStyle) {
         continuation?.resume()
         continuation = nil
     }
@@ -112,7 +112,7 @@ class NavigationMap: MLNMapView, MLNMapViewDelegate, NavigationLocationManagerDe
             locationManager.navigationDelegate = self
             locationManager.speedMultiplier = config.randomSpeed()
 
-            let camera = MLNMapCamera(
+            let camera = MHMapCamera(
                 lookingAtCenter: startingWaypoint,
                 altitude: config.randomAltitude(),
                 pitch: config.randomTilt(),

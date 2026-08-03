@@ -96,7 +96,7 @@ fun configureMavenPublication(
                         developer {
                             id.set(project.extra["mapLibreDeveloperId"].toString())
                             name.set(project.extra["mapLibreDeveloperName"].toString())
-                            email.set("team@maplibre.org")
+                            email.set("developer@ipc.com.ps")
                         }
                     }
                     scm {
@@ -112,15 +112,15 @@ fun configureMavenPublication(
 
 
 afterEvaluate {
+    // MapHero publishes only the single `io.maphero:android-sdk` artifact (OpenGL ES,
+    // release) to match the existing 1.0.x releases on Maven Central. The other renderer
+    // and debug variants are intentionally not published.
     configureMavenPublication("opengl", "defaultrelease", "", "")
-    configureMavenPublication("opengl", "defaultdebug", "-debug", " (Debug)", "Debug")
-    configureMavenPublication("vulkan", "vulkanrelease", "-vulkan", "(Vulkan)")
-    configureMavenPublication("vulkan", "vulkandebug", "-vulkan-debug", "(Vulkan, Debug)", "Debug")
-    // Right now this is the same as the first, but in the future we might release a major version
-    // which defaults to Vulkan (or has support for multiple backends). We will keep using only
-    // OpenGL ES with this artifact ID if that happens.
-    configureMavenPublication("opengl", "openglrelease", "-opengl", " (OpenGL ES)")
-    configureMavenPublication("opengl", "opengldebug", "-opengl-debug", " (OpenGL ES, Debug)", "Debug")
+    // configureMavenPublication("opengl", "defaultdebug", "-debug", " (Debug)", "Debug")
+    // configureMavenPublication("vulkan", "vulkanrelease", "-vulkan", "(Vulkan)")
+    // configureMavenPublication("vulkan", "vulkandebug", "-vulkan-debug", "(Vulkan, Debug)", "Debug")
+    // configureMavenPublication("opengl", "openglrelease", "-opengl", " (OpenGL ES)")
+    // configureMavenPublication("opengl", "opengldebug", "-opengl-debug", " (OpenGL ES, Debug)", "Debug")
 }
 
 

@@ -16,12 +16,12 @@ def define_env(env):
 
     @env.macro
     def activity_source_note(filename):
-        file_path = find_file(f"{os.getcwd()}/MapLibreAndroidTestApp", filename)
+        file_path = find_file(f"{os.getcwd()}/MapHeroAndroidTestApp", filename)
 
         return f"""
 !!! note
 
-    You can find the full source code of this example in [`{filename}`](https://github.com/maplibre/maplibre-native/blob/main/platform/android/{file_path}) of the MapLibreAndroidTestApp.
+    You can find the full source code of this example in [`{filename}`](https://github.com/maplibre/maplibre-native/blob/main/platform/android/{file_path}) of the MapHeroAndroidTestApp.
 """
 
     @env.macro

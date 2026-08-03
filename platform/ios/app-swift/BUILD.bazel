@@ -40,7 +40,7 @@ swift_library(
 )
 
 ios_application(
-    name = "MapLibreApp",
+    name = "MapHeroApp",
     bundle_id = "{}.maplibre.app".format(BUNDLE_ID_PREFIX),
     families = [
         "iphone",

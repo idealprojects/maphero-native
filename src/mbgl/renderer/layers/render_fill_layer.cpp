@@ -40,7 +40,7 @@ constexpr auto FillShaderName = "FillShader";
 constexpr auto FillOutlineShaderName = "FillOutlineShader";
 constexpr auto FillPatternShaderName = "FillPatternShader";
 constexpr auto FillOutlinePatternShaderName = "FillOutlinePatternShader";
-#if MLN_TRIANGULATE_FILL_OUTLINES
+#if MH_TRIANGULATE_FILL_OUTLINES
 constexpr auto FillOutlineTriangulatedShaderName = "FillOutlineTriangulatedShader";
 #endif
 
@@ -138,7 +138,7 @@ void RenderFillLayer::update(gfx::ShaderRegistry& shaders,
     }
     auto* fillTileLayerGroup = static_cast<TileLayerGroup*>(layerGroup.get());
 
-#if MLN_TRIANGULATE_FILL_OUTLINES
+#if MH_TRIANGULATE_FILL_OUTLINES
     if (!outlineTriangulatedShaderGroup) {
         outlineTriangulatedShaderGroup = shaders.getShaderGroup(std::string(FillOutlineTriangulatedShaderName));
     }
@@ -247,7 +247,7 @@ void RenderFillLayer::update(gfx::ShaderRegistry& shaders,
                                    gfx::AttributeDataType::Short2);
         }
 
-#if MLN_TRIANGULATE_FILL_OUTLINES
+#if MH_TRIANGULATE_FILL_OUTLINES
         const auto lineVertexCount = bucket.lineVertices.elements();
         const auto getTriangulatedAttributes = [&]() {
             auto attrs = context.createVertexAttributeArray();
@@ -295,7 +295,7 @@ void RenderFillLayer::update(gfx::ShaderRegistry& shaders,
                                                     bucket.basicLineSegments.data(),
                                                     bucket.basicLineSegments.size());
                     break;
-#if MLN_TRIANGULATE_FILL_OUTLINES
+#if MH_TRIANGULATE_FILL_OUTLINES
                 case FillVariant::FillOutlineTriangulated:
                     if (const auto updated = drawable.getAttributeUpdateTime();
                         !updated || bucket.lineVertices.getLastModified() > *updated) {
@@ -338,7 +338,7 @@ void RenderFillLayer::update(gfx::ShaderRegistry& shaders,
         // Outline does not default to fill in the pattern case
         const auto doOutline = evaluated.get<FillAntialias>() && (unevaluated.get<FillPattern>().isUndefined() ||
                                                                   unevaluated.get<FillOutlineColor>().isUndefined());
-#if MLN_TRIANGULATE_FILL_OUTLINES
+#if MH_TRIANGULATE_FILL_OUTLINES
         const bool dataDrivenOutline = !evaluated.get<FillOutlineColor>().isConstant() ||
                                        !evaluated.get<FillOpacity>().isConstant();
 #endif
@@ -351,7 +351,7 @@ void RenderFillLayer::update(gfx::ShaderRegistry& shaders,
             const auto fillShader = std::static_pointer_cast<gfx::ShaderProgramBase>(
                 fillShaderGroup->getOrCreateShader(context, propertiesAsUniforms));
 
-#if MLN_TRIANGULATE_FILL_OUTLINES
+#if MH_TRIANGULATE_FILL_OUTLINES
             const auto outlineTriangulatedShader = doOutline && !dataDrivenOutline ? [&]() -> auto {
                 static const StringIDSetsPair outlinePropertiesAsUniforms{
                     {"a_color", "a_opacity", "a_width"},
@@ -407,7 +407,7 @@ void RenderFillLayer::update(gfx::ShaderRegistry& shaders,
 
             if (fillBuilder && bucket.sharedTriangles->elements()) {
                 fillBuilder->setShader(fillShader);
-#if MLN_TRIANGULATE_FILL_OUTLINES
+#if MH_TRIANGULATE_FILL_OUTLINES
                 if (doOutline && dataDrivenOutline && outlineBuilder) {
                     outlineBuilder->setVertexAttributes(vertexAttrs);
                 }
@@ -426,7 +426,7 @@ void RenderFillLayer::update(gfx::ShaderRegistry& shaders,
                 finish(*fillBuilder, FillVariant::Fill);
             }
 
-#if MLN_TRIANGULATE_FILL_OUTLINES
+#if MH_TRIANGULATE_FILL_OUTLINES
             if (doOutline && outlineBuilder) {
                 if (!dataDrivenOutline) {
                     outlineBuilder->setSubLayerIndex(unevaluated.get<FillOutlineColor>().isUndefined() ? 2 : 0);

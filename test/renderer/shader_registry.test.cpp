@@ -22,7 +22,7 @@
 #include <mbgl/gfx/headless_frontend.hpp>
 #include <mbgl/test/map_adapter.hpp>
 
-#ifdef MLN_RENDER_BACKEND_OPENGL
+#ifdef MH_RENDER_BACKEND_OPENGL
 #include <mbgl/shaders/gl/legacy/clipping_mask_program.hpp>
 #endif
 
@@ -209,7 +209,7 @@ TEST(ShaderRegistry, NamedReplace) {
     ASSERT_NE(progA, progB);
 }
 
-#ifdef MLN_RENDER_BACKEND_OPENGL
+#ifdef MH_RENDER_BACKEND_OPENGL
 // Test replacing an actual program instance with a similar instance
 TEST(ShaderRegistry, DISABLED_GLSLReplacement_NoOp) {
     MapInstance::ShaderAndStyleObserver observer;
@@ -327,4 +327,4 @@ void main() {
     auto img = map.frontend.render(map.adapter).image;
     test::checkImage("test/fixtures/shader_registry/glsl_replace_2", img, 0.005, 0.1);
 }
-#endif // MLN_RENDER_BACKEND_OPENGL
+#endif // MH_RENDER_BACKEND_OPENGL

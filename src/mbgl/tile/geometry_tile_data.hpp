@@ -10,7 +10,7 @@
 #include <vector>
 
 namespace mlt {
-class MapLibreTile;
+class MapHeroTile;
 }
 namespace mbgl {
 
@@ -48,7 +48,7 @@ public:
     GeometryCollection clone() const { return GeometryCollection(*this); }
 
     const auto& getTriangles() const { return triangles; }
-    void setTriangles(std::shared_ptr<const mlt::MapLibreTile> owner, std::span<const std::uint32_t> triangles_) {
+    void setTriangles(std::shared_ptr<const mlt::MapHeroTile> owner, std::span<const std::uint32_t> triangles_) {
         triangleOwner = std::move(owner);
         triangles = triangles_;
     }
@@ -56,7 +56,7 @@ public:
 private:
     GeometryCollection(const GeometryCollection&) = default;
 
-    std::shared_ptr<const mlt::MapLibreTile> triangleOwner;
+    std::shared_ptr<const mlt::MapHeroTile> triangleOwner;
     std::span<const std::uint32_t> triangles = {};
 };
 

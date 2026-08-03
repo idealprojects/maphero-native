@@ -1,14 +1,14 @@
-import MapLibre
+import MapHero
 import SwiftUI
 
-struct MapLibreNavigationView: View {
+struct MapHeroNavigationView: View {
     var body: some View {
         NavigationStack {
             List {
                 NavigationLink("SimpleMap") {
                     SimpleMap().edgesIgnoringSafeArea(.all)
                 }
-                #if MLN_RENDER_BACKEND_METAL
+                #if MH_RENDER_BACKEND_METAL
                     NavigationLink("CustomStyleLayer (Metal)") {
                         CustomStyleLayerExample().edgesIgnoringSafeArea(.all)
                     }

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="MAPHERO_compassContentDescription">Žemėlapio kompasas. Spustelk, kad atstatytum žemėlapio pasukimą į šiaurę.</string>
+    <string name="MAPHERO_attributionsIconContentDescription">Įnašo ikona. Paspausk norėdamas pamatyti dialogą su detalėmis</string>
+    <string name="MAPHERO_myLocationViewContentDescription">Vartotojo vietos vaizdas. Nurodo tavo poziciją žemėlapyje</string>
+    <string name="MAPHERO_mapActionDescription">Rodomas MapHero kurtas žemėlapis. Naviguok tempdamas du pirštus. Valdyk žemėlapio pritraukimą suimdamas/atitolindamas du pirštus.</string>
+    <string name="MAPHERO_attributionsDialogTitle">MapHero Android</string>
+    <string name="MAPHERO_offline_error_region_definition_invalid">Pasirinktas OfflineRegionDefinition netalpa į rėžius:  %s</string>
+
+    </resources>

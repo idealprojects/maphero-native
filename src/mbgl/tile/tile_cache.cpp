@@ -8,7 +8,7 @@
 namespace mbgl {
 
 TileCache::~TileCache() {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     clear();
     pendingReleases.clear();
@@ -18,7 +18,7 @@ TileCache::~TileCache() {
 }
 
 void TileCache::setSize(size_t size_) {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     size = size_;
 
@@ -56,14 +56,14 @@ struct CaptureWrapper {
 } // namespace
 
 void TileCache::deferredRelease(std::unique_ptr<Tile>&& tile) {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     tile->cancel();
     pendingReleases.push_back(std::move(tile));
 }
 
 void TileCache::deferPendingReleases() {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     constexpr std::size_t scheduleThreshold = 1;
     if (pendingReleases.size() < scheduleThreshold) {
@@ -87,8 +87,8 @@ void TileCache::deferPendingReleases() {
     // by a waiting thread and is already complete, that temporary reference ends up being the
     // last one and the destruction actually occurs here on this thread.
     std::function<void()> func{[tile_{CaptureWrapper{std::move(wrap)}}, this]() mutable {
-        MLN_TRACE_ZONE(deferPendingReleases lambda);
-        MLN_ZONE_VALUE(tile_.items.size());
+        MH_TRACE_ZONE(deferPendingReleases lambda);
+        MH_ZONE_VALUE(tile_.items.size());
         tile_.items.clear();
 
         std::lock_guard<std::mutex> counterLock(deferredSignalLock);
@@ -100,7 +100,7 @@ void TileCache::deferPendingReleases() {
 }
 
 void TileCache::add(const OverscaledTileID& key, std::unique_ptr<Tile>&& tile) {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     if (!tile->isRenderable() || !size) {
         deferredRelease(std::move(tile));

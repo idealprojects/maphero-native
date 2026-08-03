@@ -6,7 +6,7 @@
 Figure 5 shows a simplified data flow diagram of initializing a map. The
 device section of this data flow diagram is based on Android platform.
 
-Before the map initialization request makes it to MapLibre Native
+Before the map initialization request makes it to MapHero Native
 Core, the request initializes a set of peer components in the platform
 or device runtime. Especially for Android, we have parts written in C++
 using *Android Native Development Kit* and parts written in Java.
@@ -25,13 +25,13 @@ the generic Map Component. For Android, this maintains the JNI method
 contract established from the Java runtime. The render thread this
 document talked about before is seen in the form of *MapRenderer*. This
 is an Actor that passes the rendering events from the device runtime to
-*MapLibre Native* renderer.
+*MapHero Native* renderer.
 
 ![](media/workflow-of-rendering-tiles.jpg)
 *Figure 6: Workflow of rendering tiles*
 
 Before the frame-by-frame map rendering
-starts with *MapLibre Native* renderer, the generic map component
+starts with *MapHero Native* renderer, the generic map component
 gets initialized. Rendering each frame of a map tile or initializing the
 map view requires a set of *Transforms.* Through transform basic
 mutations like rotation, tilt, projection is accomplished. Transforms
@@ -41,12 +41,12 @@ zoom, and movement. Each of these operations manifest into a set of
 *Transforms* that gets applied to the to-be-rendered map tile or already
 rendered map tile. The *Transform* class noted in the diagram however
 does not represent a single or multitude of transformations. A Map View
-like other components inside MapLibre works as a state machine. The
+like other components inside MapHero works as a state machine. The
 *Transform* class maintains the current set of global transforms applied
 to the map. To simplify to change the camera orientation, zoom, or pitch
 a Map View will update the state of the Transform class. And the
 Transform class will use observers to send a transform event to
-*MapLibre Native* renderer. This overall transform directive, such as
+*MapHero Native* renderer. This overall transform directive, such as
 change camera location from point A to point B will translate to a set
 of transformations deduced by the *Renderer* component.
 
@@ -66,14 +66,14 @@ actors.
 
 The key philosophy of rendering tiles is tiles are rendered layer by
 layer. A collection of tiles is called a tile set. To optimize tile
-rendering, MapLibre Native only renders *dirty* tiles. A dirty tile
+rendering, MapHero Native only renders *dirty* tiles. A dirty tile
 is a tile rendered in the viewport that has changed due to user
-interaction. To initiate this process, MapLibre Native loads the
+interaction. To initiate this process, MapHero Native loads the
 tileset to be rendered first. In a rendering request, if the tileset is
-already loaded, MapLibre Native will use a cached tile set.
+already loaded, MapHero Native will use a cached tile set.
 
 The next decision to make here is which tiles are to be rendered on the
-viewport. To deduce this, MapLibre Native translates the device
+viewport. To deduce this, MapHero Native translates the device
 viewport coordinates[^20] to a tile cover. A tile cover loads all the
 tiles that will rendered to current viewport. If the viewport already
 has all the tiles that is needed to be rendered by the deduced tile

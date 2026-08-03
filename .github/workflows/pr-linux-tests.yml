@@ -8,7 +8,7 @@ on:
       - completed
 env:
   download_url: https://maplibre-native.s3.eu-central-1.amazonaws.com
-  legacy_maplibre_sha: d38709084a9865fe0bb8300aec70ebf8243b3d43
+  legacy_MAPHERO_sha: d38709084a9865fe0bb8300aec70ebf8243b3d43
   bloaty_sha: 8be8b448550b37c978e8defd9d421c0464c52cc7
 
 permissions:
@@ -65,7 +65,7 @@ jobs:
 
       - name: Download mbgl-render-legacy
         id: download-mbgl-render-legacy
-        run: wget -O mbgl-render-legacy "${download_url}/mbgl-render-${legacy_maplibre_sha}"
+        run: wget -O mbgl-render-legacy "${download_url}/mbgl-render-${legacy_MAPHERO_sha}"
         continue-on-error: true
 
       - name: Cache Bloaty
@@ -120,7 +120,7 @@ jobs:
           report_path=bloaty-results/pr-${{ steps.get-pr-number.outputs.pr-number }}-compared-to-legacy.txt
           aws s3 cp tlus_diff_legacy.txt s3://maplibre-native/"$report_path"
           {
-            echo "Compared to $legacy_maplibre_sha (legacy)"
+            echo "Compared to $legacy_MAPHERO_sha (legacy)"
             echo '```'
             awk 'NR <= 2; END { print }' tlus_diff_legacy.txt
             echo '```'

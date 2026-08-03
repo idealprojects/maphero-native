@@ -774,7 +774,7 @@ for OUTPUT in ${LIST[@]} ; do
     if [ ! -f "${OUTPUT}" ] ; then
         mkdir -p "`dirname "${OUTPUT}"`"
         echo "Downloading tile '${OUTPUT}'"
-        echo "https://api.maptiler.com/${OUTPUT}?key=${MLN_API_KEY}"
-        curl -H "Accept-Encoding: gzip" -# "https://api.maptiler.com/${OUTPUT}?key=${MLN_API_KEY}" | gunzip > "${OUTPUT}"
+        echo "https://api.maptiler.com/${OUTPUT}?key=${MH_API_KEY}"
+        curl -H "Accept-Encoding: gzip" -# "https://api.maptiler.com/${OUTPUT}?key=${MH_API_KEY}" | gunzip > "${OUTPUT}"
     fi
 done

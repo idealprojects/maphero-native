@@ -24,7 +24,7 @@ if(TARGET mbgl-vendor-dawn)
     )
 endif()
 
-if(MLN_DARWIN_USE_LIBUV)
+if(MH_DARWIN_USE_LIBUV)
     find_package(PkgConfig REQUIRED)
     pkg_check_modules(LIBUV REQUIRED IMPORTED_TARGET libuv)
 
@@ -37,13 +37,13 @@ endif()
 target_sources(
     mbgl-core
     PRIVATE
-        $<$<BOOL:${MLN_DARWIN_USE_LIBUV}>:
+        $<$<BOOL:${MH_DARWIN_USE_LIBUV}>:
             ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/util/async_task.cpp
             ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/util/run_loop.cpp
             ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/util/timer.cpp
         >
 
-        $<$<NOT:$<BOOL:${MLN_DARWIN_USE_LIBUV}>>:
+        $<$<NOT:$<BOOL:${MH_DARWIN_USE_LIBUV}>>:
             ${PROJECT_SOURCE_DIR}/platform/darwin/core/async_task.cpp
             ${PROJECT_SOURCE_DIR}/platform/darwin/core/run_loop.cpp
             ${PROJECT_SOURCE_DIR}/platform/darwin/core/timer.cpp
@@ -75,7 +75,7 @@ target_sources(
         ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/storage/offline_database.cpp
         ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/storage/offline_download.cpp
         ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/storage/online_file_source.cpp
-        ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/storage/$<IF:$<BOOL:${MLN_WITH_PMTILES}>,pmtiles_file_source.cpp,pmtiles_file_source_stub.cpp>
+        ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/storage/$<IF:$<BOOL:${MH_WITH_PMTILES}>,pmtiles_file_source.cpp,pmtiles_file_source_stub.cpp>
         ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/storage/sqlite3.cpp
         ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/text/bidi.cpp
         ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/util/compression.cpp
@@ -95,7 +95,7 @@ target_include_directories(
         ${PROJECT_SOURCE_DIR}/platform/darwin/src ${PROJECT_SOURCE_DIR}/platform/macos/src
 )
 
-if(MLN_WITH_METAL)
+if(MH_WITH_METAL)
     target_sources(
         mbgl-core
         PRIVATE
@@ -108,65 +108,65 @@ include(${PROJECT_SOURCE_DIR}/vendor/icu.cmake)
 set(CMAKE_OBJC_FLAGS "-fobjc-arc")
 set(CMAKE_OBJCXX_FLAGS "-fobjc-arc")
 
-set(MLN_GENERATED_DARWIN_CODE_DIR
+set(MH_GENERATED_DARWIN_CODE_DIR
     ${CMAKE_BINARY_DIR}/generated-darwin-code/src
 )
 
-set(MLN_GENERATED_DARWIN_STYLE_SOURCE
-    "${MLN_GENERATED_DARWIN_CODE_DIR}/MLNLight.mm"
-    "${MLN_GENERATED_DARWIN_CODE_DIR}/MLNBackgroundStyleLayer.mm"
-    "${MLN_GENERATED_DARWIN_CODE_DIR}/MLNCircleStyleLayer.mm"
-    "${MLN_GENERATED_DARWIN_CODE_DIR}/MLNFillExtrusionStyleLayer.mm"
-    "${MLN_GENERATED_DARWIN_CODE_DIR}/MLNFillStyleLayer.mm"
-    "${MLN_GENERATED_DARWIN_CODE_DIR}/MLNHeatmapStyleLayer.mm"
-    "${MLN_GENERATED_DARWIN_CODE_DIR}/MLNHillshadeStyleLayer.mm"
-    "${MLN_GENERATED_DARWIN_CODE_DIR}/MLNLineStyleLayer.mm"
-    "${MLN_GENERATED_DARWIN_CODE_DIR}/MLNRasterStyleLayer.mm"
-    "${MLN_GENERATED_DARWIN_CODE_DIR}/MLNSymbolStyleLayer.mm"
+set(MH_GENERATED_DARWIN_STYLE_SOURCE
+    "${MH_GENERATED_DARWIN_CODE_DIR}/MHLight.mm"
+    "${MH_GENERATED_DARWIN_CODE_DIR}/MHBackgroundStyleLayer.mm"
+    "${MH_GENERATED_DARWIN_CODE_DIR}/MHCircleStyleLayer.mm"
+    "${MH_GENERATED_DARWIN_CODE_DIR}/MHFillExtrusionStyleLayer.mm"
+    "${MH_GENERATED_DARWIN_CODE_DIR}/MHFillStyleLayer.mm"
+    "${MH_GENERATED_DARWIN_CODE_DIR}/MHHeatmapStyleLayer.mm"
+    "${MH_GENERATED_DARWIN_CODE_DIR}/MHHillshadeStyleLayer.mm"
+    "${MH_GENERATED_DARWIN_CODE_DIR}/MHLineStyleLayer.mm"
+    "${MH_GENERATED_DARWIN_CODE_DIR}/MHRasterStyleLayer.mm"
+    "${MH_GENERATED_DARWIN_CODE_DIR}/MHSymbolStyleLayer.mm"
 )
 
-set(MLN_GENERATED_DARWIN_STYLE_PUBLIC_HEADERS
-    "${MLN_GENERATED_DARWIN_CODE_DIR}/MLNBackgroundStyleLayer.h"
-    "${MLN_GENERATED_DARWIN_CODE_DIR}/MLNFillExtrusionStyleLayer.h"
-    "${MLN_GENERATED_DARWIN_CODE_DIR}/MLNHeatmapStyleLayer.h"
-    "${MLN_GENERATED_DARWIN_CODE_DIR}/MLNLight.h"
-    "${MLN_GENERATED_DARWIN_CODE_DIR}/MLNLineStyleLayer.h"
-    "${MLN_GENERATED_DARWIN_CODE_DIR}/MLNSymbolStyleLayer.h"
-    "${MLN_GENERATED_DARWIN_CODE_DIR}/MLNCircleStyleLayer.h"
-    "${MLN_GENERATED_DARWIN_CODE_DIR}/MLNFillStyleLayer.h"
-    "${MLN_GENERATED_DARWIN_CODE_DIR}/MLNHillshadeStyleLayer.h"
-    "${MLN_GENERATED_DARWIN_CODE_DIR}/MLNRasterStyleLayer.h"
+set(MH_GENERATED_DARWIN_STYLE_PUBLIC_HEADERS
+    "${MH_GENERATED_DARWIN_CODE_DIR}/MHBackgroundStyleLayer.h"
+    "${MH_GENERATED_DARWIN_CODE_DIR}/MHFillExtrusionStyleLayer.h"
+    "${MH_GENERATED_DARWIN_CODE_DIR}/MHHeatmapStyleLayer.h"
+    "${MH_GENERATED_DARWIN_CODE_DIR}/MHLight.h"
+    "${MH_GENERATED_DARWIN_CODE_DIR}/MHLineStyleLayer.h"
+    "${MH_GENERATED_DARWIN_CODE_DIR}/MHSymbolStyleLayer.h"
+    "${MH_GENERATED_DARWIN_CODE_DIR}/MHCircleStyleLayer.h"
+    "${MH_GENERATED_DARWIN_CODE_DIR}/MHFillStyleLayer.h"
+    "${MH_GENERATED_DARWIN_CODE_DIR}/MHHillshadeStyleLayer.h"
+    "${MH_GENERATED_DARWIN_CODE_DIR}/MHRasterStyleLayer.h"
 )
 
-set(MLN_GENERATED_DARWIN_STYLE_HEADERS
-    "${MLN_GENERATED_DARWIN_CODE_DIR}/MLNRasterStyleLayer_Private.h"
-    "${MLN_GENERATED_DARWIN_CODE_DIR}/MLNBackgroundStyleLayer_Private.h"
-    "${MLN_GENERATED_DARWIN_CODE_DIR}/MLNFillExtrusionStyleLayer_Private.h"
-    "${MLN_GENERATED_DARWIN_CODE_DIR}/MLNHeatmapStyleLayer_Private.h"
-    "${MLN_GENERATED_DARWIN_CODE_DIR}/MLNLineStyleLayer_Private.h"
-    "${MLN_GENERATED_DARWIN_CODE_DIR}/MLNSymbolStyleLayer_Private.h"
-    "${MLN_GENERATED_DARWIN_CODE_DIR}/MLNCircleStyleLayer_Private.h"
-    "${MLN_GENERATED_DARWIN_CODE_DIR}/MLNFillStyleLayer_Private.h"
-    "${MLN_GENERATED_DARWIN_CODE_DIR}/MLNHillshadeStyleLayer_Private.h"
-    ${MLN_GENERATED_DARWIN_STYLE_PUBLIC_HEADERS}
+set(MH_GENERATED_DARWIN_STYLE_HEADERS
+    "${MH_GENERATED_DARWIN_CODE_DIR}/MHRasterStyleLayer_Private.h"
+    "${MH_GENERATED_DARWIN_CODE_DIR}/MHBackgroundStyleLayer_Private.h"
+    "${MH_GENERATED_DARWIN_CODE_DIR}/MHFillExtrusionStyleLayer_Private.h"
+    "${MH_GENERATED_DARWIN_CODE_DIR}/MHHeatmapStyleLayer_Private.h"
+    "${MH_GENERATED_DARWIN_CODE_DIR}/MHLineStyleLayer_Private.h"
+    "${MH_GENERATED_DARWIN_CODE_DIR}/MHSymbolStyleLayer_Private.h"
+    "${MH_GENERATED_DARWIN_CODE_DIR}/MHCircleStyleLayer_Private.h"
+    "${MH_GENERATED_DARWIN_CODE_DIR}/MHFillStyleLayer_Private.h"
+    "${MH_GENERATED_DARWIN_CODE_DIR}/MHHillshadeStyleLayer_Private.h"
+    ${MH_GENERATED_DARWIN_STYLE_PUBLIC_HEADERS}
 )
 
 find_program(BAZEL bazel REQUIRED)
 
 add_custom_command(
-    OUTPUT ${MLN_GENERATED_DARWIN_STYLE_SOURCE} ${MLN_GENERATED_DARWIN_STYLE_HEADERS}
+    OUTPUT ${MH_GENERATED_DARWIN_STYLE_SOURCE} ${MH_GENERATED_DARWIN_STYLE_HEADERS}
     COMMAND ${CMAKE_COMMAND} -E rm -Rf
         "${PROJECT_SOURCE_DIR}/bazel-bin/platform/darwin/src"
     COMMAND ${BAZEL} build //platform/darwin:generated_code
     COMMAND ${CMAKE_COMMAND} -E copy_directory
         "${PROJECT_SOURCE_DIR}/bazel-bin/platform/darwin/src"
-        ${MLN_GENERATED_DARWIN_CODE_DIR}
+        ${MH_GENERATED_DARWIN_CODE_DIR}
     COMMENT "Generating Darwin style source and header files"
     VERBATIM
 )
 
 add_custom_target(mbgl-darwin-style-code
-    DEPENDS ${MLN_GENERATED_DARWIN_STYLE_SOURCE} ${MLN_GENERATED_DARWIN_STYLE_HEADERS}
+    DEPENDS ${MH_GENERATED_DARWIN_STYLE_SOURCE} ${MH_GENERATED_DARWIN_STYLE_HEADERS}
 )
 
 add_library(

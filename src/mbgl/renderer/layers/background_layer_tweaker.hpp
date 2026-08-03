@@ -28,7 +28,7 @@ public:
     void execute(LayerGroupBase&, const PaintParameters&) override;
 
 protected:
-#if MLN_UBO_CONSOLIDATION
+#if MH_UBO_CONSOLIDATION
     gfx::UniformBufferPtr drawableUniformBuffer;
 #endif
 };

@@ -22,7 +22,7 @@ add_library(
     ${PROJECT_SOURCE_DIR}/test/renderer/image_manager.test.cpp
     ${PROJECT_SOURCE_DIR}/test/renderer/pattern_atlas.test.cpp
     ${PROJECT_SOURCE_DIR}/test/renderer/shader_registry.test.cpp
-    $<$<BOOL:${MLN_WITH_WEBGPU}>:${PROJECT_SOURCE_DIR}/test/renderer/wgsl_preprocessor.test.cpp>
+    $<$<BOOL:${MH_WITH_WEBGPU}>:${PROJECT_SOURCE_DIR}/test/renderer/wgsl_preprocessor.test.cpp>
     ${PROJECT_SOURCE_DIR}/test/sprite/sprite_loader.test.cpp
     ${PROJECT_SOURCE_DIR}/test/sprite/sprite_parser.test.cpp
     ${PROJECT_SOURCE_DIR}/test/src/mbgl/test/fixture_log_observer.cpp
@@ -126,7 +126,7 @@ add_library(
 # MapSnapshotter uses headless backend that is rendering image on a background thread. QT / macOS adaptation for headless backend creates
 # new window and updates it's parameters, which is not allowed since macOS mohave 10.14. Following block disables snapshotter unit tests for
 # QT on macOS. https://github.com/mapbox/mapbox-gl-native/issues/16267
-if(NOT (MLN_WITH_QT AND CMAKE_SYSTEM_NAME STREQUAL Darwin))
+if(NOT (MH_WITH_QT AND CMAKE_SYSTEM_NAME STREQUAL Darwin))
     target_sources(
         mbgl-test
         PRIVATE
@@ -134,7 +134,7 @@ if(NOT (MLN_WITH_QT AND CMAKE_SYSTEM_NAME STREQUAL Darwin))
     )
 endif()
 
-if(MLN_WITH_OPENGL)
+if(MH_WITH_OPENGL)
     target_sources(
         mbgl-test
         PRIVATE
@@ -152,7 +152,7 @@ if(MLN_WITH_OPENGL)
 endif()
 
 
-if(MLN_WITH_VULKAN)
+if(MH_WITH_VULKAN)
     target_sources(
         mbgl-test
         PRIVATE
@@ -166,9 +166,9 @@ endif()
 if(CMAKE_SYSTEM_NAME STREQUAL Android)
     message("Target platform does not support HTTP tests or dependencies not found.")
 
-    set(MLN_TEST_HAS_TEST_SERVER 0)
+    set(MH_TEST_HAS_TEST_SERVER 0)
 else()
-    set(MLN_TEST_HAS_TEST_SERVER 1)
+    set(MH_TEST_HAS_TEST_SERVER 1)
     target_sources(
         mbgl-test
         PRIVATE ${PROJECT_SOURCE_DIR}/test/src/mbgl/test/http_server.cpp
@@ -188,14 +188,14 @@ else()
 endif()
 
 if(NOT DEFINED ENV{CI})
-    set(MLN_TEST_BUILD_ON_CI 0)
+    set(MH_TEST_BUILD_ON_CI 0)
 else()
-    set(MLN_TEST_BUILD_ON_CI 1)
+    set(MH_TEST_BUILD_ON_CI 1)
 endif()
 
 target_compile_definitions(
     mbgl-test
-    PRIVATE TEST_HAS_SERVER=${MLN_TEST_HAS_TEST_SERVER} CI_BUILD=${MLN_TEST_BUILD_ON_CI}
+    PRIVATE TEST_HAS_SERVER=${MH_TEST_HAS_TEST_SERVER} CI_BUILD=${MH_TEST_BUILD_ON_CI}
 )
 
 target_include_directories(
@@ -222,14 +222,14 @@ if(CMAKE_SYSTEM_NAME STREQUAL Darwin)
 endif()
 
 # Needed for testing private classes
-get_target_property(MLN_CORE_PRIVATE_LIBRARIES mbgl-core LINK_LIBRARIES)
+get_target_property(MH_CORE_PRIVATE_LIBRARIES mbgl-core LINK_LIBRARIES)
 
 target_link_libraries(
     mbgl-test
     PRIVATE
-        ${MLN_CORE_PRIVATE_LIBRARIES}
+        ${MH_CORE_PRIVATE_LIBRARIES}
         mbgl-vendor-args
-        MapLibreNative::Base::pixelmatch-cpp
+        MapHeroNative::Base::pixelmatch-cpp
         mbgl-compiler-options
         mbgl-vendor-cpp-httplib
     PUBLIC mbgl-core
@@ -248,13 +248,13 @@ if(WIN32)
     )
 endif()
 
-set_property(TARGET mbgl-test PROPERTY FOLDER MapLibre)
+set_property(TARGET mbgl-test PROPERTY FOLDER MapHero)
 
-if (MLN_WITH_CLANG_TIDY)
+if (MH_WITH_CLANG_TIDY)
     set_target_properties(mbgl-test PROPERTIES CXX_CLANG_TIDY "${CLANG_TIDY_COMMAND}")
 endif()
 
-if (WIN32 OR CMAKE_SYSTEM_NAME STREQUAL Linux OR MLN_WITH_WEBGPU)
+if (WIN32 OR CMAKE_SYSTEM_NAME STREQUAL Linux OR MH_WITH_WEBGPU)
     target_compile_definitions(
         mbgl-test
         PRIVATE USE_CPP_TEST_SERVER

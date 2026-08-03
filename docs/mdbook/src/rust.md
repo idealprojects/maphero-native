@@ -28,7 +28,7 @@ You also need to have cxxbridge installed:
 cargo install cxxbridge-cmd@1.0.157 --locked
 ```
 
-Set `-DMLN_USE_RUST=ON` when generating a configuration with CMake.
+Set `-DMH_USE_RUST=ON` when generating a configuration with CMake.
 
 ### Bazel
 
@@ -61,7 +61,7 @@ To create a new module:
     ```
 4. Conditionally include either the `*.rs.cpp` file or the `*.cpp` file it replaces in CMake and Bazel. Here is what it looks like for CMake:
     ```cmake
-    ${PROJECT_SOURCE_DIR}/src/mbgl/util/color$<IF:$<BOOL:${MLN_USE_RUST}>,.rs.cpp,.cpp>
+    ${PROJECT_SOURCE_DIR}/src/mbgl/util/color$<IF:$<BOOL:${MH_USE_RUST}>,.rs.cpp,.cpp>
     ```
     And here for Bazel:
     ```bazel

@@ -1,4 +1,4 @@
-# MapLibre Native Documentation
+# MapHero Native Documentation
 
 [Introduction](./introduction.md)
 
@@ -32,7 +32,7 @@
   - [Android Map Rendering Data Flow](design/android-map-rendering-data-flow.md)
   - [Geometry Tile Worker](design/geometry-tile-worker.md)
 
-- [Profiling applications that use MapLibre Native](./profiling/README.md)
+- [Profiling applications that use MapHero Native](./profiling/README.md)
   - [Tracy profiling](./profiling/tracy-profiling.md)
 
 - [Rust](./rust.md)

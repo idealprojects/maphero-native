@@ -73,7 +73,7 @@ void BackgroundLayerTweaker::execute(LayerGroupBase& layerGroup, const PaintPara
         layerUniforms.createOrUpdate(idBackgroundPropsUBO, &propsUBO, context);
     }
 
-#if MLN_UBO_CONSOLIDATION
+#if MH_UBO_CONSOLIDATION
     int i = 0;
     std::vector<BackgroundDrawableUnionUBO> drawableUBOVector(layerGroup.getDrawableCount());
 #endif
@@ -92,7 +92,7 @@ void BackgroundLayerTweaker::execute(LayerGroupBase& layerGroup, const PaintPara
         const auto matrix = getTileMatrix(
             tileID, parameters, {0.f, 0.f}, TranslateAnchorType::Viewport, false, false, drawable);
 
-#if !MLN_UBO_CONSOLIDATION
+#if !MH_UBO_CONSOLIDATION
         auto& drawableUniforms = drawable.mutableUniformBuffers();
 #endif
 
@@ -111,7 +111,7 @@ void BackgroundLayerTweaker::execute(LayerGroupBase& layerGroup, const PaintPara
             const int32_t pixelY = tileSizeAtNearestZoom * tileID.canonical.y;
             const auto pixToTile = tileID.pixelsToTileUnits(1.0f, state.getIntegerZoom());
 
-#if MLN_UBO_CONSOLIDATION
+#if MH_UBO_CONSOLIDATION
             drawableUBOVector[i].backgroundPatternDrawableUBO = {
 #else
             const BackgroundPatternDrawableUBO drawableUBO = {
@@ -124,29 +124,29 @@ void BackgroundLayerTweaker::execute(LayerGroupBase& layerGroup, const PaintPara
                 .pad2 = 0,
                 .pad3 = 0
             };
-#if !MLN_UBO_CONSOLIDATION
+#if !MH_UBO_CONSOLIDATION
             drawableUniforms.createOrUpdate(idBackgroundDrawableUBO, &drawableUBO, context);
 #endif
         } else {
 
-#if MLN_UBO_CONSOLIDATION
+#if MH_UBO_CONSOLIDATION
             drawableUBOVector[i].backgroundDrawableUBO = {
 #else
             const BackgroundDrawableUBO drawableUBO = {
 #endif
                 util::cast<float>(matrix)
             };
-#if !MLN_UBO_CONSOLIDATION
+#if !MH_UBO_CONSOLIDATION
             drawableUniforms.createOrUpdate(idBackgroundDrawableUBO, &drawableUBO, context);
 #endif
         }
 
-#if MLN_UBO_CONSOLIDATION
+#if MH_UBO_CONSOLIDATION
         drawable.setUBOIndex(i++);
 #endif
     });
 
-#if MLN_UBO_CONSOLIDATION
+#if MH_UBO_CONSOLIDATION
     const size_t drawableUBOVectorSize = sizeof(BackgroundDrawableUnionUBO) * drawableUBOVector.size();
     if (!drawableUniformBuffer || drawableUniformBuffer->getSize() < drawableUBOVectorSize) {
         drawableUniformBuffer = context.createUniformBuffer(

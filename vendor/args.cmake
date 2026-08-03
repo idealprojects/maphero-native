@@ -14,8 +14,8 @@ target_include_directories(
 set_target_properties(
     mbgl-vendor-args
     PROPERTIES
-        INTERFACE_MAPLIBRE_NAME "args"
-        INTERFACE_MAPLIBRE_URL "https://github.com/Taywee/args"
-        INTERFACE_MAPLIBRE_AUTHOR "Taylor C. Richberger"
-        INTERFACE_MAPLIBRE_LICENSE ${CMAKE_CURRENT_LIST_DIR}/args/LICENSE
+        INTERFACE_MAPHERO_NAME "args"
+        INTERFACE_MAPHERO_URL "https://github.com/Taywee/args"
+        INTERFACE_MAPHERO_AUTHOR "Taylor C. Richberger"
+        INTERFACE_MAPHERO_LICENSE ${CMAKE_CURRENT_LIST_DIR}/args/LICENSE
 )

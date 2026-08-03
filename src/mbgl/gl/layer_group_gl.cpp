@@ -20,8 +20,8 @@ TileLayerGroupGL::TileLayerGroupGL(int32_t layerIndex_, std::size_t initialCapac
     : TileLayerGroup(layerIndex_, initialCapacity, std::move(name_)) {}
 
 void TileLayerGroupGL::upload(gfx::UploadPass& uploadPass) {
-    MLN_TRACE_FUNC();
-    MLN_ZONE_STR(name);
+    MH_TRACE_FUNC();
+    MH_ZONE_STR(name);
 
     if (!enabled) {
         return;
@@ -52,7 +52,7 @@ void TileLayerGroupGL::render(RenderOrchestrator&, PaintParameters& parameters) 
         return;
     }
 
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     auto& context = static_cast<gl::Context&>(parameters.context);
 
@@ -65,7 +65,7 @@ void TileLayerGroupGL::render(RenderOrchestrator&, PaintParameters& parameters) 
     gfx::StencilMode stencilMode3d;
 
     if (getDrawableCount()) {
-        MLN_TRACE_ZONE(clip masks);
+        MH_TRACE_ZONE(clip masks);
 #if !defined(NDEBUG)
         const auto label_clip = getName() + (getName().empty() ? "" : "-") + "tile-clip-masks";
         const auto debugGroupClip = parameters.encoder->createDebugGroup(label_clip.c_str());

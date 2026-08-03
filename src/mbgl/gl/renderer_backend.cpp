@@ -22,7 +22,7 @@ RendererBackend::RendererBackend(const gfx::ContextMode contextMode_, const Tagg
     : gfx::RendererBackend(contextMode_, threadPool_) {}
 
 std::unique_ptr<gfx::Context> RendererBackend::createContext() {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     auto result = std::make_unique<gl::Context>(
         *this); // Tagged background thread pool will be owned by the RendererBackend
@@ -32,13 +32,13 @@ std::unique_ptr<gfx::Context> RendererBackend::createContext() {
 }
 
 PremultipliedImage RendererBackend::readFramebuffer(const Size& size) {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     return getContext<gl::Context>().readFramebuffer<PremultipliedImage>(size);
 }
 
 void RendererBackend::assumeFramebufferBinding(const gl::FramebufferID fbo) {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     getContext<gl::Context>().bindFramebuffer.setCurrentValue(fbo);
     if (fbo != ImplicitFramebufferBinding) {
@@ -47,27 +47,27 @@ void RendererBackend::assumeFramebufferBinding(const gl::FramebufferID fbo) {
 }
 
 void RendererBackend::assumeViewport(int32_t x, int32_t y, const Size& size) {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     getContext<gl::Context>().viewport.setCurrentValue({x, y, size});
     assert(gl::value::Viewport::Get() == getContext<gl::Context>().viewport.getCurrentValue());
 }
 
 void RendererBackend::assumeScissorTest(int32_t x, int32_t y, uint32_t width, uint32_t height) {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     getContext<gl::Context>().scissorTest.setCurrentValue({x, y, width, height});
     assert(gl::value::ScissorTest::Get() == getContext<gl::Context>().scissorTest.getCurrentValue());
 }
 
 bool RendererBackend::implicitFramebufferBound() {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     return getContext<gl::Context>().bindFramebuffer.getCurrentValue() == ImplicitFramebufferBinding;
 }
 
 void RendererBackend::setFramebufferBinding(const gl::FramebufferID fbo) {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     getContext<gl::Context>().bindFramebuffer = fbo;
     if (fbo != ImplicitFramebufferBinding) {
@@ -76,14 +76,14 @@ void RendererBackend::setFramebufferBinding(const gl::FramebufferID fbo) {
 }
 
 void RendererBackend::setViewport(int32_t x, int32_t y, const Size& size) {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     getContext<gl::Context>().viewport = {x, y, size};
     assert(gl::value::Viewport::Get() == getContext<gl::Context>().viewport.getCurrentValue());
 }
 
 void RendererBackend::setScissorTest(int32_t x, int32_t y, uint32_t width, uint32_t height) {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     getContext<gl::Context>().scissorTest = {x, y, width, height};
     assert(gl::value::ScissorTest::Get() == getContext<gl::Context>().scissorTest.getCurrentValue());
@@ -97,7 +97,7 @@ RendererBackend::~RendererBackend() = default;
 /// @param programParameters ProgramParameters used to initialize each instance
 template <shaders::BuiltIn... ShaderID>
 void registerTypes(gfx::ShaderRegistry& registry, const ProgramParameters& programParameters) {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     /// The following fold expression will create a shader for every type
     /// in the parameter pack and register it with the shader registry.
@@ -116,7 +116,7 @@ void registerTypes(gfx::ShaderRegistry& registry, const ProgramParameters& progr
 }
 
 void RendererBackend::initShaders(gfx::ShaderRegistry& shaders, const ProgramParameters& programParameters) {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     registerTypes<shaders::BuiltIn::BackgroundShader,
                   shaders::BuiltIn::BackgroundPatternShader,

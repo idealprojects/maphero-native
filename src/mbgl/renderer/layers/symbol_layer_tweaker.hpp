@@ -23,7 +23,7 @@ public:
 private:
     gfx::UniformBufferPtr evaluatedPropsUniformBuffer;
 
-#if MLN_UBO_CONSOLIDATION
+#if MH_UBO_CONSOLIDATION
     gfx::UniformBufferPtr drawableUniformBuffer;
     gfx::UniformBufferPtr tilePropsUniformBuffer;
 #endif

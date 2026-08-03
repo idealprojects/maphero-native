@@ -85,7 +85,7 @@ class HTTPFileSource::Impl {
 public:
     Impl(const ResourceOptions& resourceOptions_, const ClientOptions& clientOptions_)
         : resourceOptions(resourceOptions_.clone()), clientOptions(clientOptions_.clone()) {
-            NSURLSessionConfiguration *sessionConfig = MLNNativeNetworkManager.sharedManager.sessionConfiguration;
+            NSURLSessionConfiguration *sessionConfig = MHNativeNetworkManager.sharedManager.sessionConfiguration;
             session = [NSURLSession sessionWithConfiguration:sessionConfig];
 
             if (sessionConfig.HTTPAdditionalHeaders[@"User-Agent"] == nil) {
@@ -132,9 +132,14 @@ NSString *HTTPFileSource::Impl::getUserAgent() const {
 
     NSBundle *appBundle = [NSBundle mainBundle];
     if (appBundle) {
+        // Report the bundle identifier (e.g. "com.iMech.TRAX") as the app's identifier so backends
+        // can reliably attribute requests to a specific app, mirroring the Android SDK which sends
+        // the package id. Fall back to the app name only if the bundle identifier is unavailable.
+        NSString *bundleIdentifier = appBundle.infoDictionary[@"CFBundleIdentifier"];
         NSString *appName = appBundle.infoDictionary[@"CFBundleName"];
+        NSString *appIdentifier = bundleIdentifier.length ? bundleIdentifier : appName;
         [userAgentComponents addObject:[NSString stringWithFormat:@"%@/%@",
-                                        appName.length ? appName : appBundle.infoDictionary[@"CFBundleIdentifier"],
+                                        appIdentifier,
                                         appBundle.infoDictionary[@"CFBundleShortVersionString"]]];
     } else {
         [userAgentComponents addObject:[NSProcessInfo processInfo].processName];
@@ -151,7 +156,7 @@ NSString *HTTPFileSource::Impl::getUserAgent() const {
 
     // Avoid %s here because it inserts hidden bidirectional markers on macOS when the system
     // language is set to a right-to-left language.
-    [userAgentComponents addObject:[NSString stringWithFormat:@"MapLibreNative/0.0.0 (%@)",
+    [userAgentComponents addObject:[NSString stringWithFormat:@"MapHeroNative/0.0.0 (%@)",
                                     @(mbgl::version::revision)]];
 
     NSString *systemName = @"Darwin";
@@ -211,7 +216,7 @@ HTTPFileSource::HTTPFileSource(const ResourceOptions& resourceOptions, const Cli
 
 HTTPFileSource::~HTTPFileSource() = default;
 
-MLN_APPLE_EXPORT
+MH_APPLE_EXPORT
 BOOL isValidMapboxEndpoint(NSURL *url) {
     return ([url.host isEqualToString:@"mapbox.com"] ||
             [url.host hasSuffix:@".mapbox.com"] ||
@@ -219,7 +224,7 @@ BOOL isValidMapboxEndpoint(NSURL *url) {
             [url.host hasSuffix:@".mapbox.cn"]);
 }
 
-MLN_APPLE_EXPORT
+MH_APPLE_EXPORT
 NSURL *resourceURL(const Resource& resource) {
 
     NSURL *url = [NSURL URLWithString:@(resource.url.c_str())];
@@ -250,7 +255,7 @@ std::unique_ptr<AsyncRequest> HTTPFileSource::request(const Resource& resource, 
 
     @autoreleasepool {
         NSURL *url = resourceURL(resource);
-        [MLNNativeNetworkManager.sharedManager debugLog:@"Requesting URI: %@", url.relativePath];
+        [MHNativeNetworkManager.sharedManager debugLog:@"Requesting URI: %@", url.relativePath];
 
         NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url];
         if (resource.priorEtag) {
@@ -273,14 +278,14 @@ std::unique_ptr<AsyncRequest> HTTPFileSource::request(const Resource& resource, 
         const bool isTile = resource.kind == mbgl::Resource::Kind::Tile;
 
         if (isTile) {
-            [MLNNativeNetworkManager.sharedManager startDownloadEvent:url.relativePath type:@"tile"];
+            [MHNativeNetworkManager.sharedManager startDownloadEvent:url.relativePath type:@"tile"];
         }
 
         __block NSURLSession *session = nil;
 
         // Use the delegate's session if there is one, otherwise use the one that
         // was created when this class was constructed.
-        MLNNativeNetworkManager *networkManager = MLNNativeNetworkManager.sharedManager;
+        MHNativeNetworkManager *networkManager = MHNativeNetworkManager.sharedManager;
         if ([networkManager.delegate respondsToSelector:@selector(sessionForNetworkManager:)]) {
             session = [networkManager.delegate sessionForNetworkManager:networkManager];
         }
@@ -301,7 +306,7 @@ std::unique_ptr<AsyncRequest> HTTPFileSource::request(const Resource& resource, 
                 session = nil;
 
                 if ([networkManager.delegate respondsToSelector:@selector(didReceiveResponse:)]) {
-                    MLNInternalNetworkResponse *networkResponse = [MLNInternalNetworkResponse responseWithData:data urlResponse:res error:error];
+                    MHInternalNetworkResponse *networkResponse = [MHInternalNetworkResponse responseWithData:data urlResponse:res error:error];
                     networkResponse = [networkManager.delegate didReceiveResponse:networkResponse];
                     data = networkResponse.data;
                     res = networkResponse.response;
@@ -310,15 +315,15 @@ std::unique_ptr<AsyncRequest> HTTPFileSource::request(const Resource& resource, 
 
 
                 if (error && [error code] == NSURLErrorCancelled) {
-                    [MLNNativeNetworkManager.sharedManager cancelDownloadEventForResponse:res];
+                    [MHNativeNetworkManager.sharedManager cancelDownloadEventForResponse:res];
                     return;
                 }
-                [MLNNativeNetworkManager.sharedManager stopDownloadEventForResponse:res];
+                [MHNativeNetworkManager.sharedManager stopDownloadEventForResponse:res];
                 Response response;
                 using Error = Response::Error;
 
                 if (error) {
-                    [MLNNativeNetworkManager.sharedManager errorLog:@"Requesting: %@ failed with error: %@", req.URL, error.debugDescription];
+                    [MHNativeNetworkManager.sharedManager errorLog:@"Requesting: %@ failed with error: %@", req.URL, error.debugDescription];
 
                     if (data) {
                         response.data =
@@ -351,7 +356,7 @@ std::unique_ptr<AsyncRequest> HTTPFileSource::request(const Resource& resource, 
                     }
                 } else if ([res isKindOfClass:[NSHTTPURLResponse class]]) {
                     const long responseCode = [(NSHTTPURLResponse *)res statusCode];
-                    [MLNNativeNetworkManager.sharedManager debugLog:@"Requesting %@ returned responseCode: %lu", res.URL.relativePath, responseCode];
+                    [MHNativeNetworkManager.sharedManager debugLog:@"Requesting %@ returned responseCode: %lu", res.URL.relativePath, responseCode];
 
                     NSDictionary *headers = [(NSHTTPURLResponse *)res allHeaderFields];
                     NSString *cache_control = [headers objectForKey:@"Cache-Control"];

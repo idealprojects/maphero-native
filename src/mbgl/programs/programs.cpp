@@ -41,7 +41,7 @@ void registerTypes(gfx::ShaderRegistry& registry, const ProgramParameters& progr
 } // namespace
 
 void Programs::registerWith(gfx::ShaderRegistry& registry) {
-#if MLN_LEGACY_RENDERER
+#if MH_LEGACY_RENDERER
     /// The following types will be registered
     registerTypes<BackgroundProgram,
                   BackgroundPatternProgram,

@@ -9,6 +9,7 @@
 #include <mbgl/layermanager/hillshade_layer_factory.hpp>
 #include <mbgl/layermanager/line_layer_factory.hpp>
 #include <mbgl/layermanager/location_indicator_layer_factory.hpp>
+#include <mbgl/layermanager/model3d_layer_factory.hpp>
 #include <mbgl/layermanager/raster_layer_factory.hpp>
 #include <mbgl/layermanager/symbol_layer_factory.hpp>
 #include <mbgl/util/logging.hpp>
@@ -75,7 +76,7 @@ LayerManagerDefault::LayerManagerDefault() {
 #if !defined(MBGL_LAYER_HEATMAP_DISABLE_ALL)
     addLayerType(std::make_unique<HeatmapLayerFactory>());
 #endif
-#ifdef MLN_RENDER_BACKEND_OPENGL
+#ifdef MH_RENDER_BACKEND_OPENGL
 #if !defined(MBGL_LAYER_CUSTOM_DISABLE_ALL)
     addLayerType(std::make_unique<CustomLayerFactory>());
 #endif
@@ -83,9 +84,11 @@ LayerManagerDefault::LayerManagerDefault() {
 #if !defined(MBGL_LAYER_LOCATION_INDICATOR_DISABLE_ALL)
     addLayerType(std::make_unique<LocationIndicatorLayerFactory>());
 #endif
-#if !defined(MLN_LAYER_CUSTOM_DRAWABLE_DISABLE_ALL)
+#if !defined(MH_LAYER_CUSTOM_DRAWABLE_DISABLE_ALL)
     addLayerType(std::make_unique<CustomDrawableLayerFactory>());
 #endif
+    // glTF building models rendered in-map (GL + Metal; warns on other backends).
+    addLayerType(std::make_unique<Model3DLayerFactory>());
 }
 
 void LayerManagerDefault::addLayerType(std::unique_ptr<LayerFactory> factory) {

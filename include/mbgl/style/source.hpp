@@ -27,7 +27,7 @@ struct LayerTypeInfo;
 /**
  * The runtime representation of a
  * [source](https://maplibre.org/maplibre-style-spec/sources/) from
- * the MapLibre Style Specification.
+ * the MapHero Style Specification.
  *
  * `Source` is an abstract base class; concrete derived classes are provided for
  * each source type. `Source` contains functionality that is common to all layer

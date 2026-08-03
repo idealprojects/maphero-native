@@ -22,8 +22,8 @@ target_include_directories(
 set_target_properties(
     mbgl-vendor-rapidjson
     PROPERTIES
-        INTERFACE_MAPLIBRE_NAME "RapidJSON"
-        INTERFACE_MAPLIBRE_URL "https://rapidjson.org"
-        INTERFACE_MAPLIBRE_AUTHOR "THL A29 Limited, a Tencent company, and Milo Yip"
-        INTERFACE_MAPLIBRE_LICENSE ${CMAKE_CURRENT_LIST_DIR}/rapidjson/license.txt
+        INTERFACE_MAPHERO_NAME "RapidJSON"
+        INTERFACE_MAPHERO_URL "https://rapidjson.org"
+        INTERFACE_MAPHERO_AUTHOR "THL A29 Limited, a Tencent company, and Milo Yip"
+        INTERFACE_MAPHERO_LICENSE ${CMAKE_CURRENT_LIST_DIR}/rapidjson/license.txt
 )

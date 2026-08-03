@@ -82,12 +82,12 @@ npm install --ignore-scripts
 mkdir -p ${BINARY_DIRECTORY}
 
 step "Building XCFramework"
-bazel build //platform/ios:MapLibre.dynamic
+bazel build //platform/ios:MapHero.dynamic
 
 step "Copying Bazel output"
-BUILT_XCFRAMEWORK="$(bazel info execution_root)/$(bazel cquery --output=files //platform/ios:MapLibre.dynamic)"
-MAPLIBRE_ZIP_FILE="MapLibre-${PUBLISH_VERSION}.zip"
-cp "$BUILT_XCFRAMEWORK" "$MAPLIBRE_ZIP_FILE"
+BUILT_XCFRAMEWORK="$(bazel info execution_root)/$(bazel cquery --output=files //platform/ios:MapHero.dynamic)"
+MAPHERO_ZIP_FILE="MapHero-${PUBLISH_VERSION}.zip"
+cp "$BUILT_XCFRAMEWORK" "$MAPHERO_ZIP_FILE"
 
 step "Create GitHub release…"
 RELEASE_NOTES=$( ./scripts/release-notes.js github )
@@ -102,9 +102,9 @@ github-release release \
     --name "ios-v${PUBLISH_VERSION}" \
     --description "${RELEASE_NOTES}"
 
-step "Uploading ${BINARY_DIRECTORY}/${MAPLIBRE_ZIP_FILE} to github release [${VERSION_TAG}]"
-uploadToGithub "${BINARY_DIRECTORY}/${MAPLIBRE_ZIP_FILE}" "${VERSION_TAG}"
-MAPLIBRE_ZIP_FILE_URL=$EXT_TARGET_GITHUB_URL
+step "Uploading ${BINARY_DIRECTORY}/${MAPHERO_ZIP_FILE} to github release [${VERSION_TAG}]"
+uploadToGithub "${BINARY_DIRECTORY}/${MAPHERO_ZIP_FILE}" "${VERSION_TAG}"
+MAPHERO_ZIP_FILE_URL=$EXT_TARGET_GITHUB_URL
 
 step "Creating Swift package…"
 
@@ -125,7 +125,7 @@ setTarget() {
     sed -i '' -e 's|'"${token}_PACKAGE_CHECKSUM"'|'"${checksum}"'|g' Package.swift
 }
 
-setTarget "MAPLIBRE" "${BINARY_DIRECTORY}/${MAPLIBRE_ZIP_FILE}" "${MAPLIBRE_ZIP_FILE_URL}"
+setTarget "MAPLIBRE" "${BINARY_DIRECTORY}/${MAPHERO_ZIP_FILE}" "${MAPHERO_ZIP_FILE_URL}"
 
 step "Publishing Swift package…"
 
@@ -153,4 +153,4 @@ curl -v -X POST \
 
 step "Finished deploying ${PUBLISH_VERSION} in $(($SECONDS / 60)) minutes and $(($SECONDS % 60)) seconds"
 
-pod trunk push MapLibre.podspec
+pod trunk push MapHero.podspec

@@ -1,7 +1,7 @@
-site_name: MapLibre Android Examples
+site_name: MapHero Android Examples
 site_url: https://www.maplibre.org/maplibre-native/android/examples
 repo_url: https://github.com/maplibre/maplibre-native
-site_description: MapLibre Android Examples
+site_description: MapHero Android Examples
 edit_uri: edit/main/platform/android/docs
 copyright: Map data from <a href="https://openstreetmap.org/copyright">OpenStreetMap</a>
 exclude_docs: README.md

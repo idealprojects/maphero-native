@@ -1,16 +1,16 @@
 
-import MapLibre
+import MapHero
 import SwiftUI
 import UIKit
 
 // #-example-code(DDSCircleLayerExample)
-class DDSCircleLayerExample: UIViewController, MLNMapViewDelegate {
-    var mapView: MLNMapView!
+class DDSCircleLayerExample: UIViewController, MHMapViewDelegate {
+    var mapView: MHMapView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        mapView = MLNMapView(frame: view.bounds, styleURL: AMERICANA_STYLE)
+        mapView = MHMapView(frame: view.bounds, styleURL: AMERICANA_STYLE)
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         mapView.tintColor = .darkGray
 
@@ -24,12 +24,12 @@ class DDSCircleLayerExample: UIViewController, MLNMapViewDelegate {
     }
 
     // Wait until the style is loaded before modifying the map style.
-    func mapView(_: MLNMapView, didFinishLoading style: MLNStyle) {
-        let source = MLNVectorTileSource(identifier: "demotiles", configurationURL: URL(string: "https://demotiles.maplibre.org/tiles-omt/tiles.json")!)
+    func mapView(_: MHMapView, didFinishLoading style: MHStyle) {
+        let source = MHVectorTileSource(identifier: "demotiles", configurationURL: URL(string: "https://demotiles.maplibre.org/tiles-omt/tiles.json")!)
 
         style.addSource(source)
 
-        let layer = MLNCircleStyleLayer(identifier: "poi-shop-style", source: source)
+        let layer = MHCircleStyleLayer(identifier: "poi-shop-style", source: source)
 
         layer.sourceLayerIdentifier = "poi"
         layer.predicate = NSPredicate(format: "class == %@", "shop")

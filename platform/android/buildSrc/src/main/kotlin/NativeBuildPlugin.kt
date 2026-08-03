@@ -41,7 +41,7 @@ fun Project.nativeBuild(nativeTargets: List<String>) =
         if (abi != "none") {
             externalNativeBuild {
                 cmake {
-                    path = file("../MapLibreAndroid/src/cpp/CMakeLists.txt")
+                    path = file("../MapHeroAndroid/src/cpp/CMakeLists.txt")
                     version = Versions.cmakeVersion
                 }
             }

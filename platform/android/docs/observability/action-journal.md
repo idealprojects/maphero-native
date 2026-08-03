@@ -4,7 +4,7 @@
 
 The Action Journal provides functionality for persistent logging of top level map events.
 
-<!-- NOTE: keep this text in sync with platform/ios/MapLibre.docc/ActionJournalExample.md -->
+<!-- NOTE: keep this text in sync with platform/ios/MapHero.docc/ActionJournalExample.md -->
 
 Its primary use case is to assist in debugging problematic sessions and crashes by offering additional insight into the actions performed by the map at the time of failure. Data is stored in human readable format, which is useful for analyzing individual cases, but can also be easily translated and aggregated into a database, allowing for efficient analysis of multiple cases and helping to identify recurring patterns (Google BigQuery, AWS Glue + S3 + Athena, etc).
 
@@ -15,23 +15,23 @@ We are always interested in improving observability, so if you have a special us
 You can enable the action journal either through XML:
 
 ```xml
---8<-- "MapLibreAndroidTestApp/src/main/res/layout/activity_map_events.xml:MapView"
+--8<-- "MapHeroAndroidTestApp/src/main/res/layout/activity_map_events.xml:MapView"
 ```
 
-Or by passing the corresponding options with `MapLibreMapOptions` to `MapView`. For more information see [Configuration](../configuration.md).
+Or by passing the corresponding options with `MapHeroMapOptions` to `MapView`. For more information see [Configuration](../configuration.md).
 
 ## Logging implementation details
 
 The logging is implemented using rolling files with a size based policy:
 
-- A new file is created when the current log size exceeds `MapLibreMapOptions.actionJournalLogFileSize`.
-- When the maximum number of files exceeds `MapLibreMapOptions.actionJournalLogFileCount`:
+- A new file is created when the current log size exceeds `MapHeroMapOptions.actionJournalLogFileSize`.
+- When the maximum number of files exceeds `MapHeroMapOptions.actionJournalLogFileCount`:
     - The oldest one is deleted.
     - The remaining files are renamed sequentially to maintain the naming convention `action_journal.0.log` through `action_journal.{logFileCount - 1}.log`.
 - Each file contains one event per line.
-- All files are stored in an umbrella `action_journal` directory at `MapLibreMapOptions.actionJournalPath`.
+- All files are stored in an umbrella `action_journal` directory at `MapHeroMapOptions.actionJournalPath`.
 
-See also: `MapLibreMap`, `MapLibreMapOptions`.
+See also: `MapHeroMap`, `MapHeroMapOptions`.
 
 ## Event format
 
@@ -45,7 +45,7 @@ Events are stored as JSON objects with the following format:
 | styleURL | string | false | currently loaded style URL |
 | clientName | string | false | |
 | clientVersion | string | false | |
-| event | object | false | event specific data - consists of encoded values of the parameters passed to their `MLNMapViewDelegate` counterparts
+| event | object | false | event specific data - consists of encoded values of the parameters passed to their `MHMapViewDelegate` counterparts
 
 
 ```
@@ -70,7 +70,7 @@ Events are stored as JSON objects with the following format:
 ## Usage
 
 ```kotlin
---8<-- "MapLibreAndroidTestApp/src/main/java/org/maplibre/android/testapp/activity/events/ObserverActivity.kt:printActionJournal"
+--8<-- "MapHeroAndroidTestApp/src/main/java/org/maphero/android/testapp/activity/events/ObserverActivity.kt:printActionJournal"
 ```
 
 ## Alternative

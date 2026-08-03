@@ -67,7 +67,7 @@ void DescriptorSet::createDescriptorPool(DescriptorPoolGrowable& growablePool) {
 };
 
 void DescriptorSet::allocate() {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     if (!descriptorSets.empty()) {
         return;
@@ -129,7 +129,7 @@ void DescriptorSet::markDirty() {
 }
 
 void DescriptorSet::bind(CommandEncoder& encoder) {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
     const auto& backend = encoder.getContext().getBackend();
     auto& commandBuffer = encoder.getCommandBuffer();
 
@@ -150,7 +150,7 @@ void UniformDescriptorSet::update(const gfx::UniformBufferArray& uniforms,
                                   uint32_t descriptorStartIndex,
                                   uint32_t descriptorStorageCount,
                                   uint32_t descriptorUniformCount) {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     allocate();
 
@@ -203,7 +203,7 @@ void ImageDescriptorSet::markDirty() {
 }
 
 void ImageDescriptorSet::update(const std::array<gfx::Texture2DPtr, shaders::maxTextureCountPerShader>& textures) {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
     allocate();
 
     const uint8_t frameIndex = context.getCurrentFrameResourceIndex();

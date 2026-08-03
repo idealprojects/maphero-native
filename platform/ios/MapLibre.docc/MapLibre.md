@@ -1,4 +1,4 @@
-# ``MapLibre``
+# ``MapHero``
 
 @Metadata {
     @Available(iOS, introduced: "12.0")
@@ -12,8 +12,8 @@ Powerful, free and open-source mapping toolkit with full control over data sourc
 
 ## Overview
 
-[MapLibre Native](https://github.com/maplibre/maplibre-native) is a map rendering toolkit with support for iOS. It can be used as an alternative to MapKit. You have full control over the data sources used for rendering the map, as well as the styling. You can even participate in the development as MapLibre Native is free and open-source project.
-> Note: For information on creating and modifying map styles, see the [MapLibre Style Spec documentation](https://maplibre.org/maplibre-style-spec/).
+[MapHero Native](https://github.com/maplibre/maplibre-native) is a map rendering toolkit with support for iOS. It can be used as an alternative to MapKit. You have full control over the data sources used for rendering the map, as well as the styling. You can even participate in the development as MapHero Native is free and open-source project.
+> Note: For information on creating and modifying map styles, see the [MapHero Style Spec documentation](https://maplibre.org/maplibre-style-spec/).
 
 ## Topics
 
@@ -72,73 +72,73 @@ Powerful, free and open-source mapping toolkit with full control over data sourc
 
 ### Map
 
-- ``MLNSettings``
-- ``MLNMapCamera``
-- ``MLNMapViewDelegate``
-- ``MLNMapView``
-- ``MLNUserTrackingMode``
+- ``MHSettings``
+- ``MHMapCamera``
+- ``MHMapViewDelegate``
+- ``MHMapView``
+- ``MHUserTrackingMode``
 
 ### Style Layers
 
-- ``MLNBackgroundStyleLayer``
-- ``MLNCircleStyleLayer``
-- ``MLNFillExtrusionStyleLayer``
-- ``MLNFillStyleLayer``
-- ``MLNForegroundStyleLayer``
-- ``MLNHeatmapStyleLayer``
-- ``MLNHillshadeStyleLayer``
-- ``MLNLineStyleLayer``
-- ``MLNRasterStyleLayer``
-- ``MLNStyleLayer``
-- ``MLNSymbolStyleLayer``
-- ``MLNVectorStyleLayer``
+- ``MHBackgroundStyleLayer``
+- ``MHCircleStyleLayer``
+- ``MHFillExtrusionStyleLayer``
+- ``MHFillStyleLayer``
+- ``MHForegroundStyleLayer``
+- ``MHHeatmapStyleLayer``
+- ``MHHillshadeStyleLayer``
+- ``MHLineStyleLayer``
+- ``MHRasterStyleLayer``
+- ``MHStyleLayer``
+- ``MHSymbolStyleLayer``
+- ``MHVectorStyleLayer``
 
 ### Sources
 
-- ``MLNComputedShapeSource``
-- ``MLNImageSource``
-- ``MLNRasterDEMSource``
-- ``MLNRasterTileSource``
-- ``MLNShapeSource``
-- ``MLNSource``
-- ``MLNTileSource``
+- ``MHComputedShapeSource``
+- ``MHImageSource``
+- ``MHRasterDEMSource``
+- ``MHRasterTileSource``
+- ``MHShapeSource``
+- ``MHSource``
+- ``MHTileSource``
 
 ### Shapes
 
-- ``MLNEmptyFeature``
-- ``MLNMultiPoint``
-- ``MLNMultiPolygon``
-- ``MLNMultiPolygonFeature``
-- ``MLNMultiPolyline``
-- ``MLNMultiPolylineFeature``
-- ``MLNMultiPolylineFeature``
-- ``MLNPointAnnotation``
-- ``MLNPointCollection``
-- ``MLNPointCollectionFeature``
-- ``MLNPolygon``
-- ``MLNPolyline``
-- ``MLNPolylineFeature``
-- ``MLNShape``
-- ``MLNShapeCollection``
-- ``MLNShapeCollectionFeature``
+- ``MHEmptyFeature``
+- ``MHMultiPoint``
+- ``MHMultiPolygon``
+- ``MHMultiPolygonFeature``
+- ``MHMultiPolyline``
+- ``MHMultiPolylineFeature``
+- ``MHMultiPolylineFeature``
+- ``MHPointAnnotation``
+- ``MHPointCollection``
+- ``MHPointCollectionFeature``
+- ``MHPolygon``
+- ``MHPolyline``
+- ``MHPolylineFeature``
+- ``MHShape``
+- ``MHShapeCollection``
+- ``MHShapeCollectionFeature``
 
 ### Snapshotter
 
-- ``MLNMapSnapshot``
-- ``MLNMapSnapshotOptions``
-- ``MLNMapSnapshotter``
+- ``MHMapSnapshot``
+- ``MHMapSnapshotOptions``
+- ``MHMapSnapshotter``
 
 ### Offline support
 
-- ``MLNOfflinePack``
-- ``MLNOfflineRegion``
-- ``MLNOfflineStorage``
-- ``MLNShapeOfflineRegion``
-- ``MLNTilePyramidOfflineRegion``
+- ``MHOfflinePack``
+- ``MHOfflineRegion``
+- ``MHOfflineStorage``
+- ``MHShapeOfflineRegion``
+- ``MHTilePyramidOfflineRegion``
 
 ### Annotations
 
-- ``MLNAnnotationImage``
-- ``MLNAnnotationView``
-- ``MLNPointFeature``
-- ``MLNPointFeatureCluster``
+- ``MHAnnotationImage``
+- ``MHAnnotationView``
+- ``MHPointFeature``
+- ``MHPointFeatureCluster``

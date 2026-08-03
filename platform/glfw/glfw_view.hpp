@@ -9,8 +9,8 @@
 #include <utility>
 #include <optional>
 
-#if (defined(MLN_RENDER_BACKEND_OPENGL) || defined(MLN_RENDER_BACKEND_VULKAN) || \
-     defined(MLN_RENDER_BACKEND_WEBGPU)) &&                                      \
+#if (defined(MH_RENDER_BACKEND_OPENGL) || defined(MH_RENDER_BACKEND_VULKAN) || \
+     defined(MH_RENDER_BACKEND_WEBGPU)) &&                                      \
     !defined(MBGL_LAYER_CUSTOM_DISABLE_ALL)
 #define ENABLE_LOCATION_INDICATOR
 #endif

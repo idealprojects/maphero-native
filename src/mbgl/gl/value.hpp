@@ -99,7 +99,7 @@ constexpr bool operator!=(const StencilOp::Type& a, const StencilOp::Type& b) {
     return a.sfail != b.sfail || a.dpfail != b.dpfail || a.dppass != b.dppass;
 }
 
-#if MLN_RENDER_BACKEND_OPENGL
+#if MH_RENDER_BACKEND_OPENGL
 struct DepthRange {
     using Type = Range<float>;
     static const constexpr Type Default = {0, 1};

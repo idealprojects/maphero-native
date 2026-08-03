@@ -2,7 +2,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface DroppedPinAnnotation : MLNPointAnnotation
+@interface DroppedPinAnnotation : MHPointAnnotation
 
 @property (nonatomic, copy, nullable) NSString *note;
 @property (nonatomic, readonly) NSTimeInterval elapsedShownTime;

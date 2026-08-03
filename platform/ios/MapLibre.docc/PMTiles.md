@@ -2,7 +2,7 @@
 
 Working with PMTiles
 
-Starting MapLibre iOS 6.10.0, using [PMTiles](https://docs.protomaps.com/pmtiles/) as a data source is supported. You can prefix your vector tile source with `pmtiles://` to load a PMTiles file. The rest of the URL continue with be `https://` to load a remote PMTiles file, `asset://` to load an asset or `file://` to load a local PMTiles file.
+Starting MapHero iOS 6.10.0, using [PMTiles](https://docs.protomaps.com/pmtiles/) as a data source is supported. You can prefix your vector tile source with `pmtiles://` to load a PMTiles file. The rest of the URL continue with be `https://` to load a remote PMTiles file, `asset://` to load an asset or `file://` to load a local PMTiles file.
 
 > Note: PMTiles sources currently do not support caching or offline pack downloads.
 

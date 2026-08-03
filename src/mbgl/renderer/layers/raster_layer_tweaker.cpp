@@ -69,7 +69,7 @@ void RasterLayerTweaker::execute([[maybe_unused]] LayerGroupBase& layerGroup,
     auto& layerUniforms = layerGroup.mutableUniformBuffers();
     layerUniforms.set(idRasterEvaluatedPropsUBO, evaluatedPropsUniformBuffer);
 
-#if MLN_UBO_CONSOLIDATION
+#if MH_UBO_CONSOLIDATION
     int i = 0;
     std::vector<RasterDrawableUBO> drawableUBOVector(layerGroup.getDrawableCount());
 #endif
@@ -104,14 +104,14 @@ void RasterLayerTweaker::execute([[maybe_unused]] LayerGroupBase& layerGroup,
                                    !parameters.state.isChanging());
         }
 
-#if MLN_UBO_CONSOLIDATION
+#if MH_UBO_CONSOLIDATION
         drawableUBOVector[i] = {
 #else
         const RasterDrawableUBO drawableUBO = {
 #endif
             /* .matrix = */ util::cast<float>(matrix)
         };
-#if MLN_UBO_CONSOLIDATION
+#if MH_UBO_CONSOLIDATION
         drawable.setUBOIndex(i++);
 #else
         auto& drawableUniforms = drawable.mutableUniformBuffers();
@@ -119,7 +119,7 @@ void RasterLayerTweaker::execute([[maybe_unused]] LayerGroupBase& layerGroup,
 #endif
     });
 
-#if MLN_UBO_CONSOLIDATION
+#if MH_UBO_CONSOLIDATION
     auto& context = parameters.context;
     const size_t drawableUBOVectorSize = sizeof(RasterDrawableUBO) * drawableUBOVector.size();
     if (!drawableUniformBuffer || drawableUniformBuffer->getSize() < drawableUBOVectorSize) {

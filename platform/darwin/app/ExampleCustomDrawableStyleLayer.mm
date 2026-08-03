@@ -1,10 +1,10 @@
 #import "ExampleCustomDrawableStyleLayer.h"
-#import "MLNStyleLayer.h"
-#import "MLNCustomDrawableStyleLayer.h"
+#import "MHStyleLayer.h"
+#import "MHCustomDrawableStyleLayer.h"
 
 #import <UIKit/UIKit.h>
 
-#include <mbgl/util/image+MLNAdditions.hpp>
+#include <mbgl/util/image+MHAdditions.hpp>
 #include <mbgl/layermanager/layer_factory.hpp>
 #include <mbgl/style/layer.hpp>
 #include <mbgl/style/layers/custom_drawable_layer.hpp>
@@ -13,7 +13,7 @@
 #include <memory>
 #include <cmath>
 
-@interface MLNCustomDrawableStyleLayer (Internal)
+@interface MHCustomDrawableStyleLayer (Internal)
 - (instancetype)initWithPendingLayer:(std::unique_ptr<mbgl::style::Layer>)pendingLayer;
 @end
 
@@ -186,7 +186,7 @@ public:
             // load image
             UIImage *assetImage = [UIImage imageNamed:@"pin"];
             assert(assetImage.CGImage != NULL);
-            std::shared_ptr<PremultipliedImage> image = std::make_shared<PremultipliedImage>(MLNPremultipliedImageFromCGImage(assetImage.CGImage));
+            std::shared_ptr<PremultipliedImage> image = std::make_shared<PremultipliedImage>(MHPremultipliedImageFromCGImage(assetImage.CGImage));
 
             // set symbol options
             Interface::SymbolOptions options;

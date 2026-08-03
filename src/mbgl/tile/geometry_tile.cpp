@@ -27,8 +27,8 @@
 namespace mbgl {
 
 LayerRenderData* GeometryTile::LayoutResult::getLayerRenderData(const style::Layer::Impl& layerImpl) {
-    MLN_TRACE_FUNC();
-    MLN_ZONE_STR(layerImpl.id);
+    MH_TRACE_FUNC();
+    MH_ZONE_STR(layerImpl.id);
 
     auto it = layerRenderData.find(layerImpl.id);
     if (it == layerRenderData.end()) {
@@ -96,7 +96,7 @@ private:
 using namespace style;
 
 std::optional<ImagePosition> GeometryTileRenderData::getPattern(const std::string& pattern) const {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     if (layoutResult) {
         const auto& patternPositions = layoutResult->imageAtlas.patternPositions;
@@ -109,7 +109,7 @@ std::optional<ImagePosition> GeometryTileRenderData::getPattern(const std::strin
 }
 
 void GeometryTileRenderData::upload(gfx::UploadPass& uploadPass) {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     if (!layoutResult) return;
 
@@ -145,7 +145,7 @@ void GeometryTileRenderData::upload(gfx::UploadPass& uploadPass) {
 }
 
 void GeometryTileRenderData::prepare(const SourcePrepareParameters& parameters) {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     if (!layoutResult) return;
     imagePatches.clear();
@@ -211,7 +211,7 @@ GeometryTile::GeometryTile(const OverscaledTileID& id_,
       showCollisionBoxes(parameters.debugOptions & MapDebugOptions::Collision) {}
 
 GeometryTile::~GeometryTile() {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     markObsolete();
 
@@ -244,7 +244,7 @@ void GeometryTile::setError(std::exception_ptr err) {
 }
 
 void GeometryTile::setData(std::unique_ptr<const GeometryTileData> data_) {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     if (obsolete) {
         return;
@@ -264,7 +264,7 @@ void GeometryTile::setData(std::unique_ptr<const GeometryTileData> data_) {
 }
 
 void GeometryTile::reset() {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     // If there is pending work, indicate that work has been cancelled.
     // Clear the pending status.
@@ -283,13 +283,13 @@ void GeometryTile::reset() {
 }
 
 std::unique_ptr<TileRenderData> GeometryTile::createRenderData() {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     return std::make_unique<GeometryTileRenderData>(layoutResult, atlasTextures);
 }
 
 void GeometryTile::setLayers(const std::vector<Immutable<LayerProperties>>& layers) {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     // Mark the tile as pending again if it was complete before to prevent
     // signaling a complete state despite pending parse operations.
@@ -302,8 +302,8 @@ void GeometryTile::setLayers(const std::vector<Immutable<LayerProperties>>& laye
     impls.reserve(layers.size());
 
     for (const auto& layer : layers) {
-        MLN_TRACE_ZONE(layer);
-        MLN_ZONE_STR(layer->baseImpl->id);
+        MH_TRACE_ZONE(layer);
+        MH_ZONE_STR(layer->baseImpl->id);
         // Skip irrelevant layers.
         const auto& layerImpl = *layer->baseImpl;
         assert(layerImpl.getTypeInfo()->source != LayerTypeInfo::Source::NotRequired);
@@ -322,7 +322,7 @@ void GeometryTile::setLayers(const std::vector<Immutable<LayerProperties>>& laye
 }
 
 void GeometryTile::setShowCollisionBoxes(const bool showCollisionBoxes_) {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     if (showCollisionBoxes != showCollisionBoxes_) {
         showCollisionBoxes = showCollisionBoxes_;
@@ -332,7 +332,7 @@ void GeometryTile::setShowCollisionBoxes(const bool showCollisionBoxes_) {
 }
 
 void GeometryTile::onLayout(std::shared_ptr<LayoutResult> result, const uint64_t resultCorrelationID) {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     loaded = true;
     renderable = true;
@@ -375,10 +375,10 @@ void GeometryTile::onError(std::exception_ptr err, const uint64_t resultCorrelat
 }
 
 void GeometryTile::onGlyphsAvailable(GlyphMap glyphMap, [[maybe_unused]] HBShapeRequests requests) {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     HBShapeResults results;
-#ifdef MLN_TEXT_SHAPING_HARFBUZZ
+#ifdef MH_TEXT_SHAPING_HARFBUZZ
     for (auto& fontStackIT : requests) {
         auto fontStack = fontStackIT.first;
         auto& fontTypes = fontStackIT.second;
@@ -414,12 +414,12 @@ void GeometryTile::onGlyphsAvailable(GlyphMap glyphMap, [[maybe_unused]] HBShape
             }
         }
     }
-#endif // MLN_TEXT_SHAPING_HARFBUZZ
+#endif // MH_TEXT_SHAPING_HARFBUZZ
     worker.self().invoke(&GeometryTileWorker::onGlyphsAvailable, std::move(glyphMap), std::move(results));
 }
 
 void GeometryTile::getGlyphs(GlyphDependencies glyphDependencies) {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     if (fileSource) {
         glyphManager->getGlyphs(*this, std::move(glyphDependencies), *fileSource);
@@ -430,7 +430,7 @@ void GeometryTile::onImagesAvailable(ImageMap images,
                                      ImageMap patterns,
                                      ImageVersionMap versionMap,
                                      uint64_t imageCorrelationID) {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     worker.self().invoke(&GeometryTileWorker::onImagesAvailable,
                          std::move(images),
@@ -440,7 +440,7 @@ void GeometryTile::onImagesAvailable(ImageMap images,
 }
 
 void GeometryTile::getImages(ImageRequestPair pair) {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     imageManager->getImages(*this, std::move(pair));
 }
@@ -450,7 +450,7 @@ std::shared_ptr<FeatureIndex> GeometryTile::getFeatureIndex() const {
 }
 
 bool GeometryTile::layerPropertiesUpdated(const Immutable<style::LayerProperties>& layerProperties) {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     LayerRenderData* renderData = getLayerRenderData(*layerProperties->baseImpl);
     if (!renderData) {
@@ -473,13 +473,13 @@ const GeometryTileData* GeometryTile::getData() const {
 }
 
 LayerRenderData* GeometryTile::getLayerRenderData(const style::Layer::Impl& layerImpl) {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     return layoutResult ? layoutResult->getLayerRenderData(layerImpl) : nullptr;
 }
 
 float GeometryTile::getQueryPadding(const std::unordered_map<std::string, const RenderLayer*>& layers) {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     float queryPadding = 0;
     for (const auto& pair : layers) {
@@ -498,7 +498,7 @@ void GeometryTile::queryRenderedFeatures(std::unordered_map<std::string, std::ve
                                          const RenderedQueryOptions& options,
                                          const mat4& projMatrix,
                                          const SourceFeatureState& featureState) {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     if (!getData()) return;
 
@@ -522,7 +522,7 @@ void GeometryTile::queryRenderedFeatures(std::unordered_map<std::string, std::ve
 }
 
 void GeometryTile::querySourceFeatures(std::vector<Feature>& result, const SourceQueryOptions& options) {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     // Data not yet available, or tile is empty
     if (!getData()) {
@@ -579,7 +579,7 @@ void GeometryTile::performedFadePlacement() {
 }
 
 void GeometryTile::setFeatureState(const LayerFeatureStates& states) {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     const auto layers = getData();
     if ((layers == nullptr) || states.empty() || !layoutResult) {

@@ -1,5 +1,5 @@
-name: MapLibre Android Bug Report
-description: Report a bug you encountered with MapLibre Android.
+name: MapHero Android Bug Report
+description: Report a bug you encountered with MapHero Android.
 labels: ["android"]
 type: "bug"
 body:
@@ -10,7 +10,7 @@ body:
   - type: input
     id: version
     attributes:
-      label: MapLibre Android Version
+      label: MapHero Android Version
       placeholder: e.g. 11.6.2
     validations:
       required: true

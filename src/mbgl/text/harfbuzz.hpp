@@ -2,13 +2,13 @@
 
 #include <mbgl/text/glyph.hpp>
 
-#ifdef MLN_TEXT_SHAPING_HARFBUZZ
+#ifdef MH_TEXT_SHAPING_HARFBUZZ
 #include "freetype.hpp"
 #endif
 
 namespace mbgl {
 
-#ifndef MLN_TEXT_SHAPING_HARFBUZZ
+#ifndef MH_TEXT_SHAPING_HARFBUZZ
 struct FreeTypeLibrary {};
 #endif
 

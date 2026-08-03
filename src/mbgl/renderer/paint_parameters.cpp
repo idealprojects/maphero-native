@@ -11,25 +11,25 @@
 #include <mbgl/util/convert.hpp>
 #include <mbgl/util/logging.hpp>
 
-#if MLN_RENDER_BACKEND_OPENGL
+#if MH_RENDER_BACKEND_OPENGL
 #include <mbgl/shaders/gl/legacy/clipping_mask_program.hpp>
 #endif
 
-#if MLN_RENDER_BACKEND_WEBGPU
+#if MH_RENDER_BACKEND_WEBGPU
 #include <mbgl/webgpu/context.hpp>
 #include <mbgl/shaders/webgpu/clipping_mask.hpp>
 #endif
 
-#if MLN_RENDER_BACKEND_METAL
+#if MH_RENDER_BACKEND_METAL
 #include <mbgl/mtl/context.hpp>
 #include <mbgl/shaders/mtl/clipping_mask.hpp>
-#endif // MLN_RENDER_BACKEND_METAL
+#endif // MH_RENDER_BACKEND_METAL
 
-#if MLN_RENDER_BACKEND_VULKAN
+#if MH_RENDER_BACKEND_VULKAN
 #include <mbgl/vulkan/render_pass.hpp>
 #include <mbgl/shaders/vulkan/clipping_mask.hpp>
 #include <mbgl/vulkan/context.hpp>
-#endif // MLN_RENDER_BACKEND_VULKAN
+#endif // MH_RENDER_BACKEND_VULKAN
 
 namespace mbgl {
 
@@ -105,7 +105,7 @@ gfx::DepthMode PaintParameters::depthModeForSublayer([[maybe_unused]] uint8_t n,
         return gfx::DepthMode::disabled();
     }
 
-#if MLN_RENDER_BACKEND_OPENGL
+#if MH_RENDER_BACKEND_OPENGL
     float depth = depthRangeSize + ((1 + currentLayer) * numSublayers + n) * depthEpsilon;
     return gfx::DepthMode{gfx::DepthFunctionType::LessEqual, mask, {depth, depth}};
 #else
@@ -114,7 +114,7 @@ gfx::DepthMode PaintParameters::depthModeForSublayer([[maybe_unused]] uint8_t n,
 }
 
 gfx::DepthMode PaintParameters::depthModeFor3D() const {
-#if MLN_RENDER_BACKEND_OPENGL
+#if MH_RENDER_BACKEND_OPENGL
     return gfx::DepthMode{gfx::DepthFunctionType::LessEqual, gfx::DepthMaskType::ReadWrite, {0.0, depthRangeSize}};
 #else
     return gfx::DepthMode{gfx::DepthFunctionType::LessEqual, gfx::DepthMaskType::ReadWrite};
@@ -142,7 +142,7 @@ void PaintParameters::clearStencil() {
     nextStencilID = 1;
     tileClippingMaskIDs.clear();
 
-#if MLN_RENDER_BACKEND_METAL
+#if MH_RENDER_BACKEND_METAL
     auto& mtlContext = static_cast<mtl::Context&>(context);
 
     // Metal doesn't have an equivalent of `glClear`, so we clear the buffer by drawing zero to (0:0,0)
@@ -158,15 +158,15 @@ void PaintParameters::clearStencil() {
                          /* .pad3 = */ 0}};
     mtlContext.renderTileClippingMasks(*renderPass, staticData, tileUBO);
     context.renderingStats().stencilClears++;
-#elif MLN_RENDER_BACKEND_VULKAN
+#elif MH_RENDER_BACKEND_VULKAN
     const auto& vulkanRenderPass = static_cast<vulkan::RenderPass&>(*renderPass);
     vulkanRenderPass.clearStencil();
 
     context.renderingStats().stencilClears++;
-#elif MLN_RENDER_BACKEND_WEBGPU
+#elif MH_RENDER_BACKEND_WEBGPU
     // WebGPU clears stencil through render pass descriptor
     context.renderingStats().stencilClears++;
-#elif MLN_RENDER_BACKEND_OPENGL
+#elif MH_RENDER_BACKEND_OPENGL
     context.clearStencilBuffer(0b00000000);
 #endif
 }
@@ -186,7 +186,7 @@ void PaintParameters::renderTileClippingMasks(const RenderTiles& renderTiles) {
         clearStencil();
     }
 
-#if MLN_RENDER_BACKEND_WEBGPU
+#if MH_RENDER_BACKEND_WEBGPU
     std::vector<shaders::ClipUBO> tileUBOs;
     for (const auto& tileRef : *renderTiles) {
         const auto& tileID = tileRef.get().id;
@@ -219,7 +219,7 @@ void PaintParameters::renderTileClippingMasks(const RenderTiles& renderTiles) {
         webgpuContext.renderTileClippingMasks(*renderPass, staticData, tileUBOs);
         webgpuContext.renderingStats().stencilUpdates++;
     }
-#elif MLN_RENDER_BACKEND_METAL
+#elif MH_RENDER_BACKEND_METAL
     // Assign a stencil ID and build a UBO for each tile in the set
     std::vector<shaders::ClipUBO> tileUBOs;
     for (const auto& tileRef : *renderTiles) {
@@ -257,7 +257,7 @@ void PaintParameters::renderTileClippingMasks(const RenderTiles& renderTiles) {
         mtlContext.renderingStats().stencilUpdates++;
     }
 
-#elif MLN_RENDER_BACKEND_VULKAN
+#elif MH_RENDER_BACKEND_VULKAN
 
     std::vector<shaders::ClipUBO> tileUBOs;
     for (const auto& tileRef : *renderTiles) {
@@ -290,7 +290,7 @@ void PaintParameters::renderTileClippingMasks(const RenderTiles& renderTiles) {
         vulkanContext.renderingStats().stencilUpdates++;
     }
 
-#elif MLN_RENDER_BACKEND_OPENGL
+#elif MH_RENDER_BACKEND_OPENGL
     auto program = staticData.shaders->getLegacyGroup().get<ClippingMaskProgram>();
 
     if (!program) {
@@ -340,7 +340,7 @@ void PaintParameters::renderTileClippingMasks(const RenderTiles& renderTiles) {
                           *staticData.tileVertexBuffer, paintAttributeData, properties),
                       "clipping/" + util::toString(stencilID));
     }
-#endif // MLN_RENDER_BACKEND_OPENGL
+#endif // MH_RENDER_BACKEND_OPENGL
 }
 
 gfx::StencilMode PaintParameters::stencilModeForClipping(const UnwrappedTileID& tileID) const {

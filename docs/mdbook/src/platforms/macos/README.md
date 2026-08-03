@@ -1,6 +1,6 @@
 # macOS
 
-MapLibre Native can be built for macOS. This is mostly used for development.
+MapHero Native can be built for macOS. This is mostly used for development.
 
 > [!NOTE]
 > There are some [AppKit](https://developer.apple.com/documentation/appkit) APIs for macOS the source tree. However those are not actively maintained. There is an [discussion](https://github.com/maplibre/maplibre-native/discussions/3414) on whether we should remove this code.
@@ -10,7 +10,7 @@ MapLibre Native can be built for macOS. This is mostly used for development.
 | Path                        | Description                                                              |
 |-----------------------------|--------------------------------------------------------------------------|
 | `platform/darwin`          | Shared code between macOS and iOS                                        |
-| `platform/darwin/core`     | iOS/macOS specific implementations for interfaces part of the MapLibre Native C++ Core |
+| `platform/darwin/core`     | iOS/macOS specific implementations for interfaces part of the MapHero Native C++ Core |
 | `platform/macos`           | macOS specific code                                                      |
 | `platform/macos/app`       | AppKit based example app                                                 |
 
@@ -49,7 +49,7 @@ Create and open Xcode project:
 
 ```sh
 bazel run //platform/macos:xcodeproj --@rules_xcodeproj//xcodeproj:extra_common_flags="--//:renderer=metal"
-xed platform/macos/MapLibre.xcodeproj
+xed platform/macos/MapHero.xcodeproj
 ```
 
 ## CMake
@@ -80,7 +80,7 @@ Create and open an Xcode project with CMake:
 
 ```sh
 cmake --preset macos-metal-xcode
-xed build-macos-metal-xcode/MapLibre\ Native.xcodeproj
+xed build-macos-metal-xcode/MapHero\ Native.xcodeproj
 ```
 
 Configure project for Vulkan (make sure [MoltenVK](https://github.com/KhronosGroup/MoltenVK) is installed):

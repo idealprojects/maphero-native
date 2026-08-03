@@ -250,7 +250,7 @@ public:
     // |sortKeyRange| is `std::nullopt`.
     SymbolInstanceReferences getSymbols(const std::optional<SortKeyRange>& sortKeyRange = std::nullopt) const;
 
-#if MLN_SYMBOL_GUARDS
+#if MH_SYMBOL_GUARDS
     bool check(std::source_location) override;
 #endif
 

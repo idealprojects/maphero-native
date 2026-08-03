@@ -1,5 +1,5 @@
 #import "Mapbox.h"
 
-@interface CustomStyleLayerExample : MLNCustomStyleLayer
+@interface CustomStyleLayerExample : MHCustomStyleLayer
 
 @end

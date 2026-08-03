@@ -37,7 +37,7 @@ jobs:
     env:
       BUILDTYPE: Debug
       IS_LOCAL_DEVELOPMENT: false
-      MLN_ANDROID_STL: c++_static
+      MH_ANDROID_STL: c++_static
       SENTRY_ORG: maplibre
       SENTRY_PROJECT: maplibre-android
       SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
@@ -56,11 +56,11 @@ jobs:
         run: curl -sL https://sentry.io/get-cli/ | sh
 
       - name: Upload debug symbols to sentry
-        run: sentry-cli debug-files upload MapLibreAndroidTestApp
+        run: sentry-cli debug-files upload MapHeroAndroidTestApp
 
       - name: Upload test app
         run: |
-          gh release upload android-testapp-${{ github.sha }} MapLibreAndroidTestApp/build/outputs/apk/${{ matrix.renderer }}/release/MapLibreAndroidTestApp-${{ matrix.renderer }}-release.apk
+          gh release upload android-testapp-${{ github.sha }} MapHeroAndroidTestApp/build/outputs/apk/${{ matrix.renderer }}/release/MapHeroAndroidTestApp-${{ matrix.renderer }}-release.apk
         env:
           GH_TOKEN: ${{ github.token }}
 

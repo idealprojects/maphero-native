@@ -1,11 +1,11 @@
 
 # Platforms
 
-This page describes the platforms that MapLibre Native is available on.
+This page describes the platforms that MapHero Native is available on.
 
 ## Overview
 
-MapLibre Native uses a monorepo. Source code for all platforms lives in [`maplibre/maplibre-native`](https://github.com/maplibre/maplibre-native) on GitHub.
+MapHero Native uses a monorepo. Source code for all platforms lives in [`maplibre/maplibre-native`](https://github.com/maplibre/maplibre-native) on GitHub.
 
 | Platform | Source | Notes |
 |---|---|---|
@@ -17,7 +17,7 @@ MapLibre Native uses a monorepo. Source code for all platforms lives in [`maplib
 | Node.js | [`platform/node`](https://github.com/maplibre/maplibre-native/tree/main/platform/node) | Uses [NAN](https://github.com/nodejs/nan). Available as [@maplibre/maplibre-gl-native](https://www.npmjs.com/package/@maplibre/maplibre-gl-native) on npm. |
 | Qt | [maplibre/maplibre-qt](https://github.com/maplibre/maplibre-native/tree/main/platform/qt), [`platform/qt`](https://github.com/maplibre/maplibre-native)  | Only platform that partially split to another repository. |
 
-Of these, **Android** and **iOS** are considered [core projects](https://github.com/maplibre/maplibre/blob/main/PROJECT_TIERS.md) of the MapLibre Organization.
+Of these, **Android** and **iOS** are considered [core projects](https://github.com/maplibre/maplibre/blob/main/PROJECT_TIERS.md) of the MapHero Organization.
 ### GLFW
 
 You can find an app that uses GLFW in [`platform/glfw`](https://github.com/maplibre/maplibre-native/tree/main/platform/glfw). It works on macOS, Linux and Windows. The app shows an interactive map that can be interacted with. Since GLFW adds relatively little complexity this app is used a lot for development. You can also learn about the C++ API by studying the source code of the GLFW app.

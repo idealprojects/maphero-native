@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="MAPHERO_compassContentDescription">Kompass. Aktivera för att nollställa kartans rotation mot norr.</string>
+    <string name="MAPHERO_attributionsIconContentDescription">Tillskrivningsikon. Aktivera för att visa tillskrivningsdialog.</string>
+    <string name="MAPHERO_myLocationViewContentDescription">Positionsvy. Denna visar din position på kartan.</string>
+    <string name="MAPHERO_mapActionDescription">Visar en karta skapad med MapHero. Scrolla genom att dra med två fingrar. Zooma genom att nypa med två fingrar.</string>
+    <string name="MAPHERO_attributionsDialogTitle">MapHero Android</string>
+    <string name="MAPHERO_attributionErrorNoBrowser">Ingen webbläsare installerad på enheten. Kan inte visa sidan.</string>
+    <string name="MAPHERO_offline_error_region_definition_invalid">Försedd OfflineRegionDefinition passar inte världens gränser: %s</string>
+    </resources>

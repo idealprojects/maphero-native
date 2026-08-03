@@ -1,13 +1,13 @@
 if(MSVC)
-    if(MLN_WITH_EGL)
+    if(MH_WITH_EGL)
         set(_RENDERER EGL)
-    elseif(MLN_WITH_VULKAN)
+    elseif(MH_WITH_VULKAN)
         set(_RENDERER Vulkan)
     else()
         set(_RENDERER OpenGL)
     endif()
 
-    if(NOT MLN_USE_BUILTIN_ICU)
+    if(NOT MH_USE_BUILTIN_ICU)
         set(WITH_ICU -With-ICU)
     endif()
 
@@ -73,7 +73,7 @@ target_sources(
         ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/storage/offline_database.cpp
         ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/storage/offline_download.cpp
         ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/storage/online_file_source.cpp
-        ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/storage/$<IF:$<BOOL:${MLN_WITH_PMTILES}>,pmtiles_file_source.cpp,pmtiles_file_source_stub.cpp>
+        ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/storage/$<IF:$<BOOL:${MH_WITH_PMTILES}>,pmtiles_file_source.cpp,pmtiles_file_source_stub.cpp>
         ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/storage/sqlite3.cpp
         ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/text/bidi.cpp
         ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/text/local_glyph_rasterizer.cpp
@@ -102,7 +102,7 @@ target_compile_definitions(
         USE_STD_FILESYSTEM
 )
 
-if(MLN_WITH_OPENGL)
+if(MH_WITH_OPENGL)
     target_sources(
         mbgl-core
         PRIVATE
@@ -110,7 +110,7 @@ if(MLN_WITH_OPENGL)
     )
 endif()
 
-if(MLN_WITH_EGL)
+if(MH_WITH_EGL)
     if(MSVC)
         find_package(unofficial-angle CONFIG REQUIRED)
 
@@ -141,7 +141,7 @@ if(MLN_WITH_EGL)
         PRIVATE
             KHRONOS_STATIC
     )
-elseif(MLN_WITH_VULKAN)
+elseif(MH_WITH_VULKAN)
     target_include_directories(
          mbgl-core
          PRIVATE
@@ -196,10 +196,10 @@ target_include_directories(
 include(${PROJECT_SOURCE_DIR}/vendor/nunicode.cmake)
 include(${PROJECT_SOURCE_DIR}/vendor/sqlite.cmake)
 
-if(NOT ${ICU_FOUND} OR "${ICU_VERSION}" VERSION_LESS 62.0 OR MLN_USE_BUILTIN_ICU)
-    message(STATUS "ICU not found, too old or MLN_USE_BUILTIN_ICU requestd, using builtin.")
+if(NOT ${ICU_FOUND} OR "${ICU_VERSION}" VERSION_LESS 62.0 OR MH_USE_BUILTIN_ICU)
+    message(STATUS "ICU not found, too old or MH_USE_BUILTIN_ICU requestd, using builtin.")
 
-    set(MLN_USE_BUILTIN_ICU TRUE)
+    set(MH_USE_BUILTIN_ICU TRUE)
     include(${PROJECT_SOURCE_DIR}/vendor/icu.cmake)
 
     set_source_files_properties(
@@ -249,10 +249,10 @@ target_link_libraries(
     PRIVATE
         ${JPEG_LIBRARIES}
         ${WEBP_LIBRARIES}
-        $<$<NOT:$<BOOL:${MLN_USE_BUILTIN_ICU}>>:ICU::i18n>
-        $<$<NOT:$<BOOL:${MLN_USE_BUILTIN_ICU}>>:ICU::uc>
-        $<$<NOT:$<BOOL:${MLN_USE_BUILTIN_ICU}>>:ICU::data>
-        $<$<BOOL:${MLN_USE_BUILTIN_ICU}>:$<IF:$<BOOL:${MLN_CORE_INCLUDE_DEPS}>,$<TARGET_OBJECTS:mbgl-vendor-icu>,mbgl-vendor-icu>>
+        $<$<NOT:$<BOOL:${MH_USE_BUILTIN_ICU}>>:ICU::i18n>
+        $<$<NOT:$<BOOL:${MH_USE_BUILTIN_ICU}>>:ICU::uc>
+        $<$<NOT:$<BOOL:${MH_USE_BUILTIN_ICU}>>:ICU::data>
+        $<$<BOOL:${MH_USE_BUILTIN_ICU}>:$<IF:$<BOOL:${MH_CORE_INCLUDE_DEPS}>,$<TARGET_OBJECTS:mbgl-vendor-icu>,mbgl-vendor-icu>>
         PNG::PNG
         mbgl-vendor-nunicode
         mbgl-vendor-sqlite
@@ -260,10 +260,10 @@ target_link_libraries(
 
 add_subdirectory(${PROJECT_SOURCE_DIR}/bin)
 add_subdirectory(${PROJECT_SOURCE_DIR}/expression-test)
-if(MLN_WITH_GLFW)
+if(MH_WITH_GLFW)
     add_subdirectory(${PROJECT_SOURCE_DIR}/platform/glfw)
 endif()
-if(MLN_WITH_NODE)
+if(MH_WITH_NODE)
     add_subdirectory(${PROJECT_SOURCE_DIR}/platform/node)
 elseif(MSVC)
     target_link_libraries(

@@ -71,9 +71,9 @@ async function createOrUpdateReleaseNotification({
 
   function linkText() {
     if (platform === 'ios') {
-      return `MapLibre iOS ${version}`;
+      return `MapHero iOS ${version}`;
     } else if (platform === 'android') {
-      return `MapLibre Android ${version}`;
+      return `MapHero Android ${version}`;
     }
     return tag;
   }

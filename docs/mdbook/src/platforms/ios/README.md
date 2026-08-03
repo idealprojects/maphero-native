@@ -1,4 +1,4 @@
-# MapLibre iOS Developer Guide
+# MapHero iOS Developer Guide
 
 ## Bazel
 
@@ -34,10 +34,10 @@ Run the following commands:
 
 ```
 bazel run //platform/ios:xcodeproj --@rules_xcodeproj//xcodeproj:extra_common_flags="--//:renderer=metal"
-xed platform/ios/MapLibre.xcodeproj
+xed platform/ios/MapHero.xcodeproj
 ```
 
-Then once in Xcode, click on "MapLibre" on the left, then "App" under Targets, then "Signing & Capabilities" in the tabbed menu.
+Then once in Xcode, click on "MapHero" on the left, then "App" under Targets, then "Signing & Capabilities" in the tabbed menu.
 Confirm that no errors are shown.
 
 <img width="921" alt="image" src="https://github.com/polvi/maplibre-native/assets/649392/a1ef30cb-97fc-429a-acee-194436f3fb8a">
@@ -79,14 +79,14 @@ It is also possible to generate an Xcode project using CMake. As of February 202
 
 ```
 cmake --preset ios -DDEVELOPMENT_TEAM_ID=YOUR_TEAM_ID
-xed build-ios/MapLibre\ Native.xcodeproj
+xed build-ios/MapHero\ Native.xcodeproj
 ```
 
 ## Distribution
 
-MapLibre iOS is distributed as an XCFramework via the [maplibre/maplibre-gl-native-distribution](https://github.com/maplibre/maplibre-gl-native-distribution) repository. See [Release MapLibre iOS](./release.md) for the release process. Refer to the [`ios-ci.yml`](https://github.com/maplibre/maplibre-native/blob/main/.github/workflows/ios-ci.yml) workflow for an up-to-date recipe for building an XCFramework. As of February 2025 we use:
+MapHero iOS is distributed as an XCFramework via the [maplibre/maplibre-gl-native-distribution](https://github.com/maplibre/maplibre-gl-native-distribution) repository. See [Release MapHero iOS](./release.md) for the release process. Refer to the [`ios-ci.yml`](https://github.com/maplibre/maplibre-native/blob/main/.github/workflows/ios-ci.yml) workflow for an up-to-date recipe for building an XCFramework. As of February 2025 we use:
 
 ```
 bazel build --compilation_mode=opt --features=dead_strip,thin_lto --objc_enable_binary_stripping \
-  --apple_generate_dsym --output_groups=+dsyms --//:renderer=metal //platform/ios:MapLibre.dynamic --embed_label=maplibre_ios_"$(cat VERSION)"
+  --apple_generate_dsym --output_groups=+dsyms --//:renderer=metal //platform/ios:MapHero.dynamic --embed_label=MAPHERO_ios_"$(cat VERSION)"
 ```

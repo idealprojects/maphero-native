@@ -30,7 +30,7 @@
 #include <mapbox/eternal.hpp>
 #include <mbgl/renderer/image_manager.hpp>
 
-#if MLN_RENDER_BACKEND_OPENGL
+#if MH_RENDER_BACKEND_OPENGL
 
 #include <mbgl/platform/gl_functions.hpp>
 #include <mbgl/gl/context.hpp>
@@ -41,7 +41,7 @@
 
 #endif
 
-#ifdef MLN_DRAWABLE_LOCATION_INDICATOR
+#ifdef MH_DRAWABLE_LOCATION_INDICATOR
 
 #include <mbgl/gfx/vertex_attribute.hpp>
 #include <mbgl/renderer/render_static_data.hpp>
@@ -144,7 +144,7 @@ public:
         friend vec2 operator-(const vec2& v1, const vec2& v2) { return {v1.x - v2.x, v1.y - v2.y}; }
     };
 
-#ifndef MLN_DRAWABLE_LOCATION_INDICATOR
+#ifndef MH_DRAWABLE_LOCATION_INDICATOR
     struct Shader {
         virtual ~Shader() { release(); }
         void release() {
@@ -419,7 +419,7 @@ public:
 
 #endif
 
-#ifdef MLN_DRAWABLE_LOCATION_INDICATOR
+#ifdef MH_DRAWABLE_LOCATION_INDICATOR
     struct TextureInfo {
         std::shared_ptr<gfx::Texture2D> texture;
         std::optional<Immutable<style::Image::Impl>> image;
@@ -484,7 +484,7 @@ public:
     }
 
     void release() {
-#ifndef MLN_DRAWABLE_LOCATION_INDICATOR
+#ifndef MH_DRAWABLE_LOCATION_INDICATOR
         if (!simpleShader.program) return;
         for (const auto& t : textures) t.second->release();
         buffer.release();
@@ -514,7 +514,7 @@ public:
                    params.puckShadowScale != oldParams.puckShadowScale)
             bearingChanged = true; // changes puck geometry but not necessarily the location
         if (params.errorRadiusMeters != oldParams.errorRadiusMeters) radiusChanged = true;
-#ifndef MLN_DRAWABLE_LOCATION_INDICATOR
+#ifndef MH_DRAWABLE_LOCATION_INDICATOR
         bearingChanged |= setTextureFromImageID(params.puckImagePath, texPuck, params);
         bearingChanged |= setTextureFromImageID(params.puckShadowImagePath, texShadow, params);
         bearingChanged |= setTextureFromImageID(params.puckHatImagePath, texPuckHat, params);
@@ -550,7 +550,7 @@ public:
         if (!dirtyFeature) return;
         dirtyFeature = false;
         featureEnvelope->clear();
-#ifndef MLN_DRAWABLE_LOCATION_INDICATOR
+#ifndef MH_DRAWABLE_LOCATION_INDICATOR
         if (!texPuck || !texPuck->isValid()) return;
 #else
         if (!puckDrawableInfo.textureInfo.texture) return;
@@ -592,7 +592,7 @@ protected:
     }
 
     void updateRadius(const mbgl::LocationIndicatorRenderParameters& params) {
-#ifdef MLN_DRAWABLE_LOCATION_INDICATOR
+#ifdef MH_DRAWABLE_LOCATION_INDICATOR
         auto& circle = circleDrawableInfo.geometry;
         circleDrawableInfo.dirty = true;
 #endif
@@ -710,7 +710,7 @@ protected:
                 params.perspectiveCompensation; // Compensation factor for the perspective deformation
         //     ^ clamping this to 0.8 to avoid growing the puck too much close to the camera.
 
-#ifndef MLN_DRAWABLE_LOCATION_INDICATOR
+#ifndef MH_DRAWABLE_LOCATION_INDICATOR
         const double shadowRadius = ((texShadow) ? texShadow->width / texShadow->pixelRatio : 0.0) *
                                     params.puckShadowScale * M_SQRT2 * 0.5 *
                                     horizontalScaleFactor; // Technically it's not the radius, but
@@ -755,7 +755,7 @@ protected:
         }
     }
 
-#ifndef MLN_DRAWABLE_LOCATION_INDICATOR
+#ifndef MH_DRAWABLE_LOCATION_INDICATOR
     void drawRadius(const mbgl::LocationIndicatorRenderParameters& params) {
         if (!(params.errorRadiusMeters > 0.0) ||
             (params.errorRadiusColor.a == 0.0 && params.errorRadiusBorderColor.a == 0.0))
@@ -817,7 +817,7 @@ protected:
         return s.screenCoordinateToLatLng(flippedPoint, wrapMode);
     }
 
-#ifndef MLN_DRAWABLE_LOCATION_INDICATOR
+#ifndef MH_DRAWABLE_LOCATION_INDICATOR
     bool setTextureFromImageID(const std::string& imagePath,
                                std::shared_ptr<Texture>& texture,
                                const mbgl::LocationIndicatorRenderParameters& params) {
@@ -878,7 +878,7 @@ protected:
     bool initialized = false;
     bool dirtyFeature = true;
 
-#ifdef MLN_DRAWABLE_LOCATION_INDICATOR
+#ifdef MH_DRAWABLE_LOCATION_INDICATOR
 
 public:
     struct QuadDrawableInfo {
@@ -1015,7 +1015,7 @@ void RenderLocationIndicatorLayer::populateDynamicRenderFeatureIndex(DynamicFeat
     if (!renderImpl->featureEnvelope->empty()) index.insert(renderImpl->feature, renderImpl->featureEnvelope);
 }
 
-#ifndef MLN_DRAWABLE_LOCATION_INDICATOR
+#ifndef MH_DRAWABLE_LOCATION_INDICATOR
 void RenderLocationIndicatorLayer::render(PaintParameters& paintParameters) {
     auto& glContext = static_cast<gl::Context&>(paintParameters.context);
 
@@ -1035,7 +1035,7 @@ void RenderLocationIndicatorLayer::render(PaintParameters& paintParameters) {
 }
 #endif
 
-#ifdef MLN_DRAWABLE_LOCATION_INDICATOR
+#ifdef MH_DRAWABLE_LOCATION_INDICATOR
 
 void RenderLocationIndicatorLayer::update(gfx::ShaderRegistry& shaders,
                                           gfx::Context& context,

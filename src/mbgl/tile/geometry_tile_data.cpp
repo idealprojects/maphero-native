@@ -34,7 +34,7 @@ double signedArea(const GeometryCoordinates& ring) {
 }
 
 LinearRing<int32_t> toWagyuPath(const GeometryCoordinates& ring) {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     LinearRing<int32_t> result;
     result.reserve(ring.size());
@@ -45,7 +45,7 @@ LinearRing<int32_t> toWagyuPath(const GeometryCoordinates& ring) {
 }
 
 GeometryCollection toGeometryCollection(MultiPolygon<int16_t>&& multipolygon) {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     GeometryCollection result;
     for (auto& polygon : multipolygon) {
@@ -58,7 +58,7 @@ GeometryCollection toGeometryCollection(MultiPolygon<int16_t>&& multipolygon) {
 } // namespace
 
 GeometryCollection fixupPolygons(const GeometryCollection& rings) {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     using namespace mapbox::geometry::wagyu;
 
@@ -75,7 +75,7 @@ GeometryCollection fixupPolygons(const GeometryCollection& rings) {
 }
 
 std::vector<GeometryCollection> classifyRings(const GeometryCollection& rings) {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     std::vector<GeometryCollection> polygons;
 
@@ -113,7 +113,7 @@ std::vector<GeometryCollection> classifyRings(const GeometryCollection& rings) {
 }
 
 void limitHoles(GeometryCollection& polygon, uint32_t maxHoles) {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     if (polygon.size() > 1 + maxHoles) {
         std::nth_element(
@@ -125,7 +125,7 @@ void limitHoles(GeometryCollection& polygon, uint32_t maxHoles) {
 }
 
 Feature::geometry_type convertGeometry(const GeometryTileFeature& geometryTileFeature, const CanonicalTileID& tileID) {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     const double size = util::EXTENT * std::pow(2, tileID.z);
     const double x0 = util::EXTENT * static_cast<double>(tileID.x);
@@ -198,7 +198,7 @@ Feature::geometry_type convertGeometry(const GeometryTileFeature& geometryTileFe
 }
 
 GeometryCollection convertGeometry(const Feature::geometry_type& geometryTileFeature, const CanonicalTileID& tileID) {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     const double size = util::EXTENT * std::pow(2, tileID.z);
     const double x0 = util::EXTENT * static_cast<double>(tileID.x);
@@ -281,7 +281,7 @@ GeometryCollection convertGeometry(const Feature::geometry_type& geometryTileFea
 }
 
 Feature convertFeature(const GeometryTileFeature& geometryTileFeature, const CanonicalTileID& tileID) {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     Feature feature{convertGeometry(geometryTileFeature, tileID)};
     feature.properties = geometryTileFeature.getProperties();

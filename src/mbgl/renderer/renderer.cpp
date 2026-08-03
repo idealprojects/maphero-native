@@ -31,7 +31,7 @@ void Renderer::setObserver(RendererObserver* observer) {
 }
 
 void Renderer::render(const std::shared_ptr<UpdateParameters>& updateParameters) {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
     assert(updateParameters);
     const bool styleChanged = impl->styleLoaded && !updateParameters->styleLoaded;
     impl->styleLoaded = updateParameters->styleLoaded;
@@ -159,7 +159,7 @@ void Renderer::clearData() {
     impl->orchestrator.clearData();
 }
 
-#if MLN_RENDER_BACKEND_OPENGL
+#if MH_RENDER_BACKEND_OPENGL
 void Renderer::enableAndroidEmulatorGoldfishMitigation(bool enable) {
     impl->orchestrator.enableAndroidEmulatorGoldfishMitigation(enable);
 }

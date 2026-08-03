@@ -4,9 +4,9 @@
 
 
 // This is the layer type in the style that is used
-+(MLNPluginLayerCapabilities *)layerCapabilities {
++(MHPluginLayerCapabilities *)layerCapabilities {
 
-    MLNPluginLayerCapabilities *tempResult = [[MLNPluginLayerCapabilities alloc] init];
+    MHPluginLayerCapabilities *tempResult = [[MHPluginLayerCapabilities alloc] init];
     tempResult.layerID = @"plugin-layer-test";
     tempResult.requiresPass3D = YES;
     return tempResult;

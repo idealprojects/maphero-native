@@ -2,7 +2,7 @@ if(TARGET mbgl-vendor-csscolorparser)
     return()
 endif()
 
-if(MLN_WITH_QT OR MLN_CORE_INCLUDE_DEPS)
+if(MH_WITH_QT OR MH_CORE_INCLUDE_DEPS)
     add_library(mbgl-vendor-csscolorparser OBJECT)
 else()
     add_library(mbgl-vendor-csscolorparser STATIC)
@@ -30,8 +30,8 @@ endif()
 set_target_properties(
     mbgl-vendor-csscolorparser
     PROPERTIES
-        INTERFACE_MAPLIBRE_NAME "csscolorparser"
-        INTERFACE_MAPLIBRE_URL "https://github.com/mapbox/css-color-parser-cpp"
-        INTERFACE_MAPLIBRE_AUTHOR "Dean McNamee and Konstantin Käfer"
-        INTERFACE_MAPLIBRE_LICENSE ${CMAKE_CURRENT_LIST_DIR}/csscolorparser/LICENSE
+        INTERFACE_MAPHERO_NAME "csscolorparser"
+        INTERFACE_MAPHERO_URL "https://github.com/mapbox/css-color-parser-cpp"
+        INTERFACE_MAPHERO_AUTHOR "Dean McNamee and Konstantin Käfer"
+        INTERFACE_MAPHERO_LICENSE ${CMAKE_CURRENT_LIST_DIR}/csscolorparser/LICENSE
 )

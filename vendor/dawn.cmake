@@ -4,7 +4,7 @@ if(TARGET mbgl-vendor-dawn)
     return()
 endif()
 
-if(NOT MLN_WITH_WEBGPU)
+if(NOT MH_WITH_WEBGPU)
     return()
 endif()
 
@@ -12,40 +12,40 @@ if(POLICY CMP0169)
     cmake_policy(SET CMP0169 OLD)
 endif()
 
-set(MLN_DAWN_GIT_VERSION "v20251014.163906" CACHE STRING "Git ref (branch, tag, or commit) used when fetching Dawn")
+set(MH_DAWN_GIT_VERSION "v20251014.163906" CACHE STRING "Git ref (branch, tag, or commit) used when fetching Dawn")
 
-message(STATUS "Configuring Dawn WebGPU implementation (${MLN_DAWN_GIT_VERSION})")
+message(STATUS "Configuring Dawn WebGPU implementation (${MH_DAWN_GIT_VERSION})")
 
 set(_mln_dawn_source_dir "${PROJECT_SOURCE_DIR}/vendor/dawn")
 set(_mln_dawn_binary_dir "${CMAKE_BINARY_DIR}/vendor/dawn/build")
 
 
 if(EXISTS "${_mln_dawn_source_dir}/CMakeLists.txt")
-    set(FETCHCONTENT_SOURCE_DIR_MAPLIBRE_DAWN ${_mln_dawn_source_dir})
+    set(FETCHCONTENT_SOURCE_DIR_MAPHERO_DAWN ${_mln_dawn_source_dir})
 endif()
 
 include(FetchContent)
 
-FetchContent_Declare(maplibre_dawn
+FetchContent_Declare(MAPHERO_dawn
     GIT_REPOSITORY https://github.com/google/dawn.git
-    GIT_TAG ${MLN_DAWN_GIT_VERSION}
+    GIT_TAG ${MH_DAWN_GIT_VERSION}
     GIT_SUBMODULES ""
 )
 
-FetchContent_GetProperties(maplibre_dawn)
-if(NOT maplibre_dawn_POPULATED)
+FetchContent_GetProperties(MAPHERO_dawn)
+if(NOT MAPHERO_dawn_POPULATED)
     message(STATUS "Fetching Dawn sources into ${_mln_dawn_source_dir}")
-    FetchContent_Populate(maplibre_dawn)
+    FetchContent_Populate(MAPHERO_dawn)
 
     if(NOT EXISTS "${_mln_dawn_source_dir}/CMakeLists.txt")
         file(REMOVE_RECURSE "${_mln_dawn_source_dir}")
-        file(RENAME "${maplibre_dawn_SOURCE_DIR}" "${_mln_dawn_source_dir}")
+        file(RENAME "${MAPHERO_dawn_SOURCE_DIR}" "${_mln_dawn_source_dir}")
         # Make future configure runs reuse the relocated checkout.
-        set(FETCHCONTENT_SOURCE_DIR_MAPLIBRE_DAWN "${_mln_dawn_source_dir}" CACHE PATH "" FORCE)
+        set(FETCHCONTENT_SOURCE_DIR_MAPHERO_DAWN "${_mln_dawn_source_dir}" CACHE PATH "" FORCE)
     endif()
 endif()
 
-set(maplibre_dawn_SOURCE_DIR "${_mln_dawn_source_dir}")
+set(MAPHERO_dawn_SOURCE_DIR "${_mln_dawn_source_dir}")
 
 set(DAWN_DIR "${_mln_dawn_source_dir}")
 set(DAWN_BUILD_DIR "${_mln_dawn_binary_dir}")
@@ -87,8 +87,8 @@ target_compile_options(mbgl-vendor-dawn INTERFACE -Wno-strict-aliasing -Wno-erro
 set_target_properties(
     mbgl-vendor-dawn
     PROPERTIES
-        INTERFACE_MAPLIBRE_NAME "dawn"
-        INTERFACE_MAPLIBRE_URL "https://dawn.googlesource.com/dawn"
-        INTERFACE_MAPLIBRE_AUTHOR "Chromium Dawn Team"
-        INTERFACE_MAPLIBRE_LICENSE "${PROJECT_SOURCE_DIR}/vendor/dawn/LICENSE"
+        INTERFACE_MAPHERO_NAME "dawn"
+        INTERFACE_MAPHERO_URL "https://dawn.googlesource.com/dawn"
+        INTERFACE_MAPHERO_AUTHOR "Chromium Dawn Team"
+        INTERFACE_MAPHERO_LICENSE "${PROJECT_SOURCE_DIR}/vendor/dawn/LICENSE"
 )

@@ -233,7 +233,7 @@ SymbolInstanceReferences SymbolBucket::getSymbols(const std::optional<SortKeyRan
             symbolInstances.begin() + static_cast<offset_t>(range->end)};
 }
 
-#if MLN_SYMBOL_GUARDS
+#if MH_SYMBOL_GUARDS
 bool SymbolBucket::check(std::source_location source) {
     if (text.vertices().elements() != text.dynamicVertices().elements() ||
         text.vertices().elements() != text.opacityVertices().elements() ||

@@ -15,7 +15,7 @@ DynamicTexture::DynamicTexture(Context& context, Size size, TexturePixelType pix
     texture->setFormat(pixelType, TextureChannelDataType::UnsignedByte);
     texture->setSamplerConfiguration(
         {gfx::TextureFilterType::Linear, gfx::TextureWrapType::Clamp, gfx::TextureWrapType::Clamp});
-#if MLN_DEFER_UPLOAD_ON_RENDER_THREAD
+#if MH_DEFER_UPLOAD_ON_RENDER_THREAD
     deferredCreation = true;
 #else
     texture->create();
@@ -53,7 +53,7 @@ void DynamicTexture::uploadImage(const uint8_t* pixelData, TextureHandle& texHan
     const auto& rect = texHandle.getRectangle();
     const auto imageSize = Size(rect.w, rect.h);
 
-#if MLN_DEFER_UPLOAD_ON_RENDER_THREAD
+#if MH_DEFER_UPLOAD_ON_RENDER_THREAD
     auto size = imageSize.area() * texture->getPixelStride();
     auto imageData = std::make_unique<uint8_t[]>(size);
     std::copy(pixelData, pixelData + size, imageData.get());

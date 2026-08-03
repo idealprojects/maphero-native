@@ -1,8 +1,8 @@
-MapLibre Native Android
+MapHero Native Android
 
 BSD 2-Clause License
 
-Copyright (c) 2021 MapLibre contributors
+Copyright (c) 2021 MapHero contributors
 
 Copyright (c) 2014-2020 Mapbox
 
@@ -32,245 +32,245 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 ===========================================================================
 
-MapLibre Native Android uses portions of Activity.
+MapHero Native Android uses portions of Activity.
 URL: [https://developer.android.com/jetpack/androidx/releases/activity#1.8.1](https://developer.android.com/jetpack/androidx/releases/activity#1.8.1)
 License: [The Apache Software License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
 ===========================================================================
 
-MapLibre Native Android uses portions of Android App Startup Runtime.
+MapHero Native Android uses portions of Android App Startup Runtime.
 URL: [https://developer.android.com/jetpack/androidx/releases/startup#1.1.1](https://developer.android.com/jetpack/androidx/releases/startup#1.1.1)
 License: [The Apache Software License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
 ===========================================================================
 
-MapLibre Native Android uses portions of Android Arch-Common.
+MapHero Native Android uses portions of Android Arch-Common.
 URL: [https://developer.android.com/jetpack/androidx/releases/arch-core#2.2.0](https://developer.android.com/jetpack/androidx/releases/arch-core#2.2.0)
 License: [The Apache Software License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
 ===========================================================================
 
-MapLibre Native Android uses portions of Android Arch-Runtime.
+MapHero Native Android uses portions of Android Arch-Runtime.
 URL: [https://developer.android.com/jetpack/androidx/releases/arch-core#2.2.0](https://developer.android.com/jetpack/androidx/releases/arch-core#2.2.0)
 License: [The Apache Software License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
 ===========================================================================
 
-MapLibre Native Android uses portions of Android Lifecycle LiveData.
+MapHero Native Android uses portions of Android Lifecycle LiveData.
 URL: [https://developer.android.com/jetpack/androidx/releases/lifecycle#2.6.1](https://developer.android.com/jetpack/androidx/releases/lifecycle#2.6.1)
 License: [The Apache Software License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
 ===========================================================================
 
-MapLibre Native Android uses portions of Android Lifecycle LiveData Core.
+MapHero Native Android uses portions of Android Lifecycle LiveData Core.
 URL: [https://developer.android.com/jetpack/androidx/releases/lifecycle#2.6.1](https://developer.android.com/jetpack/androidx/releases/lifecycle#2.6.1)
 License: [The Apache Software License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
 ===========================================================================
 
-MapLibre Native Android uses portions of Android Lifecycle Runtime.
+MapHero Native Android uses portions of Android Lifecycle Runtime.
 URL: [https://developer.android.com/jetpack/androidx/releases/lifecycle#2.6.1](https://developer.android.com/jetpack/androidx/releases/lifecycle#2.6.1)
 License: [The Apache Software License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
 ===========================================================================
 
-MapLibre Native Android uses portions of Android Lifecycle ViewModel.
+MapHero Native Android uses portions of Android Lifecycle ViewModel.
 URL: [https://developer.android.com/jetpack/androidx/releases/lifecycle#2.6.1](https://developer.android.com/jetpack/androidx/releases/lifecycle#2.6.1)
 License: [The Apache Software License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
 ===========================================================================
 
-MapLibre Native Android uses portions of Android Lifecycle ViewModel with SavedState.
+MapHero Native Android uses portions of Android Lifecycle ViewModel with SavedState.
 URL: [https://developer.android.com/jetpack/androidx/releases/lifecycle#2.6.1](https://developer.android.com/jetpack/androidx/releases/lifecycle#2.6.1)
 License: [The Apache Software License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
 ===========================================================================
 
-MapLibre Native Android uses portions of Android Lifecycle-Common.
+MapHero Native Android uses portions of Android Lifecycle-Common.
 URL: [https://developer.android.com/jetpack/androidx/releases/lifecycle#2.6.1](https://developer.android.com/jetpack/androidx/releases/lifecycle#2.6.1)
 License: [The Apache Software License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
 ===========================================================================
 
-MapLibre Native Android uses portions of Android Support Library Annotations.
+MapHero Native Android uses portions of Android Support Library Annotations.
 URL: [http://developer.android.com/tools/extras/support-library.html](http://developer.android.com/tools/extras/support-library.html)
 License: [The Apache Software License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
 ===========================================================================
 
-MapLibre Native Android uses portions of Android Support Library collections.
+MapHero Native Android uses portions of Android Support Library collections.
 URL: [http://developer.android.com/tools/extras/support-library.html](http://developer.android.com/tools/extras/support-library.html)
 License: [The Apache Software License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
 ===========================================================================
 
-MapLibre Native Android uses portions of Android Support Library compat.
+MapHero Native Android uses portions of Android Support Library compat.
 URL: [https://developer.android.com/jetpack/androidx/releases/core#1.8.0](https://developer.android.com/jetpack/androidx/releases/core#1.8.0)
 License: [The Apache Software License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
 ===========================================================================
 
-MapLibre Native Android uses portions of Android Support Library Custom View.
+MapHero Native Android uses portions of Android Support Library Custom View.
 URL: [http://developer.android.com/tools/extras/support-library.html](http://developer.android.com/tools/extras/support-library.html)
 License: [The Apache Software License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
 ===========================================================================
 
-MapLibre Native Android uses portions of Android Support Library Interpolators.
+MapHero Native Android uses portions of Android Support Library Interpolators.
 URL: [http://developer.android.com/tools/extras/support-library.html](http://developer.android.com/tools/extras/support-library.html)
 License: [The Apache Software License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
 ===========================================================================
 
-MapLibre Native Android uses portions of Android Support Library loader.
+MapHero Native Android uses portions of Android Support Library loader.
 URL: [http://developer.android.com/tools/extras/support-library.html](http://developer.android.com/tools/extras/support-library.html)
 License: [The Apache Software License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
 ===========================================================================
 
-MapLibre Native Android uses portions of Android Support Library View Pager.
+MapHero Native Android uses portions of Android Support Library View Pager.
 URL: [http://developer.android.com/tools/extras/support-library.html](http://developer.android.com/tools/extras/support-library.html)
 License: [The Apache Software License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
 ===========================================================================
 
-MapLibre Native Android uses portions of Android Tracing.
+MapHero Native Android uses portions of Android Tracing.
 URL: [https://developer.android.com/jetpack/androidx/releases/tracing#1.0.0](https://developer.android.com/jetpack/androidx/releases/tracing#1.0.0)
 License: [The Apache Software License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
 ===========================================================================
 
-MapLibre Native Android uses portions of AndroidX Futures.
+MapHero Native Android uses portions of AndroidX Futures.
 URL: [https://developer.android.com/topic/libraries/architecture/index.html](https://developer.android.com/topic/libraries/architecture/index.html)
 License: [The Apache Software License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
 ===========================================================================
 
-MapLibre Native Android uses portions of androidx.profileinstaller:profileinstaller.
+MapHero Native Android uses portions of androidx.profileinstaller:profileinstaller.
 URL: [https://developer.android.com/jetpack/androidx/releases/profileinstaller#1.3.1](https://developer.android.com/jetpack/androidx/releases/profileinstaller#1.3.1)
 License: [The Apache Software License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
 ===========================================================================
 
-MapLibre Native Android uses portions of Annotation.
+MapHero Native Android uses portions of Annotation.
 URL: [https://developer.android.com/jetpack/androidx/releases/annotation#1.8.0](https://developer.android.com/jetpack/androidx/releases/annotation#1.8.0)
 License: [The Apache Software License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
 ===========================================================================
 
-MapLibre Native Android uses portions of Core Kotlin Extensions.
+MapHero Native Android uses portions of Core Kotlin Extensions.
 URL: [https://developer.android.com/jetpack/androidx](https://developer.android.com/jetpack/androidx)
 License: [The Apache Software License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
 ===========================================================================
 
-MapLibre Native Android uses portions of Experimental annotation.
+MapHero Native Android uses portions of Experimental annotation.
 URL: [https://developer.android.com/jetpack/androidx/releases/annotation#1.4.0](https://developer.android.com/jetpack/androidx/releases/annotation#1.4.0)
 License: [The Apache Software License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
 ===========================================================================
 
-MapLibre Native Android uses portions of fragment.
+MapHero Native Android uses portions of fragment.
 URL: [https://developer.android.com/jetpack/androidx/releases/fragment#1.7.1](https://developer.android.com/jetpack/androidx/releases/fragment#1.7.1)
 License: [The Apache Software License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
 ===========================================================================
 
-MapLibre Native Android uses portions of Gson.
+MapHero Native Android uses portions of Gson.
 License: [Apache-2.0](https://www.apache.org/licenses/LICENSE-2.0.txt)
 
 ===========================================================================
 
-MapLibre Native Android uses portions of Guava ListenableFuture only.
+MapHero Native Android uses portions of Guava ListenableFuture only.
 License: [The Apache Software License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
 ===========================================================================
 
-MapLibre Native Android uses portions of JetBrains Java Annotations.
+MapHero Native Android uses portions of JetBrains Java Annotations.
 URL: [https://github.com/JetBrains/java-annotations](https://github.com/JetBrains/java-annotations)
 License: [The Apache Software License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0.txt)
 
 ===========================================================================
 
-MapLibre Native Android uses portions of Kotlin Stdlib.
+MapHero Native Android uses portions of Kotlin Stdlib.
 URL: [https://kotlinlang.org/](https://kotlinlang.org/)
 License: [The Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
 ===========================================================================
 
-MapLibre Native Android uses portions of Kotlin Stdlib Jdk7.
+MapHero Native Android uses portions of Kotlin Stdlib Jdk7.
 URL: [https://kotlinlang.org/](https://kotlinlang.org/)
 License: [The Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
 ===========================================================================
 
-MapLibre Native Android uses portions of Kotlin Stdlib Jdk8.
+MapHero Native Android uses portions of Kotlin Stdlib Jdk8.
 URL: [https://kotlinlang.org/](https://kotlinlang.org/)
 License: [The Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
 ===========================================================================
 
-MapLibre Native Android uses portions of kotlinx-coroutines-android.
+MapHero Native Android uses portions of kotlinx-coroutines-android.
 URL: [https://github.com/Kotlin/kotlinx.coroutines](https://github.com/Kotlin/kotlinx.coroutines)
 License: [The Apache Software License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0.txt)
 
 ===========================================================================
 
-MapLibre Native Android uses portions of kotlinx-coroutines-core.
+MapHero Native Android uses portions of kotlinx-coroutines-core.
 URL: [https://github.com/Kotlin/kotlinx.coroutines](https://github.com/Kotlin/kotlinx.coroutines)
 License: [The Apache Software License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0.txt)
 
 ===========================================================================
 
-MapLibre Native Android uses portions of Mapbox Android Gestures Library.
+MapHero Native Android uses portions of Mapbox Android Gestures Library.
 URL: [https://github.com/mapbox/mapbox-gestures-android](https://github.com/mapbox/mapbox-gestures-android)
 License: [BSD](https://opensource.org/licenses/BSD-2-Clause)
 
 ===========================================================================
 
-MapLibre Native Android uses portions of MapLibre Android Java Utilities.
+MapHero Native Android uses portions of MapHero Android Java Utilities.
 URL: [https://github.com/maplibre/maplibre-java](https://github.com/maplibre/maplibre-java)
 License: [The Apache Software License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
 ===========================================================================
 
-MapLibre Native Android uses portions of MapLibre Android Java Utilities.
+MapHero Native Android uses portions of MapHero Android Java Utilities.
 URL: [https://github.com/maplibre/maplibre-java](https://github.com/maplibre/maplibre-java)
 License: [The Apache Software License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
 ===========================================================================
 
-MapLibre Native Android uses portions of okhttp.
+MapHero Native Android uses portions of okhttp.
 URL: [https://square.github.io/okhttp/](https://square.github.io/okhttp/)
 License: [The Apache Software License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
 ===========================================================================
 
-MapLibre Native Android uses portions of okio.
+MapHero Native Android uses portions of okio.
 URL: [https://github.com/square/okio/](https://github.com/square/okio/)
 License: [The Apache Software License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
 ===========================================================================
 
-MapLibre Native Android uses portions of Saved State.
+MapHero Native Android uses portions of Saved State.
 URL: [https://developer.android.com/jetpack/androidx/releases/savedstate#1.2.1](https://developer.android.com/jetpack/androidx/releases/savedstate#1.2.1)
 License: [The Apache Software License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
 ===========================================================================
 
-MapLibre Native Android uses portions of Timber.
+MapHero Native Android uses portions of Timber.
 URL: [https://github.com/JakeWharton/timber](https://github.com/JakeWharton/timber)
 License: [The Apache Software License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
 ===========================================================================
 
-MapLibre Native Android uses portions of VersionedParcelable.
+MapHero Native Android uses portions of VersionedParcelable.
 URL: [http://developer.android.com/tools/extras/support-library.html](http://developer.android.com/tools/extras/support-library.html)
 License: [The Apache Software License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
 ===========================================================================
 
-MapLibre Native Android uses portions of Gradle License Plugin.
+MapHero Native Android uses portions of Gradle License Plugin.
 URL: [https://github.com/jaredsburrows/gradle-license-plugin](https://github.com/jaredsburrows/gradle-license-plugin)
 License: [The Apache Software License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
@@ -281,7 +281,7 @@ License: [The Apache Software License, Version 2.0](http://www.apache.org/licens
 ```
 BSD 2-Clause License
 
-Copyright (c) 2021 MapLibre contributors
+Copyright (c) 2021 MapHero contributors
 
 Copyright (c) 2018-2021 MapTiler.com
 

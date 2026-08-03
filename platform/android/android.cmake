@@ -61,7 +61,7 @@ target_sources(
         ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/storage/offline_database.cpp
         ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/storage/offline_download.cpp
         ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/storage/online_file_source.cpp
-        ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/storage/$<IF:$<BOOL:${MLN_WITH_PMTILES}>,pmtiles_file_source.cpp,pmtiles_file_source_stub.cpp>
+        ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/storage/$<IF:$<BOOL:${MH_WITH_PMTILES}>,pmtiles_file_source.cpp,pmtiles_file_source_stub.cpp>
         ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/storage/sqlite3.cpp
         ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/text/bidi.cpp
         ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/util/compression.cpp
@@ -73,7 +73,7 @@ target_sources(
         ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/layermanager/layer_manager.cpp
 )
 
-if(MLN_WITH_OPENGL)
+if(MH_WITH_OPENGL)
     target_sources(
         mbgl-core
         PRIVATE
@@ -83,7 +83,7 @@ if(MLN_WITH_OPENGL)
     )
 endif()
 
-if(MLN_WITH_VULKAN)
+if(MH_WITH_VULKAN)
     target_sources(
         mbgl-core
         PRIVATE
@@ -101,7 +101,7 @@ target_link_libraries(
     PRIVATE
         EGL
         GLESv3
-        MapLibreNative::Base::jni.hpp
+        MapHeroNative::Base::jni.hpp
         android
         atomic
         jnigraphics
@@ -125,7 +125,7 @@ target_link_libraries(
     example-custom-layer
     PRIVATE
         GLESv3
-        MapLibreNative::Base
+        MapHeroNative::Base
         log
         mbgl-compiler-options
 )
@@ -160,7 +160,7 @@ find_package(curl CONFIG)
 target_link_libraries(
     mbgl-test-runner
     PRIVATE
-        MapLibreNative::Base::jni.hpp
+        MapHeroNative::Base::jni.hpp
         mbgl-compiler-options
         $<$<BOOL:${curl_FOUND}>:curl::curl_static>
         $<LINK_LIBRARY:WHOLE_ARCHIVE,mbgl-test>
@@ -203,7 +203,7 @@ add_library(
     ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/text/local_glyph_rasterizer.cpp
     ${PROJECT_SOURCE_DIR}/platform/android/src/test/collator_test_stub.cpp
     ${PROJECT_SOURCE_DIR}/platform/android/src/test/number_format_test_stub.cpp
-    ${PROJECT_SOURCE_DIR}/platform/android/MapLibreAndroid/src/cpp/http_file_source.cpp
+    ${PROJECT_SOURCE_DIR}/platform/android/MapHeroAndroid/src/cpp/http_file_source.cpp
 )
 
 target_include_directories(
@@ -214,7 +214,7 @@ target_include_directories(
 target_link_libraries(
     mbgl-benchmark-runner
     PRIVATE
-        MapLibreNative::Base::jni.hpp
+        MapHeroNative::Base::jni.hpp
         mbgl-compiler-options
         $<LINK_LIBRARY:WHOLE_ARCHIVE,mbgl-benchmark>
 )
@@ -250,11 +250,11 @@ add_library(
     ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/text/local_glyph_rasterizer.cpp
     ${PROJECT_SOURCE_DIR}/platform/android/src/test/collator_test_stub.cpp
     ${PROJECT_SOURCE_DIR}/platform/android/src/test/number_format_test_stub.cpp
-    ${PROJECT_SOURCE_DIR}/platform/android/MapLibreAndroid/src/cpp/http_file_source.cpp
+    ${PROJECT_SOURCE_DIR}/platform/android/MapHeroAndroid/src/cpp/http_file_source.cpp
 )
 
-if(MLN_WITH_VULKAN)
-    target_compile_definitions(mbgl-render-test-runner PRIVATE "MLN_RENDER_BACKEND_VULKAN=1")
+if(MH_WITH_VULKAN)
+    target_compile_definitions(mbgl-render-test-runner PRIVATE "MH_RENDER_BACKEND_VULKAN=1")
 endif()
 
 target_include_directories(
@@ -265,7 +265,7 @@ target_include_directories(
 target_link_libraries(
     mbgl-render-test-runner
     PRIVATE
-        MapLibreNative::Base::jni.hpp
+        MapHeroNative::Base::jni.hpp
         android
         log
         mbgl-compiler-options

@@ -1,11 +1,11 @@
-option(MLN_WITH_X11 "Build with X11 Support" ON)
-option(MLN_WITH_WAYLAND "Build with Wayland Support" OFF)
+option(MH_WITH_X11 "Build with X11 Support" ON)
+option(MH_WITH_WAYLAND "Build with Wayland Support" OFF)
 
 find_package(CURL REQUIRED)
 find_package(JPEG REQUIRED)
 find_package(PNG REQUIRED)
 find_package(PkgConfig REQUIRED)
-if (MLN_WITH_X11)
+if (MH_WITH_X11)
     find_package(X11 REQUIRED)
 endif ()
 find_package(Threads REQUIRED)
@@ -16,12 +16,12 @@ pkg_search_module(ICUUC icu-uc)
 pkg_search_module(ICUI18N icu-i18n)
 find_program(ARMERGE NAMES armerge)
 
-if(MLN_WITH_WAYLAND AND NOT MLN_WITH_VULKAN)
+if(MH_WITH_WAYLAND AND NOT MH_WITH_VULKAN)
     # See https://github.com/maplibre/maplibre-native/pull/2022
 
-    # MLN_WITH_EGL needs to be set for Wayland, otherwise this CMakeLists will
+    # MH_WITH_EGL needs to be set for Wayland, otherwise this CMakeLists will
     # call find_package(OpenGL REQUIRED GLX), which is for X11.
-    set(MLN_WITH_EGL TRUE)
+    set(MH_WITH_EGL TRUE)
 
     # OPENGL_USE_GLES2 or OPENGL_USE_GLES3 need to be set, otherwise
     # FindOpenGL.cmake will include the GLVND library, which is for X11.
@@ -50,7 +50,7 @@ target_sources(
         ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/storage/offline_database.cpp
         ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/storage/offline_download.cpp
         ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/storage/online_file_source.cpp
-        ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/storage/$<IF:$<BOOL:${MLN_WITH_PMTILES}>,pmtiles_file_source.cpp,pmtiles_file_source_stub.cpp>
+        ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/storage/$<IF:$<BOOL:${MH_WITH_PMTILES}>,pmtiles_file_source.cpp,pmtiles_file_source_stub.cpp>
         ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/storage/sqlite3.cpp
         ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/text/bidi.cpp
         ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/text/local_glyph_rasterizer.cpp
@@ -72,7 +72,7 @@ target_sources(
         ${PROJECT_SOURCE_DIR}/platform/default/src/mbgl/util/utf.cpp
 )
 
-if(MLN_WITH_OPENGL)
+if(MH_WITH_OPENGL)
     target_sources(
         mbgl-core
         PRIVATE
@@ -81,7 +81,7 @@ if(MLN_WITH_OPENGL)
     )
 endif()
 
-if(MLN_WITH_EGL)
+if(MH_WITH_EGL)
     find_package(OpenGL REQUIRED EGL)
     target_sources(
         mbgl-core
@@ -93,14 +93,14 @@ if(MLN_WITH_EGL)
         PRIVATE
             OpenGL::EGL
     )
-    if (MLN_WITH_WAYLAND)
+    if (MH_WITH_WAYLAND)
         target_compile_definitions(mbgl-core PUBLIC
                 EGL_NO_X11
                 MESA_EGL_NO_X11_HEADERS
                 WL_EGL_PLATFORM
         )
     endif()
-elseif(MLN_WITH_VULKAN)
+elseif(MH_WITH_VULKAN)
     target_include_directories(
         mbgl-core
         PRIVATE
@@ -150,10 +150,10 @@ target_include_directories(
 include(${PROJECT_SOURCE_DIR}/vendor/nunicode.cmake)
 include(${PROJECT_SOURCE_DIR}/vendor/sqlite.cmake)
 
-if(NOT ${ICUUC_FOUND} OR "${ICUUC_VERSION}" VERSION_LESS 62.0 OR MLN_USE_BUILTIN_ICU)
-    message(STATUS "ICU not found, too old or MLN_USE_BUILTIN_ICU requestd, using builtin.")
+if(NOT ${ICUUC_FOUND} OR "${ICUUC_VERSION}" VERSION_LESS 62.0 OR MH_USE_BUILTIN_ICU)
+    message(STATUS "ICU not found, too old or MH_USE_BUILTIN_ICU requestd, using builtin.")
 
-    set(MLN_USE_BUILTIN_ICU TRUE)
+    set(MH_USE_BUILTIN_ICU TRUE)
     include(${PROJECT_SOURCE_DIR}/vendor/icu.cmake)
 
     set_source_files_properties(
@@ -173,16 +173,16 @@ target_link_libraries(
         ${X11_LIBRARIES}
         ${CMAKE_THREAD_LIBS_INIT}
         ${WEBP_LIBRARIES}
-        $<$<NOT:$<BOOL:${MLN_USE_BUILTIN_ICU}>>:${ICUUC_LIBRARIES}>
-        $<$<NOT:$<BOOL:${MLN_USE_BUILTIN_ICU}>>:${ICUI18N_LIBRARIES}>
-        $<$<BOOL:${MLN_USE_BUILTIN_ICU}>:mbgl-vendor-icu>
+        $<$<NOT:$<BOOL:${MH_USE_BUILTIN_ICU}>>:${ICUUC_LIBRARIES}>
+        $<$<NOT:$<BOOL:${MH_USE_BUILTIN_ICU}>>:${ICUI18N_LIBRARIES}>
+        $<$<BOOL:${MH_USE_BUILTIN_ICU}>:mbgl-vendor-icu>
         PNG::PNG
         mbgl-vendor-nunicode
         mbgl-vendor-sqlite
 )
 
 # Bundle system provided libraries
-if(NOT MLN_USE_BUILTIN_ICU AND NOT "${ARMERGE}" STREQUAL "ARMERGE-NOTFOUND")
+if(NOT MH_USE_BUILTIN_ICU AND NOT "${ARMERGE}" STREQUAL "ARMERGE-NOTFOUND")
     message(STATUS "Found armerge: ${ARMERGE}")
     include(${PROJECT_SOURCE_DIR}/cmake/find_static_library.cmake)
     set(STATIC_LIBS "")
@@ -196,7 +196,7 @@ if(NOT MLN_USE_BUILTIN_ICU AND NOT "${ARMERGE}" STREQUAL "ARMERGE-NOTFOUND")
     find_static_library(STATIC_LIBS NAMES crypto)
     find_static_library(STATIC_LIBS NAMES bz2 bzip2)
 
-    if(MLN_WITH_VULKAN)
+    if(MH_WITH_VULKAN)
         find_static_library(STATIC_LIBS NAMES glslang)
         find_static_library(STATIC_LIBS NAMES glslang-default-resource-limits)
         find_static_library(STATIC_LIBS NAMES SPIRV)
@@ -227,10 +227,10 @@ endif()
 
 add_subdirectory(${PROJECT_SOURCE_DIR}/bin)
 add_subdirectory(${PROJECT_SOURCE_DIR}/expression-test)
-if(MLN_WITH_GLFW)
+if(MH_WITH_GLFW)
 	add_subdirectory(${PROJECT_SOURCE_DIR}/platform/glfw)
 endif()
-if(MLN_WITH_NODE)
+if(MH_WITH_NODE)
     add_subdirectory(${PROJECT_SOURCE_DIR}/platform/node)
 endif()
 

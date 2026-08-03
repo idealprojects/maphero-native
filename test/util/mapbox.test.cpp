@@ -13,7 +13,7 @@ using SourceType = mbgl::style::SourceType;
 
 namespace mapboxFixture {
 const TileServerOptions mapboxTileServerOptions = TileServerOptions::MapboxConfiguration();
-const TileServerOptions mapLibreTileServerOptions = TileServerOptions::MapLibreConfiguration();
+const TileServerOptions mapLibreTileServerOptions = TileServerOptions::MapHeroConfiguration();
 const TileServerOptions mapTilerTileServerOptions = TileServerOptions::MapTilerConfiguration();
 } // namespace mapboxFixture
 
@@ -303,8 +303,8 @@ TEST(Mapbox, CanonicalizeVectorTileset) {
     EXPECT_EQ("mapbox://tiles/mapbox.streets/{z}/{x}/{y}.vector.pbf", tileset.tiles[0]);
 }
 
-// MapLibre tests
-TEST(MapLibre, CanonicalURL) {
+// MapHero tests
+TEST(MapHero, CanonicalURL) {
     EXPECT_EQ(
         "https://demotiles.maplibre.org/style.json",
         mbgl::util::mapbox::normalizeStyleURL(mapboxFixture::mapLibreTileServerOptions, "maplibre://maps/style", ""));

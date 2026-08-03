@@ -14,9 +14,9 @@
 #include "parser.hpp"
 #include "runner.hpp"
 
-#if MLN_RENDER_BACKEND_METAL
+#if MH_RENDER_BACKEND_METAL
 #include <mbgl/gfx/backend.hpp>
-#endif // MLN_RENDER_BACKEND_METAL
+#endif // MH_RENDER_BACKEND_METAL
 
 #ifdef SHOW_ANSI_COLORS
 #define ANSI_COLOR_RED "\x1b[31m"
@@ -67,7 +67,7 @@ ArgumentsTuple parseArguments(int argc, char** argv) {
         {"metrics", TestRunner::UpdateResults::METRICS},
         {"rebaseline", TestRunner::UpdateResults::REBASELINE}};
 
-    args::ArgumentParser argumentParser("MapLibre Native Test Runner");
+    args::ArgumentParser argumentParser("MapHero Native Test Runner");
 
     args::HelpFlag helpFlag(argumentParser, "help", "Display this help menu", {'h', "help"});
 
@@ -214,10 +214,10 @@ int runRenderTests(int argc, char** argv, std::function<void()> testStatus) {
 
     NetworkStatus::Set(online ? NetworkStatus::Status::Online : NetworkStatus::Status::Offline);
 
-#if MLN_RENDER_BACKEND_METAL
+#if MH_RENDER_BACKEND_METAL
     printf(ANSI_COLOR_YELLOW "Using GPU Expression Evaluation" ANSI_COLOR_RESET "\n");
     mbgl::gfx::Backend::setEnableGPUExpressionEval(true);
-#endif // MLN_RENDER_BACKEND_METAL
+#endif // MH_RENDER_BACKEND_METAL
 
     const auto& manifest = runner.getManifest();
     const auto& ignores = manifest.getIgnores();

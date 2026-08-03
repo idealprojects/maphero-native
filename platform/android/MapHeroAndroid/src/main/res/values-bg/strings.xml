@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="MAPHERO_compassContentDescription">Компас на картата. Активирай, за да насочиш картата на север.</string>
+    <string name="MAPHERO_attributionsIconContentDescription">Иконка функции. Активирай, за да покажеш диалог функции.</string>
+    <string name="MAPHERO_myLocationViewContentDescription">Изглед локация. Това показва местоположението ти на картата.</string>
+    <string name="MAPHERO_mapActionDescription">Показва карта създадена с MapHero. Скролни с два пръста. Мащабирай с два пръста.</string>
+    <string name="MAPHERO_attributionsDialogTitle">MapHero Android</string>
+    <string name="MAPHERO_offline_error_region_definition_invalid">Предоставените OfflineRegionDefinition не пасват в границите на света: %s</string>
+
+    </resources>

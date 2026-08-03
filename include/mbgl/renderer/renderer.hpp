@@ -113,7 +113,7 @@ public:
     void reduceMemoryUse();
     void clearData();
 
-#if MLN_RENDER_BACKEND_OPENGL
+#if MH_RENDER_BACKEND_OPENGL
     void enableAndroidEmulatorGoldfishMitigation(bool enable);
 #endif
 

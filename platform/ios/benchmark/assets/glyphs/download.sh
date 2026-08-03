@@ -297,6 +297,6 @@ for i in "${LIST[@]}" ; do
     if [ ! -f "$OUTPUT" ] ; then
         mkdir -p "$OUTDIR"
         echo "Downloading glyph '$OUTPUT' from '$INPUT'"
-        curl --compressed --progress-bar --output "${OUTPUT}" "https://api.maptiler.com/fonts/${INPUT}?key=${MLN_API_KEY}"
+        curl --compressed --progress-bar --output "${OUTPUT}" "https://api.maptiler.com/fonts/${INPUT}?key=${MH_API_KEY}"
     fi
 done

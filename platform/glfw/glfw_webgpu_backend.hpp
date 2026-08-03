@@ -15,7 +15,7 @@ struct GLFWwindow;
 struct WGPUDeviceImpl;
 struct WGPUSurfaceImpl;
 
-#if MLN_WEBGPU_IMPL_DAWN
+#if MH_WEBGPU_IMPL_DAWN
 namespace dawn::native {
 class Instance;
 class Adapter;
@@ -66,9 +66,9 @@ private:
 
     GLFWwindow* window;
 
-#if MLN_WEBGPU_IMPL_DAWN
+#if MH_WEBGPU_IMPL_DAWN
     std::unique_ptr<dawn::native::Instance> instance;
-#elif MLN_WEBGPU_IMPL_WGPU
+#elif MH_WEBGPU_IMPL_WGPU
     wgpu::Instance wgpuInstance;
 #endif
     wgpu::Device wgpuDevice; // This owns the device

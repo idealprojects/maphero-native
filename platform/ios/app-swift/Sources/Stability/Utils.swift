@@ -1,4 +1,4 @@
-import MapLibre
+import MapHero
 
 import MachO
 
@@ -38,8 +38,8 @@ extension Int {
     }
 }
 
-extension MLNMapView {
-    @MainActor func animate(camera: MLNMapCamera, withDuration duration: TimeInterval) async {
+extension MHMapView {
+    @MainActor func animate(camera: MHMapCamera, withDuration duration: TimeInterval) async {
         await withCheckedContinuation { continuation in
             self.setCamera(camera, withDuration: duration, animationTimingFunction: nil) {
                 continuation.resume()

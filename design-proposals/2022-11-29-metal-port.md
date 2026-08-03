@@ -1,6 +1,6 @@
-# MapLibre Metal Port Design Proposal
+# MapHero Metal Port Design Proposal
 
-Before we dive in, a bit about our process.  Stamen Design, with a sub-contract to Wet Dog Weather, has been contracted by Amazon (AWS) to develop two proposals to upgrade MapLibre Native.  The first was the Rendering Modularization Proposal.  This one is the Metal Port.
+Before we dive in, a bit about our process.  Stamen Design, with a sub-contract to Wet Dog Weather, has been contracted by Amazon (AWS) to develop two proposals to upgrade MapHero Native.  The first was the Rendering Modularization Proposal.  This one is the Metal Port.
 
 The mechanism for this will be a Pull Request, which we have obviously opened.  This will result in as much discussion as the community would like here, on the OSM Slack and by email or video call (we're available, so reach out).  As we wrap up our specific proposal, that discussion will hopefully reach a consensus and we'll be ready for a Yes or No on the PR by the end of the year.
 
@@ -8,12 +8,12 @@ This proposal is to implement a rendering module as defined in the earlier Rende
 
 ## Motivation
 
-MapLibre Native is currently depending on a deprecated rendering SDK (OpenGL) for iOS. It needs to move to Metal for iOS in some form.  Thus the graphics implementations must diverge, either by doing so within MapLibre Native or depending on another toolkit to do the rendering entirely.
+MapHero Native is currently depending on a deprecated rendering SDK (OpenGL) for iOS. It needs to move to Metal for iOS in some form.  Thus the graphics implementations must diverge, either by doing so within MapHero Native or depending on another toolkit to do the rendering entirely.
 
-We are proposing the former approach, with support for multiple rendering SDKs in the MapLibre Native toolkit itself. That is discussed in more detail in the MapLibre Rendering Modularization Design Plan.  This proposal assumes that one is adopted.
+We are proposing the former approach, with support for multiple rendering SDKs in the MapHero Native toolkit itself. That is discussed in more detail in the MapHero Rendering Modularization Design Plan.  This proposal assumes that one is adopted.
 
 But before that, a quick note on terminology.
-- "toolkit" usually refers to MapLibre Native, but may also be used in context for another project at a similar level.
+- "toolkit" usually refers to MapHero Native, but may also be used in context for another project at a similar level.
 - "SDK" or Software Development Kit usually refers to the rendering library, like OpenGL or Metal, at least in this document.
 - "API" refers to an Application Programming Interface.  In this context it refers to the classes and methods made available to a developer.
 
@@ -28,7 +28,7 @@ It is useful to split our goals into three sections to articulate what this prop
 - **Evaluation metrics:** These are specific criteria we will accomplish through this proposal.
 
 ### <a name="north-stars">North Stars</a>
-1. The MapLibre Native toolkit should use Metal for rendering on iOS & MacOS
+1. The MapHero Native toolkit should use Metal for rendering on iOS & MacOS
 2. The Metal implementation should follow the pattern laid out the Rendering Modularization PR.
 
 ### <a name="core">Core Functionality</a>
@@ -45,7 +45,7 @@ It is useful to split our goals into three sections to articulate what this prop
 8. The toolkit will allow mixing of real time assets from other Metal based toolkits
 
 ###  <a name="eval">Evaluation Metrics</a>
-1. The new version of MapLibre with Metal should support all iOS devices that support Metal
+1. The new version of MapHero with Metal should support all iOS devices that support Metal
 2. .... should not be any slower than the OpenGL version
 3. .... should be significantly faster in most test cases
 4. .... should use the main thread less than the previous version on iOS
@@ -92,7 +92,7 @@ Getting the skeleton version of the Metal Renderer in place is the purpose of th
 
 _Addresses North Stars [#1](#north-stars) and [#2](#north-stars)._
 
-The MapLibre Native toolkit already knows what a texture is, so this is the Metal Texture variant.  Metal textures don't deviate all that much from the OpenGL in concept, but the specifics very much do.
+The MapHero Native toolkit already knows what a texture is, so this is the Metal Texture variant.  Metal textures don't deviate all that much from the OpenGL in concept, but the specifics very much do.
 
 Metal supports a whole host of texture formats that Maplibre Native doesn't (or does through extensions).  There is the traditional RGBA, but there are also 32 bit float, or dual 16 bit float, or.... the list goes on and on.  We want to allow support for these without losing our minds representing them.
 
@@ -110,7 +110,7 @@ _Addresses North Stars [#1](#north-stars), [#2](#north-stars) and Core Functiona
 
 Off screen render targets are used in a couple of ways.  The most obvious is when rendering an image of a map offline.  The developer sets up the toolkit, feeds in a map and captures the result from a particular viewpoint.
 
-Less obvious is for things like heatmaps or weather data.  In those cases we want to render a tile source to a particular target, bound to a texture, and then reuse that texture later in the rendering process.  We do this kind of thing a lot with weather data in WhirlyGlobe-Maply.  MapLibre Native does something very similar with heatmaps.  It's a very powerful technique.
+Less obvious is for things like heatmaps or weather data.  In those cases we want to render a tile source to a particular target, bound to a texture, and then reuse that texture later in the rendering process.  We do this kind of thing a lot with weather data in WhirlyGlobe-Maply.  MapHero Native does something very similar with heatmaps.  It's a very powerful technique.
 
 The actual information around a render target is actually not that complex.  They just need to know what their format is (32 bit float?  RGBA?), how big they are, an optional stencil component and what's supposed to be drawn to them.  The rest is just an outer loop in the renderer.
 
@@ -156,7 +156,7 @@ At the end of that process, all the Builders should be fleshed out and all the S
 
 _Addresses North Stars [#1](#north-stars), [#2](#north-stars) and Core Functionality [#6](#core)._
 
-MapLibre Native makes use of atlases for 2D and 1D(ish) textures.  The distinction exists largely because of OpenGL texture wrapping logic.  When you go off the edge of a 2D texture in X or Y you can either clamp to the edge or wrap around.  In OpenGL that distinction is tied to the texture itself.  In Metal, it's the shader that decides.  That's much easier.
+MapHero Native makes use of atlases for 2D and 1D(ish) textures.  The distinction exists largely because of OpenGL texture wrapping logic.  When you go off the edge of a 2D texture in X or Y you can either clamp to the edge or wrap around.  In OpenGL that distinction is tied to the texture itself.  In Metal, it's the shader that decides.  That's much easier.
 
 As such, the atlases could be merged into one type.  We'd leave up to the developers if they want to merge those into one.  There are arguments either way, but it wouldn't be time consuming.
 
@@ -186,7 +186,7 @@ Second, there's a completion handler that Metal will call when a frame is... com
 
 Do this fast enough and you may be able to take a series of snapshots or even encode video.  But at the very least, you're not holding up the renderer.
 
-After this phase is finished, you'll have a working Metal renderer for MapLibre Native.  Congratulations!  The rest is optimization, but you don't want to skip it.  This is where you get to compete with the big dogs.
+After this phase is finished, you'll have a working Metal renderer for MapHero Native.  Congratulations!  The rest is optimization, but you don't want to skip it.  This is where you get to compete with the big dogs.
 
 ### Heap Support
 
@@ -247,7 +247,7 @@ The approach we used in WhirlyGlobe-Maply was a bit more complex, but used less 
 
 For Drawables, we looked for updates to any of their key values (texture IDs, colors, etc) and blitted those into place as needed.
 
-A similar approach will work for MapLibre, but with the extra complication of data driven display.  Some of those parameters can probably be handled purely in the shaders.  Some will need to update buffers.
+A similar approach will work for MapHero, but with the extra complication of data driven display.  Some of those parameters can probably be handled purely in the shaders.  Some will need to update buffers.
 
 #### Required Changes
 
@@ -267,11 +267,11 @@ Developers might want to explore the other option here, which is a rotating list
 
 You can probably get away with only Direct rendering support.  You might say "oh, we'll do indirect later", but you won't.  It requires some fairly complex changes to shaders and the internal buffer management architecture.  It's not something easily done by an individual and when the team you assemble to do the first part of this project wanders off you'll have trouble assembling a new one just for this.
 
-Why do you want to do this?  Well, there's performance of course.  If MapLibre Native isn't used by millions of people now, it will be.  That's a lot of energy consumption and a lot of responsibility.  You owe it to those users to carefully allocate the resources given to you.  Burning down the battery faster than MapKit and Google Maps is a bad look.
+Why do you want to do this?  Well, there's performance of course.  If MapHero Native isn't used by millions of people now, it will be.  That's a lot of energy consumption and a lot of responsibility.  You owe it to those users to carefully allocate the resources given to you.  Burning down the battery faster than MapKit and Google Maps is a bad look.
 
 There's also prestige.  When a developer is comparing toolkits yours should be, if not the best, at least in the running.  That's the toolkit they want to use and the one they want to contribute to.  Plus hey, it's free.
 
-Does that prestige matter?  Well, I (Steve G) have used MapLibre Native's OpenGL implementation against it when comparing to our own toolkit (WhirlyGlobe-Maply).  If you do a mediocre Metal implementation, your competitors will definitely bring that up.  I certainly would.
+Does that prestige matter?  Well, I (Steve G) have used MapHero Native's OpenGL implementation against it when comparing to our own toolkit (WhirlyGlobe-Maply).  If you do a mediocre Metal implementation, your competitors will definitely bring that up.  I certainly would.
 
 ### Atlas multi-thread support
 
@@ -327,7 +327,7 @@ Typically bottlenecks are where the main CPU is waiting on something it shouldn'
 
 #### Benefits
 
-MapLibre Native makes some use of threads, but not as much as it should.  With OpenGL it's not using shared contexts, though it does a lot of work in the Layers to prep for the GL work that has to be done on the main thread.  So it's not terrible, but it obviously could be better.
+MapHero Native makes some use of threads, but not as much as it should.  With OpenGL it's not using shared contexts, though it does a lot of work in the Layers to prep for the GL work that has to be done on the main thread.  So it's not terrible, but it obviously could be better.
 
 Mobile devices, even the really cheap ones, now have a lot of CPU cores and a lot of opportunity for work to be done off the main thread.  Maps have an embarassing amount of high level parallelism.  It's worth periodically analyzing the performance to see what might be updated for data loading.
 
@@ -341,7 +341,7 @@ The first version of shaders will work with the direct rendering in Metal.  They
 
 The second version of the shaders will consist of changes to support indirect rendering.  The way buffers are passed in is different when doing indirect rendering in a way that's not obvious.
 
-Further, this is the time to break the shaders to modular pieces to be reused by developers outside the toolkit.  Passing in a new shader to replace existing functionality works a lot better when you can call sub-routines to implement that MapLibre Native basics for you.
+Further, this is the time to break the shaders to modular pieces to be reused by developers outside the toolkit.  Passing in a new shader to replace existing functionality works a lot better when you can call sub-routines to implement that MapHero Native basics for you.
 
 #### Required Changes
 
@@ -425,7 +425,7 @@ Sections covered:
 * Snapshots
 
 By the end we should have:
-* A MapLibre Native toolkit that renders fully in Metal
+* A MapHero Native toolkit that renders fully in Metal
 
 Tests:
 * All the visual rendering tests

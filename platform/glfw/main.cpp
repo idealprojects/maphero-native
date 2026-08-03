@@ -38,7 +38,7 @@ void quit_handler(int) {
 }
 
 int main(int argc, char* argv[]) {
-    args::ArgumentParser argumentParser("MapLibre Native GLFW example");
+    args::ArgumentParser argumentParser("MapHero Native GLFW example");
     args::HelpFlag helpFlag(argumentParser, "help", "Display this help menu", {'h', "help"});
 
     args::Flag fullscreenFlag(argumentParser, "fullscreen", "Toggle fullscreen", {'f', "fullscreen"});
@@ -104,7 +104,7 @@ int main(int argc, char* argv[]) {
     }
 
     // Set access token if present
-    const char* apikeyEnv = getenv("MLN_API_KEY");
+    const char* apikeyEnv = getenv("MH_API_KEY");
     const std::string apikey = apikeyValue ? args::get(apikeyValue) : (apikeyEnv ? apikeyEnv : std::string());
 
     auto mapTilerConfiguration = mbgl::TileServerOptions::MapTilerConfiguration();
@@ -219,7 +219,7 @@ int main(int argc, char* argv[]) {
 
     // Load style
     if (style.empty()) {
-        const char* url = getenv("MLN_STYLE_URL");
+        const char* url = getenv("MH_STYLE_URL");
         if (url == nullptr) {
             style = "https://tiles.openfreemap.org/styles/liberty";
             view->setWindowTitle("OpenFreeMap Liberty");

@@ -57,7 +57,7 @@ void FillLayerTweaker::execute(LayerGroupBase& layerGroup, const PaintParameters
     const auto zoom = static_cast<float>(parameters.state.getZoom());
     const auto intZoom = parameters.state.getIntegerZoom();
 
-#if MLN_UBO_CONSOLIDATION
+#if MH_UBO_CONSOLIDATION
     int i = 0;
     std::vector<FillDrawableUnionUBO> drawableUBOVector(layerGroup.getDrawableCount());
     std::vector<FillTilePropsUnionUBO> tilePropsUBOVector(layerGroup.getDrawableCount());
@@ -102,12 +102,12 @@ void FillLayerTweaker::execute(LayerGroupBase& layerGroup, const PaintParameters
             textureSize = tex->getSize();
         }
 
-#if !MLN_UBO_CONSOLIDATION
+#if !MH_UBO_CONSOLIDATION
         auto& drawableUniforms = drawable.mutableUniformBuffers();
 #endif
         switch (static_cast<RenderFillLayer::FillVariant>(drawable.getType())) {
             case RenderFillLayer::FillVariant::Fill: {
-#if MLN_UBO_CONSOLIDATION
+#if MH_UBO_CONSOLIDATION
                 drawableUBOVector[i].fillDrawableUBO = {
 #else
                 const FillDrawableUBO drawableUBO = {
@@ -120,13 +120,13 @@ void FillLayerTweaker::execute(LayerGroupBase& layerGroup, const PaintParameters
                     .pad2 = 0
                 };
 
-#if !MLN_UBO_CONSOLIDATION
+#if !MH_UBO_CONSOLIDATION
                 drawableUniforms.createOrUpdate(idFillDrawableUBO, &drawableUBO, context);
 #endif
                 break;
             }
             case RenderFillLayer::FillVariant::FillOutline: {
-#if MLN_UBO_CONSOLIDATION
+#if MH_UBO_CONSOLIDATION
                 drawableUBOVector[i].fillOutlineDrawableUBO = {
 #else
                 const FillOutlineDrawableUBO drawableUBO = {
@@ -139,13 +139,13 @@ void FillLayerTweaker::execute(LayerGroupBase& layerGroup, const PaintParameters
                     .pad2 = 0
                 };
 
-#if !MLN_UBO_CONSOLIDATION
+#if !MH_UBO_CONSOLIDATION
                 drawableUniforms.createOrUpdate(idFillDrawableUBO, &drawableUBO, context);
 #endif
                 break;
             }
             case RenderFillLayer::FillVariant::FillPattern: {
-#if MLN_UBO_CONSOLIDATION
+#if MH_UBO_CONSOLIDATION
                 drawableUBOVector[i].fillPatternDrawableUBO = {
 #else
                 const FillPatternDrawableUBO drawableUBO = {
@@ -161,7 +161,7 @@ void FillLayerTweaker::execute(LayerGroupBase& layerGroup, const PaintParameters
                     .opacity_t = std::get<0>(binders->get<FillOpacity>()->interpolationFactor(zoom))
                 };
 
-#if MLN_UBO_CONSOLIDATION
+#if MH_UBO_CONSOLIDATION
                 tilePropsUBOVector[i].fillPatternTilePropsUBO = FillPatternTilePropsUBO {
 #else
                 const FillPatternTilePropsUBO tilePropsUBO = {
@@ -174,14 +174,14 @@ void FillLayerTweaker::execute(LayerGroupBase& layerGroup, const PaintParameters
                     .pad1 = 0, .pad2 = 0
                 };
 
-#if !MLN_UBO_CONSOLIDATION
+#if !MH_UBO_CONSOLIDATION
                 drawableUniforms.createOrUpdate(idFillDrawableUBO, &drawableUBO, context);
                 drawableUniforms.createOrUpdate(idFillTilePropsUBO, &tilePropsUBO, context);
 #endif
                 break;
             }
             case RenderFillLayer::FillVariant::FillOutlinePattern: {
-#if MLN_UBO_CONSOLIDATION
+#if MH_UBO_CONSOLIDATION
                 drawableUBOVector[i].fillOutlinePatternDrawableUBO = {
 #else
                 const FillOutlinePatternDrawableUBO drawableUBO = {
@@ -197,7 +197,7 @@ void FillLayerTweaker::execute(LayerGroupBase& layerGroup, const PaintParameters
                     .opacity_t = std::get<0>(binders->get<FillOpacity>()->interpolationFactor(zoom))
                 };
 
-#if MLN_UBO_CONSOLIDATION
+#if MH_UBO_CONSOLIDATION
                 tilePropsUBOVector[i].fillOutlinePatternTilePropsUBO = FillOutlinePatternTilePropsUBO {
 #else
                 const FillOutlinePatternTilePropsUBO tilePropsUBO = {
@@ -210,14 +210,14 @@ void FillLayerTweaker::execute(LayerGroupBase& layerGroup, const PaintParameters
                     .pad1 = 0, .pad2 = 0
                 };
 
-#if !MLN_UBO_CONSOLIDATION
+#if !MH_UBO_CONSOLIDATION
                 drawableUniforms.createOrUpdate(idFillDrawableUBO, &drawableUBO, context);
                 drawableUniforms.createOrUpdate(idFillTilePropsUBO, &tilePropsUBO, context);
 #endif
                 break;
             }
             case RenderFillLayer::FillVariant::FillOutlineTriangulated: {
-#if MLN_UBO_CONSOLIDATION
+#if MH_UBO_CONSOLIDATION
                 drawableUBOVector[i].fillOutlineTriangulatedDrawableUBO = {
 #else
                 const FillOutlineTriangulatedDrawableUBO drawableUBO = {
@@ -229,7 +229,7 @@ void FillLayerTweaker::execute(LayerGroupBase& layerGroup, const PaintParameters
                     .pad3 = 0
                 };
 
-#if !MLN_UBO_CONSOLIDATION
+#if !MH_UBO_CONSOLIDATION
                 drawableUniforms.createOrUpdate(idFillDrawableUBO, &drawableUBO, context);
 #endif
                 break;
@@ -241,12 +241,12 @@ void FillLayerTweaker::execute(LayerGroupBase& layerGroup, const PaintParameters
                 break;
             }
         }
-#if MLN_UBO_CONSOLIDATION
+#if MH_UBO_CONSOLIDATION
         drawable.setUBOIndex(i++);
 #endif
     });
 
-#if MLN_UBO_CONSOLIDATION
+#if MH_UBO_CONSOLIDATION
     const size_t drawableUBOVectorSize = sizeof(FillDrawableUnionUBO) * drawableUBOVector.size();
     if (!drawableUniformBuffer || drawableUniformBuffer->getSize() < drawableUBOVectorSize) {
         drawableUniformBuffer = context.createUniformBuffer(

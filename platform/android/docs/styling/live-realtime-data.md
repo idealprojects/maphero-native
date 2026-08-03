@@ -13,19 +13,19 @@ In this example you will learn how to add a live GeoJSON source. We have set up 
 First we will create a `GeoJSONSource`.
 
 ```kotlin title="Adding GeoJSON source"
---8<-- "MapLibreAndroidTestApp/src/main/java/org/maplibre/android/testapp/activity/style/RealTimeGeoJsonActivity.kt:addSource"
+--8<-- "MapHeroAndroidTestApp/src/main/java/org/maphero/android/testapp/activity/style/RealTimeGeoJsonActivity.kt:addSource"
 ```
 
 Next we will create a `SymbolLayer` that uses the source.
 
 ```kotlin title="Adding a SymbolLayer source"
---8<-- "MapLibreAndroidTestApp/src/main/java/org/maplibre/android/testapp/activity/style/RealTimeGeoJsonActivity.kt:addLayer"
+--8<-- "MapHeroAndroidTestApp/src/main/java/org/maphero/android/testapp/activity/style/RealTimeGeoJsonActivity.kt:addLayer"
 ```
 
 We use define a `Runnable` and use `android.os.Handler` with a `android.os.Looper` to update the GeoJSON source every 2 seconds.
 
 ```kotlin title="Defining a Runnable for updating the GeoJSON source"
---8<-- "MapLibreAndroidTestApp/src/main/java/org/maplibre/android/testapp/activity/style/RealTimeGeoJsonActivity.kt:Runnable"
+--8<-- "MapHeroAndroidTestApp/src/main/java/org/maphero/android/testapp/activity/style/RealTimeGeoJsonActivity.kt:Runnable"
 ```
 
 ## Bonus: set icon rotation
@@ -33,5 +33,5 @@ We use define a `Runnable` and use `android.os.Handler` with a `android.os.Loope
 You can set the icon rotation of the icon when ever the point is updated based on the last two points.
 
 ```kotlin title="Defining a Runnable for updating the GeoJSON source"
---8<-- "MapLibreAndroidTestApp/src/main/java/org/maplibre/android/testapp/activity/style/RealTimeGeoJsonActivity.kt:setIconRotation"
+--8<-- "MapHeroAndroidTestApp/src/main/java/org/maphero/android/testapp/activity/style/RealTimeGeoJsonActivity.kt:setIconRotation"
 ```

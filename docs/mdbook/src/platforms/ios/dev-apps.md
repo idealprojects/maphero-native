@@ -1,6 +1,6 @@
 # Development Apps
 
-There are two iOS apps available in the repo that you can use for MapLibre Native development. One Objective-C based app and a Swift based app.
+There are two iOS apps available in the repo that you can use for MapHero Native development. One Objective-C based app and a Swift based app.
 
 ## Objective-C App
 
@@ -22,7 +22,7 @@ bazel run --//:renderer=metal //platform/ios:App
 
 The Swift App is mainly used to demo usage patterns in the [example documentation](./ios-documentation.md#examples).
 
-This app is available as "MapLibreApp" in the [generated Xcode project](./README.md).
+This app is available as "MapHeroApp" in the [generated Xcode project](./README.md).
 
 The source code lives in `platform/ios/swift-app`.
 
@@ -33,5 +33,5 @@ The source code lives in `platform/ios/swift-app`.
 You can also build and run it from the command line with:
 
 ```
-bazel run --//:renderer=metal //platform/ios/app-swift:MapLibreApp
+bazel run --//:renderer=metal //platform/ios/app-swift:MapHeroApp
 ```

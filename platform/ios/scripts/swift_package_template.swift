@@ -2,7 +2,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "MapLibre Native",
+    name: "MapHero Native",
     products: [
         .library(
             name: "Mapbox",
@@ -14,8 +14,8 @@ let package = Package(
     targets: [
         .binaryTarget(
             name: "Mapbox",
-            url: "MAPLIBRE_PACKAGE_URL",
-            checksum: "MAPLIBRE_PACKAGE_CHECKSUM"
+            url: "MAPHERO_PACKAGE_URL",
+            checksum: "MAPHERO_PACKAGE_CHECKSUM"
         ),
     ]
 )

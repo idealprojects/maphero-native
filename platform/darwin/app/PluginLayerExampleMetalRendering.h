@@ -6,11 +6,11 @@
 
  */
 
-#import "MLNPluginLayer.h"
+#import "MHPluginLayer.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface PluginLayerExampleMetalRendering : MLNPluginLayer
+@interface PluginLayerExampleMetalRendering : MHPluginLayer
 
 @end
 

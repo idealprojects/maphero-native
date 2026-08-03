@@ -27,7 +27,7 @@ summarize, expressions do the following:
     apply conditional styling on the full or parts of the feature.
 
 2.  Expressions apply rendering transformations to filtered features.
-    MapLibre offers expressions that can interpolate, and paint. An
+    MapHero offers expressions that can interpolate, and paint. An
     expression can be applied to a feature constantly, zoom dependent,
     property dependent, or in zoom and property dependent manner.
 
@@ -76,14 +76,14 @@ implementation follows right after. Another part to notice here is the
 implementation evaluates both inputs because they are expressions too.
 Expressions can be nested.
 
-**Although it looks like JavaScript, for MapLibre Native**, **the
-parser for any expression is written in MapLibre Native Core**. Each
+**Although it looks like JavaScript, for MapHero Native**, **the
+parser for any expression is written in MapHero Native Core**. Each
 platform such as iOS, Android has their own Expression class which
 provides builders to build an expression and add it to a layer. When an
 expression is added to a layer, the rendering part of the code picks it
-up in the MapLibre Native Core.
+up in the MapHero Native Core.
 
-Also, inside MapLibre Native Core, this definition mechanism allows
+Also, inside MapHero Native Core, this definition mechanism allows
 extending expressions library with custom expressions if desired.
 
 ## Expression Types
@@ -146,8 +146,8 @@ fillLayer.setProperties(
 );
 ```
 
-**To render the built expression, MapLibre Native uses expression
-parsers.** **Expression parsers are written in MapLibre Native Core
+**To render the built expression, MapHero Native uses expression
+parsers.** **Expression parsers are written in MapHero Native Core
 (in C++).** Each expression outputs an *EvaluationResult* class.
 Resolving an *EvaluationResult* can be deferred. As in, the result of an
 expression can be computed only when its necessary to be computed in

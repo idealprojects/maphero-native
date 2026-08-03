@@ -50,7 +50,7 @@ BufferResource::BufferResource(
       size(size_),
       usage(usage_),
       persistent(persistent_) {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     const auto& allocator = context.getBackend().getAllocator();
 
@@ -162,7 +162,7 @@ BufferResource& BufferResource::operator=(BufferResource&& other) noexcept {
 }
 
 void BufferResource::update(const void* newData, std::size_t updateSize, std::size_t offset) noexcept {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     assert(updateSize + offset <= size);
     updateSize = std::min(updateSize, size - offset);

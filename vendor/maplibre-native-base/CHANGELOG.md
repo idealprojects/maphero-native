@@ -1,4 +1,4 @@
-# MapLibre Base
+# MapHero Base
 
 ## v2.1.1
 
@@ -18,7 +18,7 @@
 ## v2.0.0
 
 ### 💫️ Other
-- [base] New fork maintained by MapLibre
+- [base] New fork maintained by MapHero
 - [base] Replace Travis with Github Actions
 
 ## v1.9.1

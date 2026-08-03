@@ -94,7 +94,7 @@ void LineBucket::addGeometry(const GeometryCoordinates& coordinates,
     if (len < minLen) {
         // Warn once, but only if the source geometry is invalid, not if de-duplication made it invalid.
         // This happens, e.g., when attempting to use a GeoJSON `MultiPoint`
-        // or `MLNPointCollectionFeature` as the source for a line layer.
+        // or `MHPointCollectionFeature` as the source for a line layer.
         // Unfortunately, we cannot show the layer or source name from here.
         if (coordinates.size() < minLen) {
             static bool warned = false; // not thread-safe, there's a small chance of warning more than once

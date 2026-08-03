@@ -2,7 +2,7 @@
 //  XCTestCase+Extensions.swift
 //  iosapp UITests
 //
-//  Copyright © 2021 MapLibre. All rights reserved.
+//  Copyright © 2021 MapHero. All rights reserved.
 //
 
 import XCTest
@@ -22,7 +22,7 @@ extension XCTestCase {
      ```
      */
     func screenshot(name: String = #function) -> XCTAttachment {
-        let attachmentName = "MapLibre-Screenshot-\(name)-\(UIDevice.current.name)-\(UIDevice.current.systemVersion).png"
+        let attachmentName = "MapHero-Screenshot-\(name)-\(UIDevice.current.name)-\(UIDevice.current.systemVersion).png"
         let screenshot = XCUIScreen.main.screenshot()
         let attachment = XCTAttachment(uniformTypeIdentifier: "public.png",
                                        name: attachmentName,

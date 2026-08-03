@@ -43,7 +43,7 @@ FeatureIdentifier VectorMVTTileFeature::getID() const {
 }
 
 const GeometryCollection& VectorMVTTileFeature::getGeometries() const {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     if (!lines) {
         const auto scale = static_cast<float>(util::EXTENT) / feature.getExtent();
@@ -86,7 +86,7 @@ std::unique_ptr<GeometryTileData> VectorMVTTileData::clone() const {
 }
 
 std::unique_ptr<GeometryTileLayer> VectorMVTTileData::getLayer(const std::string& name) const {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     if (!parsed) {
         // We're parsing this lazily so that we can construct VectorTileData

@@ -1,4 +1,4 @@
-#include <mbgl/util/image+MLNAdditions.hpp>
+#include <mbgl/util/image+MHAdditions.hpp>
 
 #import <ImageIO/ImageIO.h>
 
@@ -11,7 +11,7 @@ using CGDataProviderHandle = CFHandle<CGDataProviderRef, CGDataProviderRef, CGDa
 using CGColorSpaceHandle = CFHandle<CGColorSpaceRef, CGColorSpaceRef, CGColorSpaceRelease>;
 using CGContextHandle = CFHandle<CGContextRef, CGContextRef, CGContextRelease>;
 
-CGImageRef CGImageCreateWithMLNPremultipliedImage(mbgl::PremultipliedImage&& src) {
+CGImageRef CGImageCreateWithMHPremultipliedImage(mbgl::PremultipliedImage&& src) {
     // We're converting the PremultipliedImage's backing store to a CGDataProvider, and are taking
     // over ownership of the memory.
     CGDataProviderHandle provider(CGDataProviderCreateWithData(
@@ -42,7 +42,7 @@ CGImageRef CGImageCreateWithMLNPremultipliedImage(mbgl::PremultipliedImage&& src
                          NULL, false, kCGRenderingIntentDefault);
 }
 
-mbgl::PremultipliedImage MLNPremultipliedImageFromCGImage(CGImageRef src) {
+mbgl::PremultipliedImage MHPremultipliedImageFromCGImage(CGImageRef src) {
     const size_t width = CGImageGetWidth(src);
     const size_t height = CGImageGetHeight(src);
 
@@ -90,7 +90,7 @@ PremultipliedImage decodeImage(const std::string& source) {
         throw std::runtime_error("CGImageSourceCreateImageAtIndex failed");
     }
 
-    return MLNPremultipliedImageFromCGImage(*image);
+    return MHPremultipliedImageFromCGImage(*image);
 }
 
 } // namespace mbgl

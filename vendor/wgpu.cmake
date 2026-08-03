@@ -4,7 +4,7 @@ if(TARGET mbgl-vendor-wgpu)
     return()
 endif()
 
-if(NOT MLN_WITH_WEBGPU)
+if(NOT MH_WITH_WEBGPU)
     return()
 endif()
 
@@ -160,7 +160,7 @@ if(NOT EXISTS "${_compat_shim_header}")
     file(WRITE "${_compat_shim_header}"
 "#pragma once
 // Compatibility shim for Dawn header paths
-// This file allows MapLibre code to use #include <webgpu/webgpu_cpp.h>
+// This file allows MapHero code to use #include <webgpu/webgpu_cpp.h>
 // for both Dawn and wgpu-native backends
 
 // Include the WebGPU-Cpp wrapper
@@ -176,7 +176,7 @@ if(NOT EXISTS "${_compat_shim_webgpu_h}")
     file(WRITE "${_compat_shim_webgpu_h}"
 "#pragma once
 // Compatibility shim for Dawn header paths
-// This file allows MapLibre code to use #include <webgpu/webgpu.h>
+// This file allows MapHero code to use #include <webgpu/webgpu.h>
 // for both Dawn and wgpu-native backends
 
 // Include the actual webgpu.h header
@@ -194,7 +194,7 @@ if(NOT EXISTS "${_compat_shim_wgpu_h}")
     file(WRITE "${_compat_shim_wgpu_h}"
 "#pragma once
 // Compatibility shim for wgpu-native specific header
-// This file allows MapLibre code to use #include <webgpu/wgpu.h>
+// This file allows MapHero code to use #include <webgpu/wgpu.h>
 // for both Dawn and wgpu-native backends
 
 // Include the actual wgpu.h header
@@ -255,8 +255,8 @@ endif()
 set_target_properties(
     mbgl-vendor-wgpu
     PROPERTIES
-        INTERFACE_MAPLIBRE_NAME "wgpu-native"
-        INTERFACE_MAPLIBRE_URL "https://github.com/gfx-rs/wgpu-native"
-        INTERFACE_MAPLIBRE_AUTHOR "gfx-rs developers"
-        INTERFACE_MAPLIBRE_LICENSE "${PROJECT_SOURCE_DIR}/vendor/wgpu-native/LICENSE.MIT"
+        INTERFACE_MAPHERO_NAME "wgpu-native"
+        INTERFACE_MAPHERO_URL "https://github.com/gfx-rs/wgpu-native"
+        INTERFACE_MAPHERO_AUTHOR "gfx-rs developers"
+        INTERFACE_MAPHERO_LICENSE "${PROJECT_SOURCE_DIR}/vendor/wgpu-native/LICENSE.MIT"
 )

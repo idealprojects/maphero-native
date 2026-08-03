@@ -10,10 +10,10 @@ static CGFloat const tipWidth = 10.0;
 @end
 
 @implementation MBXCustomCalloutView {
-    id <MLNAnnotation> _representedObject;
+    id <MHAnnotation> _representedObject;
     UIView *_leftAccessoryView;
     UIView *_rightAccessoryView;
-    __weak id <MLNCalloutViewDelegate> _delegate;
+    __weak id <MHCalloutViewDelegate> _delegate;
 }
 
 @synthesize representedObject = _representedObject;

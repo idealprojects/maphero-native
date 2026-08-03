@@ -22,4 +22,4 @@ rootProject.name = "androidRenderTest"
 
 include(":app")
 
-includeBuild(file("../../platform/android/MapLibrePlugin"))
+includeBuild(file("../../platform/android/MapHeroPlugin"))

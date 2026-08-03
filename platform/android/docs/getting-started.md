@@ -15,7 +15,7 @@ To follow this example from scratch, in Android Studio create a new "Empty Views
 
    A newly-created app will likely already have `mavenCentral()` in a top-level `settings.gradle` file, and you won't need to add it.
 
-2. Add the library as a dependency into your module Gradle file (usually `<project>/<app-module>/build.gradle`). Replace `<version>` with the [latest MapLibre Android version](https://github.com/maplibre/maplibre-native/releases?q=android-v11&expanded=true) (e.g.: `org.maplibre.gl:android-sdk:11.8.0`):
+2. Add the library as a dependency into your module Gradle file (usually `<project>/<app-module>/build.gradle`). Replace `<version>` with the [latest MapHero Android version](https://github.com/maplibre/maplibre-native/releases?q=android-v11&expanded=true) (e.g.: `org.maplibre.gl:android-sdk:11.8.0`):
 
     ```gradle
     dependencies {
@@ -31,7 +31,7 @@ To follow this example from scratch, in Android Studio create a new "Empty Views
 
     ```xml
     ...
-    <org.maplibre.android.maps.MapView
+    <org.maphero.android.maps.MapView
         android:id="@+id/mapView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -45,10 +45,10 @@ To follow this example from scratch, in Android Studio create a new "Empty Views
     import androidx.appcompat.app.AppCompatActivity
     import android.os.Bundle
     import android.view.LayoutInflater
-    import org.maplibre.android.MapLibre
-    import org.maplibre.android.camera.CameraPosition
-    import org.maplibre.android.geometry.LatLng
-    import org.maplibre.android.maps.MapView
+    import org.maphero.android.MapHero
+    import org.maphero.android.camera.CameraPosition
+    import org.maphero.android.geometry.LatLng
+    import org.maphero.android.maps.MapView
 
     class MainActivity : AppCompatActivity() {
 
@@ -58,8 +58,8 @@ To follow this example from scratch, in Android Studio create a new "Empty Views
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
 
-            // Init MapLibre
-            MapLibre.getInstance(this)
+            // Init MapHero
+            MapHero.getInstance(this)
 
             // Init layout view
             val inflater = LayoutInflater.from(this)

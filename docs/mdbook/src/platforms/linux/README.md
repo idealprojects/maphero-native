@@ -1,6 +1,6 @@
 # Linux
 
-This guide explains how to get started building and running MapLibre Native on Linux. The guide focusses on a Ubuntu 22.04 or later. The build process should give you a set of `.a` files that you can use to include MapLibre Native in other C++ projects, as well as a set of executables that you can run to render map tile images and test the project.
+This guide explains how to get started building and running MapHero Native on Linux. The guide focusses on a Ubuntu 22.04 or later. The build process should give you a set of `.a` files that you can use to include MapHero Native in other C++ projects, as well as a set of executables that you can run to render map tile images and test the project.
 
 ## Clone the repo
 
@@ -34,7 +34,7 @@ cmake --build build-linux-opengl --target mbgl-render
 
 ## Running `mbgl-render`
 
-Running `mbgl-render --style https://raw.githubusercontent.com/maplibre/demotiles/gh-pages/style.json` should produce a map tile image with the default MapLibre styling from [the MapLibre demo](https://maplibre.org/).
+Running `mbgl-render --style https://raw.githubusercontent.com/maplibre/demotiles/gh-pages/style.json` should produce a map tile image with the default MapHero styling from [the MapHero demo](https://maplibre.org/).
 
 ![Sample image of world from mbgl-render command](images/sample-maplibre-style-mbgl-render-out.png)
 
@@ -87,7 +87,7 @@ This should produce an `out.png` image in your current directory with a barebone
 > [!TIP]
 > For more information on the render tests see the [dedicated Render Tests article](../../render-tests.md).
 
-To check that the output of the rendering is correct, we compare actual rendered PNGs for simple styles with expected PNGs. The content of the tests used to be stored in the MapLibre GL JS repository, which means that GL JS and Native are mostly pixel-identical in their rendering.
+To check that the output of the rendering is correct, we compare actual rendered PNGs for simple styles with expected PNGs. The content of the tests used to be stored in the MapHero GL JS repository, which means that GL JS and Native are mostly pixel-identical in their rendering.
 
 The directory structure of the render tests looks like:
 

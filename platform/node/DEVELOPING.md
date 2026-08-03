@@ -1,6 +1,6 @@
-# Developing the MapLibre Native Node.js module
+# Developing the MapHero Native Node.js module
 
-This document explains how to build the [Node.js](https://nodejs.org/) bindings for [MapLibre Native](../../README.md) for contributing to the development of the bindings themselves. If you just want to use the module, you can simply install it via `npm`; see [README.md](README.md) for installation and usage instructions.
+This document explains how to build the [Node.js](https://nodejs.org/) bindings for [MapHero Native](../../README.md) for contributing to the development of the bindings themselves. If you just want to use the module, you can simply install it via `npm`; see [README.md](README.md) for installation and usage instructions.
 
 ## Building
 
@@ -51,13 +51,13 @@ To compile the Node.js bindings and install module dependencies, from the reposi
 #### MacOS
 
 ```bash
-cmake . -B build -G Ninja -DMLN_WITH_NODE=ON -DCMAKE_CXX_COMPILER_LAUNCHER=ccache -DCMAKE_BUILD_TYPE=Release -DMLN_WITH_OPENGL=OFF -DMLN_WITH_METAL=ON -DMLN_WITH_WERROR=OFF
+cmake . -B build -G Ninja -DMH_WITH_NODE=ON -DCMAKE_CXX_COMPILER_LAUNCHER=ccache -DCMAKE_BUILD_TYPE=Release -DMH_WITH_OPENGL=OFF -DMH_WITH_METAL=ON -DMH_WITH_WERROR=OFF
 ```
 
 #### Linux
 
 ```bash
-cmake . -B build -G Ninja -DMLN_WITH_NODE=ON -DCMAKE_CXX_COMPILER_LAUNCHER=ccache -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER=gcc-12 -DCMAKE_CXX_COMPILER=g++-12
+cmake . -B build -G Ninja -DMH_WITH_NODE=ON -DCMAKE_CXX_COMPILER_LAUNCHER=ccache -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER=gcc-12 -DCMAKE_CXX_COMPILER=g++-12
 ```
 
 ### Building

@@ -50,7 +50,7 @@ struct alignas(16) GlobalPaintParamsUBO {
 };
 static_assert(sizeof(GlobalPaintParamsUBO) == 3 * 16);
 
-#if MLN_RENDER_BACKEND_VULKAN
+#if MH_RENDER_BACKEND_VULKAN
 struct alignas(16) GlobalPlatformParamsUBO {
     /*  0 */ alignas(16) std::array<float, 2> rotation0;
     /* 16 */ alignas(16) std::array<float, 2> rotation1;
@@ -61,11 +61,11 @@ static_assert(sizeof(GlobalPlatformParamsUBO) == 2 * 16);
 
 enum {
     idGlobalPaintParamsUBO,
-#if MLN_RENDER_BACKEND_METAL
+#if MH_RENDER_BACKEND_METAL
     idGlobalUBOIndex,
-#elif MLN_RENDER_BACKEND_VULKAN
+#elif MH_RENDER_BACKEND_VULKAN
     idGlobalPlatformParamsUBO,
-#elif MLN_RENDER_BACKEND_WEBGPU
+#elif MH_RENDER_BACKEND_WEBGPU
     idGlobalUBOIndex,
 #endif
     globalUBOCount
@@ -77,7 +77,7 @@ enum {
     drawableReservedUBOCount
 };
 
-#define MLN_UBO_CONSOLIDATION (MLN_RENDER_BACKEND_METAL || MLN_RENDER_BACKEND_VULKAN || MLN_RENDER_BACKEND_WEBGPU)
+#define MH_UBO_CONSOLIDATION (MH_RENDER_BACKEND_METAL || MH_RENDER_BACKEND_VULKAN || MH_RENDER_BACKEND_WEBGPU)
 
 } // namespace shaders
 } // namespace mbgl

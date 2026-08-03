@@ -18,14 +18,14 @@
 
 @implementation MBXSnapshotsViewController {
     // Top row
-    MLNMapSnapshotter* topLeftSnapshotter;
-    MLNMapSnapshotter* topCenterSnapshotter;
-    MLNMapSnapshotter* topRightSnapshotter;
+    MHMapSnapshotter* topLeftSnapshotter;
+    MHMapSnapshotter* topCenterSnapshotter;
+    MHMapSnapshotter* topRightSnapshotter;
 
     // Bottom row
-    MLNMapSnapshotter* bottomLeftSnapshotter;
-    MLNMapSnapshotter* bottomCenterSnapshotter;
-    MLNMapSnapshotter* bottomRightSnapshotter;
+    MHMapSnapshotter* bottomLeftSnapshotter;
+    MHMapSnapshotter* bottomCenterSnapshotter;
+    MHMapSnapshotter* bottomRightSnapshotter;
 }
 
 - (void)viewDidLoad {
@@ -41,19 +41,19 @@
     bottomRightSnapshotter = [self startSnapshotterForImageView:_snapshotImageViewBR coordinates:CLLocationCoordinate2DMake(31.2780, 121.4286) hideAttribution:NO];
 }
 
-- (MLNMapSnapshotter*) startSnapshotterForImageView:(UIImageView*) imageView coordinates:(CLLocationCoordinate2D) coordinates hideAttribution:(BOOL) hideAttribution {
+- (MHMapSnapshotter*) startSnapshotterForImageView:(UIImageView*) imageView coordinates:(CLLocationCoordinate2D) coordinates hideAttribution:(BOOL) hideAttribution {
     // Create snapshot options
-    MLNMapCamera* mapCamera = [[MLNMapCamera alloc] init];
+    MHMapCamera* mapCamera = [[MHMapCamera alloc] init];
     mapCamera.pitch = 20;
     mapCamera.centerCoordinate = coordinates;
-    MLNMapSnapshotOptions* options = [[MLNMapSnapshotOptions alloc] initWithStyleURL:[NSURL URLWithString:@"https://tiles.openfreemap.org/styles/liberty"] camera:mapCamera size:CGSizeMake(imageView.frame.size.width, imageView.frame.size.height)];
+    MHMapSnapshotOptions* options = [[MHMapSnapshotOptions alloc] initWithStyleURL:[NSURL URLWithString:@"https://tiles.openfreemap.org/styles/liberty"] camera:mapCamera size:CGSizeMake(imageView.frame.size.width, imageView.frame.size.height)];
     options.zoomLevel = 10;
     options.showsAttribution = !hideAttribution;
 
     // Create and start the snapshotter
     __weak UIImageView *weakImageView = imageView;
-    MLNMapSnapshotter* snapshotter = [[MLNMapSnapshotter alloc] initWithOptions:options];
-    [snapshotter startWithCompletionHandler: ^(MLNMapSnapshot* snapshot, NSError *error) {
+    MHMapSnapshotter* snapshotter = [[MHMapSnapshotter alloc] initWithOptions:options];
+    [snapshotter startWithCompletionHandler: ^(MHMapSnapshot* snapshot, NSError *error) {
         if (error) {
             NSLog(@"Could not load snapshot: %@", [error localizedDescription]);
         } else {

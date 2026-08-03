@@ -1,13 +1,13 @@
 #include "harfbuzz.hpp"
 
-#ifdef MLN_TEXT_SHAPING_HARFBUZZ
+#ifdef MH_TEXT_SHAPING_HARFBUZZ
 #include "harfbuzz_impl.hpp"
 #endif
 
 // TODO: return empty harfbuzz
 namespace mbgl {
 
-#ifndef MLN_TEXT_SHAPING_HARFBUZZ
+#ifndef MH_TEXT_SHAPING_HARFBUZZ
 
 class HBShaper::Impl {
 public:

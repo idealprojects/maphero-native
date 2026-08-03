@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="MAPHERO_compassContentDescription">Компас. Активируйте, чтобы развернуть карту на север.</string>
+    <string name="MAPHERO_attributionsIconContentDescription">Значок атрибутов. Активируйте, чтобы показать диалог.</string>
+    <string name="MAPHERO_myLocationViewContentDescription">Местоположение. Отображает вашу позицию на карте.</string>
+    <string name="MAPHERO_mapActionDescription">Отображает карту, созданную при помощи MapHero. Пролистывайте двумя пальцами. Меняйте масштаб сведением пальцев.</string>
+    <string name="MAPHERO_attributionsDialogTitle">MapHero Android</string>
+    <string name="MAPHERO_attributionErrorNoBrowser">На устройстве нет веб-браузера, нельзя показать веб-страницу.</string>
+    <string name="MAPHERO_offline_error_region_definition_invalid">Запрошенный OfflineRegionDefinition не входит в допустимые границы: %s</string>
+    </resources>

@@ -1,20 +1,20 @@
-import MapLibre
+import MapHero
 import SwiftUI
 import UIKit
 
-class ObserverExampleView: UIViewController, MLNMapViewDelegate {
-    var mapView: MLNMapView!
+class ObserverExampleView: UIViewController, MHMapViewDelegate {
+    var mapView: MHMapView!
     var button: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // #-example-code(actionJournalOptions)
-        let options = MLNMapOptions()
+        let options = MHMapOptions()
         options.actionJournalOptions.enabled = true
         options.actionJournalOptions.renderingStatsReportInterval = 10
         options.styleURL = AMERICANA_STYLE
-        mapView = MLNMapView(frame: view.bounds, options: options)
+        mapView = MHMapView(frame: view.bounds, options: options)
         // #-end-example-code
 
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -41,41 +41,41 @@ class ObserverExampleView: UIViewController, MLNMapViewDelegate {
 
     // #-end-example-code
 
-    func mapViewDidFinishLoadingMap(_: MLNMapView) {
+    func mapViewDidFinishLoadingMap(_: MHMapView) {
         // #-example-code(enableRenderingStatsView)
         mapView.enableRenderingStatsView(true)
         // #-end-example-code
     }
 
     // #-example-code(ObserverExampleRenderingStats)
-    func mapViewDidFinishRenderingFrame(_: MLNMapView, fullyRendered _: Bool, renderingStats _: MLNRenderingStats) {}
+    func mapViewDidFinishRenderingFrame(_: MHMapView, fullyRendered _: Bool, renderingStats _: MHRenderingStats) {}
 
     // #-end-example-code
 
     // #-example-code(ObserverExampleShaders)
-    func mapView(_: MLNMapView, shaderWillCompile id: Int, backend: Int, defines: String) {
+    func mapView(_: MHMapView, shaderWillCompile id: Int, backend: Int, defines: String) {
         print("A new shader is being compiled - shaderID:\(id), backend type:\(backend), program configuration:\(defines)")
     }
 
-    func mapView(_: MLNMapView, shaderDidCompile id: Int, backend: Int, defines: String) {
+    func mapView(_: MHMapView, shaderDidCompile id: Int, backend: Int, defines: String) {
         print("A shader has been compiled - shaderID:\(id), backend type:\(backend), program configuration:\(defines)")
     }
 
     // #-end-example-code
 
     // #-example-code(ObserverExampleGlyphs)
-    func mapView(_: MLNMapView, glyphsWillLoad fontStack: [String], range: NSRange) {
+    func mapView(_: MHMapView, glyphsWillLoad fontStack: [String], range: NSRange) {
         print("Glyphs are being requested for the font stack \(fontStack), ranging from \(range.location) to \(range.location + range.length)")
     }
 
-    func mapView(_: MLNMapView, glyphsDidLoad fontStack: [String], range: NSRange) {
+    func mapView(_: MHMapView, glyphsDidLoad fontStack: [String], range: NSRange) {
         print("Glyphs have been loaded for the font stack \(fontStack), ranging from \(range.location) to \(range.location + range.length)")
     }
 
     // #-end-example-code
 
     // #-example-code(ObserverExampleTiles)
-    func mapView(_: MLNMapView, tileDidTriggerAction operation: MLNTileOperation,
+    func mapView(_: MHMapView, tileDidTriggerAction operation: MHTileOperation,
                  x: Int,
                  y: Int,
                  z: Int,
@@ -87,31 +87,31 @@ class ObserverExampleView: UIViewController, MLNMapViewDelegate {
                              x, y, z, wrap, overscaledZ, sourceID)
 
         switch operation {
-        case MLNTileOperation.requestedFromCache:
+        case MHTileOperation.requestedFromCache:
             print("Requesting tile \(tileStr) from cache")
 
-        case MLNTileOperation.requestedFromNetwork:
+        case MHTileOperation.requestedFromNetwork:
             print("Requesting tile \(tileStr) from network")
 
-        case MLNTileOperation.loadFromCache:
+        case MHTileOperation.loadFromCache:
             print("Loading tile \(tileStr), requested from the cache")
 
-        case MLNTileOperation.loadFromNetwork:
+        case MHTileOperation.loadFromNetwork:
             print("Loading tile \(tileStr), requested from the network")
 
-        case MLNTileOperation.startParse:
+        case MHTileOperation.startParse:
             print("Parsing tile \(tileStr)")
 
-        case MLNTileOperation.endParse:
+        case MHTileOperation.endParse:
             print("Completed parsing tile \(tileStr)")
 
-        case MLNTileOperation.error:
+        case MHTileOperation.error:
             print("An error occured during proccessing for tile \(tileStr)")
 
-        case MLNTileOperation.cancelled:
+        case MHTileOperation.cancelled:
             print("Pending work on tile \(tileStr)")
 
-        case MLNTileOperation.nullOp:
+        case MHTileOperation.nullOp:
             print("An unknown tile operation was emitted for tile \(tileStr)")
 
         @unknown default:
@@ -122,11 +122,11 @@ class ObserverExampleView: UIViewController, MLNMapViewDelegate {
     // #-end-example-code
 
     // #-example-code(ObserverExampleSprites)
-    func mapView(_: MLNMapView, spriteWillLoad id: String, url: String) {
+    func mapView(_: MHMapView, spriteWillLoad id: String, url: String) {
         print("The sprite \(id) has been requested from \(url)")
     }
 
-    func mapView(_: MLNMapView, spriteDidLoad id: String, url: String) {
+    func mapView(_: MHMapView, spriteDidLoad id: String, url: String) {
         print("The sprite \(id) has been loaded from \(url)")
     }
     // #-end-example-code

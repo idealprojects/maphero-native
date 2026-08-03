@@ -311,7 +311,7 @@ bool parseInputs(const JSValue& inputsValue, TestData& data) {
 
 std::tuple<std::filesystem::path, std::vector<std::filesystem::path>, bool, uint32_t> parseArguments(int argc,
                                                                                                      char** argv) {
-    args::ArgumentParser argumentParser("MapLibre Native Expression Test Runner");
+    args::ArgumentParser argumentParser("MapHero Native Expression Test Runner");
 
     args::HelpFlag helpFlag(argumentParser, "help", "Display this help menu", {'h', "help"});
     args::Flag shuffleFlag(argumentParser, "shuffle", "Toggle shuffling the tests order", {'s', "shuffle"});

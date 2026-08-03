@@ -12,7 +12,7 @@ namespace mbgl {
 
 using GeometryType = mlt::metadata::tileset::GeometryType;
 
-VectorMLTTileFeature::VectorMLTTileFeature(std::shared_ptr<const MapLibreTile> tile_,
+VectorMLTTileFeature::VectorMLTTileFeature(std::shared_ptr<const MapHeroTile> tile_,
                                            const mlt::Layer& layer_,
                                            const mlt::Feature& feature_,
                                            std::uint32_t extent_)
@@ -98,7 +98,7 @@ struct PointConverter {
 } // namespace
 
 const GeometryCollection& VectorMLTTileFeature::getGeometries() const {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     if (!lines) {
         const auto scale = static_cast<double>(util::EXTENT) / extent;
@@ -155,7 +155,7 @@ const GeometryCollection& VectorMLTTileFeature::getGeometries() const {
     return *lines;
 }
 
-VectorMLTTileLayer::VectorMLTTileLayer(std::shared_ptr<const MapLibreTile> tile_, const mlt::Layer& layer_)
+VectorMLTTileLayer::VectorMLTTileLayer(std::shared_ptr<const MapHeroTile> tile_, const mlt::Layer& layer_)
     : tile(std::move(tile_)),
       layer(layer_) {}
 
@@ -186,12 +186,12 @@ std::unique_ptr<GeometryTileData> VectorMLTTileData::clone() const {
 }
 
 std::unique_ptr<GeometryTileLayer> VectorMLTTileData::getLayer(const std::string& name) const {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     if (data && !tile) {
         try {
             mlt::DataView tileData{data->data(), data->size()};
-            tile = std::make_shared<MapLibreTile>(mlt::Decoder().decode(tileData));
+            tile = std::make_shared<MapHeroTile>(mlt::Decoder().decode(tileData));
         } catch (const std::exception& ex) {
             Log::Warning(Event::ParseTile, "MLT parse failed: " + std::string(ex.what()));
         }

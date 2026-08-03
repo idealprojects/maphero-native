@@ -1,6 +1,6 @@
 # Add Line on User Tap
 
-Demonstrating adding ``MLNPolyline`` annotations and responding to user input.
+Demonstrating adding ``MHPolyline`` annotations and responding to user input.
 
 > Note: This example uses SwiftUI.
 
@@ -10,8 +10,8 @@ This example draws a line from the tapped location to the center of the map. Han
 
 ```swift
 struct LineTapMap: UIViewRepresentable {
-    func makeUIView(context: Context) -> MLNMapView {
-        let mapView = MLNMapView()
+    func makeUIView(context: Context) -> MHMapView {
+        let mapView = MHMapView()
 
         // Add a single tap gesture recognizer
         let singleTap = UITapGestureRecognizer(
@@ -25,7 +25,7 @@ struct LineTapMap: UIViewRepresentable {
         return mapView
     }
 
-    func updateUIView(_: MLNMapView, context _: Context) {}
+    func updateUIView(_: MHMapView, context _: Context) {}
 
     func makeCoordinator() -> Coordinator {
         Coordinator(self)
@@ -39,7 +39,7 @@ struct LineTapMap: UIViewRepresentable {
         }
 
         @objc func handleMapTap(sender: UITapGestureRecognizer) {
-            guard let mapView = sender.view as? MLNMapView else { return }
+            guard let mapView = sender.view as? MHMapView else { return }
 
             // Convert tap location (CGPoint) to geographic coordinate (CLLocationCoordinate2D).
             let tapPoint: CGPoint = sender.location(in: mapView)
@@ -55,7 +55,7 @@ struct LineTapMap: UIViewRepresentable {
             }
 
             // Add a polyline with the new coordinates.
-            let polyline = MLNPolyline(coordinates: &coordinates, count: UInt(coordinates.count))
+            let polyline = MHPolyline(coordinates: &coordinates, count: UInt(coordinates.count))
             mapView.addAnnotation(polyline)
         }
     }

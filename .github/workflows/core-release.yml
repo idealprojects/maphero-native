@@ -57,7 +57,7 @@ jobs:
 
       - name: Build mbgl-core for macOS
         run: |
-          cmake --preset macos-metal -DCMAKE_CXX_COMPILER_LAUNCHER="" -DMLN_WITH_GLFW=OFF
+          cmake --preset macos-metal -DCMAKE_CXX_COMPILER_LAUNCHER="" -DMH_WITH_GLFW=OFF
           cmake --build build-macos-metal --target mbgl-core
 
       - name: Rename artifact

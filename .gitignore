@@ -1,18 +1,18 @@
-/platform/android/MapLibreAndroidTestApp/src/main/res/values/developer-config.xml
+/platform/android/MapHeroAndroidTestApp/src/main/res/values/developer-config.xml
 
 /platform/android/gradle/configuration.gradle
 /platform/android/arm64-v8a
 /platform/android/armeabi-v7a
-/platform/android/MapLibreAndroid/build
-/platform/android/MapLibrePlugin/build
-/platform/android/MapLibreAndroidTestApp/build
+/platform/android/MapHeroAndroid/build
+/platform/android/MapHeroPlugin/build
+/platform/android/MapHeroAndroidTestApp/build
 /platform/android/buildSrc/build
 /platform/android/x86
 /platform/android/x86_64
 /cmake-build-debug
 /platform/android/build
-/platform/android/MapLibreAndroid/src/main/assets/sdk_versions/com.mapbox.mapboxsdk
-/platform/android/MapLibreAndroid/android-binaries-*.zip
+/platform/android/MapHeroAndroid/src/main/assets/sdk_versions/com.mapbox.mapboxsdk
+/platform/android/MapHeroAndroid/android-binaries-*.zip
 *.code-workspace
 
 local.properties
@@ -60,3 +60,4 @@ out.png
 **/target/
 **/*.rs.bk
 **/*.profraw
+platform/android/signing-key.gpg

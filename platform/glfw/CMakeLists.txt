@@ -28,10 +28,10 @@ target_link_libraries(
 
 set_property(
     SOURCE ${PROJECT_SOURCE_DIR}/platform/glfw/glfw_view.cpp
-    PROPERTY COMPILE_DEFINITIONS MLN_ASSETS_PATH=\"${PROJECT_SOURCE_DIR}/platform/glfw/assets/\"
+    PROPERTY COMPILE_DEFINITIONS MH_ASSETS_PATH=\"${PROJECT_SOURCE_DIR}/platform/glfw/assets/\"
 )
 
-if(MLN_WITH_OPENGL)
+if(MH_WITH_OPENGL)
     find_package(OpenGL REQUIRED)
     target_sources(
         mbgl-glfw
@@ -39,21 +39,21 @@ if(MLN_WITH_OPENGL)
     )
 endif()
 
-if(MLN_WITH_EGL)
+if(MH_WITH_EGL)
     target_compile_definitions(
         mbgl-glfw
         PRIVATE MBGL_WITH_EGL=1
     )
 endif()
 
-if(MLN_WITH_VULKAN)
+if(MH_WITH_VULKAN)
     target_sources(
         mbgl-glfw
         PRIVATE ${PROJECT_SOURCE_DIR}/platform/glfw/glfw_vulkan_backend.cpp
     )
 endif()
 
-if(MLN_WITH_METAL)
+if(MH_WITH_METAL)
     target_sources(
         mbgl-glfw
         PRIVATE
@@ -69,7 +69,7 @@ if(MLN_WITH_METAL)
     )
 endif()
 
-if(MLN_WITH_WEBGPU)
+if(MH_WITH_WEBGPU)
     if(APPLE)
         target_sources(
             mbgl-glfw
@@ -89,17 +89,17 @@ if(MLN_WITH_WEBGPU)
     endif()
 endif()
 
-if(DEFINED MLN_WITH_X11 AND MLN_WITH_X11)
+if(DEFINED MH_WITH_X11 AND MH_WITH_X11)
     target_compile_definitions(
         mbgl-glfw
-        PRIVATE MLN_WITH_X11=1
+        PRIVATE MH_WITH_X11=1
     )
 endif()
 
-if(DEFINED MLN_WITH_WAYLAND AND MLN_WITH_WAYLAND)
+if(DEFINED MH_WITH_WAYLAND AND MH_WITH_WAYLAND)
     target_compile_definitions(
         mbgl-glfw
-        PRIVATE MLN_WITH_WAYLAND=1
+        PRIVATE MH_WITH_WAYLAND=1
     )
 endif()
 
@@ -148,10 +148,10 @@ target_link_libraries(
         mbgl-vendor-rapidjson
         Mapbox::Map
         mbgl-compiler-options
-        MapLibreNative::Base::cheap-ruler-cpp
+        MapHeroNative::Base::cheap-ruler-cpp
 )
 
-if(NOT WIN32 AND MLN_WITH_OPENGL)
+if(NOT WIN32 AND MH_WITH_OPENGL)
     target_link_libraries(
         mbgl-glfw
         PRIVATE OpenGL::GL
@@ -160,6 +160,6 @@ endif()
 
 
 
-set_property(TARGET mbgl-glfw PROPERTY FOLDER MapLibre)
+set_property(TARGET mbgl-glfw PROPERTY FOLDER MapHero)
 
 install(TARGETS mbgl-glfw RUNTIME DESTINATION bin)

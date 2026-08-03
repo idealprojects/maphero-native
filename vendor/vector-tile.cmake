@@ -14,8 +14,8 @@ target_include_directories(
 set_target_properties(
     mbgl-vendor-vector-tile
     PROPERTIES
-        INTERFACE_MAPLIBRE_NAME "vector-tile"
-        INTERFACE_MAPLIBRE_URL "https://github.com/mapbox/vector-tile"
-        INTERFACE_MAPLIBRE_AUTHOR "Mapbox"
-        INTERFACE_MAPLIBRE_LICENSE ${CMAKE_CURRENT_LIST_DIR}/vector-tile/LICENSE
+        INTERFACE_MAPHERO_NAME "vector-tile"
+        INTERFACE_MAPHERO_URL "https://github.com/mapbox/vector-tile"
+        INTERFACE_MAPHERO_AUTHOR "Mapbox"
+        INTERFACE_MAPHERO_LICENSE ${CMAKE_CURRENT_LIST_DIR}/vector-tile/LICENSE
 )

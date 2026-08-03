@@ -51,7 +51,7 @@
 #define GLFW_INCLUDE_ES3
 #endif
 
-#if MLN_RENDER_BACKEND_VULKAN
+#if MH_RENDER_BACKEND_VULKAN
 #define GLFW_INCLUDE_VULKAN
 #endif
 
@@ -70,7 +70,7 @@ using namespace std::numbers;
 
 #ifdef ENABLE_LOCATION_INDICATOR
 namespace {
-const std::string mbglPuckAssetsPath{MLN_ASSETS_PATH};
+const std::string mbglPuckAssetsPath{MH_ASSETS_PATH};
 
 mbgl::Color premultiply(mbgl::Color c) {
     c.r *= c.a;
@@ -89,7 +89,7 @@ class SnapshotObserver final : public mbgl::MapSnapshotterObserver {
 public:
     ~SnapshotObserver() override = default;
     void onDidFinishLoadingStyle() override {
-        MLN_TRACE_FUNC();
+        MH_TRACE_FUNC();
 
         if (didFinishLoadingStyleCallback) {
             didFinishLoadingStyleCallback();
@@ -170,7 +170,7 @@ void tileLodZoomShift(mbgl::Map &map, bool positive) {
 }
 
 void addFillExtrusionLayer(mbgl::style::Style &style, bool visible) {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     using namespace mbgl::style;
     using namespace mbgl::style::expression::dsl;
@@ -217,12 +217,12 @@ GLFWView::GLFWView(bool fullscreen_,
       snapshotterObserver(std::make_unique<SnapshotObserver>()),
       mapResourceOptions(resourceOptions.clone()),
       mapClientOptions(clientOptions.clone()) {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     glfwSetErrorCallback(glfwError);
 
     std::srand(static_cast<unsigned int>(std::time(nullptr)));
-#if defined(MLN_RENDER_BACKEND_WEBGPU)
+#if defined(MH_RENDER_BACKEND_WEBGPU)
 #ifdef __linux__
     // Force X11 platform for WebGPU compatibility (Dawn doesn't support Wayland yet)
     // For now, always use X11 when WebGPU might be used
@@ -274,7 +274,7 @@ GLFWView::GLFWView(bool fullscreen_,
         glfwWindowHint(GLFW_DEPTH_BITS, 16);
     }
 
-    window = glfwCreateWindow(width, height, "MapLibre Native", monitor, nullptr);
+    window = glfwCreateWindow(width, height, "MapHero Native", monitor, nullptr);
     if (!window) {
         glfwTerminate();
         mbgl::Log::Error(mbgl::Event::OpenGL, "failed to initialize window");
@@ -289,14 +289,14 @@ GLFWView::GLFWView(bool fullscreen_,
     glfwSetScrollCallback(window, onScroll);
     glfwSetKeyCallback(window, onKey);
     glfwSetWindowFocusCallback(window, onWindowFocus);
-#if defined(__APPLE__) && defined(MLN_RENDER_BACKEND_VULKAN)
+#if defined(__APPLE__) && defined(MH_RENDER_BACKEND_VULKAN)
     glfwSetWindowRefreshCallback(window, onWindowRefresh);
 #endif
 
     // "... applications will typically want to set the swap interval to one"
     // https://www.glfw.org/docs/latest/quick.html#quick_swap_buffers
 
-#if defined(MLN_RENDER_BACKEND_OPENGL)
+#if defined(MH_RENDER_BACKEND_OPENGL)
     glfwSwapInterval(1);
 #endif
 
@@ -305,7 +305,7 @@ GLFWView::GLFWView(bool fullscreen_,
     bool capFrameRate = !benchmark; // disable VSync in benchmark mode
     backend = GLFWBackend::Create(window, capFrameRate);
 
-#if defined(__APPLE__) && !defined(MLN_RENDER_BACKEND_VULKAN)
+#if defined(__APPLE__) && !defined(MH_RENDER_BACKEND_VULKAN)
     int fbW, fbH;
     glfwGetFramebufferSize(window, &fbW, &fbH);
     backend->setSize({static_cast<uint32_t>(fbW), static_cast<uint32_t>(fbH)});
@@ -380,33 +380,33 @@ GLFWView::GLFWView(bool fullscreen_,
 }
 
 GLFWView::~GLFWView() {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     glfwDestroyWindow(window);
     glfwTerminate();
 }
 
 void GLFWView::setMap(mbgl::Map *map_) {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     map = map_;
     map->addAnnotationImage(makeImage("default_marker", 22, 22, 1));
 }
 
 void GLFWView::setRenderFrontend(GLFWRendererFrontend *rendererFrontend_) {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     rendererFrontend = rendererFrontend_;
 }
 
 mbgl::gfx::RendererBackend &GLFWView::getRendererBackend() {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     return backend->getRendererBackend();
 }
 
 void GLFWView::onKey(GLFWwindow *window, int key, int /*scancode*/, int action, int mods) {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     auto *view = reinterpret_cast<GLFWView *>(glfwGetWindowUserPointer(window));
 
@@ -721,7 +721,7 @@ struct Interpolator<mbgl::LatLng> {
 } // namespace mbgl
 
 void GLFWView::updateFreeCameraDemo() {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     const mbgl::LatLng trainStartPos = {60.171367, 24.941359};
     const mbgl::LatLng trainEndPos = {60.185147, 24.936668};
@@ -770,7 +770,7 @@ std::unique_ptr<mbgl::style::Image> GLFWView::makeImage(const std::string &id,
                                                         int width,
                                                         int height,
                                                         float pixelRatio) {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     const int r = static_cast<int>(255 * (static_cast<double>(std::rand()) / RAND_MAX));
     const int g = static_cast<int>(255 * (static_cast<double>(std::rand()) / RAND_MAX));
@@ -817,7 +817,7 @@ void GLFWView::nextOrientation() {
 }
 
 void GLFWView::addRandomCustomPointAnnotations(int count) {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     for (int i = 0; i < count; i++) {
         static int spriteID = 1;
@@ -829,7 +829,7 @@ void GLFWView::addRandomCustomPointAnnotations(int count) {
 }
 
 void GLFWView::addRandomPointAnnotations(int count) {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     for (int i = 0; i < count; ++i) {
         annotationIDs.push_back(map->addAnnotation(mbgl::SymbolAnnotation{makeRandomPoint(), "default_marker"}));
@@ -837,7 +837,7 @@ void GLFWView::addRandomPointAnnotations(int count) {
 }
 
 void GLFWView::addRandomLineAnnotations(int count) {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     for (int i = 0; i < count; ++i) {
         mbgl::LineString<double> lineString;
@@ -849,7 +849,7 @@ void GLFWView::addRandomLineAnnotations(int count) {
 }
 
 void GLFWView::addRandomShapeAnnotations(int count) {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     for (int i = 0; i < count; ++i) {
         mbgl::Polygon<double> triangle;
@@ -860,7 +860,7 @@ void GLFWView::addRandomShapeAnnotations(int count) {
 }
 
 void GLFWView::addAnimatedAnnotation() {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     const double started = glfwGetTime();
     animatedAnnotationIDs.push_back(map->addAnnotation(mbgl::SymbolAnnotation{{0, 0}, "default_marker"}));
@@ -868,7 +868,7 @@ void GLFWView::addAnimatedAnnotation() {
 }
 
 void GLFWView::updateAnimatedAnnotations() {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     const double time = glfwGetTime();
     for (size_t i = 0; i < animatedAnnotationIDs.size(); i++) {
@@ -901,7 +901,7 @@ void GLFWView::cycleDebugOptions() {
 }
 
 void GLFWView::clearAnnotations() {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     for (const auto &id : annotationIDs) {
         map->removeAnnotation(id);
@@ -934,7 +934,7 @@ void GLFWView::toggleCustomDrawableStyle() {
 
     if (!existingLayer) {
         style.addLayer(std::make_unique<mbgl::style::CustomDrawableLayer>(
-            identifier, std::make_unique<ExampleCustomDrawableStyleLayerHost>(MLN_ASSETS_PATH)));
+            identifier, std::make_unique<ExampleCustomDrawableStyleLayerHost>(MH_ASSETS_PATH)));
     } else {
         style.removeLayer(identifier);
     }
@@ -943,7 +943,7 @@ void GLFWView::toggleCustomDrawableStyle() {
 }
 
 void GLFWView::makeSnapshot(bool withOverlay) {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     if (!snapshotter || snapshotter->getStyleURL() != map->getStyle().getURL()) {
         snapshotter = std::make_unique<mbgl::MapSnapshotter>(map->getMapOptions().size(),
@@ -985,7 +985,7 @@ void GLFWView::makeSnapshot(bool withOverlay) {
 }
 
 void GLFWView::onScroll(GLFWwindow *window, double /*xOffset*/, double yOffset) {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     auto *view = reinterpret_cast<GLFWView *>(glfwGetWindowUserPointer(window));
     double delta = yOffset * 40;
@@ -1006,7 +1006,7 @@ void GLFWView::onScroll(GLFWwindow *window, double /*xOffset*/, double yOffset) 
     }
 
     view->map->scaleBy(scale, mbgl::ScreenCoordinate{view->lastX, view->lastY});
-#if defined(MLN_RENDER_BACKEND_OPENGL) && !defined(MBGL_LAYER_CUSTOM_DISABLE_ALL)
+#if defined(MH_RENDER_BACKEND_OPENGL) && !defined(MBGL_LAYER_CUSTOM_DISABLE_ALL)
     if (view->puck && view->puckFollowsCameraCenter) {
         mbgl::LatLng mapCenter = view->map->getCameraOptions().center.value();
         view->puck->setLocation(toArray(mapCenter));
@@ -1015,7 +1015,7 @@ void GLFWView::onScroll(GLFWwindow *window, double /*xOffset*/, double yOffset) 
 }
 
 void GLFWView::onWindowResize(GLFWwindow *window, int width, int height) {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     auto *view = reinterpret_cast<GLFWView *>(glfwGetWindowUserPointer(window));
     view->width = width;
@@ -1030,7 +1030,7 @@ void GLFWView::onWindowResize(GLFWwindow *window, int width, int height) {
 }
 
 void GLFWView::onFramebufferResize(GLFWwindow *window, int width, int height) {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     auto *view = reinterpret_cast<GLFWView *>(glfwGetWindowUserPointer(window));
     view->backend->setSize({static_cast<uint32_t>(width), static_cast<uint32_t>(height)});
@@ -1041,19 +1041,19 @@ void GLFWView::onFramebufferResize(GLFWwindow *window, int width, int height) {
     // which triggers a rerender with the new framebuffer dimensions.
     view->invalidate();
 
-#if defined(__APPLE__) && defined(MLN_RENDER_BACKEND_VULKAN)
+#if defined(__APPLE__) && defined(MH_RENDER_BACKEND_VULKAN)
     // Render continuously while resizing
     // Untested elsewhere
     view->render();
 
-#if defined(MLN_RENDER_BACKEND_OPENGL)
+#if defined(MH_RENDER_BACKEND_OPENGL)
     glfwSwapBuffers(window);
 #endif
 #endif
 }
 
 void GLFWView::onMouseClick(GLFWwindow *window, int button, int action, int modifiers) {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     auto *view = reinterpret_cast<GLFWView *>(glfwGetWindowUserPointer(window));
 
@@ -1086,7 +1086,7 @@ void GLFWView::onMouseClick(GLFWwindow *window, int button, int action, int modi
 }
 
 void GLFWView::onMouseMove(GLFWwindow *window, double x, double y) {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     auto *view = reinterpret_cast<GLFWView *>(glfwGetWindowUserPointer(window));
     if (view->tracking) {
@@ -1105,7 +1105,7 @@ void GLFWView::onMouseMove(GLFWwindow *window, double x, double y) {
     }
     view->lastX = x;
     view->lastY = y;
-#if defined(MLN_RENDER_BACKEND_OPENGL) && !defined(MBGL_LAYER_CUSTOM_DISABLE_ALL)
+#if defined(MH_RENDER_BACKEND_OPENGL) && !defined(MBGL_LAYER_CUSTOM_DISABLE_ALL)
     if (view->puck && view->puckFollowsCameraCenter) {
         mbgl::LatLng mapCenter = view->map->getCameraOptions().center.value();
         view->puck->setLocation(toArray(mapCenter));
@@ -1148,7 +1148,7 @@ void GLFWView::onMouseMove(GLFWwindow *window, double x, double y) {
 }
 
 void GLFWView::onWindowFocus(GLFWwindow *window, int focused) {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     if (focused == GLFW_FALSE) { // Focus lost.
         auto *view = reinterpret_cast<GLFWView *>(glfwGetWindowUserPointer(window));
@@ -1156,13 +1156,13 @@ void GLFWView::onWindowFocus(GLFWwindow *window, int focused) {
     }
 }
 
-#if defined(__APPLE__) && defined(MLN_RENDER_BACKEND_VULKAN)
+#if defined(__APPLE__) && defined(MH_RENDER_BACKEND_VULKAN)
 void GLFWView::onWindowRefresh(GLFWwindow *window) {
     // Untested elsewhere
     if (auto *view = reinterpret_cast<GLFWView *>(glfwGetWindowUserPointer(window))) {
         view->invalidate();
         view->render();
-#if defined(MLN_RENDER_BACKEND_OPENGL)
+#if defined(MH_RENDER_BACKEND_OPENGL)
         glfwSwapBuffers(window);
 #endif
     }
@@ -1171,13 +1171,13 @@ void GLFWView::onWindowRefresh(GLFWwindow *window) {
 
 void GLFWView::render() {
     if (dirty && rendererFrontend) {
-        MLN_TRACE_ZONE(ReRender);
+        MH_TRACE_ZONE(ReRender);
 
         dirty = false;
         const double started = glfwGetTime();
 
         if (animateRouteCallback) {
-            MLN_TRACE_ZONE(animateRouteCallback);
+            MH_TRACE_ZONE(animateRouteCallback);
 
             animateRouteCallback(map);
         }
@@ -1200,13 +1200,13 @@ void GLFWView::render() {
 }
 
 void GLFWView::run() {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     auto callback = [&] {
-        MLN_TRACE_ZONE(GLFWView_runLoop_callback);
+        MH_TRACE_ZONE(GLFWView_runLoop_callback);
 
         {
-            MLN_TRACE_ZONE(glfwWindowShouldClose);
+            MH_TRACE_ZONE(glfwWindowShouldClose);
             if (glfwWindowShouldClose(window)) {
                 runLoop.stop();
                 return;
@@ -1214,7 +1214,7 @@ void GLFWView::run() {
         }
 
         {
-            MLN_TRACE_ZONE(glfwPollEvents);
+            MH_TRACE_ZONE(glfwPollEvents);
             glfwPollEvents();
         }
 
@@ -1250,7 +1250,7 @@ mbgl::Size GLFWView::getSize() const {
 }
 
 void GLFWView::invalidate() {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     dirty = true;
     glfwPostEmptyEvent();
@@ -1280,22 +1280,22 @@ void GLFWView::setChangeStyleCallback(std::function<void()> callback) {
 }
 
 void GLFWView::setShouldClose() {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     glfwSetWindowShouldClose(window, true);
     glfwPostEmptyEvent();
 }
 
 void GLFWView::setWindowTitle(const std::string &title) {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
-    glfwSetWindowTitle(window, (std::string{"MapLibre Native (GLFW): "} + title).c_str());
+    glfwSetWindowTitle(window, (std::string{"MapHero Native (GLFW): "} + title).c_str());
 }
 
 void GLFWView::onDidFinishLoadingStyle() {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
-#if defined(MLN_RENDER_BACKEND_OPENGL) && !defined(MBGL_LAYER_CUSTOM_DISABLE_ALL)
+#if defined(MH_RENDER_BACKEND_OPENGL) && !defined(MBGL_LAYER_CUSTOM_DISABLE_ALL)
     puck = nullptr;
 #endif
 
@@ -1305,14 +1305,14 @@ void GLFWView::onDidFinishLoadingStyle() {
 }
 
 void GLFWView::toggle3DExtrusions(bool visible) {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     show3DExtrusions = visible;
     addFillExtrusionLayer(map->getStyle(), show3DExtrusions);
 }
 
 void GLFWView::toggleCustomSource() {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
     if (!map->getStyle().getSource("custom")) {
         mbgl::style::CustomGeometrySource::Options options;
@@ -1364,7 +1364,7 @@ void GLFWView::toggleCustomSource() {
 }
 
 void GLFWView::toggleLocationIndicatorLayer() {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
 #ifdef ENABLE_LOCATION_INDICATOR
     puck = static_cast<mbgl::style::LocationIndicatorLayer *>(map->getStyle().getLayer("puck"));
@@ -1429,7 +1429,7 @@ void GLFWView::toggleLocationIndicatorLayer() {
 using Nanoseconds = std::chrono::nanoseconds;
 
 void GLFWView::onWillStartRenderingFrame() {
-    MLN_TRACE_FUNC();
+    MH_TRACE_FUNC();
 
 #ifdef ENABLE_LOCATION_INDICATOR
     puck = static_cast<mbgl::style::LocationIndicatorLayer *>(map->getStyle().getLayer("puck"));

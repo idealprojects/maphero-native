@@ -1,4 +1,4 @@
-import MapLibre
+import MapHero
 import Polyline
 
 @objc public protocol NavigationLocationManagerDelegate: AnyObject {
@@ -6,8 +6,8 @@ import Polyline
     @objc func navigationDidComplete()
 }
 
-class NavigationLocationManager: NSObject, MLNLocationManager {
-    var delegate: (any MLNLocationManagerDelegate)?
+class NavigationLocationManager: NSObject, MHLocationManager {
+    var delegate: (any MHLocationManagerDelegate)?
     var authorizationStatus: CLAuthorizationStatus = .authorizedAlways
     var headingOrientation: CLDeviceOrientation = .portrait
 
@@ -134,14 +134,14 @@ class NavigationRoute {
         22: 42,
     ]
 
-    var mapView: MLNMapView?
+    var mapView: MHMapView?
     var distance = 0.0
     var duration = 0.0
     var destination: CLLocationCoordinate2D?
 
     var steps: [NavigationRouteStep]?
 
-    init(json: [String: Any], mapView: MLNMapView) {
+    init(json: [String: Any], mapView: MHMapView) {
         self.mapView = mapView
 
         load(json: json)
@@ -179,12 +179,12 @@ class NavigationRoute {
     }
 
     private func loadGeometry(from geometry: [CLLocationCoordinate2D]) {
-        let polylines = MLNShapeCollectionFeature(shapes: [MLNPolylineFeature(coordinates: geometry, count: UInt(geometry.count))])
-        let source = MLNShapeSource(identifier: SourceIdentifier, shape: polylines, options: nil)
+        let polylines = MHShapeCollectionFeature(shapes: [MHPolylineFeature(coordinates: geometry, count: UInt(geometry.count))])
+        let source = MHShapeSource(identifier: SourceIdentifier, shape: polylines, options: nil)
         mapView?.style?.addSource(source)
 
-        let layer = MLNLineStyleLayer(identifier: LayerIdentifier, source: source)
-        layer.lineWidth = NSExpression(forMLNInterpolating: .zoomLevelVariable,
+        let layer = MHLineStyleLayer(identifier: LayerIdentifier, source: source)
+        layer.lineWidth = NSExpression(forMHInterpolating: .zoomLevelVariable,
                                        curveType: .linear,
                                        parameters: nil,
                                        stops: NSExpression(forConstantValue: LineWidthByZoomLevel))
@@ -196,14 +196,14 @@ class NavigationRoute {
         layer.lineJoin = NSExpression(forConstantValue: "round")
 
         for value in mapView!.style!.layers.reversed() {
-            if !(value is MLNSymbolStyleLayer) {
+            if !(value is MHSymbolStyleLayer) {
                 mapView?.style?.insertLayer(layer, below: value)
                 break
             }
         }
 
         // destination waypoint annotation
-        let annotation = MLNPointAnnotation()
+        let annotation = MHPointAnnotation()
         annotation.coordinate = destination!
         mapView?.addAnnotation(annotation)
     }

@@ -58,7 +58,7 @@ public:
                        const std::optional<std::string>& localFontFamily_);
     ~RenderOrchestrator() override;
 
-#if MLN_RENDER_BACKEND_OPENGL
+#if MH_RENDER_BACKEND_OPENGL
     void enableAndroidEmulatorGoldfishMitigation(bool enable) { androidGoldfishMitigationEnabled = enable; }
 #endif
 
@@ -217,7 +217,7 @@ private:
     bool placedSymbolDataCollected = false;
     bool tileCacheEnabled = true;
 
-#if MLN_RENDER_BACKEND_OPENGL
+#if MH_RENDER_BACKEND_OPENGL
     bool androidGoldfishMitigationEnabled{false};
 #endif
 

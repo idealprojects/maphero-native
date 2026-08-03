@@ -1,4 +1,4 @@
-# MapLibre Android Tests
+# MapHero Android Tests
 
 ## Render Tests
 

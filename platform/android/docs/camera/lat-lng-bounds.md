@@ -11,14 +11,14 @@ This example demonstrates setting the camera to some bounds defined by some feat
 </figure>
 
 
-Here you can see how the feature collection is loaded and how `MapLibreMap.getCameraForLatLngBounds` is used to set the bounds during map initialization:
+Here you can see how the feature collection is loaded and how `MapHeroMap.getCameraForLatLngBounds` is used to set the bounds during map initialization:
 
 ```kotlin
---8<-- "MapLibreAndroidTestApp/src/main/java/org/maplibre/android/testapp/activity/camera/LatLngBoundsActivity.kt:featureCollection"
+--8<-- "MapHeroAndroidTestApp/src/main/java/org/maphero/android/testapp/activity/camera/LatLngBoundsActivity.kt:featureCollection"
 ```
 
 The `createBounds` function uses the `LatLngBounds` API to include all points within the bounds:
 
 ```kotlin
---8<-- "MapLibreAndroidTestApp/src/main/java/org/maplibre/android/testapp/activity/camera/LatLngBoundsActivity.kt:createBounds"
+--8<-- "MapHeroAndroidTestApp/src/main/java/org/maphero/android/testapp/activity/camera/LatLngBoundsActivity.kt:createBounds"
 ```

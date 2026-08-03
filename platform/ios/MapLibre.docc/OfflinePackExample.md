@@ -6,13 +6,13 @@ Download a region as an offline pack
 
 This example shows how to download a region as an offline pack. This particular example kicks off the download as soon as the map finished loading. For more control when and how to manage offline regions, see <doc:ManageOfflineRegionsExample>.
 
-First, you need to define a ``MLNTilePyramidOfflineRegion``. Note that you should be conservative with your zoom level, because each individual tile in the tile pyramid will be individually downloaded. If you want to make a large area available offline, you should prepare a bundle, download this manually and use ``MLNOfflineStorage/addContentsOfURL:withCompletionHandler:``. However, this is outside of the scope of this example.
+First, you need to define a ``MHTilePyramidOfflineRegion``. Note that you should be conservative with your zoom level, because each individual tile in the tile pyramid will be individually downloaded. If you want to make a large area available offline, you should prepare a bundle, download this manually and use ``MHOfflineStorage/addContentsOfURL:withCompletionHandler:``. However, this is outside of the scope of this example.
 
-You can pass along some user data / context with ``MLNOfflineStorage/addPackForRegion:withContext:completionHandler:``. This can be read in the notififications that are emitted. You should listen for these notifications using the names defined by
+You can pass along some user data / context with ``MHOfflineStorage/addPackForRegion:withContext:completionHandler:``. This can be read in the notififications that are emitted. You should listen for these notifications using the names defined by
 
-- ``MLNOfflinePackProgressChangedNotification``
-- ``MLNOfflinePackErrorNotification``, and
-- ``MLNOfflinePackMaximumMapboxTilesReachedNotification``
+- ``MHOfflinePackProgressChangedNotification``
+- ``MHOfflinePackErrorNotification``, and
+- ``MHOfflinePackMaximumMapboxTilesReachedNotification``
 
 as is shown in the example. Note that this last notification is a historical artifact, your tile provider may not have a maximum number of tiles you are allowed to store.
 
@@ -20,8 +20,8 @@ as is shown in the example. Note that this last notification is a historical art
 <!-- include-example(OfflinePackExample) -->
 
 ```swift
-class OfflinePackExample: UIViewController, MLNMapViewDelegate {
-    var mapView: MLNMapView!
+class OfflinePackExample: UIViewController, MHMapViewDelegate {
+    var mapView: MHMapView!
     var progressView: UIProgressView!
     let jsonDecoder = JSONDecoder()
 
@@ -32,7 +32,7 @@ class OfflinePackExample: UIViewController, MLNMapViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        mapView = MLNMapView(frame: view.bounds, styleURL: AMERICANA_STYLE)
+        mapView = MHMapView(frame: view.bounds, styleURL: AMERICANA_STYLE)
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         mapView.tintColor = .gray
         mapView.delegate = self
@@ -42,12 +42,12 @@ class OfflinePackExample: UIViewController, MLNMapViewDelegate {
                           zoomLevel: 13, animated: false)
 
         // Setup offline pack notification handlers.
-        NotificationCenter.default.addObserver(self, selector: #selector(offlinePackProgressDidChange), name: NSNotification.Name.MLNOfflinePackProgressChanged, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(offlinePackDidReceiveError), name: NSNotification.Name.MLNOfflinePackError, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(offlinePackDidReceiveMaximumAllowedMapboxTiles), name: NSNotification.Name.MLNOfflinePackMaximumMapboxTilesReached, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(offlinePackProgressDidChange), name: NSNotification.Name.MHOfflinePackProgressChanged, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(offlinePackDidReceiveError), name: NSNotification.Name.MHOfflinePackError, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(offlinePackDidReceiveMaximumAllowedMapboxTiles), name: NSNotification.Name.MHOfflinePackMaximumMapboxTilesReached, object: nil)
     }
 
-    func mapViewDidFinishLoadingMap(_: MLNMapView) {
+    func mapViewDidFinishLoadingMap(_: MHMapView) {
         // Start downloading tiles and resources for z13-14.
         startOfflinePackDownload()
     }
@@ -56,7 +56,7 @@ class OfflinePackExample: UIViewController, MLNMapViewDelegate {
         super.viewDidDisappear(animated)
 
         // When leaving this view controller, suspend offline downloads.
-        guard let packs = MLNOfflineStorage.shared.packs else { return }
+        guard let packs = MHOfflineStorage.shared.packs else { return }
         for pack in packs {
             if let userInfo = try? jsonDecoder.decode(UserData.self, from: pack.context) {
                 print("Suspending download of offline pack: '\(userInfo.name)'")
@@ -69,7 +69,7 @@ class OfflinePackExample: UIViewController, MLNMapViewDelegate {
     func startOfflinePackDownload() {
         // Create a region that includes the current viewport and any tiles needed to view it when zoomed further in.
         // Because tile count grows exponentially with the maximum zoom level, you should be conservative with your `toZoomLevel` setting.
-        let region = MLNTilePyramidOfflineRegion(styleURL: mapView.styleURL, bounds: mapView.visibleCoordinateBounds, fromZoomLevel: mapView.zoomLevel, toZoomLevel: 14)
+        let region = MHTilePyramidOfflineRegion(styleURL: mapView.styleURL, bounds: mapView.visibleCoordinateBounds, fromZoomLevel: mapView.zoomLevel, toZoomLevel: 14)
 
         // Store some data for identification purposes alongside the downloaded resources.
         let jsonEncoder = JSONEncoder()
@@ -80,7 +80,7 @@ class OfflinePackExample: UIViewController, MLNMapViewDelegate {
 
         // Create and register an offline pack with the shared offline storage object.
 
-        MLNOfflineStorage.shared.addPack(for: region, withContext: encodedUserInfo) { pack, error in
+        MHOfflineStorage.shared.addPack(for: region, withContext: encodedUserInfo) { pack, error in
             guard error == nil else {
                 // The pack couldn’t be created for some reason.
                 print("Error: \(error?.localizedDescription ?? "unknown error")")
@@ -92,16 +92,16 @@ class OfflinePackExample: UIViewController, MLNMapViewDelegate {
         }
     }
 
-    // MARK: - MLNOfflinePack notification handlers
+    // MARK: - MHOfflinePack notification handlers
 
     @objc func offlinePackProgressDidChange(notification: NSNotification) {
         // Get the offline pack this notification is regarding,
         // and the associated user info for the pack; in this case, `name = My Offline Pack`
-        if let pack = notification.object as? MLNOfflinePack,
+        if let pack = notification.object as? MHOfflinePack,
            let userInfo = try? jsonDecoder.decode(UserData.self, from: pack.context)
         {
             let progress = pack.progress
-            // or notification.userInfo![MLNOfflinePackProgressUserInfoKey]!.MLNOfflinePackProgressValue
+            // or notification.userInfo![MHOfflinePackProgressUserInfoKey]!.MHOfflinePackProgressValue
             let completedResources = progress.countOfResourcesCompleted
             let expectedResources = progress.countOfResourcesExpected
 
@@ -130,18 +130,18 @@ class OfflinePackExample: UIViewController, MLNMapViewDelegate {
     }
 
     @objc func offlinePackDidReceiveError(notification: NSNotification) {
-        if let pack = notification.object as? MLNOfflinePack,
+        if let pack = notification.object as? MHOfflinePack,
            let userInfo = try? jsonDecoder.decode(UserData.self, from: pack.context),
-           let error = notification.userInfo?[MLNOfflinePackUserInfoKey.error] as? NSError
+           let error = notification.userInfo?[MHOfflinePackUserInfoKey.error] as? NSError
         {
             print("Offline pack “\(userInfo.name)” received error: \(error.localizedFailureReason ?? "unknown error")")
         }
     }
 
     @objc func offlinePackDidReceiveMaximumAllowedMapboxTiles(notification: NSNotification) {
-        if let pack = notification.object as? MLNOfflinePack,
+        if let pack = notification.object as? MHOfflinePack,
            let userInfo = try? jsonDecoder.decode(UserData.self, from: pack.context),
-           let maximumCount = (notification.userInfo?[MLNOfflinePackUserInfoKey.maximumCount] as AnyObject).uint64Value
+           let maximumCount = (notification.userInfo?[MHOfflinePackUserInfoKey.maximumCount] as AnyObject).uint64Value
         {
             print("Offline pack “\(userInfo.name)” reached limit of \(maximumCount) tiles.")
         }

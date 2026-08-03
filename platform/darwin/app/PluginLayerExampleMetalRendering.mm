@@ -36,11 +36,11 @@ typedef struct
 @implementation PluginLayerExampleMetalRendering
 
 
-// This is a static class method that is used by the MLNMapView to create the
-// required marshalling classes to interface with the MapLibre core.
-+(MLNPluginLayerCapabilities *)layerCapabilities {
+// This is a static class method that is used by the MHMapView to create the
+// required marshalling classes to interface with the MapHero core.
++(MHPluginLayerCapabilities *)layerCapabilities {
 
-    MLNPluginLayerCapabilities *tempResult = [[MLNPluginLayerCapabilities alloc] init];
+    MHPluginLayerCapabilities *tempResult = [[MHPluginLayerCapabilities alloc] init];
     tempResult.layerID = @"plugin-layer-metal-rendering";
     tempResult.requiresPass3D = YES;
 
@@ -48,13 +48,13 @@ typedef struct
     // what types they are
     tempResult.layerProperties = @[
         // The scale property
-        [MLNPluginLayerProperty propertyWithName:@"scale"
-                                    propertyType:MLNPluginLayerPropertyTypeSingleFloat
+        [MHPluginLayerProperty propertyWithName:@"scale"
+                                    propertyType:MHPluginLayerPropertyTypeSingleFloat
                                     defaultValue:@(1.0)],
 
         // The fill color property
-        [MLNPluginLayerProperty propertyWithName:@"fill-color"
-                                    propertyType:MLNPluginLayerPropertyTypeColor
+        [MHPluginLayerProperty propertyWithName:@"fill-color"
+                                    propertyType:MHPluginLayerPropertyTypeColor
                                     defaultValue:[UIColor blueColor]]
 
     ];
@@ -63,8 +63,8 @@ typedef struct
 
 }
 
-- (void)createShaders:(MLNMapView *)mapView {
-    MLNBackendResource* resource = [mapView backendResource];
+- (void)createShaders:(MHMapView *)mapView {
+    MHBackendResource* resource = [mapView backendResource];
 
     NSString *shaderSource = @
 "    #include <metal_stdlib>\n"
@@ -129,7 +129,7 @@ typedef struct
 
 
 // Setup the rendering environment
--(void)setupRendering:(MLNMapView *)mapView {
+-(void)setupRendering:(MHMapView *)mapView {
     [self createShaders:mapView];
     if (_scale == 0) {
         _scale = 1;
@@ -140,10 +140,10 @@ typedef struct
 }
 
 // The overrides
--(void)onRenderLayer:(MLNMapView *)mapView
+-(void)onRenderLayer:(MHMapView *)mapView
        renderEncoder:(id<MTLRenderCommandEncoder>)renderEncoder {
 
-    MLNBackendResource* resource = [mapView backendResource];
+    MHBackendResource* resource = [mapView backendResource];
 
     if (_pipelineState == nil) {
         [self setupRendering:mapView];
@@ -183,7 +183,7 @@ typedef struct
                       vertexCount:3];
 }
 
--(void)onUpdateLayer:(MLNPluginLayerDrawingContext)drawingContext {
+-(void)onUpdateLayer:(MHPluginLayerDrawingContext)drawingContext {
     // This is called before the render call and is a place where
     // any animations/etc can be updated
 }

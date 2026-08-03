@@ -1,21 +1,21 @@
-# MapLibre Native for Android
+# MapHero Native for Android
 
 [![GitHub Action build status](https://github.com/maplibre/maplibre-native/workflows/android-ci/badge.svg)](https://github.com/maplibre/maplibre-native/actions/workflows/android-ci.yml) [![GitHub Action build status](https://github.com/maplibre/maplibre-native/workflows/android-release/badge.svg)](https://github.com/maplibre/maplibre-native/actions/workflows/android-release.yml)
 
-MapLibre Native for Android is a library for embedding interactive map views with scalable, customizable vector maps onto Android devices.
+MapHero Native for Android is a library for embedding interactive map views with scalable, customizable vector maps onto Android devices.
 
 ## Getting Started
 
-Visit [https://maplibre.org/maplibre-native/android/examples/getting-started/](https://maplibre.org/maplibre-native/android/examples/getting-started/) to view the Getting Started Guide for MapLibre Native for Android.
+Visit [https://maplibre.org/maplibre-native/android/examples/getting-started/](https://maplibre.org/maplibre-native/android/examples/getting-started/) to view the Getting Started Guide for MapHero Native for Android.
 
 ### Examples Documentation
 
-Visit [MapLibre Android Example](https://maplibre.org/maplibre-native/android/examples/) to learn how to use MapLibre Android.
+Visit [MapHero Android Example](https://maplibre.org/maplibre-native/android/examples/) to learn how to use MapHero Android.
 
 ## API Documentation
 
-Visit [MapLibre Android Dokka Docs](https://maplibre.org/maplibre-native/android/api/) to view the current API reference for MapLibre Android.
+Visit [MapHero Android Dokka Docs](https://maplibre.org/maplibre-native/android/api/) to view the current API reference for MapHero Android.
 
 ## Contributing
 
-See the [MapLibre Android Developer Guide](https://maplibre.org/maplibre-native/docs/book/platforms/android) for instructions on how to build the project or how to work on the documentation.
+See the [MapHero Android Developer Guide](https://maplibre.org/maplibre-native/docs/book/platforms/android) for instructions on how to build the project or how to work on the documentation.

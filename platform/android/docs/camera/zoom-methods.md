@@ -10,34 +10,34 @@ This example shows different methods of zooming in.
   </video>
 </figure>
 
-Each method uses `MapLibreMap.animateCamera`, but with a different `CameraUpdateFactory`.
+Each method uses `MapHeroMap.animateCamera`, but with a different `CameraUpdateFactory`.
 
 #### Zooming In
 
 ```kotlin
---8<-- "MapLibreAndroidTestApp/src/main/java/org/maplibre/android/testapp/activity/camera/ManualZoomActivity.kt:zoomIn"
+--8<-- "MapHeroAndroidTestApp/src/main/java/org/maphero/android/testapp/activity/camera/ManualZoomActivity.kt:zoomIn"
 ```
 
 #### Zooming Out
 
 ```kotlin
---8<-- "MapLibreAndroidTestApp/src/main/java/org/maplibre/android/testapp/activity/camera/ManualZoomActivity.kt:zoomOut"
+--8<-- "MapHeroAndroidTestApp/src/main/java/org/maphero/android/testapp/activity/camera/ManualZoomActivity.kt:zoomOut"
 ```
 
 #### Zoom By Some Amount of Zoom Levels
 
 ```kotlin
---8<-- "MapLibreAndroidTestApp/src/main/java/org/maplibre/android/testapp/activity/camera/ManualZoomActivity.kt:zoomBy"
+--8<-- "MapHeroAndroidTestApp/src/main/java/org/maphero/android/testapp/activity/camera/ManualZoomActivity.kt:zoomBy"
 ```
 
 #### Zoom to a Zoom Level
 
 ```kotlin
---8<-- "MapLibreAndroidTestApp/src/main/java/org/maplibre/android/testapp/activity/camera/ManualZoomActivity.kt:zoomTo"
+--8<-- "MapHeroAndroidTestApp/src/main/java/org/maphero/android/testapp/activity/camera/ManualZoomActivity.kt:zoomTo"
 ```
 
 #### Zoom to a Point
 
 ```kotlin
---8<-- "MapLibreAndroidTestApp/src/main/java/org/maplibre/android/testapp/activity/camera/ManualZoomActivity.kt:zoomToPoint"
+--8<-- "MapHeroAndroidTestApp/src/main/java/org/maphero/android/testapp/activity/camera/ManualZoomActivity.kt:zoomToPoint"
 ```

@@ -39,7 +39,7 @@ NSString *const MBXShowsAttributionButton = @"MBXShowsAttributionButton";
 
 - (nullable instancetype)initWithCoder:(nonnull NSCoder *)decoder {
     if (self = [super init]) {
-        MLNMapCamera *decodedCamera = [decoder decodeObjectForKey:MBXCamera];
+        MHMapCamera *decodedCamera = [decoder decodeObjectForKey:MBXCamera];
         NSNumber *decodedUserTrackingMode = [decoder decodeObjectForKey:MBXUserTrackingMode];
         BOOL decodedShowsUserLocation = [decoder decodeBoolForKey:MBXShowsUserLocation];
         NSNumber *decodedDebugMaskOptions = [decoder decodeObjectForKey:MBXDebugMaskValue];

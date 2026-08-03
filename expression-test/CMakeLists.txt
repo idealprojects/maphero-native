@@ -20,18 +20,18 @@ target_include_directories(
 target_link_libraries(
     mbgl-expression-test
     PRIVATE
-        MapLibreNative::Base
+        MapHeroNative::Base
         mbgl-vendor-args
         mbgl-core
         mbgl-compiler-options
 )
 
-set_property(TARGET mbgl-expression-test PROPERTY FOLDER MapLibre)
+set_property(TARGET mbgl-expression-test PROPERTY FOLDER MapHero)
 
-string(RANDOM LENGTH 5 ALPHABET 0123456789 MLN_EXPRESSION_TEST_SEED)
+string(RANDOM LENGTH 5 ALPHABET 0123456789 MH_EXPRESSION_TEST_SEED)
 
 add_test(
     NAME mbgl-expression-test
-    COMMAND mbgl-expression-test -s --seed=${MLN_EXPRESSION_TEST_SEED}
+    COMMAND mbgl-expression-test -s --seed=${MH_EXPRESSION_TEST_SEED}
     WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
 )

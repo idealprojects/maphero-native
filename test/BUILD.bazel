@@ -1,5 +1,5 @@
 load("@rules_cc//cc:defs.bzl", "cc_library", "cc_test")
-load("//bazel:flags.bzl", "CPP_FLAGS", "MAPLIBRE_FLAGS")
+load("//bazel:flags.bzl", "CPP_FLAGS", "MAPHERO_FLAGS")
 
 cc_library(
     name = "testutils",
@@ -24,7 +24,7 @@ cc_library(
     hdrs = glob([
         "src/mbgl/test/*.hpp",
     ]),
-    copts = CPP_FLAGS + MAPLIBRE_FLAGS + select({
+    copts = CPP_FLAGS + MAPHERO_FLAGS + select({
         "@platforms//os:ios": ["-DUSE_CPP_TEST_SERVER"],
         "//conditions:default": [],
     }),
@@ -55,7 +55,7 @@ cc_library(
         "//:webgpu_renderer": ["renderer/wgsl_preprocessor.test.cpp"],
         "//conditions:default": [],
     }),
-    copts = CPP_FLAGS + MAPLIBRE_FLAGS,
+    copts = CPP_FLAGS + MAPHERO_FLAGS,
     visibility = [
         "//platform/ios/test/core:__pkg__",
     ],

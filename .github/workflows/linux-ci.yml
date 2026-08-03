@@ -109,7 +109,7 @@ jobs:
           role-to-assume: ${{ vars.OIDC_AWS_ROLE_TO_ASSUME }}
           role-session-name: ${{ github.run_id }}
 
-      - name: Build MapLibre Native
+      - name: Build MapHero Native
         env:
           CI: 1
         run: |
@@ -138,11 +138,11 @@ jobs:
           fi
 
           cmake --preset linux-${{ matrix.variant.renderer }} \
-            -DMLN_WITH_CLANG_TIDY=ON \
+            -DMH_WITH_CLANG_TIDY=ON \
             -DCLANG_TIDY_COMMAND=/usr/local/bin/ctcache/clang-tidy \
             -DCMAKE_C_COMPILER_LAUNCHER=sccache \
             -DCMAKE_CXX_COMPILER_LAUNCHER=sccache \
-            -DMLN_WITH_COVERAGE=ON
+            -DMH_WITH_COVERAGE=ON
           cmake --build build-linux-${{ matrix.variant.renderer }} --target mbgl-core mbgl-test-runner mbgl-render-test-runner mbgl-expression-test mbgl-render mbgl-benchmark-runner
 
       # mbgl-render (used for size test) & mbgl-benchmark-runner

@@ -1,10 +1,10 @@
 # User Location & Location Privacy
 
-Requesting precise location with ``MLNLocationManager``.
+Requesting precise location with ``MHLocationManager``.
 
 > Note: This example uses SwiftUI.
 
-This example shows how to request a precise location with ``MLNLocationManager``.
+This example shows how to request a precise location with ``MHLocationManager``.
 
 Let's prepare your `Info.plist`:
 
@@ -20,7 +20,7 @@ Second, add a description why your app needs precise location:
 ```plist
 <key>NSLocationTemporaryUsageDescriptionDictionary</key>
 <dict>
-  <key>MLNAccuracyAuthorizationDescription</key>
+  <key>MHAccuracyAuthorizationDescription</key>
   <string>Dummy Precise Location Description</string>
 </dict>
 ```
@@ -32,7 +32,7 @@ Third and finally, specify your app only needs reduced location access by defaul
 <true/>
 ```
 
-The `Coordinator` defined below is also the ``MLNMapViewDelegate``. When the location manager authorization changes it will call the relevant method. If precise location has not been granted, a button is shown at the bottom of the map.
+The `Coordinator` defined below is also the ``MHMapViewDelegate``. When the location manager authorization changes it will call the relevant method. If precise location has not been granted, a button is shown at the bottom of the map.
 
 ![](ImpreciseLocation.png)
 
@@ -55,7 +55,7 @@ class PrivacyExampleViewModel: NSObject, ObservableObject {
     @Published var showTemporaryLocationAuthorization = false
 }
 
-class PrivacyExampleCoordinator: NSObject, MLNMapViewDelegate {
+class PrivacyExampleCoordinator: NSObject, MHMapViewDelegate {
     @ObservedObject private var mapViewModel: PrivacyExampleViewModel
     private var pannedToUserLocation = false
 
@@ -64,7 +64,7 @@ class PrivacyExampleCoordinator: NSObject, MLNMapViewDelegate {
         super.init()
     }
 
-    @MainActor func mapView(_: MLNMapView, didChangeLocationManagerAuthorization manager: MLNLocationManager) {
+    @MainActor func mapView(_: MHMapView, didChangeLocationManagerAuthorization manager: MHLocationManager) {
         guard let accuracySetting = manager.accuracyAuthorization else {
             return
         }
@@ -80,13 +80,13 @@ class PrivacyExampleCoordinator: NSObject, MLNMapViewDelegate {
     }
 
     // when a location is available for the first time, we fly to it
-    func mapView(_ mapView: MLNMapView, didUpdate _: MLNUserLocation?) {
+    func mapView(_ mapView: MHMapView, didUpdate _: MHUserLocation?) {
         guard !pannedToUserLocation else { return }
         guard let userLocation = mapView.userLocation else {
             print("User location is currently not available.")
             return
         }
-        mapView.fly(to: MLNMapCamera(lookingAtCenter: userLocation.coordinate, altitude: 100_000, pitch: 0, heading: 0))
+        mapView.fly(to: MHMapCamera(lookingAtCenter: userLocation.coordinate, altitude: 100_000, pitch: 0, heading: 0))
         pannedToUserLocation = true
     }
 }
@@ -98,17 +98,17 @@ struct PrivacyExampleRepresentable: UIViewRepresentable {
         PrivacyExampleCoordinator(mapViewModel: mapViewModel)
     }
 
-    func makeUIView(context: Context) -> MLNMapView {
-        let mapView = MLNMapView()
+    func makeUIView(context: Context) -> MHMapView {
+        let mapView = MHMapView()
 
         mapView.delegate = context.coordinator
         mapView.showsUserLocation = true
         return mapView
     }
 
-    func updateUIView(_ mapView: MLNMapView, context _: Context) {
+    func updateUIView(_ mapView: MHMapView, context _: Context) {
         if mapViewModel.showTemporaryLocationAuthorization {
-            let purposeKey = "MLNAccuracyAuthorizationDescription"
+            let purposeKey = "MHAccuracyAuthorizationDescription"
             mapView.locationManager.requestTemporaryFullAccuracyAuthorization?(withPurposeKey: purposeKey)
             DispatchQueue.main.async {
                 mapViewModel.showTemporaryLocationAuthorization = false
