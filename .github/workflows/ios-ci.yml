@@ -77,6 +77,20 @@ jobs:
       BUILDTYPE: Debug
       HOMEBREW_NO_AUTO_UPDATE: 1
       HOMEBREW_NO_INSTALL_CLEANUP: 1
+      # Whether this runner can code-sign an iOS application.
+      #
+      # Three targets here are `ios_application`s with `provisioning_profile = "xcode_profile"`:
+      # the Swift example app, App and BenchmarkApp. That profile is resolved from the local
+      # keychain by rules_apple's local_provisioning_profile_finder, so it exists on a developer's
+      # Mac -- which is what the self-hosted runner was -- and never on a GitHub-hosted one:
+      #
+      #   error: no provisioning profile was found named 'iOS Team Provisioning Profile: *'
+      #
+      # The SDK itself is unaffected. MapHero.dynamic, the framework ios-release publishes,
+      # declares no provisioning_profile, because a dynamic framework is not signed at build time.
+      # So the steps below that need signing are skipped rather than the whole job being lost.
+      # Set this to 'true' again when a signing-capable runner is back.
+      CODE_SIGNING_AVAILABLE: 'false'
     defaults:
       run:
         working-directory: platform/ios
@@ -96,6 +110,7 @@ jobs:
           path: ~/.cache/bazel
 
       - name: Build Example (Swift) App
+        if: env.CODE_SIGNING_AVAILABLE == 'true'
         run: bazel build //platform/ios/app-swift:MapHeroApp --//:renderer=metal
 
       - name: Check debug symbols
@@ -136,6 +151,7 @@ jobs:
       # render test
 
       - name: Build RenderTest .ipa and .xctest for AWS Device Farm
+        if: env.CODE_SIGNING_AVAILABLE == 'true'
         run: |
           set -e
           bazel run //platform/ios:xcodeproj --@rules_xcodeproj//xcodeproj:extra_common_flags="--//:renderer=metal"
@@ -152,6 +168,8 @@ jobs:
           echo render_test_artifacts_dir="$render_test_app_dir" >> "$GITHUB_ENV"
 
       - uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5.0.0
+        # Nothing to upload when the .ipa above was skipped for want of a signing identity.
+        if: env.CODE_SIGNING_AVAILABLE == 'true'
         with:
           name: ios-render-test
           retention-days: 3
@@ -163,6 +181,7 @@ jobs:
       # C++ unit tests
 
       - name: Build CppUnitTests .ipa and .xctest for AWS Device Farm
+        if: env.CODE_SIGNING_AVAILABLE == 'true'
         run: |
           set -e
           bazel run //platform/ios:xcodeproj --@rules_xcodeproj//xcodeproj:extra_common_flags="--//:renderer=metal"
@@ -179,6 +198,8 @@ jobs:
           echo ios_cpp_test_artifacts_dir="$ios_cpp_test_app_dir" >> "$GITHUB_ENV"
 
       - uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5.0.0
+        # Nothing to upload when the .ipa above was skipped for want of a signing identity.
+        if: env.CODE_SIGNING_AVAILABLE == 'true'
         with:
           name: ios-cpp-unit-tests
           retention-days: 3
