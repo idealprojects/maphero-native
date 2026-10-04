@@ -8,17 +8,17 @@
 #include <utility>
 
 namespace mlt {
-class MapHeroTile;
+class MapLibreTile;
 class Feature;
 class Layer;
 } // namespace mlt
 
 namespace mbgl {
-using MapHeroTile = mlt::MapHeroTile;
+using MapLibreTile = mlt::MapLibreTile;
 
 class VectorMLTTileFeature : public GeometryTileFeature {
 public:
-    VectorMLTTileFeature(std::shared_ptr<const MapHeroTile>,
+    VectorMLTTileFeature(std::shared_ptr<const MapLibreTile>,
                          const mlt::Layer& layer_,
                          const mlt::Feature&,
                          std::uint32_t extent);
@@ -42,7 +42,7 @@ public:
     const GeometryCollection& getGeometries() const override;
 
 private:
-    std::shared_ptr<const MapHeroTile> tile;
+    std::shared_ptr<const MapLibreTile> tile;
     const mlt::Layer& layer;
     mlt::Feature const& feature;
     std::uint32_t extent;
@@ -55,14 +55,14 @@ private:
 
 class VectorMLTTileLayer : public GeometryTileLayer {
 public:
-    VectorMLTTileLayer(std::shared_ptr<const MapHeroTile>, const mlt::Layer&);
+    VectorMLTTileLayer(std::shared_ptr<const MapLibreTile>, const mlt::Layer&);
 
     std::size_t featureCount() const override;
     std::unique_ptr<GeometryTileFeature> getFeature(std::size_t i) const override;
     std::string getName() const override;
 
 private:
-    const std::shared_ptr<const MapHeroTile> tile;
+    const std::shared_ptr<const MapLibreTile> tile;
     const mlt::Layer& layer;
 };
 
@@ -79,7 +79,7 @@ public:
 
 private:
     mutable std::shared_ptr<const std::string> data;
-    mutable std::shared_ptr<const MapHeroTile> tile;
+    mutable std::shared_ptr<const MapLibreTile> tile;
 };
 
 } // namespace mbgl
