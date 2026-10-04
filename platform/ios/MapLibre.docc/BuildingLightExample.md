@@ -62,7 +62,7 @@ class BuildingLightExample: UIViewController, MHMapViewDelegate {
         // Azimuthal : Position of the light relative to its anchor. Takes a CLLocationDirection.
         // Polar : The height of the light. Takes a CLLocationDirection.
         let position = MHSphericalPositionMake(5, 180, 80)
-        light.position = NSExpression(forConstantValue: NSValue(mlnSphericalPosition: position))
+        light.position = NSExpression(forConstantValue: NSValue(mhSphericalPosition: position))
 
         // Set the light anchor to the map and add the light object to the map view's style. The light anchor can be the viewport (or rotates with the viewport) or the map (rotates with the map). To make the viewport the anchor, replace `map` with `viewport`.
         light.anchor = NSExpression(forConstantValue: "map")
@@ -72,7 +72,7 @@ class BuildingLightExample: UIViewController, MHMapViewDelegate {
     @objc func shiftLight() {
         // Use the slider's value to change the light's polar value.
         let position = MHSphericalPositionMake(5, 180, CLLocationDirection(slider.value))
-        light.position = NSExpression(forConstantValue: NSValue(mlnSphericalPosition: position))
+        light.position = NSExpression(forConstantValue: NSValue(mhSphericalPosition: position))
         mapView.style?.light = light
     }
 

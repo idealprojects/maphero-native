@@ -77,8 +77,8 @@ class WebAPIDataExample: UIViewController, MHMapViewDelegate {
         symbols.textOpacity = symbols.iconOpacity
         symbols.textHaloColor = symbols.iconHaloColor
         symbols.textHaloWidth = symbols.iconHaloWidth
-        symbols.textJustification = NSExpression(forConstantValue: NSValue(mlnTextJustification: .left))
-        symbols.textAnchor = NSExpression(forConstantValue: NSValue(mlnTextAnchor: .left))
+        symbols.textJustification = NSExpression(forConstantValue: NSValue(mhTextJustification: .left))
+        symbols.textAnchor = NSExpression(forConstantValue: NSValue(mhTextAnchor: .left))
 
         style.addLayer(circles)
         style.addLayer(symbols)

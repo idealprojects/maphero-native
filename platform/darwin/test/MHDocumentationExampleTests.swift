@@ -57,7 +57,7 @@ class MHDocumentationExampleTests: XCTestCase, MHMapViewDelegate {
         // #-example-code
         let light = MHLight()
         let position = MHSphericalPosition(radial: 5, azimuthal: 180, polar: 80)
-        light.position = NSExpression(forConstantValue: NSValue(mlnSphericalPosition: position))
+        light.position = NSExpression(forConstantValue: NSValue(mhSphericalPosition: position))
         light.anchor = NSExpression(forConstantValue: "map")
         mapView.style?.light = light
         // #-end-example-code
