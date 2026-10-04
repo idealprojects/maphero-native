@@ -59,7 +59,16 @@ jobs:
   ios-build:
     needs: pre_job
     if: needs.pre_job.outputs.should_skip != 'true'
-    runs-on: [self-hosted, macOS, ARM64]
+    # GitHub-hosted rather than [self-hosted, macOS, ARM64]: no self-hosted runner is registered
+    # any more, so this job sat queued for over two hours and would have been dropped after 24.
+    # macos-14 is Apple Silicon, so the architecture is unchanged, and it is already what
+    # ios-build-cmake and ios-release run on -- one runner kind for the whole workflow.
+    #
+    # It is also deliberately NOT macos-latest: that now resolves to a macOS 26 image whose SDK
+    # headers hard-error on this codebase. apple_support is pinned to 1.24.5 in MODULE.bazel,
+    # which is what makes the Xcode 16.3+ linker work here; without it the build dies with
+    # `wrapped_clang: missing LC_UUID`.
+    runs-on: macos-14
     concurrency:
       # cancel jobs on PRs only
       group: ${{ github.workflow }}-${{ github.ref }}
