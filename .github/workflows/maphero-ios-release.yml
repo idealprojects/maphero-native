@@ -1,0 +1,173 @@
+# Cuts a MapHero iOS release: an XCFramework zip attached to a GitHub release, under the exact tag
+# and asset name that idealprojects/maphero-ios's Package.swift fetches.
+#
+# WHY THIS EXISTS, rather than ios-ci's `ios-release` job
+#
+# `ios-release` in ios-ci.yml is upstream MapLibre's, and it publishes upstream's way:
+#
+#   * its pre-release path REJECTS a version that does not contain "pre", so the best it can tag is
+#     `ios-v1.3.2-pre<sha>`, while Package.swift fetches `1.3.2`;
+#   * it uploads `MapHero.dynamic.xcframework.zip`, while Package.swift fetches
+#     `MapHero_ios_device.framework.zip`;
+#   * it also uploads a changelog to `s3://maplibre-native/`, pushes to the Swift Package Index and
+#     CocoaPods, and its `Configure AWS Credentials` step carries no `if:` guard while this fork
+#     sets no OIDC role -- so it fails before reaching the release regardless.
+#
+# Every MapHero release from 0.0.1 to 1.2.1 came from a one-job workflow on `main` instead, and
+# 1.3.0 and 1.3.1 were built on a Mac by hand and uploaded (no workflow run exists for either).
+# This is that one-job workflow, kept on the release branch, with the version read from the file
+# instead of hardcoded.
+#
+# TRIGGER: pushing a bare version tag, e.g. `1.3.2`. Deliberately a tag and not workflow_dispatch:
+# a dispatchable workflow has to exist on the default branch, and this one lives on the release
+# branch. Checked against every other workflow here -- `ios-*`, `android-*`, `linux-*`, `node-*` and
+# `qt-*` are the only tag patterns in use, so a bare version tag runs this and nothing else.
+name: maphero-ios-release
+
+on:
+  push:
+    tags:
+      - '[0-9]+.[0-9]+.[0-9]+'
+      - '[0-9]+.[0-9]+.[0-9]+-*'
+
+permissions:
+  contents: write # create the release and its tag
+
+jobs:
+  release:
+    # macos-15 is the image that produced 1.2.1 through this same recipe. NOT macos-26: its SDK
+    # hard-errors on headers this tree includes. macos-14 is also known to build
+    # //platform/ios:MapHero.dynamic in opt mode on this exact tree -- ios-ci does it on every run
+    # -- but with the size test's flags rather than the release flags below, so macos-15 is the
+    # better-evidenced choice for a release. If this image is ever retired, macos-14 is the fallback.
+    runs-on: macos-15
+
+    env:
+      NAME: MapHero
+      TEAMID: 68DUZ3F2NM
+
+    steps:
+      - uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v4
+        with:
+          submodules: recursive
+          persist-credentials: false
+
+      # The tag is the authorisation for a release, so it must agree with the file the SDK version
+      # is read from. Disagreeing would ship a framework whose internal version is not the one in
+      # the URL people fetch it by.
+      - name: Check the tag against platform/ios/VERSION
+        run: |
+          set -u
+          tag="${GITHUB_REF_NAME}"
+          file_version="$(tr -d '[:space:]' < platform/ios/VERSION)"
+          echo "tag=$tag  platform/ios/VERSION=$file_version"
+          if [ "$tag" != "$file_version" ]; then
+            echo "::error title=Version mismatch::Tag '$tag' does not match platform/ios/VERSION ('$file_version'). Bump the file or retag."
+            exit 1
+          fi
+          echo "version=$file_version" >> "$GITHUB_ENV"
+
+      # A dynamic framework is not signed at build time, and ios-ci proves the point: it builds this
+      # same target on a runner with no certificate at all. So a missing secret must not block a
+      # release -- bazel falls back to ad-hoc signing. The identity is installed when it is there
+      # because that is how 1.2.1 and the hand-built 1.3.1 were produced, and matching them is worth
+      # more than saving a step.
+      - name: Install the Apple certificate, if one is configured
+        env:
+          BUILD_CERTIFICATE_BASE64: ${{ secrets.BUILD_CERTIFICATE_BASE64 }}
+          P12_PASSWORD: ${{ secrets.P12_PASSWORD }}
+          BUILD_PROVISION_PROFILE_BASE64: ${{ secrets.BUILD_PROVISION_PROFILE_BASE64 }}
+          KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
+        run: |
+          set -u
+          if [ -z "${BUILD_CERTIFICATE_BASE64:-}" ]; then
+            echo "::notice title=No signing identity::BUILD_CERTIFICATE_BASE64 is not set; bazel will ad-hoc sign the framework."
+            exit 0
+          fi
+          CERTIFICATE_PATH="$RUNNER_TEMP/build_certificate.p12"
+          KEYCHAIN_PATH="$RUNNER_TEMP/app-signing.keychain-db"
+          echo -n "$BUILD_CERTIFICATE_BASE64" | base64 --decode -o "$CERTIFICATE_PATH"
+          security create-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
+          security set-keychain-settings -lut 21600 "$KEYCHAIN_PATH"
+          security unlock-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
+          security import "$CERTIFICATE_PATH" -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k "$KEYCHAIN_PATH"
+          security list-keychain -d user -s "$KEYCHAIN_PATH"
+          if [ -n "${BUILD_PROVISION_PROFILE_BASE64:-}" ]; then
+            PP_PATH="$RUNNER_TEMP/Wildcard.mobileprovision"
+            echo -n "$BUILD_PROVISION_PROFILE_BASE64" | base64 --decode -o "$PP_PATH"
+            mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+            cp "$PP_PATH" ~/Library/MobileDevice/Provisioning\ Profiles
+          fi
+
+      # The flag set that produced the shipped 1.2.1 artifact, unchanged. `--copt=-Wno-error` looks
+      # unnecessary -- ios-ci's opt build of this target passes without it, and the only warnings it
+      # emits are -Wunused-parameter from the vendored mlt headers -- but thin_lto and dead_strip are
+      # not what ios-ci compiles with, so the proven recipe is kept intact for the first release
+      # through this path. Drop it once a release has gone out, not before.
+      - name: Build the dynamic XCFramework
+        run: |
+          bazel build \
+            --copt=-Wno-error --copt=-Wno-unused-but-set-variable \
+            --compilation_mode=opt \
+            --features=dead_strip,thin_lto \
+            --objc_enable_binary_stripping \
+            --apple_generate_dsym --output_groups=+dsyms \
+            --//:renderer=metal \
+            //platform/ios:MapHero.dynamic \
+            --embed_label="maphero_ios_${{ env.version }}"
+
+      # Assemble into a directory of its own. Nothing is unzipped into the working tree: a
+      # MapHero.xcframework is committed under platform/ios, and unzipping on top of it makes unzip
+      # prompt, read EOF on a runner, and quietly keep the committed copy instead of the new build.
+      - name: Assemble the release assets
+        run: |
+          set -u
+          # The `bazel-bin` symlink, not `bazel info bazel-bin`: the symlink always points at the
+          # output directory of the build that just ran, whereas `bazel info` re-derives it from
+          # whatever flags you pass it and silently answers for a different configuration if they
+          # do not match the build's. Same reason main's recipe uses the symlink.
+          zip_path="bazel-bin/platform/ios/MapHero.dynamic.xcframework.zip"
+          if [ ! -f "$zip_path" ]; then
+            echo "::error title=No XCFramework::$zip_path is missing after a successful build."
+            ls -l bazel-bin/platform/ios || true
+            exit 1
+          fi
+          mkdir -p dist
+          # Renamed, not rebuilt: Package.swift has fetched this asset name since 0.0.1, and it is
+          # the dynamic XCFramework zip under an older name.
+          cp "$zip_path" "dist/MapHero_ios_device.framework.zip"
+          ( cd bazel-bin/platform/ios && zip -qr "$GITHUB_WORKSPACE/dist/MapHero-${{ env.version }}-dSYM.zip" MapHero.dynamic_dsyms )
+          checksum="$(swift package compute-checksum dist/MapHero_ios_device.framework.zip)"
+          echo "checksum=$checksum" >> "$GITHUB_ENV"
+          echo "### MapHero iOS ${{ env.version }}" >> "$GITHUB_STEP_SUMMARY"
+          echo '```swift' >> "$GITHUB_STEP_SUMMARY"
+          echo "checksum: \"$checksum\"" >> "$GITHUB_STEP_SUMMARY"
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
+          ls -l dist
+
+      - name: Publish the release
+        uses: softprops/action-gh-release@5be0e66d93ac7ed76da52eca8bb058f665c3a5fe # v2.4.2
+        with:
+          tag_name: ${{ env.version }}
+          name: ${{ env.NAME }} ${{ env.version }}
+          draft: false
+          prerelease: false
+          fail_on_unmatched_files: true
+          files: |
+            dist/MapHero_ios_device.framework.zip
+            dist/MapHero-${{ env.version }}-dSYM.zip
+          # The checksum is in the body because Package.swift needs it and nothing else records it.
+          body: |
+            MapHero iOS ${{ env.version }}
+
+            Swift Package Manager:
+
+            ```swift
+            .binaryTarget(
+                name: "MapHero",
+                url: "https://github.com/${{ github.repository }}/releases/download/${{ env.version }}/MapHero_ios_device.framework.zip",
+                checksum: "${{ env.checksum }}"
+            )
+            ```
+
+            Built from `${{ github.sha }}`.
