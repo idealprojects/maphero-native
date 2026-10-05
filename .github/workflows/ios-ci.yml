@@ -244,12 +244,33 @@ jobs:
       # Size test (Bloaty)
 
       - name: Build dynamic library for size test (Bloaty)
+        # Teed to a file, with -x, so the step below can put the tail and the failing command into
+        # an annotation. This step is an opt-mode build of MapHero.dynamic -- the same artifact a
+        # release is cut from -- so when it breaks it is worth knowing why, and the job log it
+        # normally reports into needs admin rights on this repository to read.
         run: |
-          bazel build //platform/ios:MapHero.dynamic --//:renderer=metal --compilation_mode="opt" --copt -g --copt="-Oz" --strip never --output_groups=+dsyms --apple_generate_dsym
-          bazel_bin="$(bazel info --compilation_mode="opt" bazel-bin)"
-          unzip "$bazel_bin"/platform/ios/MapHero.dynamic.xcframework.zip
-          cp "$bazel_bin"/platform/ios/MapHero.dynamic_dsyms/MapHero_ios_device.framework.dSYM/Contents/Resources/DWARF/MapHero_ios_device MapHero_DWARF
-          cp MapHero.xcframework/ios-arm64/MapHero.framework/MapHero MapHero_dynamic
+          set -o pipefail
+          mkdir -p "$GITHUB_WORKSPACE/ci-logs"
+          {
+            set -x
+            bazel build //platform/ios:MapHero.dynamic --//:renderer=metal --compilation_mode="opt" --copt -g --copt="-Oz" --strip never --output_groups=+dsyms --apple_generate_dsym
+            bazel_bin="$(bazel info --compilation_mode="opt" bazel-bin)"
+            unzip "$bazel_bin"/platform/ios/MapHero.dynamic.xcframework.zip
+            cp "$bazel_bin"/platform/ios/MapHero.dynamic_dsyms/MapHero_ios_device.framework.dSYM/Contents/Resources/DWARF/MapHero_ios_device MapHero_DWARF
+            cp MapHero.xcframework/ios-arm64/MapHero.framework/MapHero MapHero_dynamic
+          } 2>&1 | tee "$GITHUB_WORKSPACE/ci-logs/bloaty.log"
+
+      - name: Say why the size-test build failed
+        if: failure()
+        run: |
+          set -u
+          log="$GITHUB_WORKSPACE/ci-logs/bloaty.log"
+          if [ ! -f "$log" ]; then
+            echo "::warning title=No size-test log::The size-test build did not get far enough to write one."
+            exit 0
+          fi
+          digest="$(tail -40 "$log")"
+          echo "::error title=Size-test build::$(printf '%s' "$digest" | sed -e 's/%/%25/g' -e 's/\r//g' | awk 'BEGIN{ORS="%0A"}{print}')"
 
       - name: Upload size test as artifact (Bloaty)
         if: github.event_name == 'pull_request'
