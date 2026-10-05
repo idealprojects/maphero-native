@@ -1526,9 +1526,15 @@ using namespace std::string_literals;
         XCTAssertEqualObjects([NSExpression expressionWithMHJSONObject:jsonExpression], expression);
     }
     {
-        #if TARGET_OS_IPHONE
-        XCTExpectFailure(@"Awaiting unit test refactoring for https://github.com/maplibre/maplibre-native/issues/331");
-        #endif
+        // Upstream marks the three assertions below as an expected failure on iOS, for
+        // https://github.com/maplibre/maplibre-native/issues/331. On this tree they pass: `concat`
+        // round-trips through mgl_jsonExpressionObject and expressionWithMHJSONObject:, and
+        // evaluates to "OldMacDonald". XCTExpectFailure is strict, so a failure that no longer
+        // happens IS a failure -- the marker was the whole of what made this test red.
+        //
+        // Asserting what this tree does, rather than tolerating either outcome, is deliberate: a
+        // non-strict marker would also swallow a real regression here. If this starts failing again
+        // after a runner-image change, diagnose it -- do not restore the marker.
         NSExpression *expression = [[NSExpression expressionForConstantValue:@"Old"] mgl_expressionByAppendingExpression:[NSExpression expressionForConstantValue:@"MacDonald"]];
 
         NSArray *jsonExpression = @[@"concat", @"Old", @"MacDonald"];

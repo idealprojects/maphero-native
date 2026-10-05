@@ -238,6 +238,15 @@ class MHDocumentationGuideTests: XCTestCase, MHMapViewDelegate {
         // #-end-example-code
     }
 
+    /// Upstream marks the iOS branch of this example as an expected failure, for
+    /// https://github.com/maplibre/maplibre-native/issues/331: assigning an MH_MATCH expression to
+    /// `circleColor` raised there, and XCTest records an uncaught exception as a failure. On this
+    /// tree it does not raise, and XCTExpectFailure is strict -- an expected failure that does not
+    /// happen is itself a failure, which is the whole of why this test was red. There is nothing to
+    /// assert here beyond "the assignment does not throw", which is the documented behaviour.
+    ///
+    /// The marker also sat inside the `#-example-code` region, so it was being extracted into the
+    /// published documentation as if it were part of the example.
     func testMigratingToExpressions$Categorical() {
         let source = MHShapeSource(identifier: "circles", shape: nil, options: nil)
         let layer = MHCircleStyleLayer(identifier: "circles", source: source)
@@ -266,7 +275,6 @@ class MHDocumentationGuideTests: XCTestCase, MHMapViewDelegate {
             let red = NSExpression(forConstantValue: UIColor.red)
             let yellow = NSExpression(forConstantValue: UIColor.yellow)
 
-            XCTExpectFailure("Awaiting unit test refactoring for https://github.com/maplibre/maplibre-native/issues/331")
             layer.circleColor = NSExpression(forMHMatchingKey: type,
                                              in: [earthquake: orange, explosion: red, quarryBlast: yellow],
                                              default: defaultColor)
