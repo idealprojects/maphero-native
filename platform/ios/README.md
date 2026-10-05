@@ -9,6 +9,15 @@ Embed interactive maps with scalable, customizable vector maps into iOS Applicat
 - See the [Getting Started](https://maplibre.org/maplibre-native/ios/latest/documentation/maplibre-native-for-ios/gettingstarted) Guide in the documentation.
 - [MapHero Native iOS Documentation](https://maplibre.org/maplibre-native/ios/latest/documentation/maplibre/)
 
+## Releasing
+
+MapHero's iOS releases do not come from the upstream pipeline. See
+[PUBLISHING-MAPHERO.md](PUBLISHING-MAPHERO.md), or:
+
+```bash
+./platform/ios/publish-maphero.sh <version> --watch
+```
+
 # Contributing
 
 See the [MapHero iOS Developer Guide](https://maplibre.org/maplibre-native/docs/book/platforms/ios) for instructions on how to build the project or how to work on the documentation.
