@@ -255,9 +255,21 @@ jobs:
             set -x
             bazel build //platform/ios:MapHero.dynamic --//:renderer=metal --compilation_mode="opt" --copt -g --copt="-Oz" --strip never --output_groups=+dsyms --apple_generate_dsym
             bazel_bin="$(bazel info --compilation_mode="opt" bazel-bin)"
-            unzip "$bazel_bin"/platform/ios/MapHero.dynamic.xcframework.zip
+            # Extract into an empty staging directory, not into the working directory.
+            #
+            # platform/ios/MapHero.xcframework is COMMITTED to this repository (269 files, two
+            # Mach-O binaries, added in fb479788e3c alongside tag 1.3.0), and this step's working
+            # directory is platform/ios. Unzipping on top of it made unzip prompt
+            # "replace ...Assets.car? [y]es,[n]o,[A]ll,[N]one" -- a runner has no stdin, so it read
+            # EOF, declined every existing file, and the step stopped there.
+            #
+            # Declining was the worse half: `cp MapHero.xcframework/.../MapHero` then copied the
+            # committed 1.3.0-era binary rather than the one just built, so the size this step
+            # reports was never the size of this commit's framework.
+            staging="$(mktemp -d)"
+            unzip -q "$bazel_bin"/platform/ios/MapHero.dynamic.xcframework.zip -d "$staging"
             cp "$bazel_bin"/platform/ios/MapHero.dynamic_dsyms/MapHero_ios_device.framework.dSYM/Contents/Resources/DWARF/MapHero_ios_device MapHero_DWARF
-            cp MapHero.xcframework/ios-arm64/MapHero.framework/MapHero MapHero_dynamic
+            cp "$staging"/MapHero.xcframework/ios-arm64/MapHero.framework/MapHero MapHero_dynamic
           } 2>&1 | tee "$GITHUB_WORKSPACE/ci-logs/bloaty.log"
 
       - name: Say why the size-test build failed
