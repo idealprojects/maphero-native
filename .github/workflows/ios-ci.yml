@@ -122,6 +122,39 @@ jobs:
       - name: Running iOS tests
         run: bazel test //platform/ios/test:ios_test --test_output=errors --//:renderer=metal
 
+      # A bazel test failure names the failing cases in the job log and nowhere else, and this
+      # repository's job logs are only readable with admin rights on it. A check-run annotation is
+      # readable by anyone who can see the run, so put the failing cases and their assertions in
+      # one, and keep the whole XCTest log as an artifact -- it lives under ~/.cache/bazel, which
+      # the runner discards.
+      - name: Name the failing tests
+        if: failure()
+        run: |
+          set -u
+          testlogs="$(bazel info bazel-testlogs 2>/dev/null || true)"
+          log="$testlogs/platform/ios/test/ios_test/test.log"
+          if [ ! -f "$log" ]; then
+            echo "::warning title=No XCTest log::Nothing at ${log} -- the step that failed was not the test run."
+            exit 0
+          fi
+          mkdir -p "$GITHUB_WORKSPACE/ios-test-log"
+          cp "$log" "$GITHUB_WORKSPACE/ios-test-log/ios_test.log"
+          digest="$(grep -E "^Test Case .* (failed|crashed) \(|: error: -\[|^Restarting after unexpected" "$log" | head -40 || true)"
+          if [ -z "$digest" ]; then
+            echo "::warning title=No XCTest failures::The test target failed with no failing case; see the ios-test-log artifact."
+            exit 0
+          fi
+          # Percent signs and newlines have to be escaped to survive a workflow command.
+          echo "::error title=XCTest failures::$(printf '%s' "$digest" | sed -e 's/%/%25/g' -e 's/\r//g' | awk 'BEGIN{ORS="%0A"}{print}')"
+
+      - uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5.0.0
+        if: failure()
+        with:
+          name: ios-test-log
+          retention-days: 7
+          if-no-files-found: ignore
+          path: ios-test-log/ios_test.log
+
       # tsan run fails with 'Interceptors are not working. This may be because ThreadSanitizer is loaded too late...'
       #- name: Running iOS UI tests (Thread Sanitizer)
       #  run: bazel test //platform/ios/iosapp-UITests:uitest --test_output=errors --//:renderer=metal --features=tsan
