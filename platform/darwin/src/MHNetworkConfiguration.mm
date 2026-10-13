@@ -113,6 +113,34 @@ NSString * const kMHDownloadPerformanceEvent = @"mobile.performance_trace";
     [self updateSessionHeaders];
 }
 
+/**
+ Every header this SDK adds to a MapHero request.
+
+ The credential travels in `X-API-Key` and in the legacy `map-token` BOTH. The server picks its
+ authentication path from the credential's own prefix (`mh_pk_` / `mh_sk_` or neither) rather than
+ from the header it arrived in, so one value works in either — but `map-token` cannot simply be
+ dropped, because nginx in front of the tile and asset host reads it *by name*
+ (`proxy_set_header X-Map-Token $http_map_token`). Without it a tile request arrives with no token
+ and is refused for anything not served from a maphero.io page. A request carrying both is resolved
+ by a documented precedence, not rejected.
+
+ `X-MapHero-Ios-Bundle` is what an API key restricted to named iOS applications is checked against;
+ no iOS SDK sent it before, so that restriction could only ever refuse this SDK.
+ `X-MapHero-Client` says which SDK is calling, for attribution and support.
+
+ Both of those are **claims, not proof** — an application chooses every header it sends, so they
+ raise the cost of casual key theft and establish nothing against a determined attacker. Real proof
+ needs App Attest. They are worth sending and are not worth trusting, and nothing should be granted
+ on the strength of them.
+
+ A secret `mh_sk_` key is not duplicated into the legacy header: it is never a legacy map token, and
+ an account's full API access does not belong in a second place a log might pick it up.
+
+ Each header is set only when absent, keeping the existing contract that a value an application put
+ on the session configuration itself wins. The assignment back to `HTTPAdditionalHeaders` now
+ happens unconditionally: it used to sit inside the `map-token` check, so once that header existed
+ nothing else could ever be added to the session.
+ */
 - (void)updateSessionHeaders {
     if (_token) {
         // Ensure session config exists
@@ -124,11 +152,24 @@ NSString * const kMHDownloadPerformanceEvent = @"mobile.performance_trace";
         NSMutableDictionary *headers =
             [(_sessionConfig.HTTPAdditionalHeaders ?: @{}) mutableCopy];
 
-        // Only add map-token if it doesn't already exist
-        if (!headers[@"map-token"]) {
-            headers[@"map-token"] = _token;
-            _sessionConfig.HTTPAdditionalHeaders = headers;
+        if (!headers[@"X-API-Key"]) {
+            headers[@"X-API-Key"] = _token;
         }
+        if (![_token hasPrefix:@"mh_sk_"] && !headers[@"map-token"]) {
+            headers[@"map-token"] = _token;
+        }
+        if (!headers[@"X-MapHero-Client"]) {
+            headers[@"X-MapHero-Client"] = @"ios";
+        }
+        // Fixed for an installed application. Left out rather than sent empty when there is none:
+        // an empty claim is one the server has to consider and refuse, where its absence lets the
+        // key's other restrictions decide.
+        NSString *bundleIdentifier = [[NSBundle mainBundle] bundleIdentifier];
+        if (bundleIdentifier.length > 0 && !headers[@"X-MapHero-Ios-Bundle"]) {
+            headers[@"X-MapHero-Ios-Bundle"] = bundleIdentifier;
+        }
+
+        _sessionConfig.HTTPAdditionalHeaders = headers;
     }
 }
 

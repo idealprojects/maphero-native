@@ -24,7 +24,6 @@ import java.net.ProtocolException;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.Objects;
-import java.util.Optional;
 
 import javax.net.ssl.SSLException;
 
@@ -76,8 +75,33 @@ public class HttpRequestImpl implements HttpRequest {
       final Request.Builder builder = new Request.Builder()
         .url(resourceUrl)
         .tag(resourceUrl.toLowerCase(MapHeroConstants.MAPHERO_LOCALE))
-        .addHeader("map-token", Optional.ofNullable(MapHero.getApiKey()).orElse(""))
-        .addHeader("User-Agent", userAgentString);
+        .addHeader("User-Agent", userAgentString)
+        .addHeader(ApiClientHeaders.HEADER_CLIENT, ApiClientHeaders.CLIENT_ANDROID);
+
+      // The credential, in the forward header and the legacy one both. See ApiClientHeaders for
+      // why `map-token` cannot simply be dropped: nginx in front of the tile host reads it by name.
+      //
+      // Absent rather than empty when there is no key. This used to send `map-token: ` via
+      // Optional.orElse(""), and an empty credential is one the server has to consider and refuse,
+      // where no header at all leaves the request to be authenticated some other way.
+      final String credential = MapHero.getApiKey();
+      if (credential != null && !credential.isEmpty()) {
+        builder.addHeader(ApiClientHeaders.HEADER_API_KEY, credential);
+        if (ApiClientHeaders.alsoSendLegacyHeader(credential)) {
+          builder.addHeader(ApiClientHeaders.HEADER_LEGACY_TOKEN, credential);
+        }
+      }
+
+      // What this application claims to be, which an API key can be restricted to. Claimed, not
+      // proven -- see ApiClientHeaders.
+      final String applicationId = ApiClientHeaders.androidPackage();
+      if (applicationId != null) {
+        builder.addHeader(ApiClientHeaders.HEADER_ANDROID_PACKAGE, applicationId);
+      }
+      final String certificate = ApiClientHeaders.androidCertSha256();
+      if (certificate != null) {
+        builder.addHeader(ApiClientHeaders.HEADER_ANDROID_CERT, certificate);
+      }
 
       if (dataRange.length() > 0) {
         builder.addHeader("Range", dataRange);

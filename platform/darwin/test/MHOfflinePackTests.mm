@@ -39,10 +39,10 @@
 - (void)testProgressBoxing {
     MHOfflinePackProgress progress = {
         .countOfResourcesCompleted = 3,
-        .countOfResourcesExpected = 2,
         .countOfBytesCompleted = 7,
         .countOfTilesCompleted = 1,
         .countOfTileBytesCompleted = 6,
+        .countOfResourcesExpected = 2,
         .maximumResourcesExpected = UINT64_MAX,
     };
     MHOfflinePackProgress roundTrippedProgress = [NSValue valueWithMHOfflinePackProgress:progress].MHOfflinePackProgressValue;

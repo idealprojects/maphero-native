@@ -26,10 +26,22 @@ cd "$ANDROID_DIR"
 
 # --- Android SDK -------------------------------------------------------------
 # Point at the real SDK root (NOT the platform-tools subdir).
-export ANDROID_HOME="${ANDROID_HOME:-$HOME/Library/Android/sdk}"
+#
+# `${ANDROID_HOME:-default}` only helps when the variable is UNSET. A shell exporting a wrong
+# value -- e.g. ".../sdk/platform-tools", which is a common mistake -- sails past it and the
+# guard below then fails every run. So: take the environment's value only if it really is an SDK
+# root, else fall back, and say what happened rather than failing on someone else's export.
+_sdk_root_ok() { [ -n "${1:-}" ] && [ -d "$1/platforms" ]; }
+if ! _sdk_root_ok "${ANDROID_HOME:-}"; then
+  if [ -n "${ANDROID_HOME:-}" ]; then
+    echo "NOTE: ANDROID_HOME=$ANDROID_HOME is not an SDK root; using $HOME/Library/Android/sdk" >&2
+  fi
+  ANDROID_HOME="$HOME/Library/Android/sdk"
+fi
+export ANDROID_HOME
 export ANDROID_SDK_ROOT="$ANDROID_HOME"
-if [ ! -d "$ANDROID_HOME/platforms" ]; then
-  echo "ERROR: ANDROID_HOME does not look like an SDK root: $ANDROID_HOME" >&2
+if ! _sdk_root_ok "$ANDROID_HOME"; then
+  echo "ERROR: no Android SDK root found (looked for $ANDROID_HOME/platforms)." >&2
   exit 1
 fi
 
