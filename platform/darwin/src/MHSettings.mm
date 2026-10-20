@@ -1,5 +1,6 @@
 #import "MHSettings_Private.h"
 #import "NSBundle+MHAdditions.h"
+#import "MHNetworkConfiguration_Private.h"
 
 #if TARGET_OS_OSX
 #import "NSProcessInfo+MHAdditions.h"
@@ -72,6 +73,12 @@
     }
 
     [MHSettings sharedSettings].apiKey = apiKey;
+
+    // The key is also what authenticates every request the map makes. MHNetworkConfiguration is
+    // where X-API-Key (and the client headers beside it) are put on the session, and it only learns
+    // the key through -setToken:. Setting apiKey alone used to leave every tile request
+    // unauthenticated, so an integration that followed the one-line setup rendered an empty map.
+    [[MHNetworkConfiguration sharedManager] setToken:apiKey];
 }
 
 + (NSString *)apiKey {

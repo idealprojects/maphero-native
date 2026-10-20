@@ -16,6 +16,8 @@ NSString * const kMHDownloadPerformanceEvent = @"mobile.performance_trace";
 @property (nonatomic, weak) id<MHNetworkConfigurationMetricsDelegate> metricsDelegate;
 @property (nonatomic) dispatch_queue_t eventsQueue;
 @property (nonatomic, strong, readwrite, nullable) NSString *token;
+/// The key this SDK last wrote into the credential headers, so a new key can replace it.
+@property (nonatomic, copy, nullable) NSString *appliedToken;
 
 @end
 
@@ -152,12 +154,25 @@ NSString * const kMHDownloadPerformanceEvent = @"mobile.performance_trace";
         NSMutableDictionary *headers =
             [(_sessionConfig.HTTPAdditionalHeaders ?: @{}) mutableCopy];
 
-        if (!headers[@"X-API-Key"]) {
+        // A header still carrying the key this SDK wrote last time is ours to replace: an app that
+        // switches keys (one per map) must not keep authenticating with the first. A value the
+        // application put there itself is still left alone.
+        NSString *previous = self.appliedToken;
+        BOOL (^ours)(NSString *) = ^BOOL(NSString *name) {
+            id current = headers[name];
+            return !current || (previous && [current isEqual:previous]);
+        };
+        if (ours(@"X-API-Key")) {
             headers[@"X-API-Key"] = _token;
         }
-        if (![_token hasPrefix:@"mh_sk_"] && !headers[@"map-token"]) {
+        if ([_token hasPrefix:@"mh_sk_"]) {
+            if (previous && [headers[@"map-token"] isEqual:previous]) {
+                [headers removeObjectForKey:@"map-token"];
+            }
+        } else if (ours(@"map-token")) {
             headers[@"map-token"] = _token;
         }
+        self.appliedToken = _token;
         if (!headers[@"X-MapHero-Client"]) {
             headers[@"X-MapHero-Client"] = @"ios";
         }
